@@ -48,6 +48,7 @@ public class Display extends Application {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     // respond to input
     //scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+    ButtonSetup testSetup = new ButtonSetup(myRoot);
     return scene;
   }
 
