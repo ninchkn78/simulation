@@ -30,11 +30,14 @@ public class ConwaySimulationBoard extends SimulationBoard {
     stateColorMap.put("0", Color.BLUE);
   }
 
+  //works for non square 2D arrays
   // TODO: 2020-10-04 ask about X position?  
   private void initializeMyGrid(String[][] states) {
+    double width = CELL_GRID_WIDTH/maxRowLength(states);
     for (int i = 0; i < states.length; i++) {
       for (int j = 0; j < states[i].length; j++) {
-        Rectangle cell = new Rectangle(CELL_GRID_WIDTH/states.length, CELL_GRID_HEIGHT/states.length);
+        System.out.println(states[i].length);
+        Rectangle cell = new Rectangle(width, CELL_GRID_HEIGHT/states.length);
         cell.setStroke(Color.BLACK);
         cell.setFill(stateColorMap.get(states[i][j]));
         cell.setId(String.format("cell%d,%d", i, j));
@@ -42,6 +45,15 @@ public class ConwaySimulationBoard extends SimulationBoard {
         myGrid.getChildren().add(cell);
       }
     }
+  }
+  private int maxRowLength(String[][] array){
+    int maxRowLength = 0;
+    for(String[] row : array){
+      if(row.length > maxRowLength){
+        maxRowLength = row.length;
+      }
+    }
+    return maxRowLength;
   }
   public void updateMyGrid(String[][] states) {
     initializeMyGrid(states);
