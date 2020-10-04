@@ -11,16 +11,17 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 
-public class Display extends Application {
+public class ConwayDisplay extends Application {
 
   public static final String TITLE = "Simulation";
-  public static final int WIDTH = 1000;
+  public static final int WIDTH = 800;
   public static final int HEIGHT = 600;
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   public static final Paint BACKGROUND = Color.AZURE;
 
   private Group myRoot = new Group();
+  private ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
   /**
    * Start the program.
    */
@@ -43,7 +44,7 @@ public class Display extends Application {
     animation.play();
   }
 
-  // Create the game's "scene": what shapes will be in the game and their starting properties
+  // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     // respond to input
@@ -52,12 +53,14 @@ public class Display extends Application {
     return scene;
   }
 
-  // Handle the game's "rules" for every "moment":
-  // - movement, how do things change over time
-  // - collisions, did things intersect and, if so, what should happen
-  // - goals, did the game or level end?
-  void step(double elapsedTime)  {
+  // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
+  void nextGen(String[][] states)  {
+    myBoard.updateMyGrid(states);
+  }
 
+  // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
+  void step(double elapsedTime){
+    nextGen(new String[][]{{"1","0"}, {"1","0","1"}, {"0"}});
   }
 }
 
