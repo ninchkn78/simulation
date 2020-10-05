@@ -24,7 +24,7 @@ public class GameBoard {
 
   public void setGameBoardStates(Cell[][] initialState){
     for (int i = 0; i < initialState.length; i++){
-      for (int j = 0; j < initialState[0].length){
+      for (int j = 0; j < initialState[0].length; j++){
         gameBoardStates[i][j] = gameBoardCells[i][j].getState();
       }
     }
