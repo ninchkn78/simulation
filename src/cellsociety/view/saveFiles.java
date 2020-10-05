@@ -11,7 +11,7 @@ public class saveFiles {
 
         FileWriter csvWriter = new FileWriter("resources/Game_CSVs/new"+ directoryLength +".csv");
         makeHeader(csvWriter,currentState);
-        writeRows();
+        writeRows(csvWriter,currentState);
         csvWriter.flush();
         csvWriter.close();
 
@@ -24,8 +24,17 @@ public class saveFiles {
         csvWriter.append("\n");
     }
 
-    private void writeRows(){
-
+    private void writeRows(FileWriter csvWriter, String[][] currentState) throws IOException {
+        for(int row =0; row< currentState.length; row++){
+            for(int column = 0; column <currentState[row].length; column++){
+                if (column < currentState[row].length-1) {
+                    csvWriter.append(currentState[row][column] + ",");
+                } else {
+                    csvWriter.append(currentState[row][column]);
+                }
+            }
+            csvWriter.append("\n");
+        }
 
     }
 
