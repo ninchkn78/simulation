@@ -14,8 +14,8 @@ public class ButtonSetup {
 
     public void addButtons(Group root){
         fileSaveButton = new Button("TEST ME PUSH ME AHHH");
-        fileSaveButton.setLayoutX(ConwayDisplay.WIDTH / 2);
-        fileSaveButton.setLayoutY(ConwayDisplay.HEIGHT/2);
+        fileSaveButton.setLayoutX((ConwayDisplay.WIDTH / 3)*2);
+        fileSaveButton.setLayoutY((ConwayDisplay.HEIGHT/5) * 4);
         root.getChildren().add(fileSaveButton);
     }
 
