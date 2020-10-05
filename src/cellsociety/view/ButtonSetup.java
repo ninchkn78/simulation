@@ -5,6 +5,8 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
 
+import java.io.IOException;
+
 public class ButtonSetup {
     private Button fileSaveButton;
 
@@ -20,9 +22,17 @@ public class ButtonSetup {
 
     //TODO - idea - consider having a button maker class - and then button classes which all extend an abstract button
     //TODO- class which have subclass buttons which all have unique styling and their own actions when pressed.
-    public void checkButtonStatus(){
+    public void checkButtonStatus(String[][] tempState){
         fileSaveButton.setOnAction(new EventHandler<ActionEvent>(){
-            @Override public void handle(ActionEvent e){ System.out.println("14141414");}
+            @Override public void handle(ActionEvent e){
+                System.out.println("WRITE FILE");
+                saveFiles saveFileObject = new saveFiles();
+                try {
+                    saveFileObject.saveState(tempState);
+                } catch (IOException ioException) {
+                }
+
+            }
         });
 
     }

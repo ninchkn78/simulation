@@ -74,9 +74,10 @@ public class ConwayDisplay extends Application {
             {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
             {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}};
             nextGen(tempState);
-            myButtonSetup.checkButtonStatus();
-
+            myButtonSetup.checkButtonStatus(tempState);
   }
+
+
 }
 
 

@@ -1,15 +1,19 @@
 package cellsociety.view;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class saveFiles {
 
     public void saveState(String[][] currentState) throws IOException {
-        FileWriter csvWriter = new FileWriter("resources/Game_CSVs/new.csv");
+        int directoryLength = new File("resources/Game_CSVs/").list().length;
+
+        FileWriter csvWriter = new FileWriter("resources/Game_CSVs/new"+ directoryLength +".csv");
         makeHeader(csvWriter,currentState);
-
-
+        writeRows();
+        csvWriter.flush();
+        csvWriter.close();
 
     }
 
@@ -20,6 +24,10 @@ public class saveFiles {
         csvWriter.append("\n");
     }
 
+    private void writeRows(){
+
+
+    }
 
 
 }
