@@ -22,7 +22,7 @@ public class ButtonSetup {
     //TODO- class which have subclass buttons which all have unique styling and their own actions when pressed.
     public void checkButtonStatus(){
         fileSaveButton.setOnAction(new EventHandler<ActionEvent>(){
-            @Override public void handle(ActionEvent e){ System.out.println("14141414"); }
+            @Override public void handle(ActionEvent e){ System.out.println("14141414");}
         });
 
     }

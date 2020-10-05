@@ -23,6 +23,7 @@ public class ConwayDisplay extends Application {
   private Group myRoot = new Group();
   private ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
   private ButtonSetup myButtonSetup = new ButtonSetup();
+  private String[][] tempState;
   /**
    * Start the program.
    */
@@ -61,7 +62,7 @@ public class ConwayDisplay extends Application {
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime){
-    String[][] tempState = {{"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
+    tempState = new String[][]{{"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},      //LIKELY THIS WILL BE SOME METHOD CALL FROM BACKEND
             {"1","0","0","1","0","1", "1", "0", "1", "0", "1", "1", "0"},
             {"1","0","1","0","0","1", "1", "0", "1", "0", "1", "1", "1"},
             {"1","1","1","1","0","1", "1", "0", "1", "0", "1", "0", "1"},
