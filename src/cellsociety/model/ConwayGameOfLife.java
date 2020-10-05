@@ -7,7 +7,12 @@ public class ConwayGameOfLife {
 
   public ConwayGameOfLife(GameBoard board){
     this.board = board;
+    this.generation = 1; //TODO: fix magic number
   }
+
+
+
+
 
 
 
