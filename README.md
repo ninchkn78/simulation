@@ -31,7 +31,7 @@ Features implemented:
 
 ### Notes/Assumptions
 
-Assumptions or Simplifications:
+Assumptions or Simplifications: the row and the height are equal 
 
 Interesting data files:
 
