@@ -2,10 +2,12 @@ package cellsociety.view;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import cellsociety.view.ConwayDisplay;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
@@ -31,9 +33,9 @@ class ConwaySimulationBoardTest extends DukeApplicationTest {
     javafxRun(() -> conwayDisplay.nextGen(new String[][]{{"1","0"}, {"1","0","1"}, {"0"}}));
     Rectangle cell1 = lookup("#cell0,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
-    assertEquals(Color.RED, cell1.getFill());
-    assertEquals(Color.BLUE, cell2.getFill());
-    assertEquals(0, cell1.getX());
-    assertEquals(0, cell1.getY());
+    Assertions.assertEquals(Color.RED, cell1.getFill());
+    Assertions.assertEquals(Color.BLUE, cell2.getFill());
+    Assertions.assertEquals(0, cell1.getX());
+    Assertions.assertEquals(0, cell1.getY());
   }
 }
