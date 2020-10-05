@@ -17,11 +17,12 @@ public class ConwayDisplay extends Application {
   public static final int WIDTH = 800;
   public static final int HEIGHT = 600;
   public static final int FRAMES_PER_SECOND = 60;
-  public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  public static final double SECOND_DELAY = 4.0 / FRAMES_PER_SECOND;
   public static final Paint BACKGROUND = Color.AZURE;
 
   private Group myRoot = new Group();
   private ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
+  private ButtonSetup myButtonSetup = new ButtonSetup();
   /**
    * Start the program.
    */
@@ -49,7 +50,7 @@ public class ConwayDisplay extends Application {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     // respond to input
     //scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
-    ButtonSetup testSetup = new ButtonSetup(myRoot);
+    myButtonSetup.addButtons(myRoot);
     return scene;
   }
 
@@ -60,17 +61,20 @@ public class ConwayDisplay extends Application {
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime){
-    nextGen(new String[][]{{"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
-        {"1","0","0","1","0","1", "1", "0", "1", "0", "1", "1", "0"},
-        {"1","0","1","0","0","1", "1", "0", "1", "0", "1", "1", "1"},
-        {"1","1","1","1","0","1", "1", "0", "1", "0", "1", "0", "1"},
-        {"1","0","1","1","0","1", "1", "0", "0", "0", "1", "1", "1"},
-        {"1","0","0","1","0","1", "0", "0", "1", "0", "1", "1", "0"},
-        {"0","0","1","1","0","0", "1", "1", "1", "1", "0", "1", "0"},
-        {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
-        {"1","0","1","1","0","1", "1", "0", "1", "1", "0", "1", "1"},
-        {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
-        {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}});
+    String[][] tempState = {{"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
+            {"1","0","0","1","0","1", "1", "0", "1", "0", "1", "1", "0"},
+            {"1","0","1","0","0","1", "1", "0", "1", "0", "1", "1", "1"},
+            {"1","1","1","1","0","1", "1", "0", "1", "0", "1", "0", "1"},
+            {"1","0","1","1","0","1", "1", "0", "0", "0", "1", "1", "1"},
+            {"1","0","0","1","0","1", "0", "0", "1", "0", "1", "1", "0"},
+            {"0","0","1","1","0","0", "1", "1", "1", "1", "0", "1", "0"},
+            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
+            {"1","0","1","1","0","1", "1", "0", "1", "1", "0", "1", "1"},
+            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
+            {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}};
+            nextGen(tempState);
+            myButtonSetup.checkButtonStatus();
+
   }
 }
 
