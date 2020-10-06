@@ -14,13 +14,6 @@ public class ConwayCell extends Cell{
     super(DEAD);
   }
 
-  public void toggleState() { //TODO: make this cleaner
-    if(this.getState() == DEAD) {
-      this.setState(ALIVE);
-    }
-    else this.setState(DEAD);
-  }
-
   public boolean isAlive(){
     return this.getState().equals(ALIVE);
   }
