@@ -29,6 +29,7 @@ public class ConwayCell extends Cell{
     return this.getState().equals(DEAD);
   }
 
+
   public String toString(){
     return this.getState();
   }

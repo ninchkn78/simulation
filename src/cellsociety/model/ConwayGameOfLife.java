@@ -57,11 +57,4 @@ public class ConwayGameOfLife {
     return board;
   }
 
-
-
-
-
-
-
-
 }

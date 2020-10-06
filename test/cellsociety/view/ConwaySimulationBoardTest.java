@@ -2,6 +2,7 @@ package cellsociety.view;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import cellsociety.model.ConwayReader;
 import cellsociety.view.ConwayDisplay;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
