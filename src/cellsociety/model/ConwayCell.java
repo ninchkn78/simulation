@@ -17,8 +17,13 @@ public class ConwayCell extends Cell{
     else this.setState(DEAD);
   }
 
+  public boolean isAlive(){
+    return this.getState().equals(ALIVE);
+  }
 
-
+  public boolean isDead(){
+    return this.getState().equals(DEAD);
+  }
 
 
 
