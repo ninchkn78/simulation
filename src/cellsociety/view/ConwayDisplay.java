@@ -65,7 +65,7 @@ public class ConwayDisplay extends Application {
     tempState = game.getGameBoard().getGameBoardStates();
     myButtonSetup.addButtons(myRoot);
     myButtonSetup.checkButtonStatus(tempState);
-    nextGen(tempState);
+    //nextGen(tempState);
 
     return scene;
   }

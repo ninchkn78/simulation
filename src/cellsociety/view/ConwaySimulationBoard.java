@@ -18,6 +18,7 @@ public class ConwaySimulationBoard extends SimulationBoard {
   public ConwaySimulationBoard(Group root) {
     myGrid.setLayoutX(75);
     myGrid.setLayoutY(50);
+    myGrid.setGridLinesVisible(true);
     setStateColorMap();
     root.getChildren().add(myGrid);
   }
