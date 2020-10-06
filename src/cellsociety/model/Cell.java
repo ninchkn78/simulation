@@ -4,17 +4,16 @@ public abstract class Cell {
 
   private String state;
 
-  public Cell(String state){
+  public Cell(String state) {
     this.state = state;
   }
 
-
-  public void setState(String state){
-    this.state = state;
-  }
-
-  public String getState(){
+  public String getState() {
     return this.state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
   }
 
 }
