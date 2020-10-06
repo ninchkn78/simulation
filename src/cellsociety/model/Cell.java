@@ -8,6 +8,7 @@ public abstract class Cell {
     this.state = state;
   }
 
+
   public void setState(String state){
     this.state = state;
   }
