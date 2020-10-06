@@ -24,11 +24,12 @@ public class ConwayDisplay extends Application {
   public static final int GAME_HEIGHT = 11;
 
 
-  private Group myRoot = new Group();
-  private ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
-  private ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
-  private ButtonSetup myButtonSetup = new ButtonSetup(this);
+  private final Group myRoot = new Group();
+  private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
+  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
+  private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private String[][] tempState;
+
   /**
    * Start the program.
    */
@@ -69,30 +70,29 @@ public class ConwayDisplay extends Application {
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
-  void nextGen(String[][] states)  {
+  void nextGen(String[][] states) {
     myBoard.updateMyGrid(states);
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
-  void step(double elapsedTime){
-    tempState = new String[][]{{"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},      //LIKELY THIS WILL BE SOME METHOD CALL FROM BACKEND
-            {"1","0","0","1","0","1", "1", "0", "1", "0", "1", "1", "0"},
-            {"1","0","1","0","0","1", "1", "0", "1", "0", "1", "1", "1"},
-            {"1","1","1","1","0","1", "1", "0", "1", "0", "1", "0", "1"},
-            {"1","0","1","1","0","1", "1", "0", "0", "0", "1", "1", "1"},
-            {"1","0","0","1","0","1", "0", "0", "1", "0", "1", "1", "0"},
-            {"0","0","1","1","0","0", "1", "1", "1", "1", "0", "1", "0"},
-            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
-            {"1","0","1","1","0","1", "1", "0", "1", "1", "0", "1", "1"},
-            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
-            {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}};
-            game.nextGen();
-            System.out.println(1);
-            tempState = game.getGameBoard().getGameBoardStates();
-            nextGen(tempState);
+  void step(double elapsedTime) {
+//    tempState = new String[][]{{"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},      //LIKELY THIS WILL BE SOME METHOD CALL FROM BACKEND
+//            {"1","0","0","1","0","1", "1", "0", "1", "0", "1", "1", "0"},
+//            {"1","0","1","0","0","1", "1", "0", "1", "0", "1", "1", "1"},
+//            {"1","1","1","1","0","1", "1", "0", "1", "0", "1", "0", "1"},
+//            {"1","0","1","1","0","1", "1", "0", "0", "0", "1", "1", "1"},
+//            {"1","0","0","1","0","1", "0", "0", "1", "0", "1", "1", "0"},
+//            {"0","0","1","1","0","0", "1", "1", "1", "1", "0", "1", "0"},
+//            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
+//            {"1","0","1","1","0","1", "1", "0", "1", "1", "0", "1", "1"},
+//            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
+//            {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}};
+    game.nextGen();
+    System.out.println(1);
+    tempState = game.getGameBoard().getGameBoardStates();
+    nextGen(tempState);
 
   }
-
 
 
 }
