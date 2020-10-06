@@ -11,15 +11,17 @@ public class GameBoard {
     this.width = width;
     this.height = height;
     this.gameBoardCells = new ConwayCell[height][width];
+    initializeGameBoardCells();
     this.gameBoardStates = new String[height][width];
+    setGameBoardStates(gameBoardCells);
   }
 
-  public GameBoard(ConwayCell[][] initialState){
-    this.width = initialState[0].length;
-    this.height = initialState.length;
-    this.gameBoardCells = initialState;
-    setGameBoardStates(initialState);
-
+  public GameBoard(ConwayCell[][] initialCellConfig){
+    this.width = initialCellConfig[0].length;
+    this.height = initialCellConfig.length;
+    this.gameBoardCells = initialCellConfig;
+    this.gameBoardStates = new String[height][width];
+    setGameBoardStates(initialCellConfig);
   }
 
   public void setGameBoardStates(Cell[][] initialState){
@@ -72,8 +74,18 @@ public class GameBoard {
     return height;
   }
 
+
   public String[][] getGameBoardStates(){
     return gameBoardStates;
   }
+
+  public void initializeGameBoardCells(){
+    for (int i = 0; i < height; i ++){
+      for (int j = 0; j < width; j++){
+        gameBoardCells[i][j] = new ConwayCell();
+      }
+    }
+  }
+
 
 }
