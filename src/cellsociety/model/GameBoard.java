@@ -24,9 +24,22 @@ public class GameBoard {
     setGameBoardStates(initialCellConfig);
   }
 
-  public void clear() {
-    this.gameBoardCells = new ConwayCell[height][width];
-    this.gameBoardStates = new String[height][width];
+  private void setGameBoardStates(Cell[][] initialState){
+    for (int i = 0; i < initialState.length; i++){
+      for (int j = 0; j < initialState[0].length; j++){
+        gameBoardStates[i][j] = gameBoardCells[i][j].getState();
+      }
+    }
+  }
+
+  public void clear(){
+    for (int i = 0; i < height; i++){
+      for (int j = 0; j < width; j++){
+        gameBoardCells[i][j].setState(ConwayCell.DEAD);
+        gameBoardStates[i][j] = ConwayCell.DEAD;
+
+      }
+    }
   }
 
   public ConwayCell getCell(int row, int col) {
@@ -43,22 +56,37 @@ public class GameBoard {
 
   public int countLivingNeighbors(int currentRow, int currentColumn) {
     int aliveCount = 0;
-    for (int i = currentRow - 1; i <= currentRow + 1; i++) {
-      for (int j = currentColumn - 1; j <= currentColumn + 1; j++) {
-        if (isValidLocation(i, j) && gameBoardCells[i][j].isAlive() && i != currentRow
-            && j != currentColumn) { //TODO: make this not ugly af
+    for (int i = currentRow - 1; i <= currentRow + 1; i++){
+      for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
+        if (isValidLocation(i,j) && gameBoardCells[i][j].isAlive()){ //TODO: make this not ugly af
           aliveCount++;
         }
       }
       return aliveCount;
     }
+    if (gameBoardCells[currentRow][currentColumn].isAlive()) {
+      aliveCount--;
+    }
+    return aliveCount;
+  }
 
   public void setPiece(int row, int col, String state) {
     gameBoardCells[row][col] = new ConwayCell(state);
     gameBoardStates[row][col] = state;
   }
 
-  public int getWidth() {
+  public void toggleState(int x, int y) { //TODO: make this cleaner
+    if(gameBoardCells[x][y].getState().equals(ConwayCell.DEAD)) {
+      gameBoardCells[x][y].setState(ConwayCell.ALIVE);
+      gameBoardStates[x][y] = ConwayCell.ALIVE;
+    }
+    else{
+      gameBoardCells[x][y].setState(ConwayCell.DEAD);
+      gameBoardStates[x][y] = ConwayCell.DEAD;
+    }
+  }
+
+  public int getWidth(){
     return width;
   }
 
@@ -78,10 +106,15 @@ public class GameBoard {
     }
   }
 
-  public void initializeGameBoardCells() {
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        ConwayCell cell = new ConwayCell();
+  public void setCellConfiguration(String[][] stateConfig){
+    gameBoardStates = stateConfig;
+    for (int i = 0; i < height; i++){
+      for (int j = 0; j < width; j++){
+        gameBoardCells[i][j] = new ConwayCell(stateConfig[i][j]);
+      }
+    }
+  }
+
 
         if (j == 5 && i < 6 && i > 2) {
           cell.toggleState();

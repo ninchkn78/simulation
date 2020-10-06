@@ -1,6 +1,7 @@
 package cellsociety.view;
 
 import cellsociety.model.ConwayGameOfLife;
+import java.util.Arrays;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -94,6 +95,19 @@ public class ConwayDisplay extends Application {
 
   }
 
+
+  public void handleMouseInput(double x, double y){
+    int scaledHeight = WIDTH/game.getGameBoard().getHeight();
+    int scaledWidth =  HEIGHT/game.getGameBoard().getWidth();
+
+    int scaledX = (int)(x/scaledWidth);
+    int scaledY = (int)(y/scaledHeight);
+    game.getGameBoard().toggleState(scaledX,scaledY);
+    System.out.println(game.getGameBoard().getCell(scaledX,scaledY).getState());
+
+    System.out.println(scaledX + " " + scaledY);
+    System.out.println(Arrays.deepToString(game.getGameBoard().getGameBoardStates()));
+  }
 
 }
 
