@@ -5,6 +5,11 @@ public class ConwayGameOfLife {
   private GameBoard board;
   private int generation;
 
+  public ConwayGameOfLife(int width, int height){
+    this.board = new GameBoard(width, height);
+    this.generation = 1; //TODO: fix magic number
+  }
+
   public ConwayGameOfLife(GameBoard board){
     this.board = board;
     this.generation = 1; //TODO: fix magic number
@@ -35,6 +40,10 @@ public class ConwayGameOfLife {
   public void reset(){
     this.board.clear();
     this.generation = 0;
+  }
+
+  public GameBoard getGameBoard(){
+    return board;
   }
 
 

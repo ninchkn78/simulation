@@ -72,4 +72,8 @@ public class GameBoard {
     return height;
   }
 
+  public String[][] getGameBoardStates(){
+    return gameBoardStates;
+  }
+
 }

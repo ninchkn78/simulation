@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+import cellsociety.model.ConwayGameOfLife;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -19,8 +20,12 @@ public class ConwayDisplay extends Application {
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 4.0 / FRAMES_PER_SECOND;
   public static final Paint BACKGROUND = Color.AZURE;
+  public static final int GAME_WIDTH = 13;
+  public static final int GAME_HEIGHT = 11;
+
 
   private Group myRoot = new Group();
+  private ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
   private ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
   private ButtonSetup myButtonSetup = new ButtonSetup();
   private String[][] tempState;
@@ -62,17 +67,18 @@ public class ConwayDisplay extends Application {
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime){
-    tempState = new String[][]{{"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},      //LIKELY THIS WILL BE SOME METHOD CALL FROM BACKEND
-            {"1","0","0","1","0","1", "1", "0", "1", "0", "1", "1", "0"},
-            {"1","0","1","0","0","1", "1", "0", "1", "0", "1", "1", "1"},
-            {"1","1","1","1","0","1", "1", "0", "1", "0", "1", "0", "1"},
-            {"1","0","1","1","0","1", "1", "0", "0", "0", "1", "1", "1"},
-            {"1","0","0","1","0","1", "0", "0", "1", "0", "1", "1", "0"},
-            {"0","0","1","1","0","0", "1", "1", "1", "1", "0", "1", "0"},
-            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
-            {"1","0","1","1","0","1", "1", "0", "1", "1", "0", "1", "1"},
-            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
-            {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}};
+//    tempState = new String[][]{{"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},      //LIKELY THIS WILL BE SOME METHOD CALL FROM BACKEND
+//            {"1","0","0","1","0","1", "1", "0", "1", "0", "1", "1", "0"},
+//            {"1","0","1","0","0","1", "1", "0", "1", "0", "1", "1", "1"},
+//            {"1","1","1","1","0","1", "1", "0", "1", "0", "1", "0", "1"},
+//            {"1","0","1","1","0","1", "1", "0", "0", "0", "1", "1", "1"},
+//            {"1","0","0","1","0","1", "0", "0", "1", "0", "1", "1", "0"},
+//            {"0","0","1","1","0","0", "1", "1", "1", "1", "0", "1", "0"},
+//            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
+//            {"1","0","1","1","0","1", "1", "0", "1", "1", "0", "1", "1"},
+//            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
+//            {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}};
+            String[][] tempState = game.getGameBoard().getGameBoardStates();
             nextGen(tempState);
             myButtonSetup.checkButtonStatus(tempState);
   }
