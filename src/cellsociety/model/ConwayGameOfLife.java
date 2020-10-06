@@ -1,5 +1,7 @@
 package cellsociety.model;
 
+import java.util.Arrays;
+
 public class ConwayGameOfLife {
 
   private GameBoard board;
@@ -42,7 +44,17 @@ public class ConwayGameOfLife {
     this.generation = 0;
   }
 
+  public void handleMouseInput(double x, double y){
+//    int scaledHeight = boardPanel.getHeight()/g.getHeight();
+//    int scaledWidth =  boardPanel.getWidth()/g.getWidth();
+//
+//    int x = e.getX()/scaledWidth;
+//    int y = e.getY()/scaledHeight;
+//    g.toggleState(x, y);
+  }
+
   public GameBoard getGameBoard(){
     return board;
   }
+
 }
