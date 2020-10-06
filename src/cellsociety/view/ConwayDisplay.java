@@ -10,6 +10,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 
@@ -30,6 +31,8 @@ public class ConwayDisplay extends Application {
   private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private String[][] tempState;
+  private Stage myStage;
+  private Timeline animation;
 
   /**
    * Start the program.
@@ -41,6 +44,7 @@ public class ConwayDisplay extends Application {
   @Override
   public void start(Stage stage) {
     // attach scene to the stage and display it
+    myStage = stage;
     Scene myScene = setupScene();
     stage.setScene(myScene);
     stage.setTitle(TITLE);
@@ -51,7 +55,7 @@ public class ConwayDisplay extends Application {
 
   public void startStepMethod() {
     KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
-    Timeline animation = new Timeline();
+    animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
@@ -108,6 +112,15 @@ public class ConwayDisplay extends Application {
     System.out.println(scaledX + " " + scaledY);
     System.out.println(Arrays.deepToString(game.getGameBoard().getGameBoardStates()));
   }
+
+  public Window getStage() {
+    return myStage;
+  }
+
+  public void pauseGame(){
+      animation.pause();
+  }
+
 
 }
 

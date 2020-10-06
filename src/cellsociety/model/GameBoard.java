@@ -62,7 +62,6 @@ public class GameBoard {
           aliveCount++;
         }
       }
-      return aliveCount;
     }
     if (gameBoardCells[currentRow][currentColumn].isAlive()) {
       aliveCount--;
@@ -123,3 +122,4 @@ public class GameBoard {
   }
 
   }
+

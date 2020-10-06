@@ -5,6 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.stage.FileChooser;
 
 public class ButtonSetup {
 
@@ -12,6 +13,7 @@ public class ButtonSetup {
   private Button runButton;
 
   private final ConwayDisplay myDisplay;
+  private Button loadFileButton;
   //TODO - idea - just add more buttons here by calling subclasses or something
 
   public ButtonSetup(ConwayDisplay myGame) {
@@ -22,18 +24,26 @@ public class ButtonSetup {
   public void addButtons(Group root) {
     addSaveFileButton(root);
     addRunButton(root);
+    addLoadFileButton(root);
+  }
+
+  private void addLoadFileButton(Group root) {
+    loadFileButton = new Button("Load File");
+    loadFileButton.setLayoutX((ConwayDisplay.WIDTH / 4) * 1);
+    loadFileButton.setLayoutY((ConwayDisplay.HEIGHT / 5) * 4);
+    root.getChildren().add(loadFileButton);
   }
 
   private void addRunButton(Group root) {
     runButton = new Button("RUN SIMULATION");
-    runButton.setLayoutX((ConwayDisplay.WIDTH / 3) * 1);
+    runButton.setLayoutX((ConwayDisplay.WIDTH / 4) * 2);
     runButton.setLayoutY((ConwayDisplay.HEIGHT / 5) * 4);
     root.getChildren().add(runButton);
   }
 
   private void addSaveFileButton(Group root) {
     fileSaveButton = new Button("TEST ME PUSH ME AHHH");
-    fileSaveButton.setLayoutX((ConwayDisplay.WIDTH / 3) * 2);
+    fileSaveButton.setLayoutX((ConwayDisplay.WIDTH / 4) * 3);
     fileSaveButton.setLayoutY((ConwayDisplay.HEIGHT / 5) * 4);
     root.getChildren().add(fileSaveButton);
   }
@@ -44,6 +54,20 @@ public class ButtonSetup {
   public void checkButtonStatus(String[][] tempState) {
     checkFileButton(tempState);
     checkRunButton();
+    checkFileReaderButton();
+  }
+
+  private void checkFileReaderButton() {
+      loadFileButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent e) {
+        myDisplay.pauseGame();
+        //System.out.println(1);  //TODO add file reader
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        fileChooser.showOpenDialog(myDisplay.getStage());
+      }
+      });
   }
 
   public void checkRunButton() {
