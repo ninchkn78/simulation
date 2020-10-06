@@ -30,6 +30,7 @@ public class ConwaySimulationBoard extends SimulationBoard {
 
   //works for non square 2D arrays
   // TODO: 2020-10-04 ask about X position?  
+  // TODO: 2020-10-05  don't make new rectangles every time
   private void initializeMyGrid(String[][] states) {
     double width = CELL_GRID_WIDTH/maxRowLength(states);
     for (int i = 0; i < states.length; i++) {
