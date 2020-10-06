@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -11,7 +12,13 @@ public class ButtonSetup {
     private Button fileSaveButton;
     private Button runButton;
 
+    private ConwayDisplay myDisplay;
     //TODO - idea - just add more buttons here by calling subclasses or something
+
+    public ButtonSetup(ConwayDisplay myGame){
+        myDisplay = myGame;
+    }
+
 
     public void addButtons(Group root){
         addSaveFileButton(root);
@@ -44,14 +51,10 @@ public class ButtonSetup {
         runButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                System.out.println("RUN");
-
+                myDisplay.startStepMethod();
             }
         });
     }
-
-
-
 
 
     public void checkFileButton(String[][] tempState){

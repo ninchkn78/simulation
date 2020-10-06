@@ -27,7 +27,7 @@ public class ConwayDisplay extends Application {
   private Group myRoot = new Group();
   private ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
   private ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
-  private ButtonSetup myButtonSetup = new ButtonSetup();
+  private ButtonSetup myButtonSetup = new ButtonSetup(this);
   private String[][] tempState;
   /**
    * Start the program.
@@ -44,6 +44,10 @@ public class ConwayDisplay extends Application {
     stage.setTitle(TITLE);
     stage.show();
     // attach "game loop" to timeline to play it (basically just calling step() method repeatedly forever)
+    //startStepMethod();
+  }
+
+  public void startStepMethod() {
     KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
@@ -56,7 +60,11 @@ public class ConwayDisplay extends Application {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     // respond to input
     //scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+    tempState = game.getGameBoard().getGameBoardStates();
     myButtonSetup.addButtons(myRoot);
+    myButtonSetup.checkButtonStatus(tempState);
+    nextGen(tempState);
+
     return scene;
   }
 
@@ -78,9 +86,9 @@ public class ConwayDisplay extends Application {
 //            {"1","0","1","1","0","1", "1", "0", "1", "1", "0", "1", "1"},
 //            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
 //            {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}};
-            String[][] tempState = game.getGameBoard().getGameBoardStates();
+            System.out.println(1);
+            tempState = game.getGameBoard().getGameBoardStates();
             nextGen(tempState);
-            myButtonSetup.checkButtonStatus(tempState);
   }
 
 
