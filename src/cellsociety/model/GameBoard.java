@@ -58,10 +58,13 @@ public class GameBoard {
     int aliveCount = 0;
     for (int i = currentRow - 1; i <= currentRow + 1; i++){
       for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
-        if (isValidLocation(i,j) && gameBoardCells[i][j].isAlive() && i != currentRow && j != currentColumn){ //TODO: make this not ugly af
+        if (isValidLocation(i,j) && gameBoardCells[i][j].isAlive()){ //TODO: make this not ugly af
           aliveCount++;
         }
       }
+    }
+    if (gameBoardCells[currentRow][currentColumn].isAlive()) {
+      aliveCount--;
     }
     return aliveCount;
   }
@@ -99,6 +102,15 @@ public class GameBoard {
     for (int i = 0; i < height; i ++){
       for (int j = 0; j < width; j++){
         gameBoardCells[i][j] = new ConwayCell();
+      }
+    }
+  }
+
+  public void setCellConfiguration(String[][] stateConfig){
+    gameBoardStates = stateConfig;
+    for (int i = 0; i < height; i++){
+      for (int j = 0; j < width; j++){
+        gameBoardCells[i][j] = new ConwayCell(stateConfig[i][j]);
       }
     }
   }

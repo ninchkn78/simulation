@@ -2,6 +2,7 @@ package cellsociety.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -42,14 +43,15 @@ class GameBoardTest {
   }
 
   @Test
-  public int countLivingNeighborsTest() {
+  public void countLivingNeighborsTest() {
     String[][] configuration = {{"1", "0", "1", "0", "1"},
                                 {"1", "0", "1", "0", "1"},
                                 {"1", "0", "1", "0", "1"},
                                 {"1", "0", "1", "0", "1"},
                                 {"1", "0", "1", "0", "1"}};
-
-
+    board.setCellConfiguration(configuration);
+    System.out.println(Arrays.deepToString(board.getGameBoardStates()));
+    assertEquals(1, board.countLivingNeighbors(0,0));
   }
 
 }
