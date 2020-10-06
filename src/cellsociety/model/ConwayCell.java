@@ -2,8 +2,8 @@ package cellsociety.model;
 
 public class ConwayCell extends Cell{
 
-  private final String ALIVE = "0";
-  private final String DEAD = "1";
+  public static final String ALIVE = "0";
+  public static final String DEAD = "1";
 
 
   public ConwayCell(String state){
@@ -17,8 +17,13 @@ public class ConwayCell extends Cell{
     else this.setState(DEAD);
   }
 
+  public boolean isAlive(){
+    return this.getState().equals(ALIVE);
+  }
 
-
+  public boolean isDead(){
+    return this.getState().equals(DEAD);
+  }
 
 
 
