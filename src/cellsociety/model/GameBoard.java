@@ -98,13 +98,7 @@ public class GameBoard {
     return gameBoardStates;
   }
 
-  public void setGameBoardStates(Cell[][] initialState) {
-    for (int i = 0; i < initialState.length; i++) {
-      for (int j = 0; j < initialState[0].length; j++) {
-        gameBoardStates[i][j] = gameBoardCells[i][j].getState();
-      }
-    }
-  }
+
 
   public void setCellConfiguration(String[][] stateConfig){
     gameBoardStates = stateConfig;
@@ -116,12 +110,16 @@ public class GameBoard {
   }
 
 
+  public void initializeGameBoardCells() {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        ConwayCell cell = new ConwayCell();
         if (j == 5 && i < 6 && i > 2) {
           cell.toggleState();
         }
         gameBoardCells[i][j] = cell;
       }
     }
-
+  }
 
   }
