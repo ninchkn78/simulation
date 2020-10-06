@@ -1,5 +1,6 @@
 package cellsociety.model;
 
+
 public class ConwayGameOfLife {
 
   private GameBoard board;
@@ -37,6 +38,7 @@ public class ConwayGameOfLife {
     }
     this.generation++;
     board = nextBoard;
+
   }
 
   public void reset() {
