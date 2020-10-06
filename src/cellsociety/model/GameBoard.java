@@ -82,11 +82,12 @@ public class GameBoard {
       return gameBoardStates;
     }
 
-    public void initializeGameBoardCells () {
-      for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
-          gameBoardCells[i][j] = new ConwayCell();
-        }
+  public void initializeGameBoardCells(){
+    for (int i = 0; i < height; i ++){
+      for (int j = 0; j < width; j++){
+        ConwayCell cell = new ConwayCell();
+        cell.toggleState();
+        gameBoardCells[i][j] = cell;
       }
     }
 

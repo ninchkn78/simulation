@@ -25,6 +25,7 @@ public class saveFiles {
     }
 
     private void makeHeader(FileWriter csvWriter, String[][] currentState) throws IOException {
+        System.out.println(currentState);
         csvWriter.append(Integer.toString(currentState.length));
         csvWriter.append(COMMA_DELIM);
         csvWriter.append(Integer.toString(currentState[0].length));
