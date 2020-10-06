@@ -50,6 +50,7 @@ public class GameBoard {
           aliveCount++;
         }
       }
+    }
       return aliveCount;
     }
 
@@ -92,3 +93,4 @@ public class GameBoard {
 
 
   }
+}
