@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
 
-class ConwayReaderTest {
+class ReaderTest {
 
   @Test
   void readFile() {
-    ConwayReader reader = new ConwayReader();
+    Reader reader = new Reader();
     String[][] test = reader.readFile("conwayTest1.txt");
     assertEquals(2,test.length);
     assertEquals(3,test[0].length);

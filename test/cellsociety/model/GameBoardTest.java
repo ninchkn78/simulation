@@ -42,16 +42,6 @@ class GameBoardTest {
     assertFalse(board.isValidLocation(0,10));
   }
 
-  @Test
-  public void countLivingNeighborsTest() {
-    String[][] configuration = {{"1", "0", "1", "0", "1"},
-                                {"1", "0", "1", "0", "1"},
-                                {"1", "0", "1", "0", "1"},
-                                {"1", "0", "1", "0", "1"},
-                                {"1", "0", "1", "0", "1"}};
-    board.setCellConfiguration(configuration);
-    System.out.println(Arrays.deepToString(board.getGameBoardStates()));
-    assertEquals(1, board.countLivingNeighbors(0,0));
-  }
+  
 
 }
