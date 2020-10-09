@@ -10,8 +10,7 @@ public class GameBoard {
   public GameBoard(int width, int height) {
     this.width = width;
     this.height = height;
-    this.gameBoardCells = new Cell[height][width];
-    clear();
+    this.gameBoardCells = initializeGameBoardCells(width, height);
     this.gameBoardStates = new String[height][width];
     setGameBoardStates(gameBoardCells);
   }
@@ -29,6 +28,16 @@ public class GameBoard {
         gameBoardStates[i][j] = gameBoardCells[i][j].getState();
       }
     }
+  }
+
+  public Cell[][] initializeGameBoardCells(int width, int height){
+    Cell[][] cellConfig = new Cell[height][width];
+    for (int i = 0; i < height; i++){
+      for (int j = 0; j < width; j++){
+        cellConfig[i][j] = new ConwayCell();
+      }
+    }
+    return cellConfig;
   }
 
   public void clear(){

@@ -8,8 +8,12 @@ public abstract class Simulation {
 
   public Simulation(String config) {
     Reader reader = new Reader();
-    this.board = new GameBoard(reader.readFile(config));
-    this.generation = 1;
+    board = new GameBoard(reader.readFile(config));
+    generation = 1;
+  }
+
+  public GameBoard getGameBoard(){
+    return board;
   }
 
 
@@ -29,22 +33,7 @@ public abstract class Simulation {
   }
 
 
-  public void reset() {
-    this.board.clear();
-    this.generation = 0;
-  }
 
-  public void handleMouseInput(double x, double y) {
-//    int scaledHeight = boardPanel.getHeight()/g.getHeight();
-//    int scaledWidth =  boardPanel.getWidth()/g.getWidth();
-//
-//    int x = e.getX()/scaledWidth;
-//    int y = e.getY()/scaledHeight;
-//    g.toggleState(x, y);
-  }
 
-//  public GameBoard getGameBoard() {
-//    return board;
-//  }
 
 }
