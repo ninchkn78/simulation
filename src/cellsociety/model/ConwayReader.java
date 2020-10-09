@@ -7,22 +7,21 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 
-public class ConwayReader extends Reader {
+public class ConwayReader {
 
 
-  @Override
-  public String[][] readFile(String fileName) {
-    String[][] states = new String[5][6];
-    InputStream data = getFileInputStream(fileName);
-    try (CSVReader csvReader = new CSVReader(new InputStreamReader(data))) {
-      List<String[]> list = csvReader.readAll();
-      list.remove(0);
-      String[][] dataArr = new String[list.size()][];
-      return list.toArray(dataArr);
-    } catch (IOException | CsvException e) {
-      e.printStackTrace();
-      return states;
-    }
-  }
+//  public String[][] readFile(String fileName) { //TODO: Validate that first "dimensions" row matches actual file dimensions
+//
+//  }
+
+//  public ConwayCell[][] loadFile(String[][] states){
+//    for (String[] states)
+//  }
+
+//  public boolean validateRows(){
+//
+//  }
+
+  //TODO: add validateStates method, validateDimensions
 }
 

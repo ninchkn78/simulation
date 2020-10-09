@@ -1,50 +1,38 @@
 package cellsociety.model;
 
 
-public class ConwayGameOfLife {
+public class ConwayGameOfLife extends Simulation{
 
-  private GameBoard board;
-  private int generation;
 
-  public ConwayGameOfLife(int width, int height) {
-    this.board = new GameBoard(width, height);
-    this.generation = 1; //TODO: fix magic number
-  }
-
-  public ConwayGameOfLife(GameBoard board) {
-    this.board = board;
-    this.generation = 1; //TODO: fix magic number
+  public ConwayGameOfLife(String config){
+    super(config);
   }
 
   public boolean aliveNextGen(int row, int col) {
-    ConwayCell currentCell = board.getCell(row, col);
-    if (currentCell.isAlive()) {
-      return board.countLivingNeighbors(row, col) > 1 && board.countLivingNeighbors(row, col) < 4;
+    Cell currentCell = getGameBoard().getCell(row, col);
+    if (isAlive(currentCell)) {
+      return countLivingNeighbors(row, col) > 1 && countLivingNeighbors(row, col) < 4;
     }
-    return board.countLivingNeighbors(row, col) == 3;
+    return countLivingNeighbors(row, col) == 3;
   }
 
-  public void nextGen() {
-    System.out.println("AH SHIT OK");
-    GameBoard nextBoard = new GameBoard(board.getWidth(), board.getHeight());
-    for (int i = 0; i < board.getHeight(); i++) {
-      for (int j = 0; j < board.getWidth(); j++) {
-        if (aliveNextGen(i, j)) {
-          nextBoard.setPiece(i, j, ConwayCell.ALIVE);
-        } else {
-          nextBoard.setPiece(i, j, ConwayCell.DEAD);
-        }
-      }
+  public boolean isAlive(Cell cell){
+    return cell.getState().equals(ConwayCell.ALIVE);
+  }
+
+  @Override
+  public void updateCell(GameBoard nextBoard, int row, int col){
+    if (aliveNextGen(row,col)){
+      nextBoard.setPiece(row, col, ConwayCell.ALIVE);
     }
-    this.generation++;
-    board = nextBoard;
-
+    else{
+      nextBoard.setPiece(row, col, ConwayCell.DEAD);
+    }
   }
 
-  public void reset() {
-    this.board.clear();
-    this.generation = 0;
-  }
+
+
+
 
   public void handleMouseInput(double x, double y) {
 //    int scaledHeight = boardPanel.getHeight()/g.getHeight();
@@ -55,8 +43,19 @@ public class ConwayGameOfLife {
 //    g.toggleState(x, y);
   }
 
-  public GameBoard getGameBoard() {
-    return board;
+  public int countLivingNeighbors(int currentRow, int currentColumn) {
+    int aliveCount = 0;
+    for (int i = currentRow - 1; i <= currentRow + 1; i++){
+      for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
+        if (getGameBoard().isValidLocation(i,j) && isAlive(getGameBoard().getCell(i, j))){ //TODO: make this not ugly af
+          aliveCount++;
+        }
+      }
+    }
+    if (isAlive(getGameBoard().getCell(currentRow, currentColumn))){
+      aliveCount--;
+    }
+    return aliveCount;
   }
 
 }

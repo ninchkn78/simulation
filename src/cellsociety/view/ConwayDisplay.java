@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+
 import cellsociety.model.ConwayGameOfLife;
 import java.util.Arrays;
 import javafx.animation.KeyFrame;
@@ -27,9 +28,11 @@ public class ConwayDisplay extends Application {
 
 
   private final Group myRoot = new Group();
-  private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
+  //private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
   private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
+  ConwayGameOfLife game = new ConwayGameOfLife("GAME_CSVS/new0.csv");
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
+  //private Controller controller = new Controller();
   private String[][] tempState;
   private Stage myStage;
   private Timeline animation;
@@ -92,10 +95,12 @@ public class ConwayDisplay extends Application {
 //            {"1","0","1","1","0","1", "1", "0", "1", "1", "0", "1", "1"},
 //            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
 //            {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}};
+
     game.nextGen();
     System.out.println(1);
     tempState = game.getGameBoard().getGameBoardStates();
     nextGen(tempState);
+
 
   }
 

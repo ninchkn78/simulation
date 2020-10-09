@@ -4,24 +4,23 @@ public class GameBoard {
 
   private final int width;
   private final int height;
-  private ConwayCell[][] gameBoardCells;
+  private Cell[][] gameBoardCells;
   private String[][] gameBoardStates;
 
   public GameBoard(int width, int height) {
     this.width = width;
     this.height = height;
-    this.gameBoardCells = new ConwayCell[height][width];
-    initializeGameBoardCells();
+    this.gameBoardCells = new Cell[height][width];
+    clear();
     this.gameBoardStates = new String[height][width];
     setGameBoardStates(gameBoardCells);
   }
 
-  public GameBoard(ConwayCell[][] initialCellConfig) {
-    this.width = initialCellConfig[0].length;
-    this.height = initialCellConfig.length;
-    this.gameBoardCells = initialCellConfig;
-    this.gameBoardStates = new String[height][width];
-    setGameBoardStates(initialCellConfig);
+  public GameBoard(String[][] initialStateConfig) {
+    this.width = initialStateConfig[0].length;
+    this.height = initialStateConfig.length;
+    this.gameBoardCells = createCellConfiguration(initialStateConfig);
+    this.gameBoardStates = initialStateConfig;
   }
 
   private void setGameBoardStates(Cell[][] initialState){
@@ -35,14 +34,13 @@ public class GameBoard {
   public void clear(){
     for (int i = 0; i < height; i++){
       for (int j = 0; j < width; j++){
-        gameBoardCells[i][j].setState(ConwayCell.DEAD);
+        gameBoardCells[i][j] = new ConwayCell();
         gameBoardStates[i][j] = ConwayCell.DEAD;
-
       }
     }
   }
 
-  public ConwayCell getCell(int row, int col) {
+  public Cell getCell(int row, int col) {
     return gameBoardCells[row][col];
   }
 
@@ -54,30 +52,17 @@ public class GameBoard {
     return (row >= 0 && col >= 0) && (row < height && col < width);
   }
 
-  public int countLivingNeighbors(int currentRow, int currentColumn) {
-    int aliveCount = 0;
-    for (int i = currentRow - 1; i <= currentRow + 1; i++){
-      for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
-        if (isValidLocation(i,j) && gameBoardCells[i][j].isAlive()){ //TODO: make this not ugly af
-          aliveCount++;
-        }
-      }
-    }
-    if (gameBoardCells[currentRow][currentColumn].isAlive()) {
-      aliveCount--;
-    }
-    return aliveCount;
-  }
+
 
   public void setPiece(int row, int col, String state) {
-    gameBoardCells[row][col] = new ConwayCell(state);
+    gameBoardCells[row][col] = new ConwayCell(state); //TODO: update existing cell
     gameBoardStates[row][col] = state;
   }
 
   public void toggleState(int x, int y) { //TODO: make this cleaner
     if(gameBoardCells[x][y].getState().equals(ConwayCell.DEAD)) {
       gameBoardCells[x][y].setState(ConwayCell.ALIVE);
-      gameBoardStates[x][y] = ConwayCell.ALIVE;
+      gameBoardStates[x][y] = ConwayCell.ALIVE; // TODO: "update instance variable - more connected"
     }
     else{
       gameBoardCells[x][y].setState(ConwayCell.DEAD);
@@ -99,6 +84,19 @@ public class GameBoard {
 
 
 
+
+  public Cell[][] createCellConfiguration(String[][] stateConfig){ //TODO: make this work for all cell types
+    Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
+    for (int i = 0; i < height; i++){
+      for (int j = 0; j < width; j++){
+        cellConfig[i][j] = new ConwayCell(stateConfig[i][j]);
+      }
+    }
+    return cellConfig;
+  }
+
+
+
   public void setCellConfiguration(String[][] stateConfig){
     gameBoardStates = stateConfig;
     for (int i = 0; i < height; i++){
@@ -108,18 +106,5 @@ public class GameBoard {
     }
   }
 
-
-  public void initializeGameBoardCells() {
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        ConwayCell cell = new ConwayCell();
-        if (j == 5 && i < 6 && i > 2) {
-          cell.toggleState();
-        }
-        gameBoardCells[i][j] = cell;
-      }
-    }
-  }
-
-  }
+}
 
