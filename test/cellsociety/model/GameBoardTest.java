@@ -15,8 +15,6 @@ class GameBoardTest {
     board = new GameBoard(5,5);
   }
 
-
-
   @Test
   public void clear(){
       for (int i = 0; i < board.getHeight(); i++){

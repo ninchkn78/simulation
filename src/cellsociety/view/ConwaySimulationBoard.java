@@ -37,7 +37,7 @@ public class ConwaySimulationBoard extends SimulationBoard {
     for (int i = 0; i < states.length; i++) {
       for (int j = 0; j < states[i].length; j++) {
         //System.out.println(states[i].length);
-        Rectangle cell = new Rectangle(width, CELL_GRID_HEIGHT / states.length);
+        CellView cell = new CellView(width, CELL_GRID_HEIGHT / states.length);
         cell.setStroke(Color.BLACK);
         cell.setFill(stateColorMap.get(states[i][j]));
         cell.setId(String.format("cell%d,%d", i, j));
