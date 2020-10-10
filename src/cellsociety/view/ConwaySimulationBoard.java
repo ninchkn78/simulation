@@ -5,15 +5,16 @@ import java.util.Map;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
 public class ConwaySimulationBoard extends SimulationBoard {
-  //make this CSS
+
+  // TODO: 2020-10-10 make this CSS
   public static final double CELL_GRID_WIDTH = 600;
   public static final double CELL_GRID_HEIGHT = 350;
 
   private final GridPane myGrid = new GridPane();
   private final Map<String, Color> stateColorMap = new HashMap<>();
+
 
   public ConwaySimulationBoard(Group root) {
     myGrid.setLayoutX(75);
@@ -32,14 +33,13 @@ public class ConwaySimulationBoard extends SimulationBoard {
   //works for non square 2D arrays
   // TODO: 2020-10-04 ask about X position for tests
   // TODO: 2020-10-05  don't make new rectangles every time
-  private void initializeMyGrid(String[][] states) {
+  private void initializeMyGrid(String[][] states, String propertiesFileName) {
     double width = CELL_GRID_WIDTH / maxRowLength(states);
     for (int i = 0; i < states.length; i++) {
       for (int j = 0; j < states[i].length; j++) {
         //System.out.println(states[i].length);
         CellView cell = new CellView(width, CELL_GRID_HEIGHT / states.length);
-        cell.setStroke(Color.BLACK);
-        cell.setFill(stateColorMap.get(states[i][j]));
+        cell.setColor(states[i][j], propertiesFileName);
         cell.setId(String.format("cell%d,%d", i, j));
         GridPane.setConstraints(cell, j, i);
         myGrid.getChildren().add(cell);
@@ -58,7 +58,8 @@ public class ConwaySimulationBoard extends SimulationBoard {
     return maxRowLength;
   }
 
+  // TODO: 2020-10-10  abstract this
   public void updateMyGrid(String[][] states) {
-    initializeMyGrid(states);
+    initializeMyGrid(states, "ConwayGameOfLife.properties");
   }
 }
