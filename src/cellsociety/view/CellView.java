@@ -8,9 +8,10 @@ import javafx.scene.shape.Rectangle;
 public class CellView extends Rectangle {
 
 
-  public CellView(double width, double height){
+  public CellView(double width, double height, String state, String propertiesFileName){
     super(width, height);
     this.setStroke(Color.BLACK);
+    this.setColor(state, propertiesFileName);
 
   }
 
@@ -18,7 +19,7 @@ public class CellView extends Rectangle {
     try {
       Properties prop = new Properties();
       prop.load(CellView.class.getClassLoader().getResourceAsStream(propertiesFileName));
-      // TODO: 2020-10-10 better error handling 
+      // TODO: 2020-10-10 better error handling
       if (prop.getProperty(state) == null){
         this.setFill(Color.BLACK);
       }

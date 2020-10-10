@@ -20,14 +20,7 @@ public class ConwaySimulationBoard extends SimulationBoard {
     myGrid.setLayoutX(75);
     myGrid.setLayoutY(50);
     myGrid.setGridLinesVisible(true);
-    setStateColorMap();
     root.getChildren().add(myGrid);
-  }
-
-  @Override
-  protected void setStateColorMap() {
-    stateColorMap.put("1", Color.RED);
-    stateColorMap.put("0", Color.BLUE);
   }
 
   //works for non square 2D arrays
@@ -38,8 +31,7 @@ public class ConwaySimulationBoard extends SimulationBoard {
     for (int i = 0; i < states.length; i++) {
       for (int j = 0; j < states[i].length; j++) {
         //System.out.println(states[i].length);
-        CellView cell = new CellView(width, CELL_GRID_HEIGHT / states.length);
-        cell.setColor(states[i][j], propertiesFileName);
+        CellView cell = new CellView(width, CELL_GRID_HEIGHT / states.length, states[i][j], propertiesFileName);
         cell.setId(String.format("cell%d,%d", i, j));
         GridPane.setConstraints(cell, j, i);
         myGrid.getChildren().add(cell);
