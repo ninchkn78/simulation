@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+
 import cellsociety.model.ConwayGameOfLife;
 import java.util.Arrays;
 import javafx.animation.KeyFrame;
@@ -10,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import javafx.util.Duration;
 
 
@@ -26,10 +28,14 @@ public class ConwayDisplay extends Application {
 
 
   private final Group myRoot = new Group();
-  private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
+  //private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
   private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
+  ConwayGameOfLife game = new ConwayGameOfLife("GAME_CSVS/new0.csv");
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
+  //private Controller controller = new Controller();
   private String[][] tempState;
+  private Stage myStage;
+  private Timeline animation;
 
   /**
    * Start the program.
@@ -41,6 +47,7 @@ public class ConwayDisplay extends Application {
   @Override
   public void start(Stage stage) {
     // attach scene to the stage and display it
+    myStage = stage;
     Scene myScene = setupScene();
     stage.setScene(myScene);
     stage.setTitle(TITLE);
@@ -51,7 +58,7 @@ public class ConwayDisplay extends Application {
 
   public void startStepMethod() {
     KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
-    Timeline animation = new Timeline();
+    animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
@@ -88,10 +95,12 @@ public class ConwayDisplay extends Application {
 //            {"1","0","1","1","0","1", "1", "0", "1", "1", "0", "1", "1"},
 //            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
 //            {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}};
+
     game.nextGen();
     System.out.println(1);
     tempState = game.getGameBoard().getGameBoardStates();
     nextGen(tempState);
+
 
   }
 
@@ -108,6 +117,15 @@ public class ConwayDisplay extends Application {
     System.out.println(scaledX + " " + scaledY);
     System.out.println(Arrays.deepToString(game.getGameBoard().getGameBoardStates()));
   }
+
+  public Window getStage() {
+    return myStage;
+  }
+
+  public void pauseGame(){
+      animation.pause();
+  }
+
 
 }
 
