@@ -24,39 +24,35 @@ public class ButtonSetup {
 
 
   public void addButtons(Group root) {
-    HBox buttonBox = new HBox();
-    buttonBox.setPrefWidth(Display.WIDTH);
-    buttonBox.getStyleClass().add("HBox");
+    HBox buttonBox = createHBox();
+
     addSaveFileButton(root);
     addRunButton(root);
     addLoadFileButton(root);
-
 
     buttonBox.getChildren().addAll(loadFileButton,runButton,fileSaveButton);
 
     root.getChildren().add(buttonBox);
   }
 
+  private HBox createHBox() {
+    HBox buttonBox = new HBox();
+    buttonBox.setPrefWidth(Display.WIDTH);
+    buttonBox.getStyleClass().add("HBox");
+    buttonBox.setLayoutY(Display.HEIGHT - 100);
+    return buttonBox;
+  }
+
   private void addLoadFileButton(Group root) {
     loadFileButton = new Button("Load File");
-    //loadFileButton.setLayoutX((Display.WIDTH / 4) * 1);
-    //loadFileButton.setLayoutY((Display.HEIGHT / 5) * 4);
-    loadFileButton.getStyleClass().add("loadFileButton");
-    //root.getChildren().add(loadFileButton);
   }
 
   private void addRunButton(Group root) {
     runButton = new Button("Run Simulation");
-    //runButton.setLayoutX((Display.WIDTH / 4) * 2);
-    //runButton.setLayoutY((Display.HEIGHT / 5) * 4);
-   // root.getChildren().add(runButton);
   }
 
   private void addSaveFileButton(Group root) {
     fileSaveButton = new Button("Save File");
-    //fileSaveButton.setLayoutX((Display.WIDTH / 4) * 3);
-    //fileSaveButton.setLayoutY((Display.HEIGHT / 5) * 4);
-    //root.getChildren().add(fileSaveButton);
   }
 
 
