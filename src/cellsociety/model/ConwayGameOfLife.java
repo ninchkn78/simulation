@@ -4,8 +4,8 @@ package cellsociety.model;
 public class ConwayGameOfLife extends Simulation{
 
 
-  public ConwayGameOfLife(String config){
-    super(config);
+  public ConwayGameOfLife(String csvConfig){
+    super(csvConfig);
   }
 
   public boolean aliveNextGen(int row, int col) {

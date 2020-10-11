@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+import cellsociety.controller.Controller;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -12,11 +13,11 @@ public class ButtonSetup {
   private Button fileSaveButton;
   private Button runButton;
 
-  private final ConwayDisplay myDisplay;
+  private final Display myDisplay;
   private Button loadFileButton;
   //TODO - idea - just add more buttons here by calling subclasses or something
 
-  public ButtonSetup(ConwayDisplay myGame) {
+  public ButtonSetup(Display myGame) {
     myDisplay = myGame;
   }
 
@@ -29,22 +30,22 @@ public class ButtonSetup {
 
   private void addLoadFileButton(Group root) {
     loadFileButton = new Button("Load File");
-    loadFileButton.setLayoutX((ConwayDisplay.WIDTH / 4) * 1);
-    loadFileButton.setLayoutY((ConwayDisplay.HEIGHT / 5) * 4);
+    loadFileButton.setLayoutX((Display.WIDTH / 4) * 1);
+    loadFileButton.setLayoutY((Display.HEIGHT / 5) * 4);
     root.getChildren().add(loadFileButton);
   }
 
   private void addRunButton(Group root) {
     runButton = new Button("RUN SIMULATION");
-    runButton.setLayoutX((ConwayDisplay.WIDTH / 4) * 2);
-    runButton.setLayoutY((ConwayDisplay.HEIGHT / 5) * 4);
+    runButton.setLayoutX((Display.WIDTH / 4) * 2);
+    runButton.setLayoutY((Display.HEIGHT / 5) * 4);
     root.getChildren().add(runButton);
   }
 
   private void addSaveFileButton(Group root) {
     fileSaveButton = new Button("TEST ME PUSH ME AHHH");
-    fileSaveButton.setLayoutX((ConwayDisplay.WIDTH / 4) * 3);
-    fileSaveButton.setLayoutY((ConwayDisplay.HEIGHT / 5) * 4);
+    fileSaveButton.setLayoutX((Display.WIDTH / 4) * 3);
+    fileSaveButton.setLayoutY((Display.HEIGHT / 5) * 4);
     root.getChildren().add(fileSaveButton);
   }
 
@@ -53,7 +54,6 @@ public class ButtonSetup {
   //TODO- class which have subclass buttons which all have unique styling and their own actions when pressed.
   public void checkButtonStatus(String[][] tempState) {
     checkFileButton(tempState);
-    checkRunButton();
     checkFileReaderButton();
   }
 
@@ -66,6 +66,11 @@ public class ButtonSetup {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.showOpenDialog(myDisplay.getStage());
+
+        //this method will create the agme board and create na instance of proper model
+        //myDisplay.getController() = new Controller();
+
+
       }
       });
   }
