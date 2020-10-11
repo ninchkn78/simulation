@@ -37,7 +37,6 @@ public class Display extends Application {
   private Stage myStage;
   private Timeline animation;
   private Controller myController = new Controller("ConwayGameOfLife.properties");
-  private GameBoard myGameBoard = myController.getGameBoard();
 
   public Display(){
   }
@@ -84,7 +83,7 @@ public class Display extends Application {
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void nextGen() {
-    myBoard.updateMyGrid(myGameBoard);
+    myBoard.updateMyGrid(myController.getGameBoard());
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
