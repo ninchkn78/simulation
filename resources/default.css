@@ -6,3 +6,14 @@
   -fx-hgap: 10;
   -fx-vgap: 10;
 }
+
+.HBox{
+  -fx-spacing: 20;
+  -fx-alignment: center;
+
+}
+
+.button{
+  -fx-font: bold italic 12pt "Arial";
+  -fx-background-color: #DFB951;
+}

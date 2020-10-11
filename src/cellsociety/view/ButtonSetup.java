@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
 public class ButtonSetup {
@@ -23,30 +24,39 @@ public class ButtonSetup {
 
 
   public void addButtons(Group root) {
+    HBox buttonBox = new HBox();
+    buttonBox.setPrefWidth(Display.WIDTH);
+    buttonBox.getStyleClass().add("HBox");
     addSaveFileButton(root);
     addRunButton(root);
     addLoadFileButton(root);
+
+
+    buttonBox.getChildren().addAll(loadFileButton,runButton,fileSaveButton);
+
+    root.getChildren().add(buttonBox);
   }
 
   private void addLoadFileButton(Group root) {
     loadFileButton = new Button("Load File");
-    loadFileButton.setLayoutX((Display.WIDTH / 4) * 1);
-    loadFileButton.setLayoutY((Display.HEIGHT / 5) * 4);
-    root.getChildren().add(loadFileButton);
+    //loadFileButton.setLayoutX((Display.WIDTH / 4) * 1);
+    //loadFileButton.setLayoutY((Display.HEIGHT / 5) * 4);
+    loadFileButton.getStyleClass().add("loadFileButton");
+    //root.getChildren().add(loadFileButton);
   }
 
   private void addRunButton(Group root) {
-    runButton = new Button("RUN SIMULATION");
-    runButton.setLayoutX((Display.WIDTH / 4) * 2);
-    runButton.setLayoutY((Display.HEIGHT / 5) * 4);
-    root.getChildren().add(runButton);
+    runButton = new Button("Run Simulation");
+    //runButton.setLayoutX((Display.WIDTH / 4) * 2);
+    //runButton.setLayoutY((Display.HEIGHT / 5) * 4);
+   // root.getChildren().add(runButton);
   }
 
   private void addSaveFileButton(Group root) {
-    fileSaveButton = new Button("TEST ME PUSH ME AHHH");
-    fileSaveButton.setLayoutX((Display.WIDTH / 4) * 3);
-    fileSaveButton.setLayoutY((Display.HEIGHT / 5) * 4);
-    root.getChildren().add(fileSaveButton);
+    fileSaveButton = new Button("Save File");
+    //fileSaveButton.setLayoutX((Display.WIDTH / 4) * 3);
+    //fileSaveButton.setLayoutY((Display.HEIGHT / 5) * 4);
+    //root.getChildren().add(fileSaveButton);
   }
 
 
