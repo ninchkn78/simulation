@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+import cellsociety.model.GameBoard;
 import java.util.HashMap;
 import java.util.Map;
 import javafx.scene.Group;
@@ -26,7 +27,8 @@ public class ConwaySimulationBoard extends SimulationBoard {
   //works for non square 2D arrays
   // TODO: 2020-10-04 ask about X position for tests
   // TODO: 2020-10-05  don't make new rectangles every time
-  private void initializeMyGrid(String[][] states, String propertiesFileName) {
+  private void initializeMyGrid(GameBoard gameBoard, String propertiesFileName) {
+    String[][] states = gameBoard.getGameBoardStates();
     double width = CELL_GRID_WIDTH / maxRowLength(states);
     for (int i = 0; i < states.length; i++) {
       for (int j = 0; j < states[i].length; j++) {
@@ -51,7 +53,7 @@ public class ConwaySimulationBoard extends SimulationBoard {
   }
 
   // TODO: 2020-10-10  abstract this
-  public void updateMyGrid(String[][] states) {
-    initializeMyGrid(states, "ConwayGameOfLife.properties");
+  public void updateMyGrid(GameBoard gameBoard) {
+    initializeMyGrid(gameBoard, "ConwayGameOfLife.properties");
   }
 }

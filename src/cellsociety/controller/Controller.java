@@ -1,25 +1,39 @@
 package cellsociety.controller;
 
 import cellsociety.model.ConwayGameOfLife;
+import cellsociety.model.GameBoard;
 import cellsociety.model.Simulation;
+import cellsociety.view.CellView;
+import java.io.IOException;
+import java.util.Properties;
 
 public class Controller {
 
-  private String[][] states;
+  private GameBoard board;
   private Simulation game;
 
-  public Controller(String config){
-    game = new ConwayGameOfLife(config); //TODO: SimulationChooser class
-    states = game.getGameBoard().getGameBoardStates();
+  public Controller(String propertiesFileName) {
+    Properties prop = new Properties();
+    try {
+      prop.load(CellView.class.getClassLoader().getResourceAsStream(propertiesFileName));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    game = new ConwayGameOfLife(prop.getProperty("CSVSource")); //TODO: SimulationChooser class
+    board = game.getGameBoard();
   }
 
   /**
    * Update the gameboard in the backend and return to front end
    */
-  public String[][] updateView(){
+  public GameBoard updateView(){
     game.nextGen();
-    states = game.getGameBoard().getGameBoardStates();
-    return states;
+    board = game.getGameBoard();
+    return board;
+  }
+
+  public GameBoard getGameBoard() {
+      return board;
   }
 
 }

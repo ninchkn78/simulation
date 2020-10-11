@@ -17,6 +17,12 @@
 
 ## High-level Design
 
+* Alternatives
+
+We are not sure how to implement MVC - like do we let the model and view directly communicate? What is the role of the model? 
+
+
+
 #### Core Classes
 
 
