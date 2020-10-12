@@ -26,14 +26,19 @@ public class Display extends Application {
   public static final int GAME_WIDTH = 13;
   public static final int GAME_HEIGHT = 11;
 
+  private static final String CSS_STYLE_SHEET = "default.css";
 
   private final Group myRoot = new Group();
   //private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
-  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
+
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
   private Timeline animation;
-  private Controller myController = new Controller("Percolation.properties");
+
+  // TODO: 2020-10-11 controller should make a prop object from properties then pass it around
+  private Controller myController = new Controller("ConwayGameOfLife.properties");
+  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot, myController.getGameBoard(),"ConwayGameOfLife.properties");
+
 
   public Display(){
   }
@@ -71,6 +76,7 @@ public class Display extends Application {
     // respond to input
     //scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
     //GameBoard myGameBoard = new GameBoard();
+    scene.getStylesheets().add(CSS_STYLE_SHEET);
     myButtonSetup.addButtons(myRoot);
     myButtonSetup.checkRunButton();
     //nextGen(tempState);
@@ -80,7 +86,7 @@ public class Display extends Application {
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void nextGen() {
-    myBoard.updateMyGrid(myController.getGameBoard());
+    myBoard.updateMyGrid(myController.getGameBoard(), "ConwayGameOfLife.properties");
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
