@@ -38,11 +38,6 @@ public class Display extends Application {
   private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
-
-  public Timeline getAnimation() {
-    return animation;
-  }
-
   private Timeline animation;
   private Controller myController;
   //private Controller myController = new Controller("ConwayGameOfLife.properties");
@@ -102,8 +97,6 @@ public class Display extends Application {
     myBoard.updateMyGrid(myController.getGameBoard());
   }
 
-
-
   public Window getStage() {
     return myStage;
   }
@@ -115,6 +108,9 @@ public class Display extends Application {
 
   public void setController(Controller controller) {
       myController = controller;
+  }
+  public Timeline getAnimation() {
+    return animation;
   }
 }
 

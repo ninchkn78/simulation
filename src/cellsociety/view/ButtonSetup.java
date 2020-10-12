@@ -56,9 +56,11 @@ public class ButtonSetup {
   }
 
   public void checkFileReaderButton() {
-      loadFileButton.setOnAction(new EventHandler<ActionEvent>() {
+
+    loadFileButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
+
         if(myDisplay.getAnimation()!=null ) {
           myDisplay.pauseGame();
         }
