@@ -4,6 +4,7 @@ package cellsociety.model.games;
 import cellsociety.model.GameBoard;
 import cellsociety.model.cells.Cell;
 import cellsociety.model.cells.ConwayCell;
+import java.util.Arrays;
 
 public class ConwayGameOfLife extends Simulation {
 

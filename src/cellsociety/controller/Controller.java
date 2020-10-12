@@ -19,17 +19,16 @@ public class Controller {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    game = new Percolation(prop.getProperty("CSVSource")); //TODO: SimulationChooser class
+    game = new ConwayGameOfLife(prop.getProperty("CSVSource")); //TODO: SimulationChooser class
     board = game.getGameBoard();
   }
 
   /**
    * Update the gameboard in the backend and return to front end
    */
-  public GameBoard updateView(){
+  public void updateView(){
     game.nextGen();
     board = game.getGameBoard();
-    return board;
   }
 
   public GameBoard getGameBoard() {
