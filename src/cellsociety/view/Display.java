@@ -9,6 +9,8 @@ import java.util.Arrays;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -36,7 +38,13 @@ public class Display extends Application {
   private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
+
+  public Timeline getAnimation() {
+    return animation;
+  }
+
   private Timeline animation;
+  //private Controller myController;
   private Controller myController = new Controller("ConwayGameOfLife.properties");
 
 
@@ -54,12 +62,21 @@ public class Display extends Application {
   public void start(Stage stage) {
     // attach scene to the stage and display it
     myStage = stage;
-    Scene myScene = setupScene();
-    stage.setScene(myScene);
+    SplashScreen startScreen = new SplashScreen();
+    stage.setScene(startScreen.getMyScene()); //connectinga splash screen
+
+    startScreen.getMyButton().setOnAction(new EventHandler<ActionEvent>(){
+      @Override public void handle(ActionEvent e){
+          Scene gameScene = setupScene();
+          stage.setScene(gameScene);
+      }
+    });
+
+
+//    Scene myScene = setupScene();
+//    stage.setScene(myScene);
     stage.setTitle(TITLE); //will also come from properties
     stage.show();
-    // attach "game loop" to timeline to play it (basically just calling step() method repeatedly forever)
-    //startStepMethod();
   }
 
   public void startStepMethod() {
@@ -77,12 +94,14 @@ public class Display extends Application {
     //scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
     //GameBoard myGameBoard = new GameBoard();
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    myButtonSetup.addButtons(myRoot);
+    myButtonSetup.createSetup(myRoot);
     myButtonSetup.checkRunButton();
+    myButtonSetup.checkButtonStatus(myController.getGameBoard());
     //nextGen(tempState);
 
     return scene;
   }
+
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void nextGen() {
@@ -106,8 +125,8 @@ public class Display extends Application {
   }
 
 
-  public Controller getController() {
-      return myController;
+  public void setController(Controller controller) {
+      myController = controller;
   }
 }
 
