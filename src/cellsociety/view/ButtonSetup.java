@@ -15,6 +15,7 @@ public class ButtonSetup {
 
   private Button fileSaveButton;
   private Button runButton;
+  private Button pauseButton;
 
   private final Display myDisplay;
   private Button loadFileButton;
@@ -30,15 +31,15 @@ public class ButtonSetup {
   public void createSetup(Group root) {
     createButtons();
     HBox buttonBox = createHBox();
-    buttonBox.getChildren().addAll(loadFileButton,runButton,fileSaveButton);
+    buttonBox.getChildren().addAll(loadFileButton,runButton,pauseButton,fileSaveButton);
     root.getChildren().add(buttonBox);
   }
 
   private void createButtons() {
     loadFileButton = new Button("Load File");
-    runButton = new Button("Run Default");
+    runButton = new Button("Play");
     fileSaveButton = new Button("Save File");
-
+    pauseButton = new Button("Pause");
   }
 
   private HBox createHBox() {
@@ -54,43 +55,44 @@ public class ButtonSetup {
     checkFileWriteButton();
     checkFileReaderButton();
     checkRunButton();
+    checkPauseutton();
   }
 
   public void checkFileReaderButton() {
 
-    loadFileButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        fileSelected = true;
-        if(myDisplay.getAnimation()!=null ) {
-          myDisplay.pauseGame();
-        }
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
+    loadFileButton.setOnAction(e -> {
+      fileSelected = true;
+      myDisplay.pauseGame();
+      FileChooser fileChooser = new FileChooser();
+      fileChooser.setTitle("Open Resource File");
+      File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
 
-        //String[] pFilePathArr = propertiesFile.getPath().split(".");
-        if(propertiesFile!= null){
-          myDisplay.setController(new Controller(propertiesFile.getName()));
-        }
-
+      //String[] pFilePathArr = propertiesFile.getPath().split(".");
+      if(propertiesFile!= null){
+        myDisplay.setController(new Controller(propertiesFile.getName()));
       }
-      });
+
+    });
   }
 
   public void checkRunButton() {
     runButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        if(!fileSelected){
-          myDisplay.setController(new Controller(Display.getDefaultPropertyFileName()));
-        }
         myDisplay.startStepMethod(Display.SECOND_DELAY);
       }
 
     });
   }
 
+  public void checkPauseutton() {
+    pauseButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent e) {
+        myDisplay.pauseGame();
+
+    };
+  });}
 
   public void checkFileWriteButton() {
     fileSaveButton.setOnAction(new EventHandler<ActionEvent>() {
