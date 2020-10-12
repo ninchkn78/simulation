@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class ConwayGameOfLife extends Simulation {
 
-
+  public static final String csvconfig = "board_config/conway0.csv";
   public ConwayGameOfLife(String csvConfig){
     super(csvConfig);
   }

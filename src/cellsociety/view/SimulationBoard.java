@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import javafx.scene.Group;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -19,25 +20,25 @@ public class SimulationBoard {
   private final List<List<CellView>> cells = new ArrayList<>();
 
 
-  public SimulationBoard(Group root, GameBoard gameBoard, String propertiesFileName) {
+  public SimulationBoard(Group root, GameBoard gameBoard, Properties properties) {
     myGrid.setLayoutX(75);
     myGrid.setLayoutY(50);
     myGrid.setGridLinesVisible(true);
     root.getChildren().add(myGrid);
-    initializeMyGrid(gameBoard,propertiesFileName);
+    initializeMyGrid(gameBoard,properties);
   }
 
   //works for non square 2D arrays
   // TODO: 2020-10-04 ask about X position for tests
   // TODO: 2020-10-05  don't make new rectangles every time
-  private void initializeMyGrid(GameBoard gameBoard, String propertiesFileName) {
+  private void initializeMyGrid(GameBoard gameBoard, Properties properties) {
     String[][] states = gameBoard.getGameBoardStates();
     cells.clear();
     double width = CELL_GRID_WIDTH / maxRowLength(states);
     for (int i = 0; i < states.length; i++) {
       cells.add(new ArrayList<>());
       for (int j = 0; j < states[i].length; j++) {
-        CellView cell = new CellView(width, CELL_GRID_HEIGHT / states.length, states[i][j], propertiesFileName);
+        CellView cell = new CellView(width, CELL_GRID_HEIGHT / states.length, states[i][j], properties);
         cell.setId(String.format("cell%d,%d", i, j));
         GridPane.setConstraints(cell, j, i);
         myGrid.getChildren().add(cell);
@@ -59,11 +60,11 @@ public class SimulationBoard {
 
   // TODO: 2020-10-10  abstract this
 
-  public void updateMyGrid(GameBoard gameBoard, String propertiesFileName) {
+  public void updateMyGrid(GameBoard gameBoard, Properties properties) {
     String[][] states = gameBoard.getGameBoardStates();
     for(int i = 0; i < cells.size(); i++){
       for(int j = 0; j < cells.get(i).size(); j++){
-        cells.get(i).get(j).setColor(states[i][j],propertiesFileName);
+        cells.get(i).get(j).setColor(states[i][j],properties);
       }
     }
   }

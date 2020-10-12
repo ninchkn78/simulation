@@ -8,27 +8,22 @@ import javafx.scene.shape.Rectangle;
 public class CellView extends Rectangle {
 
 
-  public CellView(double width, double height, String state, String propertiesFileName){
+  public CellView(double width, double height, String state, Properties properties){
     super(width, height);
     this.setStroke(Color.BLACK);
-    this.setColor(state, propertiesFileName);
+    this.setColor(state, properties);
 
   }
 
-  public void setColor(String state, String propertiesFileName)  {
-    try {
-      Properties prop = new Properties();
-      prop.load(CellView.class.getClassLoader().getResourceAsStream(propertiesFileName));
+  public void setColor(String state, Properties properties)  {
+
       // TODO: 2020-10-10 better error handling
-      if (prop.getProperty(state) == null){
-        this.setFill(Color.BLACK);
+      if (properties.getProperty(state) == null){
+        this.setFill(Color.WHITE);
       }
       else {
-        this.setFill(Color.web(prop.getProperty(state)));
+        this.setFill(Color.web(properties.getProperty(state)));
       }
-    } catch (IOException e) {
-      // TODO: 2020-10-10 handle this (property file does not exist)
     }
   }
-}
 

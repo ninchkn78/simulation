@@ -96,7 +96,7 @@ public class Display extends Application {
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime) {
     myController.updateView();
-    myBoard.updateMyGrid(myController.getGameBoard(), DEFAULT_PROPERTY_FILE_NAME);
+    myBoard.updateMyGrid(myController.getGameBoard(), myController.getProperties());
   }
 
   public Window getStage() {
@@ -112,7 +112,7 @@ public class Display extends Application {
 
   public void setController(Controller controller) {
       myController = controller;
-      myBoard= new SimulationBoard(myRoot, myController.getGameBoard(),DEFAULT_PROPERTY_FILE_NAME);
+      myBoard= new SimulationBoard(myRoot, myController.getGameBoard(), myController.getProperties());
   }
 
   public Controller getController(){
