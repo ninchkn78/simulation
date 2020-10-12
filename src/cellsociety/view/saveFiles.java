@@ -21,7 +21,6 @@ public class saveFiles {
     writeRows(csvWriter, currentState);
     csvWriter.flush();
     csvWriter.close();
-
   }
 
   private void makeHeader(FileWriter csvWriter, String[][] currentState) throws IOException {
@@ -43,8 +42,5 @@ public class saveFiles {
       }
       csvWriter.append(NEW_LINE);
     }
-
   }
-
-
 }
