@@ -2,7 +2,7 @@ package cellsociety.view;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import cellsociety.model.ConwayCell;
+import cellsociety.model.cells.ConwayCell;
 import java.io.IOException;
 import javafx.scene.paint.Color;
 import org.junit.jupiter.api.Test;

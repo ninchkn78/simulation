@@ -2,6 +2,7 @@ package cellsociety.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import cellsociety.model.cells.ConwayCell;
 import org.junit.jupiter.api.Test;
 public class ConwayCellTest {
 
