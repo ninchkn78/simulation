@@ -2,7 +2,7 @@ package cellsociety.model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.Arrays;
+import cellsociety.model.cells.ConwayCell;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ class GameBoardTest {
   public void clear(){
       for (int i = 0; i < board.getHeight(); i++){
         for (int j = 0; j < board.getWidth(); j++){
-          board.setPiece(i,j,ConwayCell.ALIVE);
+          board.setPiece(i,j, ConwayCell.ALIVE);
         }
       }
       board.clear();

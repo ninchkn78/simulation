@@ -1,7 +1,7 @@
 //package cellsociety.view;
 //
 //
-//import cellsociety.model.ConwayGameOfLife;
+//import cellsociety.model.games.ConwayGameOfLife;
 //import java.util.Arrays;
 //import javafx.animation.KeyFrame;
 //import javafx.animation.Timeline;

@@ -1,7 +1,12 @@
-package cellsociety.model;
+package cellsociety.model.games;
 
 
-public class ConwayGameOfLife extends Simulation{
+import cellsociety.model.GameBoard;
+import cellsociety.model.Simulation;
+import cellsociety.model.cells.Cell;
+import cellsociety.model.cells.ConwayCell;
+
+public class ConwayGameOfLife extends Simulation {
 
 
   public ConwayGameOfLife(String csvConfig){

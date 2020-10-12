@@ -1,5 +1,8 @@
 package cellsociety.model;
 
+import cellsociety.model.cells.Cell;
+import cellsociety.model.cells.ConwayCell;
+
 public class GameBoard {
 
   private final int width;

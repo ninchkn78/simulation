@@ -1,8 +1,11 @@
-package cellsociety.model;
+package cellsociety.model.cells;
+
+import cellsociety.model.cells.Cell;
+import cellsociety.model.cells.CellState;
 
 public class ConwayCell extends Cell {
 
-  public enum ConwayState implements CellState{
+  public enum ConwayState implements CellState {
     ALIVE("1"),
     DEAD("0");
 
@@ -38,14 +41,6 @@ public class ConwayCell extends Cell {
     super(DEAD);
   }
 
-  public void toggleState() { //TODO: make this cleaner
-    if (this.getState() == DEAD) {
-      this.setState(ALIVE);
-    } else {
-      this.setState(DEAD);
-    }
-  }
-
   public boolean isAlive() {
     return this.getState().equals(ALIVE);
   }
@@ -53,10 +48,5 @@ public class ConwayCell extends Cell {
   public boolean isDead() {
     return this.getState().equals(DEAD);
   }
-
-  public String toString() {
-    return this.getState();
-  }
-
 
 }

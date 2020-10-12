@@ -1,6 +1,6 @@
 package cellsociety.controller;
 
-import cellsociety.model.ConwayGameOfLife;
+import cellsociety.model.games.ConwayGameOfLife;
 import cellsociety.model.GameBoard;
 import cellsociety.model.Simulation;
 import cellsociety.view.CellView;
