@@ -28,6 +28,7 @@ public class SplashScreen {
       titleBox.getStyleClass().add("TitleBox");
 
       myButton = new Button("Conway");
+      myButton.setId("Conway");
       Button percButton = new Button("Percolation");
 
       HBox buttonBox = new HBox();

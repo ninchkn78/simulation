@@ -6,6 +6,7 @@ import cellsociety.model.ConwayReader;
 import cellsociety.model.GameBoard;
 import cellsociety.view.Display;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -32,6 +33,11 @@ class SimulationBoardTest extends DukeApplicationTest {
 
   @Test
   void testCellsAreInitialized() {
+    Button conwayButton = lookup("#Conway").queryButton();
+    conwayButton.fire();
+    sleep(1000);
+    //conwayButton.clic;
+
     Rectangle cell1 = lookup("#cell0,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
     Assertions.assertEquals(Color.RED, cell1.getFill());
