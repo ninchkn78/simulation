@@ -24,6 +24,7 @@ public class Display extends Application {
   public static final int WIDTH = 800;
   public static final int HEIGHT = 600;
   public static final int FRAMES_PER_SECOND = 60;
+  public static final int DEFAULT_SPEED = 100/60;
   public static final Paint BACKGROUND = Color.AZURE;
   public static final int GAME_WIDTH = 13;
   public static final int GAME_HEIGHT = 11;
@@ -91,12 +92,23 @@ public class Display extends Application {
     scene.getStylesheets().add(CSS_STYLE_SHEET);
     myButtonSetup.createSetup(myRoot);
     myButtonSetup.checkButtonStatus();
+    setUpSpeedAdjuster();
+    setUpAnimation();
     return scene;
+  }
+
+  private void setUpAnimation() {
+    KeyFrame frame = new KeyFrame(Duration.seconds(animationSpeed), e -> step(animationSpeed));
+    animation = new Timeline();
+    animation.setCycleCount(Timeline.INDEFINITE);
+    animation.getKeyFrames().add(frame);
   }
 
   private void setUpSpeedAdjuster() {
     speedAdjuster = new Slider(.5,5,1);
-    speedAdjuster.setLayoutX(WIDTH/2);
+    // TODO: 2020-10-12 can we vbox this with the buttons
+    speedAdjuster.setLayoutX(WIDTH/2 - 50);
+    speedAdjuster.setLayoutY(HEIGHT - HEIGHT / 4);
     speedAdjuster.valueProperty().addListener((
         ObservableValue<? extends Number> ov,
         Number old_val, Number new_val) -> {
@@ -105,18 +117,12 @@ public class Display extends Application {
     myRoot.getChildren().add(speedAdjuster);
   }
 
-  public void startStepMethod() {
-    KeyFrame frame = new KeyFrame(Duration.seconds(animationSpeed), e -> step(animationSpeed));
-    setUpSpeedAdjuster();
-    animation = new Timeline();
-    animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(frame);
+  public void play() {
     animation.play();
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime) {
-    System.out.println(animationSpeed);
     animation.setRate(animationSpeed);
     myController.updateView();
     myBoard.updateMyGrid(myController.getGameBoard(), myController.getProperties());
