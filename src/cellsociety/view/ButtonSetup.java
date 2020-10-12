@@ -31,13 +31,13 @@ public class ButtonSetup {
   public void createSetup(Group root) {
     createButtons();
     HBox buttonBox = createHBox();
-    buttonBox.getChildren().addAll(loadFileButton,runButton,fileSaveButton,pauseButton);
+    buttonBox.getChildren().addAll(loadFileButton,runButton,pauseButton,fileSaveButton);
     root.getChildren().add(buttonBox);
   }
 
   private void createButtons() {
     loadFileButton = new Button("Load File");
-    runButton = new Button("Run Default");
+    runButton = new Button("Play");
     fileSaveButton = new Button("Save File");
     pauseButton = new Button("Pause");
   }
@@ -79,9 +79,6 @@ public class ButtonSetup {
     runButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        if(!fileSelected){
-          myDisplay.setController(new Controller(Display.getDefaultPropertyFileName()));
-        }
         myDisplay.startStepMethod(Display.SECOND_DELAY);
       }
 

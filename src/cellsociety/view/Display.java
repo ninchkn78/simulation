@@ -52,10 +52,6 @@ public class Display extends Application {
     launch(args);
   }
 
-  public static String getDefaultPropertyFileName() {
-        return DEFAULT_PROPERTY_FILE_NAME;
-  }
-
   @Override
   public void start(Stage stage) {
     // attach scene to the stage and display it
@@ -69,8 +65,10 @@ public class Display extends Application {
 
   private void checkWhichGame(SplashScreen startScreen) {
     //TODO - figure out how to add multiple buttons
+    // TODO: 2020-10-12 abstract for any default property file or any simulation
     startScreen.getMyButton().setOnAction(new EventHandler<ActionEvent>(){
       @Override public void handle(ActionEvent e){
+        setController(new Controller(DEFAULT_PROPERTY_FILE_NAME));
           Scene gameScene = setupScene();
           myStage.setScene(gameScene);
       }
