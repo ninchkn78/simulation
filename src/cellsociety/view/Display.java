@@ -33,11 +33,14 @@ public class Display extends Application {
 
   private final Group myRoot = new Group();
   //private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
-  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
+
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
   private Timeline animation;
+
+  // TODO: 2020-10-11 controller should make a prop object from properties then pass it around
   private Controller myController = new Controller("ConwayGameOfLife.properties");
+  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot, myController.getGameBoard(),"ConwayGameOfLife.properties");
 
 
   public Display(){
@@ -86,7 +89,7 @@ public class Display extends Application {
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void nextGen() {
-    myBoard.updateMyGrid(myController.getGameBoard());
+    myBoard.updateMyGrid(myController.getGameBoard(), "ConwayGameOfLife.properties");
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
