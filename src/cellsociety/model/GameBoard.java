@@ -1,5 +1,8 @@
 package cellsociety.model;
 
+import cellsociety.model.cells.Cell;
+import cellsociety.model.cells.ConwayCell;
+
 public class GameBoard {
 
   private final int width;
@@ -57,7 +60,7 @@ public class GameBoard {
     return gameBoardStates[row][col];
   }
 
-  public boolean isValidLocation(int row, int col) {
+  public boolean inBounds(int row, int col) {
     return (row >= 0 && col >= 0) && (row < height && col < width);
   }
 
@@ -78,6 +81,7 @@ public class GameBoard {
       gameBoardStates[x][y] = ConwayCell.DEAD;
     }
   }
+
 
   public int getWidth(){
     return width;

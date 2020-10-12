@@ -2,9 +2,6 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
-import cellsociety.model.ConwayGameOfLife;
-import cellsociety.model.GameBoard;
-import java.io.IOException;
 import java.util.Arrays;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -36,13 +33,20 @@ public class Display extends Application {
 
   private final Group myRoot = new Group();
   //private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
-  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
+
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
   private Timeline animation;
+<<<<<<< HEAD
   private Controller myController;
 
   //private Controller myController = new Controller("ConwayGameOfLife.properties");
+=======
+
+  // TODO: 2020-10-11 controller should make a prop object from properties then pass it around
+  private Controller myController = new Controller("ConwayGameOfLife.properties");
+  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot, myController.getGameBoard(),"ConwayGameOfLife.properties");
+>>>>>>> 6e48901da8e1ec072cb63eb175b96b776c5e6d98
 
 
   public Display(){
@@ -89,12 +93,18 @@ public class Display extends Application {
     return scene;
   }
 
+<<<<<<< HEAD
   public void startStepMethod(double elapsedTime) {
     KeyFrame frame = new KeyFrame(Duration.seconds(elapsedTime), e -> step(elapsedTime));
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
+=======
+  // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
+  void nextGen() {
+    myBoard.updateMyGrid(myController.getGameBoard(), "ConwayGameOfLife.properties");
+>>>>>>> 6e48901da8e1ec072cb63eb175b96b776c5e6d98
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?

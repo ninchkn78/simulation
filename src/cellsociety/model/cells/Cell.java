@@ -1,4 +1,4 @@
-package cellsociety.model;
+package cellsociety.model.cells;
 
 public abstract class Cell {
 
@@ -14,6 +14,10 @@ public abstract class Cell {
 
   public void setState(String state) {
     this.state = state;
+  }
+
+  public String toString() {
+    return this.getState();
   }
 
 }

@@ -1,7 +1,12 @@
-package cellsociety.model;
+package cellsociety.model.games;
 
 
-public class ConwayGameOfLife extends Simulation{
+import cellsociety.model.GameBoard;
+import cellsociety.model.cells.Cell;
+import cellsociety.model.cells.ConwayCell;
+import java.util.Arrays;
+
+public class ConwayGameOfLife extends Simulation {
 
 
   public ConwayGameOfLife(String csvConfig){
@@ -30,24 +35,25 @@ public class ConwayGameOfLife extends Simulation{
     }
   }
 
-
-
-
-
-  public void handleMouseInput(double x, double y) {
-//    int scaledHeight = boardPanel.getHeight()/g.getHeight();
-//    int scaledWidth =  boardPanel.getWidth()/g.getWidth();
-//
-//    int x = e.getX()/scaledWidth;
-//    int y = e.getY()/scaledHeight;
-//    g.toggleState(x, y);
+  @Override
+  public void nextGen(){
+    GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight());
+    for (int i = 0; i < getGameBoard().getHeight(); i++) {
+      for (int j = 0; j < getGameBoard().getWidth(); j++) {
+        updateCell(nextBoard, i,j);
+      }
+    }
+    incrementGeneration();
+    setGameBoard(nextBoard);
   }
+
+
 
   public int countLivingNeighbors(int currentRow, int currentColumn) {
     int aliveCount = 0;
     for (int i = currentRow - 1; i <= currentRow + 1; i++){
       for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
-        if (getGameBoard().isValidLocation(i,j) && isAlive(getGameBoard().getCell(i, j))){ //TODO: make this not ugly af
+        if (getGameBoard().inBounds(i,j) && isAlive(getGameBoard().getCell(i, j))){ //TODO: make this not ugly af
           aliveCount++;
         }
       }

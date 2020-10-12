@@ -1,10 +1,14 @@
 //package cellsociety.view;
 //
 //
+<<<<<<< HEAD
 //import cellsociety.controller.Controller;
 //import cellsociety.model.ConwayGameOfLife;
 //import cellsociety.model.GameBoard;
 //import java.io.IOException;
+=======
+//import cellsociety.model.games.ConwayGameOfLife;
+>>>>>>> 6e48901da8e1ec072cb63eb175b96b776c5e6d98
 //import java.util.Arrays;
 //import javafx.animation.KeyFrame;
 //import javafx.animation.Timeline;
