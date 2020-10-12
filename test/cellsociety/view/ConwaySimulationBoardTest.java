@@ -32,7 +32,6 @@ class ConwaySimulationBoardTest extends DukeApplicationTest {
 
   @Test
   void testCellsAreInitialized() {
-    javafxRun(() -> conwayDisplay.nextGen());
     Rectangle cell1 = lookup("#cell0,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
     Assertions.assertEquals(Color.RED, cell1.getFill());
