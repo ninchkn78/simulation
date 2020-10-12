@@ -29,7 +29,6 @@ public abstract class Simulation {
     }
     this.generation++;
     board = nextBoard;
-
   }
 
 

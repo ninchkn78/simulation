@@ -31,13 +31,13 @@ class GameBoardTest {
   }
 
   @Test
-  public void isValidLocationTest(){
-    assertTrue(board.isValidLocation(4,4));
-    assertTrue(board.isValidLocation(1,3));
-    assertTrue(board.isValidLocation(0,0));
-    assertFalse(board.isValidLocation(-1,4));
-    assertFalse(board.isValidLocation(5,4));
-    assertFalse(board.isValidLocation(0,10));
+  public void inBoundsTest(){
+    assertTrue(board.inBounds(4,4));
+    assertTrue(board.inBounds(1,3));
+    assertTrue(board.inBounds(0,0));
+    assertFalse(board.inBounds(-1,4));
+    assertFalse(board.inBounds(5,4));
+    assertFalse(board.inBounds(0,10));
   }
 
   

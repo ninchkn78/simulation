@@ -60,7 +60,7 @@ public class GameBoard {
     return gameBoardStates[row][col];
   }
 
-  public boolean isValidLocation(int row, int col) {
+  public boolean inBounds(int row, int col) {
     return (row >= 0 && col >= 0) && (row < height && col < width);
   }
 

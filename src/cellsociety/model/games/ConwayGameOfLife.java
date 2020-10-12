@@ -52,7 +52,7 @@ public class ConwayGameOfLife extends Simulation {
     int aliveCount = 0;
     for (int i = currentRow - 1; i <= currentRow + 1; i++){
       for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
-        if (getGameBoard().isValidLocation(i,j) && isAlive(getGameBoard().getCell(i, j))){ //TODO: make this not ugly af
+        if (getGameBoard().inBounds(i,j) && isAlive(getGameBoard().getCell(i, j))){ //TODO: make this not ugly af
           aliveCount++;
         }
       }
