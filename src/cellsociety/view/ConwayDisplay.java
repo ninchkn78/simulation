@@ -1,7 +1,10 @@
 //package cellsociety.view;
 //
 //
-//import cellsociety.model.games.ConwayGameOfLife;
+//import cellsociety.controller.Controller;
+//import cellsociety.model.ConwayGameOfLife;
+//import cellsociety.model.GameBoard;
+//import java.io.IOException;
 //import java.util.Arrays;
 //import javafx.animation.KeyFrame;
 //import javafx.animation.Timeline;
@@ -15,8 +18,8 @@
 //import javafx.util.Duration;
 //
 //
-//public class ConwayDisplay extends Display{
-//
+//public class Display extends Application {
+//  //THisshit should be in css
 //  public static final String TITLE = "Simulation";
 //  public static final int WIDTH = 800;
 //  public static final int HEIGHT = 600;
@@ -26,16 +29,25 @@
 //  public static final int GAME_WIDTH = 13;
 //  public static final int GAME_HEIGHT = 11;
 //
+//  private static final String CSS_STYLE_SHEET = "default.css";
 //
 //  private final Group myRoot = new Group();
 //  //private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
 //  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
-//  ConwayGameOfLife game = new ConwayGameOfLife("GAME_CSVS/new0.csv");
 //  private final ButtonSetup myButtonSetup = new ButtonSetup(this);
-//  //private Controller controller = new Controller();
-//  private String[][] tempState;
 //  private Stage myStage;
+//
+//  public Timeline getAnimation() {
+//    return animation;
+//  }
+//
 //  private Timeline animation;
+//  //private Controller myController;
+//  private Controller myController = new Controller("ConwayGameOfLife.properties");
+//
+//
+//  public Display(){
+//  }
 //
 //  /**
 //   * Start the program.
@@ -50,10 +62,8 @@
 //    myStage = stage;
 //    Scene myScene = setupScene();
 //    stage.setScene(myScene);
-//    stage.setTitle(TITLE);
+//    stage.setTitle(TITLE); //will also come from properties
 //    stage.show();
-//    // attach "game loop" to timeline to play it (basically just calling step() method repeatedly forever)
-//    //startStepMethod();
 //  }
 //
 //  public void startStepMethod() {
@@ -69,65 +79,44 @@
 //    Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
 //    // respond to input
 //    //scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
-//    tempState = game.getGameBoard().getGameBoardStates();
-//    myButtonSetup.addButtons(myRoot);
-//    myButtonSetup.checkButtonStatus(tempState);
+//    //GameBoard myGameBoard = new GameBoard();
+//    scene.getStylesheets().add(CSS_STYLE_SHEET);
+//    myButtonSetup.createSetup(myRoot);
+//    myButtonSetup.checkRunButton();
+//    myButtonSetup.checkButtonStatus(myController.getGameBoard());
 //    //nextGen(tempState);
 //
 //    return scene;
 //  }
 //
+//
 //  // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
-//  void nextGen(String[][] states) {
-//    myBoard.updateMyGrid(states);
+//  void nextGen() {
+//    myBoard.updateMyGrid(myController.getGameBoard());
 //  }
 //
 //  // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
 //  void step(double elapsedTime) {
-////    tempState = new String[][]{{"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},      //LIKELY THIS WILL BE SOME METHOD CALL FROM BACKEND
-////            {"1","0","0","1","0","1", "1", "0", "1", "0", "1", "1", "0"},
-////            {"1","0","1","0","0","1", "1", "0", "1", "0", "1", "1", "1"},
-////            {"1","1","1","1","0","1", "1", "0", "1", "0", "1", "0", "1"},
-////            {"1","0","1","1","0","1", "1", "0", "0", "0", "1", "1", "1"},
-////            {"1","0","0","1","0","1", "0", "0", "1", "0", "1", "1", "0"},
-////            {"0","0","1","1","0","0", "1", "1", "1", "1", "0", "1", "0"},
-////            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
-////            {"1","0","1","1","0","1", "1", "0", "1", "1", "0", "1", "1"},
-////            {"1","0","1","1","0","1", "1", "0", "1", "0", "1", "1", "1"},
-////            {"1","0","1","1","0","1", "1", "0", "1", "1", "1", "1", "1"}};
-//
-//    game.nextGen();
-//    System.out.println(1);
-//    tempState = game.getGameBoard().getGameBoardStates();
-//    nextGen(tempState);
-//
-//
+//    myController.updateView();
+//    nextGen();
 //  }
 //
 //
-//  public void handleMouseInput(double x, double y){
-//    int scaledHeight = WIDTH/game.getGameBoard().getHeight();
-//    int scaledWidth =  HEIGHT/game.getGameBoard().getWidth();
-//
-//    int scaledX = (int)(x/scaledWidth);
-//    int scaledY = (int)(y/scaledHeight);
-//    game.getGameBoard().toggleState(scaledX,scaledY);
-//    System.out.println(game.getGameBoard().getCell(scaledX,scaledY).getState());
-//
-//    System.out.println(scaledX + " " + scaledY);
-//    System.out.println(Arrays.deepToString(game.getGameBoard().getGameBoardStates()));
-//  }
 //
 //  public Window getStage() {
 //    return myStage;
 //  }
 //
 //  public void pauseGame(){
-//      animation.pause();
+//    animation.pause();
 //  }
 //
 //
+//  public void setController(Controller controller) {
+//    myController = controller;
+//  }
 //}
+//
 //
 //
 //

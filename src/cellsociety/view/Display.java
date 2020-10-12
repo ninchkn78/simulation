@@ -6,6 +6,8 @@ import java.util.Arrays;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -26,6 +28,7 @@ public class Display extends Application {
   public static final int GAME_WIDTH = 13;
   public static final int GAME_HEIGHT = 11;
 
+  private static final String DEFAULT_PROPERTY_FILE_NAME = "ConwayGameOfLife.properties";
   private static final String CSS_STYLE_SHEET = "default.css";
 
   private final Group myRoot = new Group();
@@ -34,10 +37,9 @@ public class Display extends Application {
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
   private Timeline animation;
+  private Controller myController;
 
-  // TODO: 2020-10-11 controller should make a prop object from properties then pass it around
-  private Controller myController = new Controller("ConwayGameOfLife.properties");
-  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot, myController.getGameBoard(),"ConwayGameOfLife.properties");
+  //private Controller myController = new Controller("ConwayGameOfLife.properties");
 
 
   public Display(){
@@ -50,52 +52,53 @@ public class Display extends Application {
     launch(args);
   }
 
+  public static String getDefaultPropertyFileName() {
+        return DEFAULT_PROPERTY_FILE_NAME;
+  }
+
   @Override
   public void start(Stage stage) {
     // attach scene to the stage and display it
     myStage = stage;
-    Scene myScene = setupScene();
-    stage.setScene(myScene);
+    SplashScreen startScreen = new SplashScreen();
+    myStage.setScene(startScreen.getMyScene()); //connectinga splash screen
+    checkWhichGame(startScreen);
     stage.setTitle(TITLE); //will also come from properties
     stage.show();
-    // attach "game loop" to timeline to play it (basically just calling step() method repeatedly forever)
-    //startStepMethod();
   }
 
-  public void startStepMethod() {
-    KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
+  private void checkWhichGame(SplashScreen startScreen) {
+    //TODO - figure out how to add multiple buttons
+    startScreen.getMyButton().setOnAction(new EventHandler<ActionEvent>(){
+      @Override public void handle(ActionEvent e){
+          Scene gameScene = setupScene();
+          myStage.setScene(gameScene);
+      }
+    });
+  }
+
+  // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
+  Scene setupScene() {
+    Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
+    scene.getStylesheets().add(CSS_STYLE_SHEET);
+    myButtonSetup.createSetup(myRoot);
+    myButtonSetup.checkButtonStatus();
+    return scene;
+  }
+
+  public void startStepMethod(double elapsedTime) {
+    KeyFrame frame = new KeyFrame(Duration.seconds(elapsedTime), e -> step(elapsedTime));
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
   }
 
-  // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
-  Scene setupScene() {
-    Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
-    // respond to input
-    //scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
-    //GameBoard myGameBoard = new GameBoard();
-    scene.getStylesheets().add(CSS_STYLE_SHEET);
-    myButtonSetup.addButtons(myRoot);
-    myButtonSetup.checkRunButton();
-    //nextGen(tempState);
-
-    return scene;
-  }
-
-  // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
-  void nextGen() {
-    myBoard.updateMyGrid(myController.getGameBoard(), "ConwayGameOfLife.properties");
-  }
-
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime) {
     myController.updateView();
-    nextGen();
+    myBoard.updateMyGrid(myController.getGameBoard());
   }
-
-
 
   public Window getStage() {
     return myStage;
@@ -106,9 +109,19 @@ public class Display extends Application {
   }
 
 
-  public Controller getController() {
-      return myController;
+  public void setController(Controller controller) {
+      myController = controller;
   }
+
+  public Controller getController(){
+    return myController;
+  }
+
+  public Timeline getAnimation() {
+    return animation;
+  }
+
+
 }
 
 

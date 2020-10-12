@@ -1,6 +1,8 @@
 package cellsociety.view;
 
 import cellsociety.controller.Controller;
+import cellsociety.model.GameBoard;
+import java.io.File;
 import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +18,8 @@ public class ButtonSetup {
 
   private final Display myDisplay;
   private Button loadFileButton;
+  private boolean fileSelected = false;
+
   //TODO - idea - just add more buttons here by calling subclasses or something
 
   public ButtonSetup(Display myGame) {
@@ -23,16 +27,18 @@ public class ButtonSetup {
   }
 
 
-  public void addButtons(Group root) {
+  public void createSetup(Group root) {
+    createButtons();
     HBox buttonBox = createHBox();
-
-    addSaveFileButton(root);
-    addRunButton(root);
-    addLoadFileButton(root);
-
     buttonBox.getChildren().addAll(loadFileButton,runButton,fileSaveButton);
-
     root.getChildren().add(buttonBox);
+  }
+
+  private void createButtons() {
+    loadFileButton = new Button("Load File");
+    runButton = new Button("Run Default");
+    fileSaveButton = new Button("Save File");
+
   }
 
   private HBox createHBox() {
@@ -43,39 +49,30 @@ public class ButtonSetup {
     return buttonBox;
   }
 
-  private void addLoadFileButton(Group root) {
-    loadFileButton = new Button("Load File");
-  }
 
-  private void addRunButton(Group root) {
-    runButton = new Button("Run Simulation");
-  }
-
-  private void addSaveFileButton(Group root) {
-    fileSaveButton = new Button("Save File");
-  }
-
-
-  //TODO - idea - consider having a button maker class - and then button classes which all extend an abstract button
-  //TODO- class which have subclass buttons which all have unique styling and their own actions when pressed.
-  public void checkButtonStatus(String[][] tempState) {
-    checkFileButton(tempState);
+  public void checkButtonStatus() {
+    checkFileWriteButton();
     checkFileReaderButton();
+    checkRunButton();
   }
 
-  private void checkFileReaderButton() {
-      loadFileButton.setOnAction(new EventHandler<ActionEvent>() {
+  public void checkFileReaderButton() {
+
+    loadFileButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        myDisplay.pauseGame();
-        //System.out.println(1);  //TODO add file reader
+        fileSelected = true;
+        if(myDisplay.getAnimation()!=null ) {
+          myDisplay.pauseGame();
+        }
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
-        fileChooser.showOpenDialog(myDisplay.getStage());
+        File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
 
-        //this method will create the agme board and create na instance of proper model
-        //myDisplay.getController() = new Controller();
-
+        //String[] pFilePathArr = propertiesFile.getPath().split(".");
+        if(propertiesFile!= null){
+          myDisplay.setController(new Controller(propertiesFile.getName()));
+        }
 
       }
       });
@@ -85,22 +82,30 @@ public class ButtonSetup {
     runButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        myDisplay.startStepMethod();
+        if(!fileSelected){
+          myDisplay.setController(new Controller(Display.getDefaultPropertyFileName()));
+        }
+        myDisplay.startStepMethod(Display.SECOND_DELAY);
       }
+
     });
   }
 
 
-  public void checkFileButton(String[][] tempState) {
+  public void checkFileWriteButton() {
     fileSaveButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        System.out.println("WRITE FILE");
-        saveFiles saveFileObject = new saveFiles();
-        try {
-          saveFileObject.saveState(tempState);
-        } catch (IOException ioException) {
+        if(myDisplay.getController()!=null ) {
+          System.out.println("WRITE FILE");
+          GameBoard myGameBoard = myDisplay.getController().getGameBoard();
+          saveFiles saveFileObject = new saveFiles();
+          try {
+            saveFileObject.saveState(myGameBoard.getGameBoardStates());
+          } catch (IOException ioException) {
+          }
         }
+
 
       }
     });
