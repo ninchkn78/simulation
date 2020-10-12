@@ -51,7 +51,8 @@ public class ButtonSetup {
 
   public void checkButtonStatus() {
     //checkFileButton(myGameBoard);
-    //checkFileReaderButton();
+    checkFileReaderButton();
+    checkRunButton();
   }
 
   public void checkFileReaderButton() {
@@ -79,7 +80,7 @@ public class ButtonSetup {
     runButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        myDisplay.startStepMethod();
+        myDisplay.startStepMethod(Display.SECOND_DELAY);
       }
 
     });

@@ -63,35 +63,33 @@ public class Display extends Application {
     // attach scene to the stage and display it
     myStage = stage;
     SplashScreen startScreen = new SplashScreen();
-    stage.setScene(startScreen.getMyScene()); //connectinga splash screen
+    myStage.setScene(startScreen.getMyScene()); //connectinga splash screen
+    checkWhichGame(startScreen);
+    stage.setTitle(TITLE); //will also come from properties
+    stage.show();
+  }
 
+  private void checkWhichGame(SplashScreen startScreen) {
+    //TODO - figure out how to add multiple buttons
     startScreen.getMyButton().setOnAction(new EventHandler<ActionEvent>(){
       @Override public void handle(ActionEvent e){
           Scene gameScene = setupScene();
-          stage.setScene(gameScene);
+          myStage.setScene(gameScene);
       }
     });
-
-
-    stage.setTitle(TITLE); //will also come from properties
-    stage.show();
   }
 
   // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
-
     scene.getStylesheets().add(CSS_STYLE_SHEET);
     myButtonSetup.createSetup(myRoot);
-    myButtonSetup.checkFileReaderButton();
-    //myButtonSetup.checkFileButton(myController.getGameBoard());
-    myButtonSetup.checkRunButton();
-
+    myButtonSetup.checkButtonStatus();
     return scene;
   }
 
-  public void startStepMethod() {
-    KeyFrame frame = new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY));
+  public void startStepMethod(double elapsedTime) {
+    KeyFrame frame = new KeyFrame(Duration.seconds(elapsedTime), e -> step(elapsedTime));
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
@@ -99,14 +97,9 @@ public class Display extends Application {
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
-  void nextGen() {
-    myBoard.updateMyGrid(myController.getGameBoard());
-  }
-
-  // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime) {
     myController.updateView();
-    nextGen();
+    myBoard.updateMyGrid(myController.getGameBoard());
   }
 
 
