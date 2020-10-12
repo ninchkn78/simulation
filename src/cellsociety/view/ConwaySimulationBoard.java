@@ -54,6 +54,6 @@ public class ConwaySimulationBoard extends SimulationBoard {
 
   // TODO: 2020-10-10  abstract this
   public void updateMyGrid(GameBoard gameBoard) {
-    initializeMyGrid(gameBoard, "ConwayGameOfLife.properties");
+    initializeMyGrid(gameBoard, "Percolation.properties");
   }
 }

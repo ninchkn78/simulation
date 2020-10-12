@@ -32,7 +32,7 @@ public class Display extends Application {
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
   private Timeline animation;
-  private Controller myController = new Controller("ConwayGameOfLife.properties");
+  private Controller myController = new Controller("Percolation.properties");
 
   public Display(){
   }

@@ -2,7 +2,6 @@ package cellsociety.model.games;
 
 
 import cellsociety.model.GameBoard;
-import cellsociety.model.Simulation;
 import cellsociety.model.cells.Cell;
 import cellsociety.model.cells.ConwayCell;
 
@@ -35,18 +34,19 @@ public class ConwayGameOfLife extends Simulation {
     }
   }
 
-
-
-
-
-  public void handleMouseInput(double x, double y) {
-//    int scaledHeight = boardPanel.getHeight()/g.getHeight();
-//    int scaledWidth =  boardPanel.getWidth()/g.getWidth();
-//
-//    int x = e.getX()/scaledWidth;
-//    int y = e.getY()/scaledHeight;
-//    g.toggleState(x, y);
+  @Override
+  public void nextGen(){
+    GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight());
+    for (int i = 0; i < getGameBoard().getHeight(); i++) {
+      for (int j = 0; j < getGameBoard().getWidth(); j++) {
+        updateCell(nextBoard, i,j);
+      }
+    }
+    incrementGeneration();
+    setGameBoard(nextBoard);
   }
+
+
 
   public int countLivingNeighbors(int currentRow, int currentColumn) {
     int aliveCount = 0;

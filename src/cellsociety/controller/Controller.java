@@ -1,8 +1,8 @@
 package cellsociety.controller;
 
-import cellsociety.model.games.ConwayGameOfLife;
 import cellsociety.model.GameBoard;
-import cellsociety.model.Simulation;
+import cellsociety.model.games.*;
+import cellsociety.model.games.Simulation;
 import cellsociety.view.CellView;
 import java.io.IOException;
 import java.util.Properties;
@@ -19,7 +19,7 @@ public class Controller {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    game = new ConwayGameOfLife(prop.getProperty("CSVSource")); //TODO: SimulationChooser class
+    game = new Percolation(prop.getProperty("CSVSource")); //TODO: SimulationChooser class
     board = game.getGameBoard();
   }
 

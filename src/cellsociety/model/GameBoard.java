@@ -82,6 +82,7 @@ public class GameBoard {
     }
   }
 
+
   public int getWidth(){
     return width;
   }
