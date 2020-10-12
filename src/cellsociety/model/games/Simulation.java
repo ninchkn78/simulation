@@ -1,5 +1,8 @@
-package cellsociety.model;
+package cellsociety.model.games;
 
+
+import cellsociety.model.GameBoard;
+import cellsociety.model.Reader;
 
 public abstract class Simulation {
 
@@ -16,21 +19,20 @@ public abstract class Simulation {
     return board;
   }
 
+  public void setGameBoard(GameBoard updatedBoard){
+    board = updatedBoard;
+  }
+
+  public void incrementGeneration(){
+    generation++;
+  }
+
 
   public abstract void updateCell(GameBoard gameBoard, int row, int col);
 
 
-  public void nextGen() { //TODO: put in abstract class
-    GameBoard nextBoard = new GameBoard(board.getWidth(), board.getHeight());
-    for (int i = 0; i < board.getHeight(); i++) {
-      for (int j = 0; j < board.getWidth(); j++) {
-        updateCell(nextBoard, i,j);
-      }
-    }
-    this.generation++;
-    board = nextBoard;
+  public abstract void nextGen();
 
-  }
 
 
 

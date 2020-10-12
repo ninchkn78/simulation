@@ -1,8 +1,8 @@
 package cellsociety.controller;
 
-import cellsociety.model.ConwayGameOfLife;
 import cellsociety.model.GameBoard;
-import cellsociety.model.Simulation;
+import cellsociety.model.games.*;
+import cellsociety.model.games.Simulation;
 import cellsociety.view.CellView;
 import java.io.IOException;
 import java.util.Properties;
@@ -26,10 +26,9 @@ public class Controller {
   /**
    * Update the gameboard in the backend and return to front end
    */
-  public GameBoard updateView(){
+  public void updateView(){
     game.nextGen();
     board = game.getGameBoard();
-    return board;
   }
 
   public GameBoard getGameBoard() {

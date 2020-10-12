@@ -2,9 +2,6 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
-import cellsociety.model.ConwayGameOfLife;
-import cellsociety.model.GameBoard;
-import java.io.IOException;
 import java.util.Arrays;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -36,7 +33,7 @@ public class Display extends Application {
 
   private final Group myRoot = new Group();
   //private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
-  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot);
+
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
   private Timeline animation;
