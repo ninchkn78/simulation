@@ -31,8 +31,8 @@ public class PercolationCell extends Cell {
     }
   }
 
-  public static final String OPEN = "0";
-  public static final String CLOSED = "1";
+  public static final String CLOSED = "0";
+  public static final String OPEN = "1";
   public static final String FULL = "2";
 
   public PercolationCell(String state) {

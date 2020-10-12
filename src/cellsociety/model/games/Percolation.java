@@ -31,23 +31,23 @@ public class Percolation extends Simulation {
   }
 
   public boolean fullNextGen(int currentRow, int currentColumn){
+    if (!isOpen(currentRow, currentColumn)){
+      return false;
+    }
     for (int i = currentRow - 1; i <= currentRow + 1; i++){
       for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
-        return (getGameBoard().inBounds(i,j) &&
+        if (getGameBoard().inBounds(i,j) &&
             isDirectNeighbor(i,j,currentRow, currentColumn) &&
-            isFull(getGameBoard().getCell(i,j)) &&
-            isOpen(getGameBoard().getCell(currentRow, currentColumn)));
+            isFull(getGameBoard().getCell(i,j))){
+          return true;
+        }
       }
     }
     return false;
   }
 
   public boolean isDirectNeighbor(int x, int y, int currentRow, int currentCol){
-    if( x == currentRow || y == currentCol){
-      System.out.println(x + " " + y);
-      return true;
-    }
-    return false;
+    return (x == currentRow || y == currentCol);
   }
 
 
@@ -55,8 +55,11 @@ public class Percolation extends Simulation {
     return cell.getState().equals(PercolationCell.FULL);
   }
 
-  public boolean isOpen(Cell cell) {
-    return cell.getState().equals(PercolationCell.OPEN);
+  public boolean isOpen(int row, int col) {
+    if(getGameBoard().getCell(row, col).getState().equals(PercolationCell.OPEN)){
+      return true;
+    }
+    return false;
   }
 
 }
