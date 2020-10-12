@@ -106,7 +106,9 @@ public class Display extends Application {
   }
 
   public void pauseGame(){
-    animation.pause();
+    if(animation != null) {
+      animation.pause();
+    }
   }
 
 
