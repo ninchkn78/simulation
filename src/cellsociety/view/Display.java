@@ -115,9 +115,16 @@ public class Display extends Application {
   public void setController(Controller controller) {
       myController = controller;
   }
+
+  public Controller getController(){
+    return myController;
+  }
+
   public Timeline getAnimation() {
     return animation;
   }
+
+
 }
 
 

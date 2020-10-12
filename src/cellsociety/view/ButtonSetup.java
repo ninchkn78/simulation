@@ -51,7 +51,7 @@ public class ButtonSetup {
 
 
   public void checkButtonStatus() {
-    //checkFileButton(myGameBoard);
+    checkFileWriteButton();
     checkFileReaderButton();
     checkRunButton();
   }
@@ -93,16 +93,21 @@ public class ButtonSetup {
   }
 
 
-  public void checkFileButton(GameBoard myGameBoard) {
+  public void checkFileWriteButton() {
     fileSaveButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        System.out.println("WRITE FILE");
-        saveFiles saveFileObject = new saveFiles();
-        try {
-          saveFileObject.saveState(myGameBoard.getGameBoardStates());
-        } catch (IOException ioException) {
+        if(myDisplay.getController()!=null ) {
+          GameBoard myGameBoard = myDisplay.getController().getGameBoard();
+          System.out.println("WRITE FILE");
+          saveFiles saveFileObject = new saveFiles();
+          try {
+            saveFileObject.saveState(myGameBoard.getGameBoardStates());
+          } catch (IOException ioException) {
+          }
         }
+
+
       }
     });
   }
