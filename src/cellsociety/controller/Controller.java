@@ -19,7 +19,7 @@ public class Controller {
     } catch (IOException e) {
       e.printStackTrace();
     }
-    game = new ConwayGameOfLife(prop.getProperty("CSVSource")); //TODO: SimulationChooser class
+    game = new Percolation(prop.getProperty("CSVSource")); //TODO: SimulationChooser class
     board = game.getGameBoard();
   }
 

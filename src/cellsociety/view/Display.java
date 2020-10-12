@@ -2,7 +2,6 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
-import java.util.Arrays;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -28,7 +27,7 @@ public class Display extends Application {
   public static final int GAME_WIDTH = 13;
   public static final int GAME_HEIGHT = 11;
 
-  private static final String DEFAULT_PROPERTY_FILE_NAME = "ConwayGameOfLife.properties";
+  private static final String DEFAULT_PROPERTY_FILE_NAME = "Percolation.properties"; //TODO - ADD REFLECTION
   private static final String CSS_STYLE_SHEET = "default.css";
 
   private final Group myRoot = new Group();
@@ -37,16 +36,10 @@ public class Display extends Application {
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
   private Timeline animation;
-<<<<<<< HEAD
   private Controller myController;
-
+  private SimulationBoard myBoard;
   //private Controller myController = new Controller("ConwayGameOfLife.properties");
-=======
 
-  // TODO: 2020-10-11 controller should make a prop object from properties then pass it around
-  private Controller myController = new Controller("ConwayGameOfLife.properties");
-  private final ConwaySimulationBoard myBoard = new ConwaySimulationBoard(myRoot, myController.getGameBoard(),"ConwayGameOfLife.properties");
->>>>>>> 6e48901da8e1ec072cb63eb175b96b776c5e6d98
 
 
   public Display(){
@@ -93,24 +86,19 @@ public class Display extends Application {
     return scene;
   }
 
-<<<<<<< HEAD
   public void startStepMethod(double elapsedTime) {
     KeyFrame frame = new KeyFrame(Duration.seconds(elapsedTime), e -> step(elapsedTime));
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
-=======
-  // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
-  void nextGen() {
-    myBoard.updateMyGrid(myController.getGameBoard(), "ConwayGameOfLife.properties");
->>>>>>> 6e48901da8e1ec072cb63eb175b96b776c5e6d98
+
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime) {
     myController.updateView();
-    myBoard.updateMyGrid(myController.getGameBoard());
+    myBoard.updateMyGrid(myController.getGameBoard(), DEFAULT_PROPERTY_FILE_NAME);
   }
 
   public Window getStage() {
@@ -124,6 +112,7 @@ public class Display extends Application {
 
   public void setController(Controller controller) {
       myController = controller;
+      myBoard= new SimulationBoard(myRoot, myController.getGameBoard(),DEFAULT_PROPERTY_FILE_NAME);
   }
 
   public Controller getController(){

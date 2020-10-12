@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-class ConwaySimulationBoardTest extends DukeApplicationTest {
+class SimulationBoardTest extends DukeApplicationTest {
 
   // create an instance of our game to be able to call in tests (like step())
   private final Display conwayDisplay = new Display();
