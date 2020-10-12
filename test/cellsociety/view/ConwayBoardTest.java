@@ -44,7 +44,7 @@ class ConwayBoardTest extends DukeApplicationTest {
   }
   @Test
   void testNextGen() {
-    javafxRun(() -> conwayDisplay.step(Display.FRAMES_PER_SECOND));
+    javafxRun(() -> conwayDisplay.step(conwayDisplay.getAnimationSpeed()));
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
     Assertions.assertEquals(Color.RED, cell1.getFill());

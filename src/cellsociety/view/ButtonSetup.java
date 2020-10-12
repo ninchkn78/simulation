@@ -79,7 +79,7 @@ public class ButtonSetup {
     runButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        myDisplay.startStepMethod(Display.SECOND_DELAY);
+        myDisplay.startStepMethod();
       }
 
     });

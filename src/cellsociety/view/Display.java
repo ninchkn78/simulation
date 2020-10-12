@@ -5,10 +5,12 @@ import cellsociety.controller.Controller;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
@@ -22,7 +24,6 @@ public class Display extends Application {
   public static final int WIDTH = 800;
   public static final int HEIGHT = 600;
   public static final int FRAMES_PER_SECOND = 60;
-  public static final double SECOND_DELAY = 100 / FRAMES_PER_SECOND;
   public static final Paint BACKGROUND = Color.AZURE;
   public static final int GAME_WIDTH = 13;
   public static final int GAME_HEIGHT = 11;
@@ -38,9 +39,18 @@ public class Display extends Application {
   private Timeline animation;
   private Controller myController;
   private SimulationBoard myBoard;
+  private Slider speedAdjuster;
+
+  public double getAnimationSpeed() {
+    return animationSpeed;
+  }
+
+  public void setAnimationSpeed(double animationSpeed) {
+    this.animationSpeed = animationSpeed;
+  }
+
+  private double animationSpeed = .5 * 100 / FRAMES_PER_SECOND;
   //private Controller myController = new Controller("ConwayGameOfLife.properties");
-
-
 
   public Display(){
   }
@@ -84,17 +94,30 @@ public class Display extends Application {
     return scene;
   }
 
-  public void startStepMethod(double elapsedTime) {
-    KeyFrame frame = new KeyFrame(Duration.seconds(elapsedTime), e -> step(elapsedTime));
+  private void setUpSpeedAdjuster() {
+    speedAdjuster = new Slider(.5,5,1);
+    speedAdjuster.setLayoutX(WIDTH/2);
+    speedAdjuster.valueProperty().addListener((
+        ObservableValue<? extends Number> ov,
+        Number old_val, Number new_val) -> {
+      setAnimationSpeed(new_val.doubleValue());
+    });
+    myRoot.getChildren().add(speedAdjuster);
+  }
+
+  public void startStepMethod() {
+    KeyFrame frame = new KeyFrame(Duration.seconds(animationSpeed), e -> step(animationSpeed));
+    setUpSpeedAdjuster();
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
-
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime) {
+    System.out.println(animationSpeed);
+    animation.setRate(animationSpeed);
     myController.updateView();
     myBoard.updateMyGrid(myController.getGameBoard(), myController.getProperties());
   }
