@@ -2,7 +2,6 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
-import java.util.Arrays;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -28,7 +27,7 @@ public class Display extends Application {
   public static final int GAME_WIDTH = 13;
   public static final int GAME_HEIGHT = 11;
 
-  private static final String DEFAULT_PROPERTY_FILE_NAME = "ConwayGameOfLife.properties";
+  private static final String DEFAULT_PROPERTY_FILE_NAME = "ConwayGameOfLife.properties"; //TODO - ADD REFLECTION
   private static final String CSS_STYLE_SHEET = "default.css";
 
   private final Group myRoot = new Group();
@@ -38,8 +37,9 @@ public class Display extends Application {
   private Stage myStage;
   private Timeline animation;
   private Controller myController;
-
+  private SimulationBoard myBoard;
   //private Controller myController = new Controller("ConwayGameOfLife.properties");
+
 
 
   public Display(){
@@ -92,12 +92,13 @@ public class Display extends Application {
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
     animation.play();
+
   }
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime) {
     myController.updateView();
-    myBoard.updateMyGrid(myController.getGameBoard());
+    myBoard.updateMyGrid(myController.getGameBoard(), DEFAULT_PROPERTY_FILE_NAME);
   }
 
   public Window getStage() {
@@ -111,6 +112,7 @@ public class Display extends Application {
 
   public void setController(Controller controller) {
       myController = controller;
+      myBoard= new SimulationBoard(myRoot, myController.getGameBoard(),DEFAULT_PROPERTY_FILE_NAME);
   }
 
   public Controller getController(){
