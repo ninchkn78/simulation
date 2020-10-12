@@ -44,8 +44,8 @@ public class Display extends Application {
   }
 
   private Timeline animation;
-  //private Controller myController;
-  private Controller myController = new Controller("ConwayGameOfLife.properties");
+  private Controller myController;
+  //private Controller myController = new Controller("ConwayGameOfLife.properties");
 
 
   public Display(){
@@ -73,10 +73,21 @@ public class Display extends Application {
     });
 
 
-//    Scene myScene = setupScene();
-//    stage.setScene(myScene);
     stage.setTitle(TITLE); //will also come from properties
     stage.show();
+  }
+
+  // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
+  Scene setupScene() {
+    Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
+
+    scene.getStylesheets().add(CSS_STYLE_SHEET);
+    myButtonSetup.createSetup(myRoot);
+    myButtonSetup.checkFileReaderButton();
+    //myButtonSetup.checkFileButton(myController.getGameBoard());
+    myButtonSetup.checkRunButton();
+
+    return scene;
   }
 
   public void startStepMethod() {
@@ -86,22 +97,6 @@ public class Display extends Application {
     animation.getKeyFrames().add(frame);
     animation.play();
   }
-
-  // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
-  Scene setupScene() {
-    Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
-    // respond to input
-    //scene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
-    //GameBoard myGameBoard = new GameBoard();
-    scene.getStylesheets().add(CSS_STYLE_SHEET);
-    myButtonSetup.createSetup(myRoot);
-    myButtonSetup.checkRunButton();
-    myButtonSetup.checkButtonStatus(myController.getGameBoard());
-    //nextGen(tempState);
-
-    return scene;
-  }
-
 
   // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void nextGen() {

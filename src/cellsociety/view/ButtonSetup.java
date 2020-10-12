@@ -35,7 +35,7 @@ public class ButtonSetup {
 
   private void createButtons() {
     loadFileButton = new Button("Load File");
-    runButton = new Button("Run Simulation");
+    runButton = new Button("Run Default");
     fileSaveButton = new Button("Save File");
 
   }
@@ -49,25 +49,23 @@ public class ButtonSetup {
   }
 
 
-  public void checkButtonStatus(GameBoard myGameBoard) {
-    checkFileButton(myGameBoard);
-    checkFileReaderButton();
+  public void checkButtonStatus() {
+    //checkFileButton(myGameBoard);
+    //checkFileReaderButton();
   }
 
-  private void checkFileReaderButton() {
+  public void checkFileReaderButton() {
       loadFileButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
         if(myDisplay.getAnimation()!=null ) {
           myDisplay.pauseGame();
         }
-        //System.out.println(1);  //TODO add file reader
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
-        //this method will create the agme board and create na instance of proper model
 
-        String[] pFilePathArr = propertiesFile.getPath().split(".");
+        //String[] pFilePathArr = propertiesFile.getPath().split(".");
         if(propertiesFile!= null){
           myDisplay.setController(new Controller(propertiesFile.getName()));
         }
@@ -83,6 +81,7 @@ public class ButtonSetup {
       public void handle(ActionEvent e) {
         myDisplay.startStepMethod();
       }
+
     });
   }
 
