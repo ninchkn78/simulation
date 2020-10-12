@@ -18,7 +18,6 @@ class ButtonSetupTest extends DukeApplicationTest {
         myScene = myDisplay.setupScene();
         stage.setScene(myScene);
         stage.show();
-        // find individual ite
     }
 
     @Test

@@ -18,6 +18,7 @@ public class ButtonSetup {
 
   private final Display myDisplay;
   private Button loadFileButton;
+  private boolean fileSelected = false;
 
   //TODO - idea - just add more buttons here by calling subclasses or something
 
@@ -60,7 +61,7 @@ public class ButtonSetup {
     loadFileButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-
+        fileSelected = true;
         if(myDisplay.getAnimation()!=null ) {
           myDisplay.pauseGame();
         }
@@ -82,6 +83,9 @@ public class ButtonSetup {
     runButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
+        if(!fileSelected){
+          myDisplay.setController(new Controller(Display.getDefaultPropertyFileName()));
+        }
         myDisplay.startStepMethod(Display.SECOND_DELAY);
       }
 
