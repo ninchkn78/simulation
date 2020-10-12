@@ -74,7 +74,6 @@ public class ButtonSetup {
           myDisplay.setController(new Controller(propertiesFile.getName()));
         }
 
-
       }
       });
   }
@@ -98,8 +97,8 @@ public class ButtonSetup {
       @Override
       public void handle(ActionEvent e) {
         if(myDisplay.getController()!=null ) {
-          GameBoard myGameBoard = myDisplay.getController().getGameBoard();
           System.out.println("WRITE FILE");
+          GameBoard myGameBoard = myDisplay.getController().getGameBoard();
           saveFiles saveFileObject = new saveFiles();
           try {
             saveFileObject.saveState(myGameBoard.getGameBoardStates());
