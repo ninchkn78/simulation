@@ -35,20 +35,6 @@ public class ConwayGameOfLife extends Simulation {
     }
   }
 
-  @Override
-  public void nextGen(){
-    GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight());
-    for (int i = 0; i < getGameBoard().getHeight(); i++) {
-      for (int j = 0; j < getGameBoard().getWidth(); j++) {
-        updateCell(nextBoard, i,j);
-      }
-    }
-    incrementGeneration();
-    setGameBoard(nextBoard);
-  }
-
-
-
   public int countLivingNeighbors(int currentRow, int currentColumn) {
     int aliveCount = 0;
     for (int i = currentRow - 1; i <= currentRow + 1; i++){
