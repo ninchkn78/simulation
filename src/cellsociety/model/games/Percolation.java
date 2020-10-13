@@ -15,17 +15,9 @@ public class Percolation extends Simulation {
   public void updateCell(GameBoard gameBoard, int row, int col) {
     if (fullNextGen(row,col)){
       gameBoard.setPiece(row, col, PercolationCell.FULL);
+    }else{
+      gameBoard.setPiece(row, col, getGameBoard().getState(row, col));
     }
-  }
-
-  @Override
-  public void nextGen() {
-    for (int i = 0; i < getGameBoard().getHeight(); i++) {
-      for (int j = 0; j < getGameBoard().getWidth(); j++) {
-        updateCell(getGameBoard(), i,j);
-      }
-    }
-    incrementGeneration();
   }
 
   public boolean fullNextGen(int currentRow, int currentColumn){
@@ -49,11 +41,11 @@ public class Percolation extends Simulation {
   }
 
 
-  public boolean isFull(Cell cell) {
+  public boolean isFull(Cell cell) { //TODO: Move to cell
     return cell.getState().equals(PercolationCell.FULL);
   }
 
-  public boolean isOpen(int row, int col) {
+  public boolean isOpen(int row, int col) { //TODO: MovetoCell
     if(getGameBoard().getCell(row, col).getState().equals(PercolationCell.OPEN)){
       return true;
     }
