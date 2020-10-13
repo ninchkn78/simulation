@@ -82,7 +82,7 @@ public class SimulationBoard {
     for(int i = 0; i < cells.size(); i++){
       for(int j = 0; j < cells.get(i).size(); j++){
         cells.get(i).get(j).setColor(states[i][j],properties);
-        updateCellImage(properties,cellImages.get(i).get(j));
+        updateCellImage(properties,cellImages.get(i).get(j),states[i][j]);
       }
     }
   }
@@ -90,7 +90,7 @@ public class SimulationBoard {
     for(int i = 0; i < cells.size(); i++){
       for(int j = 0; j < cells.get(i).size(); j++){
         replaceCellWithImage(cells.get(i).get(j), cellImages.get(i).get(j));
-        updateCellImage(properties,cellImages.get(i).get(j));
+        updateCellImage(properties,cellImages.get(i).get(j),cells.get(i).get(j).getState());
       }
     }
   }
@@ -105,10 +105,13 @@ public class SimulationBoard {
     myGrid.getChildren().add(imageView);
   }
 
-  public void updateCellImage(Properties properties, ImageView cellImage){
+  public void updateCellImage(Properties properties, ImageView cellImage, String state){
       FileInputStream inputstream = null;
       try {
-        inputstream = new FileInputStream("C:\\Users\\alexc\\CS307\\simulation_team01\\resources\\tree.png");
+        // TODO: 2020-10-13 if state doesn't exist  
+        System.out.println(properties.getProperty(state + "image"));
+        inputstream = new FileInputStream(properties.getProperty(state + "image"));
+
       } catch (IOException e) {
         e.printStackTrace();
       }
