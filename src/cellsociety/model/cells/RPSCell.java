@@ -39,17 +39,17 @@ public class RPSCell extends Cell{
 
   public RPSCell(String state) {
     super(state);
-    opponentState = calculateOpponent();
+   // opponentState = calculateOpponent();
   }
 
-  public String calculateOpponent(){
-    int state = Integer.parseInt(getState());
-    return Integer.toString((state + 1)%3);
-  }
-
-  public String getOpponentState(){
-    return opponentState;
-  }
+//  public String calculateOpponent(){
+//    int state = Integer.parseInt(getState());
+//    return Integer.toString((state + 1)%3);
+//  }
+//
+//  public String getOpponentState(){
+//    return opponentState;
+//  }
 
 
 
