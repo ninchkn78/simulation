@@ -43,4 +43,13 @@ class SplashScreenTest extends DukeApplicationTest {
   }
 
 
+  @Test
+  void checkSpreadingFireButton(){
+    Button conwayButton = lookup("#SpreadingFire").queryButton();
+    javafxRun(() -> conwayButton.fire());
+    assertEquals("DefaultSpreadingFire", myDisplay.getController().getProperties().getProperty("Title"));
+  }
+
+
+
 }

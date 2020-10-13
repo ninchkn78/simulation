@@ -43,6 +43,7 @@ public class SplashScreen {
       addNewButton("ConwayGameOfLife");
       addNewButton("Percolation");
       addNewButton("RPS");
+      addNewButton("SpreadingFire");
 
       buttonBox.getChildren().addAll(myButtons);
       root.getChildren().addAll(titleBox, buttonBox);
