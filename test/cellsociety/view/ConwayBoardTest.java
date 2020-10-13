@@ -2,6 +2,7 @@ package cellsociety.view;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import cellsociety.controller.Controller;
 import cellsociety.model.ConwayReader;
 import cellsociety.model.GameBoard;
 import cellsociety.view.Display;
@@ -14,7 +15,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-class SimulationBoardTest extends DukeApplicationTest {
+class ConwayBoardTest extends DukeApplicationTest {
 
   // create an instance of our game to be able to call in tests (like step())
   private final Display conwayDisplay = new Display();
@@ -28,21 +29,28 @@ class SimulationBoardTest extends DukeApplicationTest {
     myScene = conwayDisplay.setupScene();
     stage.setScene(myScene);
     stage.show();
+    javafxRun(() -> conwayDisplay.setController(new Controller("ConwayGameOfLife.properties")));
     // find individual items within game by ID (must have been set in your code using setID())
   }
 
   @Test
   void testCellsAreInitialized() {
-    Button conwayButton = lookup("#Conway").queryButton();
-    conwayButton.fire();
-    sleep(1000);
-    //conwayButton.clic;
-
-    Rectangle cell1 = lookup("#cell0,0").query();
+    Rectangle cell1 = lookup("#cell1,0").query();
+    Rectangle cell2 = lookup("#cell0,1").query();
+    Assertions.assertEquals(Color.BLUE, cell1.getFill());
+    Assertions.assertEquals(Color.RED, cell2.getFill());
+    Assertions.assertEquals(0, cell1.getX());
+    Assertions.assertEquals(0, cell1.getY());
+  }
+  @Test
+  void testNextGen() {
+    javafxRun(() -> conwayDisplay.step(conwayDisplay.getAnimationSpeed()));
+    Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
     Assertions.assertEquals(Color.RED, cell1.getFill());
     Assertions.assertEquals(Color.BLUE, cell2.getFill());
     Assertions.assertEquals(0, cell1.getX());
     Assertions.assertEquals(0, cell1.getY());
   }
+
 }

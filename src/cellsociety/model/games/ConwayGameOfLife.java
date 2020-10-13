@@ -35,9 +35,6 @@ public class ConwayGameOfLife extends Simulation {
     }
   }
 
-
-
-
   public int countLivingNeighbors(int currentRow, int currentColumn) {
     int aliveCount = 0;
     for (int i = currentRow - 1; i <= currentRow + 1; i++){

@@ -55,5 +55,4 @@ public class Controller {
   public GameBoard getGameBoard() {
       return board;
   }
-
 }
