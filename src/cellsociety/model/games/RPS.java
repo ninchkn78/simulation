@@ -15,6 +15,8 @@ public class RPS extends Simulation{
   public void updateCell(GameBoard gameBoard, int row, int col) {
     if (isDefeated(row,col)){
       gameBoard.setPiece(row, col, getOpponent(row, col));
+    } else{
+      gameBoard.setPiece(row, col, getGameBoard().getState(row, col));
     }
   }
 
