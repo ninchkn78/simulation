@@ -89,9 +89,6 @@ public class DukeApplicationTest extends ApplicationTest {
     simulateAction(s, () -> s.setValue(value));
   }
 
-  protected void setValue (ColorPicker cp, Color value) {
-    simulateAction(cp, () -> { cp.setValue(value); cp.fireEvent(new ActionEvent()); });
-  }
 
   protected void select (ComboBox<String> cb, String value) {
     // FIXME: duplicated code - but no common ancestor defines getSelectionModel()

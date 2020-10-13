@@ -104,13 +104,13 @@ public class ButtonSetup {
           GameBoard myGameBoard = myDisplay.getController().getGameBoard();
 
           PopUpWindow pUp = new PopUpWindow();
-
-
           saveFiles saveFileObject = new saveFiles();
-//          try {
-//            saveFileObject.saveState(myGameBoard.getGameBoardStates());
-//          } catch (IOException ioException) {
-//          }
+
+          try {
+            saveFileObject.saveState(myGameBoard.getGameBoardStates());
+
+          } catch (IOException ioException) {
+          }
         }
 
 
