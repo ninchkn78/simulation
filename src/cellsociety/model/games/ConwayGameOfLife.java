@@ -35,10 +35,6 @@ public class ConwayGameOfLife extends Simulation {
     }
   }
 
-  @Override
-  public void nextGen(){
-
-  }
 
 
 

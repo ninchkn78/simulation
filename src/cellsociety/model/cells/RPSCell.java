@@ -8,9 +8,9 @@ public class RPSCell extends Cell{
   private String opponentState;
 
   public enum RPSState implements CellState {
-    CLOSED("0"),
-    OPEN("1"),
-    FULL("2");
+    ROCK("0"),
+    PAPER("1"),
+    SCISSORS("2");
 
 
     public String getState() {
@@ -29,7 +29,7 @@ public class RPSCell extends Cell{
           return value;
         }
       }
-      return CLOSED;
+      return ROCK;
     }
   }
 
