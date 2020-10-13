@@ -28,7 +28,7 @@ public class Display extends Application {
   public static final int FRAMES_PER_SECOND = 60;
   public static final Paint BACKGROUND = Color.AZURE;
 
-  private static final String DEFAULT_PROPERTY_FILE_NAME = "ConwayGameOfLife.properties"; //TODO - ADD REFLECTION
+  private static final String DEFAULT_PROPERTY_FILE_NAME = "SpreadingFire.properties"; //TODO - ADD REFLECTION
   private static final String CSS_STYLE_SHEET = "default.css";
 
   private final Group myRoot = new Group();
@@ -67,6 +67,7 @@ public class Display extends Application {
     myStage = stage;
     SplashScreen startScreen = new SplashScreen(this);
     myStage.setScene(startScreen.getMyScene()); //connectinga splash screen
+
     stage.setTitle(TITLE); //will also come from properties
     stage.show();
   }
@@ -104,6 +105,7 @@ public class Display extends Application {
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
+
   }
 
   private void setUpSpeedAdjuster() {
