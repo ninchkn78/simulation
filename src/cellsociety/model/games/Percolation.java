@@ -18,16 +18,6 @@ public class Percolation extends Simulation {
     }
   }
 
-  @Override
-  public void nextGen() {
-    for (int i = 0; i < getGameBoard().getHeight(); i++) {
-      for (int j = 0; j < getGameBoard().getWidth(); j++) {
-        updateCell(getGameBoard(), i,j);
-      }
-    }
-    incrementGeneration();
-  }
-
   public boolean fullNextGen(int currentRow, int currentColumn){
     if (!isOpen(currentRow, currentColumn)){
       return false;
