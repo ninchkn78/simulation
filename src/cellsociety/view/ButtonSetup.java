@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.HBox;
 import javafx.stage.FileChooser;
 
@@ -103,14 +102,14 @@ public class ButtonSetup {
           System.out.println("WRITE FILE");
           GameBoard myGameBoard = myDisplay.getController().getGameBoard();
 
-          PopUpWindow pUp = new PopUpWindow(myDisplay);
-          saveFiles saveFileObject = new saveFiles();
+          PopUpWindow pUp = new PopUpWindow(myDisplay, myGameBoard);
+          //SaveFiles saveFileObject = new SaveFiles();
 
-          try {
-            saveFileObject.saveState(myGameBoard.getGameBoardStates());
-
-          } catch (IOException ioException) {
-          }
+//          try {
+//            //saveFileObject.saveState(myGameBoard.getGameBoardStates());
+//
+//          } catch (IOException ioException) {
+//          }
         }
 
 

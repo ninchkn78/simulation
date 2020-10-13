@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class saveFiles {
+public class SaveFiles {
 
   private static final String SAVE_DIR = "resources/Game_CSVs/";
   private static final String NEW = "new";
@@ -13,10 +13,10 @@ public class saveFiles {
   private static final String NEW_LINE = "\n";
 
 
-  public void saveState(String[][] currentState) throws IOException {
-    int directoryLength = new File(SAVE_DIR).list().length;
+  public void saveState(String[][] currentState, String Title) throws IOException {
+    //int directoryLength = new File(SAVE_DIR).list().length;
 
-    FileWriter csvWriter = new FileWriter(SAVE_DIR + NEW + directoryLength + EXTENSION);
+    FileWriter csvWriter = new FileWriter(SAVE_DIR+ Title + EXTENSION);
     makeHeader(csvWriter, currentState);
     writeRows(csvWriter, currentState);
     csvWriter.flush();

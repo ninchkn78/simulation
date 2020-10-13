@@ -1,6 +1,7 @@
 package cellsociety.view;
 
 import cellsociety.controller.Controller;
+import cellsociety.model.GameBoard;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -18,11 +19,14 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
 public class PopUpWindow {
-    private Display myDisplay;
+
+  private final GameBoard myGameBoard;
+  private Display myDisplay;
     private Properties properties;
 
-  public PopUpWindow(Display display){
+  public PopUpWindow(Display display, GameBoard gameBoard){
     myDisplay = display;
+    myGameBoard = gameBoard;
     properties = myDisplay.getController().getProperties();
     // Create the custom dialog.
     Dialog<String[]> dialog = new Dialog<>();
@@ -75,6 +79,11 @@ public class PopUpWindow {
       properties.setProperty("Title", inputs[0]);
       properties.setProperty("Author", inputs[1]);
       properties.setProperty("Description", inputs[2]);
+
+      SaveFiles saveFileObject = new SaveFiles();
+      saveFileObject.saveState(myGameBoard.getGameBoardStates(),inputs[0]);
+
+      properties.setProperty("CSVSource", "GAME_CSVS/"+inputs[1]+".csv");
       properties.store(new FileOutputStream("resources/" + inputs[0] + ".properties"), null);
 
     } catch (IOException e) {
