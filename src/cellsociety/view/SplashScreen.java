@@ -25,22 +25,16 @@ public class SplashScreen {
     @Override
     public void handle(ActionEvent event) {
       myDisplay.chooseSimulation(simulationName);
-
     }
-
   }
 
   public SplashScreen(Display display){
       myDisplay = display;
-   // private final IntegerProperty value = new SimpleIntegerProperty();
-
       Group root = new Group();
       myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
       myScene.getStylesheets().add("SplashScreen.css");
-
       HBox titleBox = createHBox(5, "TitleBox");
       HBox buttonBox = createHBox(3, "buttonBox");
-
 
       Label newText = new Label("Choose Your Simulation!!");
       titleBox.getChildren().add(newText);
@@ -61,7 +55,6 @@ public class SplashScreen {
     return button;
   }
 
-
   private HBox createHBox(int yOffsetFactor, String cssClass) {
     HBox currentHBox = new HBox();
     currentHBox.setPrefWidth(Display.WIDTH);
@@ -80,5 +73,4 @@ public class SplashScreen {
     myButtons.add(simulationButton);
     simulationButton.setId(simulationName);
   }
-
 }
