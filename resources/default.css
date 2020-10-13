@@ -17,3 +17,8 @@
   -fx-font: bold italic 12pt "Arial";
   -fx-background-color: #DFB951;
 }
+
+.color-picker-box{
+  -fx-spacing: 30;
+  -fx-alignment: center;
+}
