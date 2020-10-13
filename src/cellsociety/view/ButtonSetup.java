@@ -16,9 +16,11 @@ public class ButtonSetup {
   private Button fileSaveButton;
   private Button runButton;
   private Button pauseButton;
+  private Button loadFileButton;
+  private Button chooseImageButton;
 
   private final Display myDisplay;
-  private Button loadFileButton;
+
   private boolean fileSelected = false;
 
   //TODO - idea - just add more buttons here by calling subclasses or something
@@ -31,7 +33,7 @@ public class ButtonSetup {
   public void createSetup(Group root) {
     createButtons();
     HBox buttonBox = createHBox();
-    buttonBox.getChildren().addAll(loadFileButton,runButton,pauseButton,fileSaveButton);
+    buttonBox.getChildren().addAll(loadFileButton,runButton,pauseButton,fileSaveButton,chooseImageButton);
     root.getChildren().add(buttonBox);
   }
 
@@ -40,6 +42,7 @@ public class ButtonSetup {
     runButton = new Button("Play");
     fileSaveButton = new Button("Save File");
     pauseButton = new Button("Pause");
+    chooseImageButton = new Button("Image");
   }
 
   private HBox createHBox() {
@@ -56,6 +59,7 @@ public class ButtonSetup {
     checkFileReaderButton();
     checkRunButton();
     checkPauseButton();
+    checkImageButton();
   }
 
   public void checkFileReaderButton() {
@@ -113,6 +117,14 @@ public class ButtonSetup {
       }
     });
   }
+  public void checkImageButton() {
+    chooseImageButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent e) {
+        myDisplay.addImages();
+
+      };
+    });}
 
 
 }

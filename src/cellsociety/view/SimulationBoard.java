@@ -1,12 +1,19 @@
 package cellsociety.view;
 
 import cellsociety.model.GameBoard;
+import cellsociety.model.games.Simulation;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
+import java.util.ResourceBundle;
 import javafx.scene.Group;
+import javafx.scene.Node;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 
@@ -18,6 +25,8 @@ public class SimulationBoard {
 
   private final GridPane myGrid = new GridPane();
   private final List<List<CellView>> cells = new ArrayList<>();
+  private final List<List<ImageView>> cellImages = new ArrayList<>();
+  private final Group myRoot;
 
 
   public SimulationBoard(Group root, GameBoard gameBoard, Properties properties) {
@@ -25,6 +34,7 @@ public class SimulationBoard {
     myGrid.setLayoutY(50);
     myGrid.setGridLinesVisible(true);
     root.getChildren().add(myGrid);
+    myRoot = root;
     initializeMyGrid(gameBoard,properties);
   }
 
@@ -33,18 +43,25 @@ public class SimulationBoard {
   // TODO: 2020-10-05  don't make new rectangles every time
   private void initializeMyGrid(GameBoard gameBoard, Properties properties) {
     String[][] states = gameBoard.getGameBoardStates();
-    cells.clear();
     double width = CELL_GRID_WIDTH / maxRowLength(states);
     for (int i = 0; i < states.length; i++) {
       cells.add(new ArrayList<>());
+      cellImages.add(new ArrayList<>());
       for (int j = 0; j < states[i].length; j++) {
-        CellView cell = new CellView(width, CELL_GRID_HEIGHT / states.length, states[i][j], properties);
-        cell.setId(String.format("cell%d,%d", i, j));
-        GridPane.setConstraints(cell, j, i);
-        myGrid.getChildren().add(cell);
+        CellView cell = addCellViewToGrid(
+            new CellView(width, CELL_GRID_HEIGHT / states.length, states[i][j], properties), i, j);
         cells.get(i).add(cell);
+        cellImages.get(i).add(new ImageView());
       }
     }
+  }
+
+  private CellView addCellViewToGrid(CellView cell1, int i, int j) {
+    CellView cell = cell1;
+    cell.setId(String.format("cell%d,%d", i, j));
+    GridPane.setConstraints(cell, j, i);
+    myGrid.getChildren().add(cell);
+    return cell;
   }
 
   //TODO: just a thought: maybe put the 2d array in to a list of arrays, and then call Collections.max? - franklin
@@ -65,7 +82,39 @@ public class SimulationBoard {
     for(int i = 0; i < cells.size(); i++){
       for(int j = 0; j < cells.get(i).size(); j++){
         cells.get(i).get(j).setColor(states[i][j],properties);
+        updateCellImage(properties,cellImages.get(i).get(j));
       }
     }
+  }
+  public void addImagesOverStates(Properties properties) {
+    for(int i = 0; i < cells.size(); i++){
+      for(int j = 0; j < cells.get(i).size(); j++){
+        replaceCellWithImage(cells.get(i).get(j), cellImages.get(i).get(j));
+        updateCellImage(properties,cellImages.get(i).get(j));
+      }
+    }
+  }
+
+  private void replaceCellWithImage(CellView cell, ImageView imageView) {
+    imageView.setFitWidth(cell.getWidth());
+    imageView.setFitHeight(cell.getHeight());
+    myGrid.getChildren().remove(cell);
+    int col = GridPane.getColumnIndex(cell);
+    int row = GridPane.getRowIndex(cell);
+    GridPane.setConstraints(imageView, row, col);
+    myGrid.getChildren().add(imageView);
+  }
+
+  public void updateCellImage(Properties properties, ImageView cellImage){
+      FileInputStream inputstream = null;
+      try {
+        inputstream = new FileInputStream("C:\\Users\\alexc\\CS307\\simulation_team01\\resources\\tree.png");
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      Image image = new Image(inputstream);
+      cellImage.setImage(image);
+
+
   }
 }
