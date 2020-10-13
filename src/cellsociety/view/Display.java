@@ -30,7 +30,7 @@ public class Display extends Application {
   public static final int GAME_WIDTH = 13;
   public static final int GAME_HEIGHT = 11;
 
-  private static final String DEFAULT_PROPERTY_FILE_NAME = "ConwayGameOfLife.properties"; //TODO - ADD REFLECTION
+  private static final String DEFAULT_PROPERTY_FILE_NAME = "SpreadingFire.properties"; //TODO - ADD REFLECTION
   private static final String CSS_STYLE_SHEET = "default.css";
 
   private final Group myRoot = new Group();
@@ -69,7 +69,7 @@ public class Display extends Application {
     // attach scene to the stage and display it
     myStage = stage;
     SplashScreen startScreen = new SplashScreen();
-    myStage.setScene(startScreen.getMyScene()); //connectinga splash screen
+    myStage.setScene(startScreen.getMyScene()); //connecting a splash screen
     checkWhichGame(startScreen);
     stage.setTitle(TITLE); //will also come from properties
     stage.show();
@@ -103,6 +103,7 @@ public class Display extends Application {
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
+
   }
 
   private void setUpSpeedAdjuster() {

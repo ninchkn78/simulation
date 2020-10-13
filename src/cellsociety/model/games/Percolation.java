@@ -28,7 +28,7 @@ public class Percolation extends Simulation {
       for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
         if (getGameBoard().inBounds(i,j) &&
             isDirectNeighbor(i,j,currentRow, currentColumn) &&
-            isFull(getGameBoard().getCell(i,j))){
+            isFull(i,j)){
           return true;
         }
       }
@@ -41,15 +41,12 @@ public class Percolation extends Simulation {
   }
 
 
-  public boolean isFull(Cell cell) { //TODO: Move to cell
-    return cell.getState().equals(PercolationCell.FULL);
+  public boolean isFull(int row, int col) { //TODO: Move to cell
+    return getGameBoard().getCell(row, col).getState().equals(PercolationCell.FULL);
   }
 
   public boolean isOpen(int row, int col) { //TODO: MovetoCell
-    if(getGameBoard().getCell(row, col).getState().equals(PercolationCell.OPEN)){
-      return true;
-    }
-    return false;
+    return getGameBoard().getCell(row, col).getState().equals(PercolationCell.OPEN);
   }
 
 }
