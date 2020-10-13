@@ -103,7 +103,7 @@ public class ButtonSetup {
           System.out.println("WRITE FILE");
           GameBoard myGameBoard = myDisplay.getController().getGameBoard();
 
-          PopUpWindow pUp = new PopUpWindow();
+          PopUpWindow pUp = new PopUpWindow(myDisplay);
           saveFiles saveFileObject = new saveFiles();
 
           try {

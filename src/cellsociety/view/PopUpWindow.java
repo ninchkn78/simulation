@@ -1,5 +1,9 @@
 package cellsociety.view;
 
+import cellsociety.controller.Controller;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Properties;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -14,18 +18,18 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 
 public class PopUpWindow {
+    private Display myDisplay;
+    private Properties properties;
 
-  public PopUpWindow(){
-//    TextInputDialog td = new TextInputDialog("New File Name");
-//    td.setHeaderText("Input Information");
-//    td.show();
+  public PopUpWindow(Display display){
+    myDisplay = display;
+    properties = myDisplay.getController().getProperties();
     // Create the custom dialog.
     Dialog<String[]> dialog = new Dialog<>();
     dialog.setTitle("Save Current Simulation State");
     dialog.setHeaderText("Fill Out Required Information");
 
-// Set the icon (must be included in the project).
-    //dialog.setGraphic(new ImageView(this.getClass().getResource("login.png").toString()));
+
 
 // Set the button types.
     ButtonType save = new ButtonType("Save");
@@ -59,20 +63,25 @@ public class PopUpWindow {
         String[] retArray = new String[]{title.getText(),author.getText(), description.getText()};
         //Basically want to write to a new properties file with this Name
         System.out.println(retArray[0]);
-
+        storeInPropertiesFile(retArray);
         return retArray ;
     });
 
     dialog.show();
   }
 
-//  class SaveFileHandler implements EventHandler<ActionEvent> {
-//
-//    SaveFileHandler() {
-//    }
-//    @Override
-//    public void handle(ActionEvent event) {
-//
-//    }
-//  }
+  public void storeInPropertiesFile(String[] inputs){
+    try {
+      properties.setProperty("Title", inputs[0]);
+      properties.setProperty("Author", inputs[1]);
+      properties.setProperty("Description", inputs[2]);
+      properties.store(new FileOutputStream("resources/" + inputs[0] + ".properties"), null);
+
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+
+
+  }
+
 }
