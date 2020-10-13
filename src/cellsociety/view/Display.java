@@ -2,7 +2,6 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
-import java.util.Arrays;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -20,15 +19,14 @@ import javafx.util.Duration;
 
 
 public class Display extends Application {
- //THisshit should be in css
+
+
+  //THisshit should be in css
   public static final String TITLE = "Simulation";
   public static final int WIDTH = 800;
   public static final int HEIGHT = 600;
   public static final int FRAMES_PER_SECOND = 60;
-  public static final int DEFAULT_SPEED = 100/60;
   public static final Paint BACKGROUND = Color.AZURE;
-  public static final int GAME_WIDTH = 13;
-  public static final int GAME_HEIGHT = 11;
 
   private static final String DEFAULT_PROPERTY_FILE_NAME = "ConwayGameOfLife.properties"; //TODO - ADD REFLECTION
   private static final String CSS_STYLE_SHEET = "default.css";
@@ -42,6 +40,18 @@ public class Display extends Application {
   private Controller myController;
   private SimulationBoard myBoard;
   private Slider speedAdjuster;
+  private double animationSpeed = 100 / FRAMES_PER_SECOND;
+
+  public Display() {
+  }
+
+  /**
+   * Start the program.
+   */
+  public static void main(String[] args) {
+    launch(args);
+  }
+  //private Controller myController = new Controller("ConwayGameOfLife.properties");
 
   public double getAnimationSpeed() {
     return animationSpeed;
@@ -51,40 +61,31 @@ public class Display extends Application {
     this.animationSpeed = animationSpeed;
   }
 
-  private double animationSpeed = 100 / FRAMES_PER_SECOND;
-  //private Controller myController = new Controller("ConwayGameOfLife.properties");
-
-  public Display(){
-  }
-
-  /**
-   * Start the program.
-   */
-  public static void main(String[] args) {
-    launch(args);
-  }
-
   @Override
   public void start(Stage stage) {
     // attach scene to the stage and display it
     myStage = stage;
-    SplashScreen startScreen = new SplashScreen();
+    SplashScreen startScreen = new SplashScreen(this);
     myStage.setScene(startScreen.getMyScene()); //connectinga splash screen
-    checkWhichGame(startScreen);
     stage.setTitle(TITLE); //will also come from properties
     stage.show();
   }
 
-  private void checkWhichGame(SplashScreen startScreen) {
-    //TODO - figure out how to add multiple buttons
-    // TODO: 2020-10-12 abstract for any default property file or any simulation
-    startScreen.getMyButton().setOnAction(new EventHandler<ActionEvent>(){
-      @Override public void handle(ActionEvent e){
-        setController(new Controller(DEFAULT_PROPERTY_FILE_NAME));
-          Scene gameScene = setupScene();
-          myStage.setScene(gameScene);
-      }
-    });
+//  private void checkWhichGame(SplashScreen startScreen) {
+//    //TODO - figure out how to add multiple buttons
+//    // TODO: 2020-10-12 abstract for any default property file or any simulation
+//    startScreen.getMyButton().setOnAction(new EventHandler<ActionEvent>() {
+//      @Override
+//      public void handle(ActionEvent e) {
+//        chooseSimulation();
+//      }
+//    });
+//  }
+
+  public void chooseSimulation(String simulationType) {
+    setController(new Controller("Default" + simulationType + ".properties"));
+    Scene gameScene = setupScene();
+    myStage.setScene(gameScene);
   }
 
   // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
@@ -106,9 +107,9 @@ public class Display extends Application {
   }
 
   private void setUpSpeedAdjuster() {
-    speedAdjuster = new Slider(.5,5,1);
+    speedAdjuster = new Slider(.5, 5, 1);
     // TODO: 2020-10-12 can we vbox this with the buttons
-    speedAdjuster.setLayoutX(WIDTH/2 - 50);
+    speedAdjuster.setLayoutX(WIDTH / 2 - 50);
     speedAdjuster.setLayoutY(HEIGHT - HEIGHT / 4);
     speedAdjuster.valueProperty().addListener((
         ObservableValue<? extends Number> ov,
@@ -132,23 +133,23 @@ public class Display extends Application {
     return myStage;
   }
 
-  public void pauseGame(){
-    if(animation != null) {
+  public void pauseGame() {
+    if (animation != null) {
       animation.pause();
     }
   }
 
-
-  public void setController(Controller controller) {
-      myController = controller;
-      myBoard= new SimulationBoard(myRoot, myController.getGameBoard(), myController.getProperties());
-  }
-
-  public Controller getController(){
+  public Controller getController() {
     return myController;
   }
 
+  public void setController(Controller controller) {
+    myController = controller;
+    myBoard = new SimulationBoard(myRoot, myController.getGameBoard(),
+        myController.getProperties());
   }
+
+}
 
 
 

@@ -49,5 +49,4 @@ public class ConwayGameOfLife extends Simulation {
     }
     return aliveCount;
   }
-
 }
