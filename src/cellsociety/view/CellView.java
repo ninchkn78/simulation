@@ -16,7 +16,6 @@ public class CellView extends Rectangle {
   }
 
   public void setColor(String state, Properties properties)  {
-
       // TODO: 2020-10-10 better error handling
       if (properties.getProperty(state) == null){
         this.setFill(Color.WHITE);
