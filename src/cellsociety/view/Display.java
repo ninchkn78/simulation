@@ -93,7 +93,6 @@ public class Display extends Application {
 
   }
 
-  // TODO: 2020-10-04 this 100% needs to change, but just doing this for now to be able to update?
   void step(double elapsedTime) {
     myController.updateView();
     myBoard.updateMyGrid(myController.getGameBoard(), myController.getProperties());

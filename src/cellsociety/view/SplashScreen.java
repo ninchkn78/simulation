@@ -17,25 +17,17 @@ public class SplashScreen {
       myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
       myScene.getStylesheets().add("SplashScreen.css");
 
-      HBox titleBox = new HBox();
+      HBox titleBox = createHBox(5, "TitleBox");
+      HBox buttonBox = createHBox(3, "buttonBox");
+
 
       Label newText = new Label("Choose Your Simulation!!");
-
-      titleBox.setPrefWidth(Display.WIDTH);
-      titleBox.setPrefHeight(Display.HEIGHT/3);
       titleBox.getChildren().add(newText);
-      titleBox.setLayoutY(Display.HEIGHT/4);
-      titleBox.getStyleClass().add("TitleBox");
 
       myButton = new Button("Conway");
       myButton.setId("Conway");
       Button percButton = new Button("Percolation");
 
-      HBox buttonBox = new HBox();
-      buttonBox.setPrefWidth(Display.WIDTH);
-      buttonBox.setPrefHeight(Display.HEIGHT/3);
-      buttonBox.getStyleClass().add("buttonBox");
-      buttonBox.setLayoutY((Display.HEIGHT/3) * 2);
       buttonBox.getChildren().addAll(myButton, percButton);
 
 
@@ -43,6 +35,15 @@ public class SplashScreen {
 
 
 
+  }
+
+    private HBox createHBox(int yOffsetFactor, String cssClass) {
+    HBox currentHBox = new HBox();
+    currentHBox.setPrefWidth(Display.WIDTH);
+    currentHBox.setPrefHeight(Display.HEIGHT/4);
+    currentHBox.getStyleClass().add(cssClass);
+    currentHBox.setLayoutY((Display.HEIGHT/yOffsetFactor) *2);
+    return currentHBox;
   }
 
   public Scene getMyScene() {
