@@ -1,5 +1,9 @@
 package cellsociety.view;
 
+import java.util.ArrayList;
+import java.util.List;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -10,34 +14,49 @@ import javafx.scene.text.Text;
 public class SplashScreen {
 
   private Scene myScene;
-  private Button myButton;
+  private List<Button> myButtons = new ArrayList<>();
+  private Display myDisplay;
 
-  public SplashScreen(){
+  class SimulationChooserHandler implements EventHandler<ActionEvent> {
+    private final String simulationName ;
+    SimulationChooserHandler(String simulationName) {
+      this.simulationName = simulationName;
+    }
+    @Override
+    public void handle(ActionEvent event) {
+      myDisplay.chooseSimulation(simulationName);
+    }
+  }
+
+  public SplashScreen(Display display){
+      myDisplay = display;
       Group root = new Group();
       myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
       myScene.getStylesheets().add("SplashScreen.css");
-
       HBox titleBox = createHBox(5, "TitleBox");
       HBox buttonBox = createHBox(3, "buttonBox");
-
 
       Label newText = new Label("Choose Your Simulation!!");
       titleBox.getChildren().add(newText);
 
-      myButton = new Button("Conway");
-      myButton.setId("Conway");
-      Button percButton = new Button("Percolation");
+    // TODO: 2020-10-12 abstract :(
+      addNewButton("ConwayGameOfLife");
+      addNewButton("Percolation");
+      addNewButton("RPS");
+      addNewButton("SpreadingFire");
 
-      buttonBox.getChildren().addAll(myButton, percButton);
-
-
+      buttonBox.getChildren().addAll(myButtons);
       root.getChildren().addAll(titleBox, buttonBox);
-
-
 
   }
 
-    private HBox createHBox(int yOffsetFactor, String cssClass) {
+  private Button createSimulationButton(String simulationName) {
+    Button button = new Button(simulationName);
+    button.setOnAction(new SimulationChooserHandler(simulationName));
+    return button;
+  }
+
+  private HBox createHBox(int yOffsetFactor, String cssClass) {
     HBox currentHBox = new HBox();
     currentHBox.setPrefWidth(Display.WIDTH);
     currentHBox.setPrefHeight(Display.HEIGHT/4);
@@ -50,8 +69,9 @@ public class SplashScreen {
     return myScene;
   }
 
-  public Button getMyButton() {
-    return myButton;
+  private void addNewButton(String simulationName){
+    Button simulationButton = createSimulationButton(simulationName);
+    myButtons.add(simulationButton);
+    simulationButton.setId(simulationName);
   }
-
 }
