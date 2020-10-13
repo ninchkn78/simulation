@@ -4,6 +4,7 @@ import cellsociety.model.GameBoard;
 import cellsociety.model.games.*;
 import cellsociety.model.games.Simulation;
 import cellsociety.view.CellView;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
@@ -13,9 +14,18 @@ public class Controller {
   private GameBoard board;
   private Simulation game;
   private Properties properties = new Properties();
+  private String propertiesFileName;
 
   public Properties getProperties() {
     return properties;
+  }
+
+  public void overWriteProperties(){
+    try {
+      properties.store(new FileOutputStream("resources/" + propertiesFileName), null);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   public void setProperties(String propertiesFileName) {
@@ -28,7 +38,8 @@ public class Controller {
   }
 
 
-  public Controller(String propertiesFileName) {
+  public Controller(String propertiesName) {
+    propertiesFileName = propertiesName;
     setProperties(propertiesFileName);
     String gameType = properties.getProperty("Type");
     Class operation;
