@@ -19,9 +19,6 @@ public abstract class Simulation {
     return board;
   }
 
-  public void setGameBoard(GameBoard updatedBoard){
-    board = updatedBoard;
-  }
 
   public void incrementGeneration(){
     generation++;
@@ -31,7 +28,16 @@ public abstract class Simulation {
   public abstract void updateCell(GameBoard gameBoard, int row, int col);
 
 
-  public abstract void nextGen();
+  public void nextGen(){
+    GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight());
+    for (int i = 0; i < getGameBoard().getHeight(); i++) {
+      for (int j = 0; j < getGameBoard().getWidth(); j++) {
+        updateCell(nextBoard, i,j);
+      }
+    }
+    incrementGeneration();
+    board = nextBoard;
+  }
 
 
 
