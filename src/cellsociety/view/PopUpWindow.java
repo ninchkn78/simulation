@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Properties;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -29,7 +30,7 @@ public class PopUpWindow {
 
   private static final String TITLE = "Title";
   private static final String AUTHOR = "Author";
-  private static final String DESCRIPTION = "DESCRIPTION";
+  private static final String DESCRIPTION = "Description";
 
   private final GameBoard myGameBoard;
   private Display myDisplay;
@@ -53,6 +54,7 @@ public class PopUpWindow {
     addToGrid(description, DESCRIPTION, 2);
 
     dialog.getDialogPane().setContent(myGrid);
+    //Optional<ButtonType> result = dialog.getButtonType().showAndWait();
 
     dialog.setResultConverter(dialogButton->{
         String[] retArray = new String[]{title.getText(),author.getText(), description.getText()};
@@ -77,7 +79,7 @@ public class PopUpWindow {
   }
 
   private TextField createTextFeild(String fieldText) {
-    TextField title = new TextField(fieldText);
+    TextField title = new TextField();
     title.setPromptText(fieldText);
     return title;
   }
