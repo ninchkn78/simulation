@@ -1,5 +1,7 @@
 package cellsociety.view;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonBar.ButtonData;
@@ -18,7 +20,7 @@ public class PopUpWindow {
 //    td.setHeaderText("Input Information");
 //    td.show();
     // Create the custom dialog.
-    Dialog<Pair<String, String>> dialog = new Dialog<>();
+    Dialog<String[]> dialog = new Dialog<>();
     dialog.setTitle("Save Current Simulation State");
     dialog.setHeaderText("Fill Out Required Information");
 
@@ -53,8 +55,22 @@ public class PopUpWindow {
 
     dialog.getDialogPane().setContent(grid);
 
+    dialog.setResultConverter(dialogButton->{
+        String[] retArray = new String[]{title.getText(),author.getText(), description.getText()};
+        System.out.println(retArray[0]);
+        return retArray ;
+    });
+
     dialog.show();
   }
 
+  class SaveFileHandler implements EventHandler<ActionEvent> {
 
+    SaveFileHandler() {
+    }
+    @Override
+    public void handle(ActionEvent event) {
+
+    }
+  }
 }
