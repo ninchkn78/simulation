@@ -50,7 +50,7 @@ public class Display extends Application {
     this.animationSpeed = animationSpeed;
   }
 
-  private double animationSpeed = .5 * 100 / FRAMES_PER_SECOND;
+  private double animationSpeed = 100 / FRAMES_PER_SECOND;
   //private Controller myController = new Controller("ConwayGameOfLife.properties");
 
   public Display(){
@@ -148,12 +148,7 @@ public class Display extends Application {
     return myController;
   }
 
-  public Timeline getAnimation() {
-    return animation;
   }
-
-
-}
 
 
 
