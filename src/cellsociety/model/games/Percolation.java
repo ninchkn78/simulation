@@ -15,6 +15,8 @@ public class Percolation extends Simulation {
   public void updateCell(GameBoard gameBoard, int row, int col) {
     if (fullNextGen(row,col)){
       gameBoard.setPiece(row, col, PercolationCell.FULL);
+    }else{
+      gameBoard.setPiece(row, col, getGameBoard().getState(row, col));
     }
   }
 
