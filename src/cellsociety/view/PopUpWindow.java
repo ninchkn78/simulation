@@ -57,20 +57,22 @@ public class PopUpWindow {
 
     dialog.setResultConverter(dialogButton->{
         String[] retArray = new String[]{title.getText(),author.getText(), description.getText()};
+        //Basically want to write to a new properties file with this Name
         System.out.println(retArray[0]);
+
         return retArray ;
     });
 
     dialog.show();
   }
 
-  class SaveFileHandler implements EventHandler<ActionEvent> {
-
-    SaveFileHandler() {
-    }
-    @Override
-    public void handle(ActionEvent event) {
-
-    }
-  }
+//  class SaveFileHandler implements EventHandler<ActionEvent> {
+//
+//    SaveFileHandler() {
+//    }
+//    @Override
+//    public void handle(ActionEvent event) {
+//
+//    }
+//  }
 }
