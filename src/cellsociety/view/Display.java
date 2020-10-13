@@ -2,6 +2,7 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
+import java.util.Arrays;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -27,7 +28,7 @@ public class Display extends Application {
   public static final int GAME_WIDTH = 13;
   public static final int GAME_HEIGHT = 11;
 
-  private static final String DEFAULT_PROPERTY_FILE_NAME = "ConwayGameOfLife.properties"; //TODO - ADD REFLECTION
+  private static final String DEFAULT_PROPERTY_FILE_NAME = "RPS.properties"; //TODO - ADD REFLECTION
   private static final String CSS_STYLE_SHEET = "default.css";
 
   private final Group myRoot = new Group();
@@ -94,6 +95,7 @@ public class Display extends Application {
   }
 
   void step(double elapsedTime) {
+//    System.out.println(Arrays.deepToString(myController.getGameBoard().getGameBoardStates()));
     myController.updateView();
     myBoard.updateMyGrid(myController.getGameBoard(), myController.getProperties());
   }
