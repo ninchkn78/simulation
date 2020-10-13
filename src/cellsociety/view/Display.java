@@ -28,7 +28,6 @@ public class Display extends Application {
   public static final int FRAMES_PER_SECOND = 60;
   public static final Paint BACKGROUND = Color.AZURE;
 
-  private static final String DEFAULT_PROPERTY_FILE_NAME = "SpreadingFire.properties"; //TODO - ADD REFLECTION
   private static final String CSS_STYLE_SHEET = "default.css";
 
   private final Group myRoot = new Group();
@@ -64,10 +63,14 @@ public class Display extends Application {
   @Override
   public void start(Stage stage) {
     // attach scene to the stage and display it
+
+    generateSplashScreen(stage);
+  }
+
+  public void generateSplashScreen(Stage stage) {
     myStage = stage;
     SplashScreen startScreen = new SplashScreen(this);
-    myStage.setScene(startScreen.getMyScene()); //connectinga splash screen
-
+    stage.setScene(startScreen.getMyScene()); //connectinga splash screen
     stage.setTitle(TITLE); //will also come from properties
     stage.show();
   }
