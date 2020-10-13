@@ -4,6 +4,9 @@ import cellsociety.controller.Controller;
 import cellsociety.model.GameBoard;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -20,52 +23,39 @@ import javafx.util.Pair;
 
 public class PopUpWindow {
 
+  private static final String HEADER_TITLE = "Fill Out Required Information";
+  private static final String DIALOG_TITLE = "Save Current Simulation State";
+  private static final String BUTTON_TITLE = "Save";
+
+  private static final String TITLE = "Title";
+  private static final String AUTHOR = "Author";
+  private static final String DESCRIPTION = "DESCRIPTION";
+
   private final GameBoard myGameBoard;
   private Display myDisplay;
     private Properties properties;
+  private GridPane myGrid;
 
   public PopUpWindow(Display display, GameBoard gameBoard){
     myDisplay = display;
     myGameBoard = gameBoard;
     properties = myDisplay.getController().getProperties();
-    // Create the custom dialog.
-    Dialog<String[]> dialog = new Dialog<>();
-    dialog.setTitle("Save Current Simulation State");
-    dialog.setHeaderText("Fill Out Required Information");
 
+    Dialog<String[]> dialog = createDialog();
+    createGridPane();
 
+    TextField title = createTextFeild(TITLE);
+    TextField author = createTextFeild(AUTHOR);
+    TextField description = createTextFeild(DESCRIPTION);
 
-// Set the button types.
-    ButtonType save = new ButtonType("Save");
-    dialog.getDialogPane().getButtonTypes().add(save);
+    addToGrid(title, TITLE, 0);
+    addToGrid(author, AUTHOR, 1);
+    addToGrid(description, DESCRIPTION, 2);
 
-// Create the username and password labels and fields.
-    GridPane grid = new GridPane();
-    grid.setHgap(10);
-    grid.setVgap(10);
-    grid.setPadding(new Insets(20, 150, 10, 10));
-
-    TextField title = new TextField();
-    title.setPromptText("Title");
-    TextField author = new TextField();
-    author.setPromptText("Author");
-    TextField description = new TextField();
-    description.setPromptText("description");
-
-
-    grid.add(new Label("Title:"), 0, 0);
-    grid.add(title, 1, 0);
-    grid.add(new Label("Author:"), 0, 1);
-    grid.add(author, 1, 1);
-    grid.add(new Label("Description:"),0,2);
-    grid.add(description, 1, 2);
-
-
-    dialog.getDialogPane().setContent(grid);
+    dialog.getDialogPane().setContent(myGrid);
 
     dialog.setResultConverter(dialogButton->{
         String[] retArray = new String[]{title.getText(),author.getText(), description.getText()};
-        //Basically want to write to a new properties file with this Name
         System.out.println(retArray[0]);
         storeInPropertiesFile(retArray);
         return retArray ;
@@ -74,11 +64,38 @@ public class PopUpWindow {
     dialog.show();
   }
 
+  private void createGridPane() {
+    myGrid = new GridPane();
+    myGrid.setHgap(10);
+    myGrid.setVgap(10);
+    myGrid.setPadding(new Insets(20, 150, 10, 10));
+  }
+
+  private void addToGrid(TextField title, String title2, int row) {
+    myGrid.add(new Label(title2 + ":"), 0, row);
+    myGrid.add(title, 1, row);
+  }
+
+  private TextField createTextFeild(String fieldText) {
+    TextField title = new TextField(fieldText);
+    title.setPromptText(fieldText);
+    return title;
+  }
+
+  private Dialog<String[]> createDialog() {
+    Dialog<String[]> dialog = new Dialog<>();
+    dialog.setTitle(DIALOG_TITLE);
+    dialog.setHeaderText(HEADER_TITLE);
+    ButtonType save = new ButtonType(BUTTON_TITLE);
+    dialog.getDialogPane().getButtonTypes().add(save);
+    return dialog;
+  }
+
   public void storeInPropertiesFile(String[] inputs){
     try {
-      properties.setProperty("Title", inputs[0]);
-      properties.setProperty("Author", inputs[1]);
-      properties.setProperty("Description", inputs[2]);
+      properties.setProperty(TITLE, inputs[0]);
+      properties.setProperty(AUTHOR, inputs[1]);
+      properties.setProperty(DESCRIPTION, inputs[2]);
 
       SaveFiles saveFileObject = new SaveFiles();
       saveFileObject.saveState(myGameBoard.getGameBoardStates(),inputs[0]);
