@@ -101,12 +101,15 @@ public class ButtonSetup {
         if(myDisplay.getController()!=null ) {
           System.out.println("WRITE FILE");
           GameBoard myGameBoard = myDisplay.getController().getGameBoard();
-          saveFiles saveFileObject = new saveFiles();
-          try {
-            saveFileObject.saveState(myGameBoard.getGameBoardStates());
 
-          } catch (IOException ioException) {
-          }
+          PopUpWindow pUp = new PopUpWindow(myDisplay, myGameBoard);
+          //SaveFiles saveFileObject = new SaveFiles();
+
+//          try {
+//            //saveFileObject.saveState(myGameBoard.getGameBoardStates());
+//
+//          } catch (IOException ioException) {
+//          }
         }
 
 
