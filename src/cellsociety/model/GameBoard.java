@@ -37,7 +37,7 @@ public class GameBoard {
     Cell[][] cellConfig = new Cell[height][width];
     for (int i = 0; i < height; i++){
       for (int j = 0; j < width; j++){
-        cellConfig[i][j] = new ConwayCell();
+        cellConfig[i][j] = new ConwayCell(); //TODO: FIX THIS
       }
     }
     return cellConfig;
