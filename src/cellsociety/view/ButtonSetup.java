@@ -49,7 +49,6 @@ public class ButtonSetup {
     chooseImageButton = new Button("Image");
     chooseImageButton.setId("chooseImageButton");
     stepButton = new Button("Step Once");
-    stepButton.setId("stepButton");
   }
 
   private HBox createHBox() {
@@ -77,6 +76,8 @@ public class ButtonSetup {
           myDisplay.nextGen();
       }
     });
+
+
   }
   public void checkFileReaderButton() {
 

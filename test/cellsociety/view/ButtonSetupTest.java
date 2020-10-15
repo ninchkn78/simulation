@@ -73,21 +73,8 @@ class ButtonSetupTest extends DukeApplicationTest {
         Assertions.assertEquals(Color.BLUE, cell2.getFill());
 
     }
-    @Test
-    public void testStepButton(){
 
-        Button stepButton = lookup("#stepButton").queryButton();
 
-        Rectangle cell1 = lookup("#cell1,0").query();
-        Rectangle cell2 = lookup("#cell0,1").query();
-        Assertions.assertEquals(Color.BLUE, cell1.getFill());
-        Assertions.assertEquals(Color.RED, cell2.getFill());
-
-        stepButton.fire();
-        Assertions.assertEquals(Color.RED, cell1.getFill());
-        Assertions.assertEquals(Color.BLUE, cell2.getFill());
-
-    }
 
 
 }
