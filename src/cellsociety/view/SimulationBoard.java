@@ -108,8 +108,7 @@ public class SimulationBoard {
   public void updateCellImage(Properties properties, ImageView cellImage, String state){
       FileInputStream inputstream = null;
       try {
-        // TODO: 2020-10-13 if state doesn't exist  
-        System.out.println(properties.getProperty(state + "image"));
+        // TODO: 2020-10-13 if state doesn't exist
         inputstream = new FileInputStream(properties.getProperty(state + "image"));
 
       } catch (IOException e) {
@@ -117,7 +116,5 @@ public class SimulationBoard {
       }
       Image image = new Image(inputstream);
       cellImage.setImage(image);
-
-
   }
 }
