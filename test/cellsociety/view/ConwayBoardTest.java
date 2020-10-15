@@ -29,7 +29,7 @@ class ConwayBoardTest extends DukeApplicationTest {
     myScene = conwayDisplay.setupScene();
     stage.setScene(myScene);
     stage.show();
-    javafxRun(() -> conwayDisplay.setController(new Controller("ConwayGameOfLife.properties")));
+    javafxRun(() -> conwayDisplay.setController(new Controller("TestConway.properties")));
     // find individual items within game by ID (must have been set in your code using setID())
   }
 
