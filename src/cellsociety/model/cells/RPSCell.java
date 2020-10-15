@@ -51,6 +51,18 @@ public class RPSCell extends Cell{
 //    return opponentState;
 //  }
 
+  public boolean isRock(){
+    return getState().equals(ROCK);
+  }
+
+  public boolean isPaper(){
+    return getState().equals(PAPER);
+  }
+
+  public boolean isScissors(){
+    return getState().equals(SCISSORS);
+  }
+
 
 
 
