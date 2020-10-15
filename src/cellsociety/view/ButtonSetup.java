@@ -29,7 +29,6 @@ public class ButtonSetup {
     myDisplay = myGame;
   }
 
-
   public void createSetup(Group root) {
     createButtons();
     HBox buttonBox = createHBox();
@@ -49,6 +48,7 @@ public class ButtonSetup {
     chooseImageButton = new Button("Image");
     chooseImageButton.setId("chooseImageButton");
     stepButton = new Button("Step Once");
+
     stepButton.setId("stepButton");
   }
 
@@ -74,6 +74,7 @@ public class ButtonSetup {
     stepButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
+
         myDisplay.nextGen();
       }
     });
@@ -82,7 +83,7 @@ public class ButtonSetup {
   }
   public void checkFileReaderButton() {
 
-    loadFileButton.setOnAction(e -> {
+      loadFileButton.setOnAction(e -> {
       fileSelected = true;
       myDisplay.pauseGame();
       FileChooser fileChooser = new FileChooser();

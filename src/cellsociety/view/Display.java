@@ -134,12 +134,12 @@ public class Display extends Application {
   }
 
   public void play() {
-    animation.play();
     isPaused = false;
   }
 
   void step(double elapsedTime) {
     if(!isPaused){
+
       animation.setRate(animationSpeed);
       nextGen();
     }
