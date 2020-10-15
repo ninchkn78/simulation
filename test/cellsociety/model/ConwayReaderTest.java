@@ -10,8 +10,8 @@ class ReaderTest {
   void readFile() {
     Reader reader = new Reader();
     String[][] test = reader.readFile("board_config/conway1.csv");
-    assertEquals(3,test.length);
-    assertEquals(3,test[0].length);
+    assertEquals(11,test.length);
+    assertEquals(11,test[0].length);
     assertEquals("0",test[0][0]);
     assertEquals("1",test[0][1]);
   }

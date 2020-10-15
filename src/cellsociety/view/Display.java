@@ -46,6 +46,7 @@ public class Display extends Application {
   private SimulationBoard myBoard;
   private Slider speedAdjuster;
   private double animationSpeed = 100 / FRAMES_PER_SECOND;
+  private boolean isPaused = true;
 
   public Display() {
   }
@@ -106,6 +107,7 @@ public class Display extends Application {
     myButtonSetup.checkButtonStatus();
     setUpSpeedAdjuster();
     setUpAnimation();
+    animation.play();
 
     return scene;
   }
@@ -133,22 +135,28 @@ public class Display extends Application {
 
   public void play() {
     animation.play();
+    isPaused = false;
   }
 
   void step(double elapsedTime) {
-    animation.setRate(animationSpeed);
+    if(!isPaused){
+      animation.setRate(animationSpeed);
+      nextGen();
+    }
+  }
+
+  public void nextGen() {
     myController.updateView();
     myBoard.updateMyGrid(myController.getGameBoard(), myController.getProperties());
   }
+
 
   public Window getStage() {
     return myStage;
   }
 
   public void pauseGame() {
-    if (animation != null) {
-      animation.pause();
-    }
+    isPaused = true;
   }
 
   public void addImages() {
