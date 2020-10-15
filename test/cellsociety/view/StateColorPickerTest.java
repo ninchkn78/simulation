@@ -37,7 +37,6 @@ class StateColorPickerTest extends DukeApplicationTest {
     Assertions.assertEquals(Color.BLUE, cell.getFill());
     javafxRun(() -> colorPicker.setValue(Color.PURPLE));
     javafxRun(() -> conwayDisplay.step(conwayDisplay.getAnimationSpeed()));
-    sleep(2000);
     Assertions.assertEquals(Color.PURPLE, cell.getFill());
   }
 }
