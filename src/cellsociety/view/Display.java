@@ -139,7 +139,8 @@ public class Display extends Application {
 
   void step(double elapsedTime) {
     if(!isPaused){
-    animation.setRate(animationSpeed);
+
+      animation.setRate(animationSpeed);
       nextGen();
     }
   }
@@ -148,6 +149,7 @@ public class Display extends Application {
     myController.updateView();
     myBoard.updateMyGrid(myController.getGameBoard(), myController.getProperties());
   }
+
 
   public Window getStage() {
     return myStage;

@@ -28,11 +28,12 @@ class ButtonSetupTest extends DukeApplicationTest {
 
     @Test
     public void testButtonGeneration(){
-       lookup("#loadFileButton").queryButton();
-       lookup("#runButton").queryButton();
-       lookup("#saveFileButton").queryButton();
-       lookup("#pauseButton").queryButton();
-       lookup("#chooseImageButton").queryButton();
+
+        lookup("#loadFileButton").queryButton();
+        lookup("#runButton").queryButton();
+        lookup("#saveFileButton").queryButton();
+        lookup("#pauseButton").queryButton();
+        lookup("#chooseImageButton").queryButton();
     }
 
     @Test
@@ -45,7 +46,9 @@ class ButtonSetupTest extends DukeApplicationTest {
         Assertions.assertEquals(Color.RED, cell2.getFill());
         runButton.fire();
         //TODO = don't use the sleep = how do we fix this
-        sleep(2000);
+
+        //javafxRun(() -> myDisplay.step(myDisplay.getAnimationSpeed()));
+        sleep(1100);
         Assertions.assertEquals(Color.RED, cell1.getFill());
         Assertions.assertEquals(Color.BLUE, cell2.getFill());
 
@@ -62,7 +65,8 @@ class ButtonSetupTest extends DukeApplicationTest {
         Assertions.assertEquals(Color.BLUE, cell1.getFill());
         Assertions.assertEquals(Color.RED, cell2.getFill());
 
-        javafxRun(() -> myDisplay.step(myDisplay.getAnimationSpeed()));
+
+        javafxRun(() -> myDisplay.nextGen());
         Assertions.assertEquals(Color.RED, cell1.getFill());
         Assertions.assertEquals(Color.BLUE, cell2.getFill());
 
@@ -74,7 +78,21 @@ class ButtonSetupTest extends DukeApplicationTest {
 
     }
 
+    @Test
+    public void testStepButton(){
 
+        Button stepButton = lookup("#stepButton").queryButton();
+
+        Rectangle cell1 = lookup("#cell1,0").query();
+        Rectangle cell2 = lookup("#cell0,1").query();
+        Assertions.assertEquals(Color.BLUE, cell1.getFill());
+        Assertions.assertEquals(Color.RED, cell2.getFill());
+
+        stepButton.fire();
+        Assertions.assertEquals(Color.RED, cell1.getFill());
+        Assertions.assertEquals(Color.BLUE, cell2.getFill());
+
+    }
 
 
 }
