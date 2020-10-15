@@ -67,6 +67,7 @@ public class PopUpWindow {
   }
 
   private void createGridPane() {
+    //found this ish online
     myGrid = new GridPane();
     myGrid.setHgap(10);
     myGrid.setVgap(10);
