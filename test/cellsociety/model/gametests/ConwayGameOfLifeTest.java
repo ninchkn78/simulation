@@ -1,4 +1,4 @@
-package cellsociety.model;
+package cellsociety.model.gametests;
 
 import static org.junit.jupiter.api.Assertions.*;
 

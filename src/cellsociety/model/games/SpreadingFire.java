@@ -6,10 +6,20 @@ import java.util.Random;
 
 public class SpreadingFire extends Simulation{
 
+  public Random rand;
   public static final double probCatch = 0.5;
 
   public SpreadingFire(String csvConfig){
     super(csvConfig);
+    rand = new Random();
+  }
+
+  public SpreadingFire(String csvConfig, boolean isTest){
+    super(csvConfig);
+    rand = new Random();
+    if (isTest){
+      rand.setSeed(0);
+    }
   }
 
 
@@ -45,13 +55,16 @@ public class SpreadingFire extends Simulation{
         if (getGameBoard().inBounds(i, j) &&
             isDirectNeighbor(i, j, currentRow, currentColumn) &&
             isBurning(i, j)) {
-          Random rand = new Random();
           double probability = rand.nextDouble();
           return probability > probCatch;
         }
       }
     }
     return false;
+  }
+
+  public Random getRand(){
+    return rand;
   }
 
 }
