@@ -29,7 +29,7 @@ class ConwayBoardTest extends DukeApplicationTest {
     myScene = conwayDisplay.setupScene();
     stage.setScene(myScene);
     stage.show();
-    javafxRun(() -> conwayDisplay.setController(new Controller("ConwayGameOfLife.properties")));
+    javafxRun(() -> conwayDisplay.setController(new Controller("TestConway.properties")));
     // find individual items within game by ID (must have been set in your code using setID())
   }
 
@@ -45,7 +45,7 @@ class ConwayBoardTest extends DukeApplicationTest {
   }
   @Test
   void testNextGen() {
-    javafxRun(() -> conwayDisplay.step(conwayDisplay.getAnimationSpeed()));
+    javafxRun(() -> conwayDisplay.nextGen());
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
     Assertions.assertEquals(Color.RED, cell1.getFill());
