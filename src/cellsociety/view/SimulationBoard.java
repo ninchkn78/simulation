@@ -101,7 +101,7 @@ public class SimulationBoard {
     myGrid.getChildren().remove(cell);
     int col = GridPane.getColumnIndex(cell);
     int row = GridPane.getRowIndex(cell);
-    GridPane.setConstraints(imageView, row, col);
+    GridPane.setConstraints(imageView, col, row);
     myGrid.getChildren().add(imageView);
   }
 
@@ -109,6 +109,7 @@ public class SimulationBoard {
       FileInputStream inputstream = null;
       try {
         // TODO: 2020-10-13 if state doesn't exist
+
         inputstream = new FileInputStream(properties.getProperty(state + "image"));
 
       } catch (IOException e) {

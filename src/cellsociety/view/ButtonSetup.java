@@ -39,10 +39,15 @@ public class ButtonSetup {
 
   private void createButtons() {
     loadFileButton = new Button("Load File");
+    loadFileButton.setId("loadFileButton");
     runButton = new Button("Play");
+    runButton.setId("runButton");
     fileSaveButton = new Button("Save File");
+    fileSaveButton.setId("saveFileButton");
     pauseButton = new Button("Pause");
+    pauseButton.setId("pauseButton");
     chooseImageButton = new Button("Image");
+    chooseImageButton.setId("chooseImageButton");
   }
 
   private HBox createHBox() {
@@ -64,7 +69,7 @@ public class ButtonSetup {
 
   public void checkFileReaderButton() {
 
-    loadFileButton.setOnAction(e -> {
+      loadFileButton.setOnAction(e -> {
       fileSelected = true;
       myDisplay.pauseGame();
       FileChooser fileChooser = new FileChooser();
@@ -107,13 +112,7 @@ public class ButtonSetup {
           GameBoard myGameBoard = myDisplay.getController().getGameBoard();
 
           PopUpWindow pUp = new PopUpWindow(myDisplay, myGameBoard);
-          //SaveFiles saveFileObject = new SaveFiles();
 
-//          try {
-//            //saveFileObject.saveState(myGameBoard.getGameBoardStates());
-//
-//          } catch (IOException ioException) {
-//          }
         }
 
 
