@@ -5,8 +5,9 @@ import cellsociety.model.cells.PercolationCell.PercolationState;
 public class SchellingCell extends Cell{
 
   public enum SchellingCellState implements CellState {
-    AGENT_X("0"),
-    AGENT_O("1");
+    VACANT("0"),
+    AGENT_X("1"),
+    AGENT_O("2");
 
 
     public String getState() {
@@ -25,12 +26,14 @@ public class SchellingCell extends Cell{
           return value;
         }
       }
-      return AGENT_X;
+      return VACANT;
     }
   }
 
-  public static final String AGENT_X = "0";
-  public static final String AGENT_O = "1";
+  public static final String VACANT = "0";
+  public static final String AGENT_X = "1";
+  public static final String AGENT_O = "2";
+
 
   public SchellingCell(String state) {
     super(state);

@@ -1,6 +1,8 @@
 package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
+import cellsociety.model.cells.Cell;
+import cellsociety.model.cells.SchellingCell;
 import cellsociety.model.cells.SpreadingFireCell;
 
 public class SchellingSegregation extends Simulation{
@@ -35,6 +37,15 @@ public class SchellingSegregation extends Simulation{
     return getGameBoard().getCell(row, col).getState();
   }
 
-
+//  public Cell nextVacantCell(GameBoard gameBoard){
+//    String[][] statesBoard = gameBoard.getGameBoardStates();
+//    for (int i = 0; i <= statesBoard.length; i++){
+//      for (int j = 0; j <= statesBoard[0].length; j++){
+//        if (statesBoard[i][j].equals(SchellingCell.VACANT)) {
+//          return gameBoard[i][j]
+//        }
+//      }
+//    }
+//  }
 
 }
