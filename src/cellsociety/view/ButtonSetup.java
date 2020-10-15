@@ -18,7 +18,7 @@ public class ButtonSetup {
   private Button pauseButton;
   private Button loadFileButton;
   private Button chooseImageButton;
-
+  private Button stepButton;
   private final Display myDisplay;
 
   private boolean fileSelected = false;
@@ -33,7 +33,7 @@ public class ButtonSetup {
   public void createSetup(Group root) {
     createButtons();
     HBox buttonBox = createHBox();
-    buttonBox.getChildren().addAll(loadFileButton,runButton,pauseButton,fileSaveButton,chooseImageButton);
+    buttonBox.getChildren().addAll(loadFileButton,runButton,pauseButton,fileSaveButton,chooseImageButton, stepButton);
     root.getChildren().add(buttonBox);
   }
 
@@ -48,6 +48,7 @@ public class ButtonSetup {
     pauseButton.setId("pauseButton");
     chooseImageButton = new Button("Image");
     chooseImageButton.setId("chooseImageButton");
+    stepButton = new Button("Step Once");
   }
 
   private HBox createHBox() {
@@ -65,8 +66,19 @@ public class ButtonSetup {
     checkRunButton();
     checkPauseButton();
     checkImageButton();
+    checkStepButton();
   }
 
+  public void checkStepButton(){
+    stepButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent e) {
+          myDisplay.nextGen();
+      }
+    });
+
+
+  }
   public void checkFileReaderButton() {
 
       loadFileButton.setOnAction(e -> {
