@@ -7,11 +7,21 @@ import javafx.scene.shape.Rectangle;
 
 public class CellView extends Rectangle {
 
+  public String getState() {
+    return state;
+  }
+
+  private void setState(String state) {
+    this.state = state;
+  }
+
+  private String state;
 
   public CellView(double width, double height, String state, Properties properties){
     super(width, height);
     this.setStroke(Color.BLACK);
     this.setColor(state, properties);
+    setState(state);
 
   }
 

@@ -37,6 +37,7 @@ class ConwayBoardTest extends DukeApplicationTest {
   void testCellsAreInitialized() {
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
+    sleep(1000);
     Assertions.assertEquals(Color.BLUE, cell1.getFill());
     Assertions.assertEquals(Color.RED, cell2.getFill());
     Assertions.assertEquals(0, cell1.getX());
