@@ -12,6 +12,7 @@ public class SpreadingFire extends Simulation{
     super(csvConfig);
   }
 
+
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col) {
     if (isBurning(row, col)) {
