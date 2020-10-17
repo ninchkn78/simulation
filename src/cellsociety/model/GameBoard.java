@@ -2,6 +2,7 @@ package cellsociety.model;
 
 import cellsociety.model.cells.Cell;
 import cellsociety.model.cells.ConwayCell;
+import java.util.function.BiConsumer;
 
 public class GameBoard {
 
@@ -108,6 +109,12 @@ public class GameBoard {
     return cellConfig;
   }
 
+  public void apply(TriConsumer<Integer, Integer, String> updateCellState){
+    for (int i = 0; i < height; i++){
+      for (int j = 0; j < width; j++){
+        updateCellState.accept(i,j, gameBoardStates[i][j]);
+      }
+  }}
 
 
   public void setCellConfiguration(String[][] stateConfig){

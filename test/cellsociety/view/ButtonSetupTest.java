@@ -45,10 +45,7 @@ class ButtonSetupTest extends DukeApplicationTest {
         Assertions.assertEquals(Color.BLUE, cell1.getFill());
         Assertions.assertEquals(Color.RED, cell2.getFill());
         runButton.fire();
-        //TODO = don't use the sleep = how do we fix this
-
-        //javafxRun(() -> myDisplay.step(myDisplay.getAnimationSpeed()));
-        sleep(1100);
+        javafxRun(() -> myDisplay.step(myDisplay.getAnimationSpeed()));
         Assertions.assertEquals(Color.RED, cell1.getFill());
         Assertions.assertEquals(Color.BLUE, cell2.getFill());
 

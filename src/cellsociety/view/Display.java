@@ -45,7 +45,7 @@ public class Display extends Application {
   private Controller myController;
   private SimulationBoard myBoard;
   private Slider speedAdjuster;
-  private double animationSpeed = 100 / FRAMES_PER_SECOND;
+  private double animationSpeed = 120 / FRAMES_PER_SECOND;
   private boolean isPaused = true;
 
   public Display() {
@@ -108,7 +108,6 @@ public class Display extends Application {
     setUpSpeedAdjuster();
     setUpAnimation();
     animation.play();
-
     return scene;
   }
 
