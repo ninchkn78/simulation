@@ -30,7 +30,7 @@ public class SimulationBoard {
 
   public SimulationBoard(Group root, GameBoard gameBoard, Properties properties) {
     myGrid.setLayoutX(75);
-    myGrid.setLayoutY(50);
+    myGrid.setLayoutY(75);
     myGrid.setGridLinesVisible(true);
     root.getChildren().add(myGrid);
     initializeMyGrid(gameBoard, properties);

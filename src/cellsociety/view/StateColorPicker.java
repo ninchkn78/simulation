@@ -5,16 +5,17 @@ import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
 
 public class StateColorPicker {
 
   private HBox colorPickerBox;
-  public StateColorPicker(Group root) {
+  public StateColorPicker(VBox stateConfigBox) {
     colorPickerBox = new HBox();
     colorPickerBox.getStyleClass().add("color-picker-box");
-    root.getChildren().add(colorPickerBox);
+    stateConfigBox.getChildren().add(colorPickerBox);
   }
 
   private void addColorPicker(String state, Controller controller){

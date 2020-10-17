@@ -82,19 +82,16 @@ public class ButtonSetup {
 
   }
   public void checkFileReaderButton() {
-
       loadFileButton.setOnAction(e -> {
       fileSelected = true;
       myDisplay.pauseGame();
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Resource File");
       File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
-
       //String[] pFilePathArr = propertiesFile.getPath().split(".");
       if(propertiesFile!= null){
         myDisplay.setController(new Controller(propertiesFile.getName()));
       }
-
     });
   }
 

@@ -34,7 +34,7 @@ public class PopUpWindow {
 
   private final GameBoard myGameBoard;
   private Display myDisplay;
-    private Properties properties;
+  private Properties properties;
   private GridPane myGrid;
 
   public PopUpWindow(Display display, GameBoard gameBoard){
