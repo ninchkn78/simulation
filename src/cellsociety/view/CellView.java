@@ -1,38 +1,13 @@
 package cellsociety.view;
 
-import java.io.IOException;
 import java.util.Properties;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.event.EventHandler;
+import javafx.event.EventType;
+import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 
-public class CellView extends Rectangle {
 
-  public String getState() {
-    return state;
-  }
-
-  private void setState(String state) {
-    this.state = state;
-  }
-
-  private String state;
-
-  public CellView(double width, double height, String state, Properties properties){
-    super(width, height);
-    this.setStroke(Color.BLACK);
-    this.setColor(state, properties);
-    setState(state);
-
-  }
-
-  public void setColor(String state, Properties properties)  {
-      // TODO: 2020-10-10 better error handling
-      if (properties.getProperty(state) == null){
-        this.setFill(Color.WHITE);
-      }
-      else {
-        this.setFill(Color.web(properties.getProperty(state)));
-      }
-    }
-  }
-
+public interface CellView{
+  void updateView(String state, Properties properties);
+  Node getCell();
+}
