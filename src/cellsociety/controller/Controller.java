@@ -1,9 +1,8 @@
 package cellsociety.controller;
 
 import cellsociety.model.GameBoard;
-import cellsociety.model.games.*;
 import cellsociety.model.games.Simulation;
-import cellsociety.view.CellView;
+import cellsociety.view.RectangleCellView;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -30,7 +29,7 @@ public class Controller {
 
   public void setProperties(String propertiesFileName) {
     try {
-      properties.load(CellView.class.getClassLoader().getResourceAsStream(propertiesFileName));
+      properties.load(RectangleCellView.class.getClassLoader().getResourceAsStream(propertiesFileName));
     } catch (IOException e) {
       // TODO: 2020-10-12 better error handling  
       e.printStackTrace();

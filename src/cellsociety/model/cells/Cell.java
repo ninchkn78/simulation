@@ -2,6 +2,7 @@ package cellsociety.model.cells;
 
 public abstract class Cell {
 
+  // TODO: 2020-10-17 add interface for cell
   private String state;
 
   public Cell(String state) {
