@@ -108,7 +108,6 @@ public class Display extends Application {
     setUpSpeedAdjuster();
     setUpAnimation();
     animation.play();
-
     return scene;
   }
 
