@@ -2,8 +2,10 @@ package cellsociety.model;
 
 import cellsociety.model.cells.Cell;
 import cellsociety.model.cells.ConwayCell;
+import java.util.ArrayList;
+import java.util.List;
 
-public class GameBoard {
+public class GameBoard{
 
   private final int width;
   private final int height;
@@ -64,10 +66,20 @@ public class GameBoard {
     return (row >= 0 && col >= 0) && (row < height && col < width);
   }
 
-
+  public List<Cell> getPositionsOfCellState(String state){
+    List<Cell> cellsList = new ArrayList<>();
+    for (int i = 0; i < height; i++){
+      for (int j = 0; j < width; j++){
+        if (gameBoardStates[i][j].equals(state)){
+          cellsList.add(gameBoardCells[i][j]);
+        }
+      }
+    }
+    return cellsList;
+  }
 
   public void setPiece(int row, int col, String state) {
-    gameBoardCells[row][col] = new ConwayCell(state); //TODO: update existing cell
+    gameBoardCells[row][col].setState(state); //TODO: update existing cell
     gameBoardStates[row][col] = state;
   }
 
@@ -94,8 +106,6 @@ public class GameBoard {
   public String[][] getGameBoardStates() {
     return gameBoardStates;
   }
-
-
 
 
   public Cell[][] createCellConfiguration(String[][] stateConfig){ //TODO: make this work for all cell types

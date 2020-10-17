@@ -21,7 +21,7 @@ public class SchellingSegregation extends Simulation{
     int neighborCount = 0;
     for (int i = row - 1; i <= row + 1; i++){
       for (int j = col - 1; j <= col + 1; j++){
-        if (getGameBoard().inBounds(i,j)){
+        if (getGameBoard().inBounds(i,j) && !isVacant(i, j)){
           neighborCount++;
         }
       }
@@ -33,19 +33,30 @@ public class SchellingSegregation extends Simulation{
     return !getState(x, y).equals(getState(row, col));
   }
 
+  public boolean isVacant(int row, int col) { //TODO: Move to cell
+    return !getState(row,col).equals(SchellingCell.VACANT);
+  }
+
   public String getState(int row, int col){
     return getGameBoard().getCell(row, col).getState();
   }
 
-//  public Cell nextVacantCell(GameBoard gameBoard){
-//    String[][] statesBoard = gameBoard.getGameBoardStates();
-//    for (int i = 0; i <= statesBoard.length; i++){
-//      for (int j = 0; j <= statesBoard[0].length; j++){
-//        if (statesBoard[i][j].equals(SchellingCell.VACANT)) {
-//          return gameBoard[i][j]
-//        }
-//      }
-//    }
+  public int countOpponents(int row, int col){
+    int opponentCount = 0;
+    for (int i = row - 1; i <= row + 1; i++){
+      for (int j = col - 1; j <= col + 1; j++){
+        if (getGameBoard().inBounds(i,j) && isDifferent(i, j, row, col)){
+          opponentCount++;
+        }
+      }
+    }
+    return opponentCount;
+  }
+//
+//  public boolean willMove(int row, int col){
+//    int neighborCount = countNeighbors(row, col);
+//    int opponentCount = countOpponents()
+//    return opponentCount > neighborCount * THRESHOLD;
 //  }
 
 }

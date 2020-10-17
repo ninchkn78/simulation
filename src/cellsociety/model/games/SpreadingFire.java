@@ -24,8 +24,8 @@ public class SpreadingFire extends Simulation{
 
 
   @Override
-  public void updateCell(GameBoard gameBoard, int row, int col) {
-    if (isBurning(row, col)) {
+  public void updateCell(GameBoard gameBoard, int row, int col){
+    if (isBurning(row, col)){
       gameBoard.setPiece(row, col, SpreadingFireCell.EMPTY);
     }else if (burningNextGen(row,col)){
       gameBoard.setPiece(row, col, SpreadingFireCell.BURNING);
