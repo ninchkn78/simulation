@@ -68,12 +68,15 @@ public class GameBoard{
     return (row >= 0 && col >= 0) && (row < height && col < width);
   }
 
-  public List<Cell> getPositionsOfCellState(String state){
-    List<Cell> cellsList = new ArrayList<>();
+  public List<List<Integer>> getPositionsOfCellState(String state){
+    List<List<Integer>> cellsList = new ArrayList<>();
     for (int i = 0; i < height; i++){
       for (int j = 0; j < width; j++){
         if (gameBoardStates[i][j].equals(state)){
-          cellsList.add(gameBoardCells[i][j]);
+          List<Integer> coordinates = new ArrayList<>();
+          coordinates.add(i);
+          coordinates.add(j);
+          cellsList.add(coordinates);
         }
       }
     }
@@ -84,18 +87,6 @@ public class GameBoard{
     gameBoardCells[row][col].setState(state); //TODO: update existing cell
     gameBoardStates[row][col] = state;
   }
-
-  public void toggleState(int x, int y) { //TODO: make this cleaner
-    if(gameBoardCells[x][y].getState().equals(ConwayCell.DEAD)) {
-      gameBoardCells[x][y].setState(ConwayCell.ALIVE);
-      gameBoardStates[x][y] = ConwayCell.ALIVE; // TODO: "update instance variable - more connected"
-    }
-    else{
-      gameBoardCells[x][y].setState(ConwayCell.DEAD);
-      gameBoardStates[x][y] = ConwayCell.DEAD;
-    }
-  }
-
 
   public int getWidth(){
     return width;
@@ -128,13 +119,12 @@ public class GameBoard{
   }}
 
 
-  public void setCellConfiguration(String[][] stateConfig){
-    gameBoardStates = stateConfig;
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
-        gameBoardCells[i][j] = new ConwayCell(stateConfig[i][j]);
-      }
-    }
+  public void swapCells(int row1, int col1, int row2, int col2){
+    String firstCellState = getCell(row1, col1).getState();
+    String secondCellState = getCell(row2, col2).getState();
+    setPiece(row1, col1, secondCellState);
+    System.out.println(firstCellState + " " +secondCellState);
+    setPiece(row2, col2, firstCellState);
   }
 
 }

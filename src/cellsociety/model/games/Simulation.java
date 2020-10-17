@@ -3,6 +3,7 @@ package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
 import cellsociety.model.Reader;
+import java.util.Arrays;
 
 public abstract class Simulation {
 
@@ -37,6 +38,7 @@ public abstract class Simulation {
     }
     incrementGeneration();
     board = nextBoard;
+    System.out.println(Arrays.deepToString(board.getGameBoardStates()));
   }
 
 

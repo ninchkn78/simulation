@@ -44,8 +44,10 @@ public class SplashScreen {
       addNewButton("Percolation");
       addNewButton("RPS");
       addNewButton("SpreadingFire");
+      addNewButton("SchellingSegregation");
 
-      buttonBox.getChildren().addAll(myButtons);
+
+    buttonBox.getChildren().addAll(myButtons);
       root.getChildren().addAll(titleBox, buttonBox);
 
   }
