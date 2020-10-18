@@ -28,8 +28,6 @@ public class Controller {
       // TODO: 2020-10-12 handle this error
       e.printStackTrace();
     }
-
-    //game = new ConwayGameOfLife(prop.getProperty("CSVSource")); //TODO: SimulationChooser class
     board = game.getGameBoard();
   }
 
