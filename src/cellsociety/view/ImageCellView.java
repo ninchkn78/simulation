@@ -17,10 +17,11 @@ public class ImageCellView extends Group implements CellView {
   ImageView cellImage;
 
   public ImageCellView(double width, double height, String state, Properties properties) {
-    rectangle = new Rectangle(width, height);
+    cellImage = new ImageView();
+    cellImage.setFitWidth(width);
+    cellImage.setFitHeight(height);
     setState(state);
-    this.getChildren().add(rectangle);
-    rectangle.setStroke(Color.BLACK);
+    this.getChildren().add(cellImage);
     updateView(state, properties);
     addEventListener();
   }

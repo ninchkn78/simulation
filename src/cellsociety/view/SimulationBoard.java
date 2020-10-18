@@ -1,14 +1,11 @@
 package cellsociety.view;
 
 import cellsociety.model.GameBoard;
-import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 
 
@@ -20,7 +17,7 @@ public class SimulationBoard {
 
   private final GridPane myGrid = new GridPane();
   private final List<List<CellView>> cells = new ArrayList<>();
-  private final List<List<ImageView>> cellImages = new ArrayList<>();
+  private final List<List<ImageCellView>> cellImages = new ArrayList<>();
 
 
   public SimulationBoard(Group root, GameBoard gameBoard, Properties properties) {
@@ -43,7 +40,8 @@ public class SimulationBoard {
         addCellViewToGrid(
             new RectangleCellView(width, CELL_GRID_HEIGHT / states.length, states[i][j],
                 properties), i, j);
-        cellImages.get(i).add(new ImageView());
+        cellImages.get(i).add(new ImageCellView(width, CELL_GRID_HEIGHT / states.length, states[i][j],
+            properties));
       }
     }
   }
@@ -71,42 +69,23 @@ public class SimulationBoard {
   public void updateMyGrid(GameBoard gameBoard, Properties properties) {
     gameBoard.apply((i, j, state) -> {
       cells.get(i).get(j).updateView(state, properties);
-      updateCellImage(properties, cellImages.get(i).get(j), state);
+      cellImages.get(i).get(j).updateView(state,properties);
     });
   }
 
   public void addImagesOverStates(Properties properties) {
     for (int i = 0; i < cells.size(); i++) {
       for (int j = 0; j < cells.get(i).size(); j++) {
-        replaceCellWithImage((RectangleCellView) cells.get(i).get(j), cellImages.get(i).get(j));
-        updateCellImage(properties, cellImages.get(i).get(j), ((RectangleCellView) cells.get(i)
-            .get(j))
-            .getState());
+        replaceCellWithImage(cells.get(i).get(j), cellImages.get(i).get(j));
       }
     }
   }
 
-  private void replaceCellWithImage(RectangleCellView cell, ImageView imageView) {
-    imageView.setFitWidth(cell.getWidth());
-    imageView.setFitHeight(cell.getHeight());
+  private void replaceCellWithImage(CellView cell, CellView imageView) {
     myGrid.getChildren().remove(cell.getCell());
     int col = GridPane.getColumnIndex(cell.getCell());
     int row = GridPane.getRowIndex(cell.getCell());
-    GridPane.setConstraints(imageView, col, row);
-    myGrid.getChildren().add(imageView);
-  }
-
-  public void updateCellImage(Properties properties, ImageView cellImage, String state) {
-    FileInputStream inputstream = null;
-    try {
-      // TODO: 2020-10-13 if state doesn't exist
-      inputstream = new FileInputStream(properties.getProperty(state + "image"));
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-    if (inputstream != null) {
-      Image image = new Image(inputstream);
-      cellImage.setImage(image);
-    }
+    GridPane.setConstraints(imageView.getCell(), col, row);
+    myGrid.getChildren().add(imageView.getCell());
   }
 }
