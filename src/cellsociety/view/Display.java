@@ -2,6 +2,7 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
+import cellsociety.view.ButtonSetups.GridViewButtonSetup;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.KeyFrame;
@@ -26,6 +27,9 @@ public class Display extends Application {
   public static final int HEIGHT = 600;
   public static final int FRAMES_PER_SECOND = 60;
   public static final Paint BACKGROUND = Color.AZURE;
+  private static final String DEFAULT_HBOX_CSS_CLASS = "HBox";
+  private static final double DEFAULT_Y_OFFSET = 0.75;
+
 
   private static final String CSS_STYLE_SHEET = "default.css";
   private static final int NUMBER_POSSIBLE_BUTTONS = 10;
@@ -35,7 +39,7 @@ public class Display extends Application {
   private final StateConfig stateConfigBox = new StateConfig(myRoot, this);
 
 
-  private final ButtonSetup myButtonSetup = new ButtonSetup(this);
+  private final GridViewButtonSetup myGridViewButtonSetup = new GridViewButtonSetup(this);
   private Stage myStage;
   private Timeline animation;
   private Controller myController;
@@ -88,22 +92,17 @@ public class Display extends Application {
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    parseButtonsFromProperties();
+    List<String> buttonNameList = myGridViewButtonSetup
+        .parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS, getController().getProperties());
+    myGridViewButtonSetup
+        .buttonPipeline(buttonNameList, myRoot, DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET);
+    //parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();
     animation.play();
     return scene;
   }
 
-  public void parseButtonsFromProperties(){
-    List<String> buttonNameList = new ArrayList<>();
-    for(int buttonNum = 1; buttonNum<=NUMBER_POSSIBLE_BUTTONS; buttonNum++){
-      if(!((String)myController.getProperties().get("Button"+buttonNum)).equals("")) {
-        buttonNameList.add((String) myController.getProperties().get("Button" + buttonNum));
-      }
-    }
-    myButtonSetup.buttonPipeline(buttonNameList, myRoot);
-  }
 
   private void setUpAnimation() {
     KeyFrame frame = new KeyFrame(Duration.seconds(animationSpeed), e -> step(animationSpeed));
