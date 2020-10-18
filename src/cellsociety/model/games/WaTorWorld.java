@@ -2,7 +2,6 @@ package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
 import cellsociety.model.cells.WaTorCell;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -25,6 +24,7 @@ public class WaTorWorld extends Simulation{
       gameBoard.copyCell(row, col, currentCell);
     }
     if (currentCell.isShark()){
+      System.out.println("Shark energy: " + currentCell.getEnergyPoints());
       sharkMovement(gameBoard, row, col);
     }else if (currentCell.isFish()){
       currentCell.incrementSurvivalTime();
@@ -54,7 +54,6 @@ public class WaTorWorld extends Simulation{
     if (!neighboringOcean.isEmpty()) {
       int oceanIndex = rand.nextInt(neighboringOcean.size());
       List<Integer> oceanCoordinates = neighboringOcean.get(oceanIndex);
-      System.out.println("Fish move to: " + oceanCoordinates);
       gameBoard.swapCells(row, col, oceanCoordinates.get(0), oceanCoordinates.get(1));
       WaTorCell movedCell = (WaTorCell) (gameBoard.getCell(oceanCoordinates.get(0), oceanCoordinates.get(1)));
 
@@ -82,11 +81,16 @@ public class WaTorWorld extends Simulation{
     if (!neighboringFish.isEmpty()) {
       int fishIndex = rand.nextInt(neighboringFish.size());
       List<Integer> fishCoordinates = neighboringFish.get(fishIndex);
-      System.out.println("Shark move to: " + fishCoordinates);
+      //eat da fish
       gameBoard.swapCells(row, col, fishCoordinates.get(0), fishCoordinates.get(1));
-      //increment shark energy and survival time
+      getGameBoard().copyCell(fishCoordinates.get(0), fishCoordinates.get(1), new WaTorCell(WaTorCell.OCEAN));
       WaTorCell movedShark = (WaTorCell) (gameBoard
           .getCell(fishCoordinates.get(0), fishCoordinates.get(1)));
+      if (row > fishCoordinates.get(0) || col > fishCoordinates.get(1)){
+          movedShark.decrementEnergy();
+      }
+      //increment shark energy and survival time
+
       movedShark.incrementSurvivalTime();
     }
 
