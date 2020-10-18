@@ -1,8 +1,13 @@
 package cellsociety.model.games;
 
 
+import cellsociety.model.CountStateReader;
 import cellsociety.model.GameBoard;
+import cellsociety.model.RandomStateReader;
 import cellsociety.model.Reader;
+import cellsociety.model.SetStateReader;
+import com.opencsv.exceptions.CsvException;
+import java.io.IOException;
 
 public abstract class Simulation {
 
@@ -10,8 +15,9 @@ public abstract class Simulation {
   private int generation;
 
   public Simulation(String config) {
-    Reader reader = new Reader();
-    board = new GameBoard(reader.readFile(config));
+    String[] configAndType = config.split(",");
+    Reader stateReader = chooseReader(configAndType[1]);
+    board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]));
     generation = 1;
   }
 
@@ -27,6 +33,7 @@ public abstract class Simulation {
 
   public abstract void updateCell(GameBoard gameBoard, int row, int col);
 
+  //public abstract void setOnClicked();
 
   public void nextGen() {
     GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight());
@@ -39,5 +46,17 @@ public abstract class Simulation {
     board = nextBoard;
   }
 
+  private Reader chooseReader(String configType){
+    // TODO: 2020-10-18  maybe do a reflection here if I'm feeling it
+    if(configType.equals("set")){
+      return new SetStateReader();
+    }
+    else if(configType.equals("count")){
+      return new CountStateReader();
+    }
+    else{
+      return new RandomStateReader();
+    }
+  }
 
 }

@@ -8,12 +8,13 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Objects;
 
-public class Reader {
+
+public abstract class Reader {
 
   protected static InputStream getFileInputStream(String dataSource) {
     InputStream textFile = null;
     try {
-      textFile = Objects.requireNonNull(Reader.class.getClassLoader().getResource(dataSource))
+      textFile = Objects.requireNonNull(SetStateReader.class.getClassLoader().getResource(dataSource))
           .openStream();
     } catch (IOException e) {
       e.printStackTrace();
@@ -21,19 +22,27 @@ public class Reader {
     return textFile;
   }
 
-  public String[][] readFile(String fileName) {
-    String[][] states = new String[5][6];
-    InputStream data = getFileInputStream(fileName);
-    try (CSVReader csvReader = new CSVReader(new InputStreamReader(data))) {
-      List<String[]> list = csvReader.readAll();
-      list.remove(0);
-      String[][] dataArr = new String[list.size()][];
-      return list.toArray(dataArr);
-    } catch (IOException | CsvException e) {
+  protected List<String[]> readFile(String fileName)  {
+    List<String[]> fileData = null;
+    InputStream dataStream = getFileInputStream(fileName);
+    try (CSVReader csvReader = new CSVReader(new InputStreamReader(dataStream))) {
+      fileData = csvReader.readAll();
+      validateCSV(fileData);
+    } catch(CsvException | IOException e){
       e.printStackTrace();
-      return states;
+      return fileData;
+    }
+    return fileData;
+  }
+
+  private void validateCSV(List<String[]> list) throws CsvException {
+    String[] dimensions = list.get(0);
+    if (Integer.parseInt(dimensions[0]) != list.size() - 1 ||
+        Integer.parseInt(dimensions[1]) != list.get(1).length){
+      throw new CsvException("Invalid Dimensions");
     }
   }
 
+  public abstract String[][] getStatesFromFile(String fileName );
 
 }

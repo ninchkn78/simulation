@@ -6,16 +6,26 @@ import java.util.Random;
 
 public class SpreadingFire extends Simulation {
 
+  public Random rand;
   public static final double probCatch = 0.5;
 
   public SpreadingFire(String csvConfig) {
     super(csvConfig);
+    rand = new Random();
+  }
+
+  public SpreadingFire(String csvConfig, boolean isTest){
+    super(csvConfig);
+    rand = new Random();
+    if (isTest){
+      rand.setSeed(0);
+    }
   }
 
 
   @Override
-  public void updateCell(GameBoard gameBoard, int row, int col) {
-    if (isBurning(row, col)) {
+  public void updateCell(GameBoard gameBoard, int row, int col){
+    if (isBurning(row, col)){
       gameBoard.setPiece(row, col, SpreadingFireCell.EMPTY);
     } else if (burningNextGen(row, col)) {
       gameBoard.setPiece(row, col, SpreadingFireCell.BURNING);
@@ -45,7 +55,6 @@ public class SpreadingFire extends Simulation {
         if (getGameBoard().inBounds(i, j) &&
             isDirectNeighbor(i, j, currentRow, currentColumn) &&
             isBurning(i, j)) {
-          Random rand = new Random();
           double probability = rand.nextDouble();
           return probability > probCatch;
         }
