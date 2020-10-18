@@ -38,9 +38,9 @@ public class GameBoard{
       for (int j = 0; j < width; j++){
         Class operation;
         try{
-          operation = Class.forName("cellsociety.model.games." + cellType);
+          operation = Class.forName("cellsociety.model.cells." + cellType);
           cellConfig[i][j] = (Cell) operation.getConstructor(String.class)
-              .newInstance(0);
+              .newInstance("0");
         }
         catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
           e.printStackTrace();
@@ -124,7 +124,7 @@ public class GameBoard{
       for (int j = 0; j < width; j++){
         Class operation;
         try {
-          operation = Class.forName("cellsociety.model.games." + cellType);
+          operation = Class.forName("cellsociety.model.cells." + cellType);
           cellConfig[i][j]  = (Cell) operation.getConstructor(String.class)
               .newInstance(stateConfig[i][j]);
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {

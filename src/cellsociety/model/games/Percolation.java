@@ -5,8 +5,8 @@ import cellsociety.model.cells.PercolationCell;
 
 public class Percolation extends Simulation {
 
-  public Percolation(String csvConfig) {
-    super(csvConfig);
+  public Percolation(String csvConfig, String cellType) {
+    super(csvConfig, cellType);
   }
 
   @Override

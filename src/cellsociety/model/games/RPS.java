@@ -1,14 +1,13 @@
 package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
-import com.opencsv.exceptions.CsvException;
 
 public class RPS extends Simulation {
 
   public static final int THRESHOLD = 3;
 
-  public RPS(String csvConfig) {
-    super(csvConfig);
+  public RPS(String csvConfig, String cellType) {
+    super(csvConfig, cellType);
   }
 
 

@@ -11,7 +11,7 @@ public class WaTorWorldTest {
 
   @Test
   public void wator0ConfigTest(){
-    Simulation wator = new WaTorWorld("board_config/wator0.csv", true);
+    Simulation wator = new WaTorWorld("board_config/wator0.csv", "WaTorCell", true);
     wator.nextGen();
     String[][] nextStates = wator.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -31,7 +31,7 @@ public class WaTorWorldTest {
 
   @Test
   public void wator1ConfigTest(){
-    Simulation wator = new WaTorWorld("board_config/wator1.csv", true);
+    Simulation wator = new WaTorWorld("board_config/wator1.csv", "WaTorCell",true);
     for (int i = 0; i < 15; i++){
       wator.nextGen();
     }
@@ -53,7 +53,7 @@ public class WaTorWorldTest {
 
   @Test
   public void wator2ConfigTest(){
-    Simulation wator = new WaTorWorld("board_config/wator2.csv", true);
+    Simulation wator = new WaTorWorld("board_config/wator2.csv", "WaTorCell",true);
     for (int i = 0; i < 13; i++){
       wator.nextGen();
     }
@@ -75,7 +75,7 @@ public class WaTorWorldTest {
 
   @Test
   public void wator3ConfigTest(){
-    Simulation wator = new WaTorWorld("board_config/wator3.csv", true);
+    Simulation wator = new WaTorWorld("board_config/wator3.csv", "WaTorCell", true);
     for (int i = 0; i < 50; i++){
       wator.nextGen();
     }

@@ -18,15 +18,18 @@ public class Controller {
   public Controller(String propertiesName) {
     propertiesFileName = propertiesName;
     setProperties(propertiesFileName);
-    String gameType = properties.getProperty("Type");
-    String cellType = properties.getProperty("Type");
+    String gameType = properties.getProperty("GameType");
+    String cellType = properties.getProperty("CellType");
+    System.out.println(gameType);
     Class operation;
     try {
       operation = Class.forName("cellsociety.model.games." + gameType);
-      game = (Simulation) operation.getConstructor(String.class)
-          .newInstance(properties.getProperty("CSVSource"));
+      game = (Simulation) operation.getConstructor(String.class, String.class)
+          .newInstance(properties.getProperty("CSVSource"), cellType);
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
       // TODO: 2020-10-12 handle this error
+      System.out.println(e.getCause());
+
       e.printStackTrace();
     }
     board = game.getGameBoard();

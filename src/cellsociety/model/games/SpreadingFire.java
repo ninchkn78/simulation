@@ -9,13 +9,13 @@ public class SpreadingFire extends Simulation {
   public Random rand;
   public static final double probCatch = 0.5;
 
-  public SpreadingFire(String csvConfig) {
-    super(csvConfig);
+  public SpreadingFire(String csvConfig, String cellType) {
+    super(csvConfig, cellType);
     rand = new Random();
   }
 
-  public SpreadingFire(String csvConfig, boolean isTest){
-    super(csvConfig);
+  public SpreadingFire(String csvConfig, String cellType, boolean isTest){
+    super(csvConfig, cellType);
     rand = new Random();
     if (isTest){
       rand.setSeed(0);

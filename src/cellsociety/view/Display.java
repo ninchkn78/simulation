@@ -101,7 +101,7 @@ public class Display extends Application {
       if(!((String)myController.getProperties().get("Button"+buttonNum)).equals("")) {
         buttonNameList.add((String) myController.getProperties().get("Button" + buttonNum));
       }
-      }
+    }
     myButtonSetup.buttonPipeline(buttonNameList, myRoot);
   }
 

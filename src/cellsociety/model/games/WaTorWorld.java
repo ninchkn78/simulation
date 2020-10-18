@@ -12,13 +12,13 @@ public class WaTorWorld extends Simulation{
   private Random rand;
 
 
-  public WaTorWorld(String config) {
-    super(config);
+  public WaTorWorld(String config, String cellType) {
+    super(config, cellType);
     rand = new Random();
   }
 
-  public WaTorWorld(String csvConfig, boolean isTest){
-    super(csvConfig);
+  public WaTorWorld(String csvConfig, String cellType, boolean isTest){
+    super(csvConfig, cellType);
     rand = new Random();
     if (isTest){
       rand.setSeed(0);
