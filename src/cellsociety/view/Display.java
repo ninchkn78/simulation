@@ -89,8 +89,6 @@ public class Display extends Application {
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    //myButtonSetup.createSetup(myRoot);
-    //myButtonSetup.checkButtonStatus();
     parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();

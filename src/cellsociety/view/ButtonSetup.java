@@ -39,37 +39,11 @@ public class ButtonSetup {
           currentButton.setId("buttonName");
           buttonList.add(currentButton);
           myHbox.getChildren().add(currentButton);
-          //TODO- add something here I think with a lambda function maybe? Or Reflection? That checks all of the button status'
+          //TODO 10/18- add something here I think with a lambda function maybe? Or Reflection? That checks all of the button status'
         }
         root.getChildren().add(myHbox);
         checkButtonStatus(buttonList);
   }
-
-
-//  public void createSetup(Group root) {
-//    createButtons();
-//    HBox buttonBox = createHBox();
-//    buttonBox.getChildren()
-//        .addAll(loadFileButton, runButton, pauseButton, fileSaveButton, chooseImageButton,
-//            stepButton);
-//    root.getChildren().add(buttonBox);
-//  }
-//
-//  private void createButtons() {
-//    loadFileButton = new Button("Load File");
-//    loadFileButton.setId("loadFileButton");
-//    runButton = new Button("Play");
-//    runButton.setId("runButton");
-//    fileSaveButton = new Button("Save File");
-//    fileSaveButton.setId("saveFileButton");
-//    pauseButton = new Button("Pause");
-//    pauseButton.setId("pauseButton");
-//    chooseImageButton = new Button("Image");
-//    chooseImageButton.setId("chooseImageButton");
-//    stepButton = new Button("Step Once");
-//
-//    stepButton.setId("stepButton");
-//  }
 
   private HBox createHBox() {
     HBox buttonBox = new HBox();
@@ -81,12 +55,13 @@ public class ButtonSetup {
 
 
   public void checkButtonStatus(List<Button> buttonList) {
+    //TODO - this method will be deleted once above todo is taken care of. not exactly sure how to do it yet
     checkFileWriteButton(buttonList.get(3));
     checkFileReaderButton(buttonList.get(0));
     checkRunButton(buttonList.get(1));
     checkPauseButton(buttonList.get(2));
     checkImageButton(buttonList.get(4));
-    checkStepButton(buttonList.get(5));
+    //checkStepButton(buttonList.get(5));
   }
 
   public void checkStepButton(Button stepButton) {
