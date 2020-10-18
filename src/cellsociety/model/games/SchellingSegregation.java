@@ -1,13 +1,10 @@
 package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
-import cellsociety.model.cells.Cell;
-import cellsociety.model.cells.SchellingCell;
-import cellsociety.model.cells.SpreadingFireCell;
 
-public class SchellingSegregation extends Simulation{
+public class SchellingSegregation extends Simulation {
 
-  public SchellingSegregation(String csvConfig){
+  public SchellingSegregation(String csvConfig) {
     super(csvConfig);
   }
 
@@ -17,11 +14,11 @@ public class SchellingSegregation extends Simulation{
 
   }
 
-  public int countNeighbors(int row, int col){
+  public int countNeighbors(int row, int col) {
     int neighborCount = 0;
-    for (int i = row - 1; i <= row + 1; i++){
-      for (int j = col - 1; j <= col + 1; j++){
-        if (getGameBoard().inBounds(i,j)){
+    for (int i = row - 1; i <= row + 1; i++) {
+      for (int j = col - 1; j <= col + 1; j++) {
+        if (getGameBoard().inBounds(i, j)) {
           neighborCount++;
         }
       }
@@ -33,7 +30,7 @@ public class SchellingSegregation extends Simulation{
     return !getState(x, y).equals(getState(row, col));
   }
 
-  public String getState(int row, int col){
+  public String getState(int row, int col) {
     return getGameBoard().getCell(row, col).getState();
   }
 

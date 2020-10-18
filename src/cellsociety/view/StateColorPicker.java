@@ -2,7 +2,6 @@ package cellsociety.view;
 
 import cellsociety.controller.Controller;
 import javafx.event.ActionEvent;
-import javafx.scene.Group;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -11,14 +10,15 @@ import javafx.scene.paint.Color;
 
 public class StateColorPicker {
 
-  private HBox colorPickerBox;
+  private final HBox colorPickerBox;
+
   public StateColorPicker(VBox stateConfigBox) {
     colorPickerBox = new HBox();
     colorPickerBox.getStyleClass().add("color-picker-box");
     stateConfigBox.getChildren().add(colorPickerBox);
   }
 
-  private void addColorPicker(String state, Controller controller){
+  private void addColorPicker(String state, Controller controller) {
     // TODO: 2020-10-13 probably add error handling if a state is not represented
     ColorPicker colorPicker = new ColorPicker();
     colorPicker.setValue(Color.valueOf(controller.getProperties().getProperty(state)));
@@ -30,9 +30,9 @@ public class StateColorPicker {
     });
   }
 
-  public void addColorPickers(Controller controller){
+  public void addColorPickers(Controller controller) {
     colorPickerBox.getChildren().clear();
-    for(String state : controller.getProperties().getProperty("States").split(",")){
+    for (String state : controller.getProperties().getProperty("States").split(",")) {
       addColorPicker(state, controller);
     }
   }

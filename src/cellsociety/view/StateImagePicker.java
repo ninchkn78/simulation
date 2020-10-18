@@ -31,7 +31,8 @@ public class StateImagePicker {
 
   private void addImagePicker(String state, Controller controller) {
     final FileChooser fileChooser = new FileChooser();
-    Button openButton = new Button("Open a Picture...");
+    // TODO: 2020-10-17 read in from resource file isntead 
+    Button openButton = new Button("Choose an Image");
     openButton.setOnAction(
         (final ActionEvent e) -> {
           configureFileChooser(fileChooser);

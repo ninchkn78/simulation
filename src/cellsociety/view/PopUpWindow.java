@@ -1,26 +1,15 @@
 package cellsociety.view;
 
-import cellsociety.controller.Controller;
 import cellsociety.model.GameBoard;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
 import java.util.Properties;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
-import javafx.util.Pair;
 
 public class PopUpWindow {
 
@@ -33,11 +22,11 @@ public class PopUpWindow {
   private static final String DESCRIPTION = "Description";
 
   private final GameBoard myGameBoard;
-  private Display myDisplay;
-  private Properties properties;
+  private final Display myDisplay;
+  private final Properties properties;
   private GridPane myGrid;
 
-  public PopUpWindow(Display display, GameBoard gameBoard){
+  public PopUpWindow(Display display, GameBoard gameBoard) {
     myDisplay = display;
     myGameBoard = gameBoard;
     properties = myDisplay.getController().getProperties();
@@ -56,11 +45,11 @@ public class PopUpWindow {
     dialog.getDialogPane().setContent(myGrid);
     //Optional<ButtonType> result = dialog.getButtonType().showAndWait();
 
-    dialog.setResultConverter(dialogButton->{
-        String[] retArray = new String[]{title.getText(),author.getText(), description.getText()};
-        System.out.println(retArray[0]);
-        storeInPropertiesFile(retArray);
-        return retArray ;
+    dialog.setResultConverter(dialogButton -> {
+      String[] retArray = new String[]{title.getText(), author.getText(), description.getText()};
+      System.out.println(retArray[0]);
+      storeInPropertiesFile(retArray);
+      return retArray;
     });
 
     dialog.show();
@@ -94,16 +83,16 @@ public class PopUpWindow {
     return dialog;
   }
 
-  public void storeInPropertiesFile(String[] inputs){
+  public void storeInPropertiesFile(String[] inputs) {
     try {
       properties.setProperty(TITLE, inputs[0]);
       properties.setProperty(AUTHOR, inputs[1]);
       properties.setProperty(DESCRIPTION, inputs[2]);
 
       SaveFiles saveFileObject = new SaveFiles();
-      saveFileObject.saveState(myGameBoard.getGameBoardStates(),inputs[0]);
+      saveFileObject.saveState(myGameBoard.getGameBoardStates(), inputs[0]);
 
-      properties.setProperty("CSVSource", "GAME_CSVS/"+inputs[0]+".csv");
+      properties.setProperty("CSVSource", "GAME_CSVS/" + inputs[0] + ".csv");
       properties.store(new FileOutputStream("resources/" + inputs[0] + ".properties"), null);
 
     } catch (IOException e) {
