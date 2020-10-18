@@ -17,6 +17,14 @@ public class WaTorWorld extends Simulation{
     rand = new Random();
   }
 
+  public WaTorWorld(String csvConfig, boolean isTest){
+    super(csvConfig);
+    rand = new Random();
+    if (isTest){
+      rand.setSeed(0);
+    }
+  }
+
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col){
     WaTorCell currentCell = (WaTorCell) (getGameBoard().getCell(row, col));
@@ -24,10 +32,9 @@ public class WaTorWorld extends Simulation{
       gameBoard.copyCell(row, col, currentCell);
     }
     if (currentCell.isShark()){
-      System.out.println("Shark energy: " + currentCell.getEnergyPoints());
       sharkMovement(gameBoard, row, col);
-    }else if (currentCell.isFish()){
-      currentCell.incrementSurvivalTime();
+    }
+    else if (currentCell.isFish()){
       fishMovement(gameBoard, row, col);
     }
   }
@@ -50,38 +57,40 @@ public class WaTorWorld extends Simulation{
 
   public void moveToOcean(GameBoard gameBoard, int row, int col){
     List<List<Integer>> neighboringOcean = getGameBoard().getNeighboringPositionsOfCellState(WaTorCell.OCEAN, row, col);
-
     if (!neighboringOcean.isEmpty()) {
-      int oceanIndex = rand.nextInt(neighboringOcean.size());
-      List<Integer> oceanCoordinates = neighboringOcean.get(oceanIndex);
+      List<Integer> oceanCoordinates = getDestinationCoordinates(neighboringOcean);
       gameBoard.swapCells(row, col, oceanCoordinates.get(0), oceanCoordinates.get(1));
       WaTorCell movedCell = (WaTorCell) (gameBoard.getCell(oceanCoordinates.get(0), oceanCoordinates.get(1)));
-
-      //check if fish should reproduce
-      if (movedCell.isFish() && movedCell.getSurvivalTime() >= REPRODUCTION_TIME) {
-        gameBoard.copyCell(row, col, new WaTorCell(WaTorCell.FISH));
-        movedCell.resetSurvivalTime();
-      }
-      //check if this was a shark, in which case we decrease energy
-      if (movedCell.isShark()) {
-        movedCell.decrementEnergy();
-      }
-
-      //check if shark should die
-      if (movedCell.isShark() && movedCell.getEnergyPoints() <=0){
-        gameBoard.copyCell(oceanCoordinates.get(0), oceanCoordinates.get(1), new WaTorCell(WaTorCell.OCEAN));
-      }
-
+      movedCell.incrementSurvivalTime();
+      movedCell.decrementEnergy();
+      checkFishReproduction(gameBoard, row, col, movedCell);
+      checkSharkDeath(gameBoard, oceanCoordinates, movedCell);
     }
+  }
 
+  private List<Integer> getDestinationCoordinates(List<List<Integer>> neighboringOcean) {
+    int oceanIndex = rand.nextInt(neighboringOcean.size());
+    return neighboringOcean.get(oceanIndex);
+  }
+
+  private void checkSharkDeath(GameBoard gameBoard, List<Integer> oceanCoordinates,
+      WaTorCell movedCell) {
+    if (movedCell.isShark() && movedCell.getEnergyPoints() <=0){
+      gameBoard.copyCell(oceanCoordinates.get(0), oceanCoordinates.get(1), new WaTorCell(WaTorCell.OCEAN));
+    }
+  }
+
+  private void checkFishReproduction(GameBoard gameBoard, int row, int col, WaTorCell movedCell) {
+    if (movedCell.isFish() && movedCell.getSurvivalTime() >= REPRODUCTION_TIME) {
+      gameBoard.copyCell(row, col, new WaTorCell(WaTorCell.FISH));
+      movedCell.resetSurvivalTime();
+    }
   }
 
   public void eatFish(GameBoard gameBoard, int row, int col){
     List<List<Integer>> neighboringFish = getGameBoard().getNeighboringPositionsOfCellState(WaTorCell.FISH, row, col);
     if (!neighboringFish.isEmpty()) {
-      int fishIndex = rand.nextInt(neighboringFish.size());
-      List<Integer> fishCoordinates = neighboringFish.get(fishIndex);
-      //eat da fish
+      List<Integer> fishCoordinates = getDestinationCoordinates(neighboringFish);
       gameBoard.swapCells(row, col, fishCoordinates.get(0), fishCoordinates.get(1));
       getGameBoard().copyCell(fishCoordinates.get(0), fishCoordinates.get(1), new WaTorCell(WaTorCell.OCEAN));
       WaTorCell movedShark = (WaTorCell) (gameBoard
@@ -89,8 +98,6 @@ public class WaTorWorld extends Simulation{
       if (row > fishCoordinates.get(0) || col > fishCoordinates.get(1)){
           movedShark.decrementEnergy();
       }
-      //increment shark energy and survival time
-
       movedShark.incrementSurvivalTime();
     }
 

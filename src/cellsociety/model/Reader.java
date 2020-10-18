@@ -18,19 +18,20 @@ import java.util.List;
 
 public class Reader {
 
-    public String[][] readFile(String fileName) {
-        String[][] states = new String[5][6];
-        InputStream data = getFileInputStream(fileName);
-        try (CSVReader csvReader = new CSVReader(new InputStreamReader(data))) {
-            List<String[]> list = csvReader.readAll();
-            list.remove(0);
-            String[][] dataArr = new String[list.size()][];
-            return list.toArray(dataArr);
-        } catch (IOException | CsvException e) {
-            e.printStackTrace();
-            return states;
-        }
+  public String[][] readFile(String fileName) {
+    String[][] states = new String[5][6];
+    InputStream data = getFileInputStream(fileName);
+    try (CSVReader csvReader = new CSVReader(new InputStreamReader(data))) {
+      List<String[]> list = csvReader.readAll();
+      validateCSV(list);
+      list.remove(0);
+      String[][] dataArr = new String[list.size()][];
+      return list.toArray(dataArr);
+    } catch (IOException | CsvException e) {
+      e.printStackTrace();
+      return states;
     }
+  }
 
   protected static InputStream getFileInputStream(String dataSource) {
     InputStream textFile = null;
@@ -44,4 +45,10 @@ public class Reader {
   }
 
 
+  private void validateCSV(List<String[]> list) throws CsvException {
+    String[] dimensions = list.get(0);
+    if (Integer.parseInt(dimensions[0]) != list.size()-1 || Integer.parseInt(dimensions[1]) != list.get(1).length){
+      throw new CsvException("Invalid Dimensions");
+    }
+  }
 }

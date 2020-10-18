@@ -18,6 +18,14 @@ public class SchellingSegregation extends Simulation{
     rand = new Random();
   }
 
+  public SchellingSegregation(String csvConfig, boolean isTest){
+    super(csvConfig);
+    rand = new Random();
+    if (isTest){
+      rand.setSeed(0);
+    }
+  }
+
 
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col) {
