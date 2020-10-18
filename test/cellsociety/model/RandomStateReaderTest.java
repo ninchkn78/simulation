@@ -23,4 +23,13 @@ class RandomStateReaderTest {
       }
     }
   }
+
+  @Test
+  void testProbability() {
+    String[][] test = RandomStateReader.getStatesFromFile("board_config/randomConway1.csv");
+    String[] expected = {"0","0","0","1","0","1","0","1","0","0"};
+    for(int i = 0; i < test[0].length; i++){
+      assertEquals(expected[i], test[0][i]);
+    }
+  }
 }

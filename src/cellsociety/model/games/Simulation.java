@@ -12,8 +12,9 @@ public abstract class Simulation {
   private int generation;
 
   public Simulation(String config) {
-    Reader stateReader = new RandomStateReader();
-    board = new GameBoard(stateReader.getStatesFromFile(config));
+    String[] configAndType = config.split(",");
+    Reader stateReader = chooseReader(configAndType[1]);
+    board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]));
     generation = 1;
   }
 
@@ -41,5 +42,14 @@ public abstract class Simulation {
     board = nextBoard;
   }
 
+  private Reader chooseReader(String configType){
+    // TODO: 2020-10-18  maybe do a reflection here if I'm feeling it
+    if(configType.equals("set")){
+      return new SetStateReader();
+    }
+    else{
+      return new RandomStateReader();
+    }
+  }
 
 }

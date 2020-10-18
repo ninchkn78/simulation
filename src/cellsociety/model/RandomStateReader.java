@@ -7,7 +7,7 @@ import java.util.Random;
 public class RandomStateReader extends Reader {
 
   private final List<String> randomStates = new ArrayList<>();
-  private final Random random = new Random();
+  private final Random random = new Random(123);
 
   @Override
   public String[][] getStatesFromFile(String fileName) {
@@ -40,4 +40,3 @@ public class RandomStateReader extends Reader {
     return randomStates.get(random.nextInt(randomStates.size()));
   }
 }
-
