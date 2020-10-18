@@ -1,7 +1,10 @@
 package cellsociety.model.games;
 
 
+import cellsociety.model.CountStateReader;
 import cellsociety.model.GameBoard;
+import cellsociety.model.RandomStateReader;
+import cellsociety.model.Reader;
 import cellsociety.model.SetStateReader;
 
 public abstract class Simulation {
@@ -10,8 +13,9 @@ public abstract class Simulation {
   private int generation;
 
   public Simulation(String config) {
-    SetStateReader setStateReader = new SetStateReader();
-    board = new GameBoard(setStateReader.getStatesFromFile(config));
+    String[] configAndType = config.split(",");
+    Reader stateReader = chooseReader(configAndType[1]);
+    board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]));
     generation = 1;
   }
 
@@ -39,5 +43,17 @@ public abstract class Simulation {
     board = nextBoard;
   }
 
+  private Reader chooseReader(String configType){
+    // TODO: 2020-10-18  maybe do a reflection here if I'm feeling it
+    if(configType.equals("set")){
+      return new SetStateReader();
+    }
+    else if(configType.equals("count")){
+      return new CountStateReader();
+    }
+    else{
+      return new RandomStateReader();
+    }
+  }
 
 }
