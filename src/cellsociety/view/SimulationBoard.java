@@ -1,6 +1,7 @@
 package cellsociety.view;
 
 import cellsociety.model.GameBoard;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -25,23 +26,21 @@ public class SimulationBoard {
     myGrid.setLayoutY(75);
     myGrid.setGridLinesVisible(true);
     root.getChildren().add(myGrid);
-    initializeMyGrid(gameBoard, properties);
+    initializeMyGrid(gameBoard, properties, "Rectangle");
   }
 
   //works for non square 2D arrays
   // TODO: 2020-10-04 ask about X position for tests
-  private void initializeMyGrid(GameBoard gameBoard, Properties properties) {
+  private void initializeMyGrid(GameBoard gameBoard, Properties properties, String cellType) {
+    myGrid.getChildren().clear();
+    cells.clear();
     String[][] states = gameBoard.getGameBoardStates();
     double width = CELL_GRID_WIDTH / maxRowLength(states);
     for (int i = 0; i < states.length; i++) {
       cells.add(new ArrayList<>());
-      cellImages.add(new ArrayList<>());
       for (int j = 0; j < states[i].length; j++) {
         addCellViewToGrid(
-            new RectangleCellView(width, CELL_GRID_HEIGHT / states.length, states[i][j],
-                properties), i, j);
-        cellImages.get(i).add(new ImageCellView(width, CELL_GRID_HEIGHT / states.length, states[i][j],
-            properties));
+            chooseCellType(cellType,width,CELL_GRID_HEIGHT / states.length, states[i][j], properties), i, j);
       }
     }
   }
@@ -69,23 +68,24 @@ public class SimulationBoard {
   public void updateMyGrid(GameBoard gameBoard, Properties properties) {
     gameBoard.apply((i, j, state) -> {
       cells.get(i).get(j).updateView(state, properties);
-      cellImages.get(i).get(j).updateView(state,properties);
     });
   }
 
-  public void addImagesOverStates(Properties properties) {
-    for (int i = 0; i < cells.size(); i++) {
-      for (int j = 0; j < cells.get(i).size(); j++) {
-        replaceCellWithImage(cells.get(i).get(j), cellImages.get(i).get(j));
-      }
-    }
+  public void addImagesOverStates(GameBoard gameBoard, Properties properties) {
+    initializeMyGrid(gameBoard,properties,"Image");
   }
 
-  private void replaceCellWithImage(CellView cell, CellView imageView) {
-    myGrid.getChildren().remove(cell.getCell());
-    int col = GridPane.getColumnIndex(cell.getCell());
-    int row = GridPane.getRowIndex(cell.getCell());
-    GridPane.setConstraints(imageView.getCell(), col, row);
-    myGrid.getChildren().add(imageView.getCell());
+
+  private CellView chooseCellType(String cellType, double width, double height, String state, Properties properties) {
+    Class operation;
+    CellView cell = null;
+    try {
+      operation = Class.forName("cellsociety.view." + cellType + "CellView");
+      cell = (CellView) operation.getConstructor(double.class, double.class, String.class, Properties.class).newInstance(width, height, state, properties);
+    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+      // TODO: 2020-10-12 handle this error
+      e.printStackTrace();
+    }
+    return cell;
   }
 }

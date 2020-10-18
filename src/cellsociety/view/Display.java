@@ -154,7 +154,7 @@ public class Display extends Application {
   }
 
   public void addImages() {
-    myBoard.addImagesOverStates(myController.getProperties());
+    myBoard.addImagesOverStates(myController.getGameBoard(), myController.getProperties());
   }
 
   public Controller getController() {
