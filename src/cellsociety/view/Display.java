@@ -2,6 +2,8 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -27,6 +29,7 @@ public class Display extends Application {
   public static final Paint BACKGROUND = Color.AZURE;
 
   private static final String CSS_STYLE_SHEET = "default.css";
+  private static final int NUMBER_POSSIBLE_BUTTONS = 10;
 
   private final Group myRoot = new Group();
 
@@ -63,8 +66,6 @@ public class Display extends Application {
 
   @Override
   public void start(Stage stage) {
-    // attach scene to the stage and display it
-
     generateSplashScreen(stage);
   }
 
@@ -77,17 +78,6 @@ public class Display extends Application {
     stage.show();
   }
 
-//  private void checkWhichGame(SplashScreen startScreen) {
-//    //TODO - figure out how to add multiple buttons
-//    // TODO: 2020-10-12 abstract for any default property file or any simulation
-//    startScreen.getMyButton().setOnAction(new EventHandler<ActionEvent>() {
-//      @Override
-//      public void handle(ActionEvent e) {
-//        chooseSimulation();
-//      }
-//    });
-//  }
-
   public void chooseSimulation(String simulationType) {
     myBoard = new SimulationBoard(myRoot);
     setController(new Controller("Default" + simulationType + ".properties"));
@@ -99,12 +89,21 @@ public class Display extends Application {
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    myButtonSetup.createSetup(myRoot);
-    myButtonSetup.checkButtonStatus();
+    parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();
     animation.play();
     return scene;
+  }
+
+  public void parseButtonsFromProperties(){
+    List<String> buttonNameList = new ArrayList<>();
+    for(int buttonNum = 1; buttonNum<=NUMBER_POSSIBLE_BUTTONS; buttonNum++){
+      if(!((String)myController.getProperties().get("Button"+buttonNum)).equals("")) {
+        buttonNameList.add((String) myController.getProperties().get("Button" + buttonNum));
+      }
+      }
+    myButtonSetup.buttonPipeline(buttonNameList, myRoot);
   }
 
   private void setUpAnimation() {
