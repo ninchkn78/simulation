@@ -1,27 +1,30 @@
 package cellsociety.model;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import cellsociety.model.cells.ConwayCell;
 import org.junit.jupiter.api.Test;
+
 public class ConwayCellTest {
 
   @Test
-  public void isAliveTest(){
+  public void isAliveTest() {
     ConwayCell cell = new ConwayCell(ConwayCell.ALIVE);
     assertTrue(cell.isAlive());
     assertFalse(cell.isDead());
   }
 
   @Test
-  public void isDeadTest(){
+  public void isDeadTest() {
     ConwayCell cell = new ConwayCell(ConwayCell.DEAD);
     assertTrue(cell.isDead());
     assertFalse(cell.isAlive());
   }
 
   @Test
-  public void toStringTest(){
+  public void toStringTest() {
     ConwayCell cell = new ConwayCell(ConwayCell.DEAD);
     assertEquals(ConwayCell.DEAD, cell.toString());
   }

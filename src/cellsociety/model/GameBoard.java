@@ -2,13 +2,12 @@ package cellsociety.model;
 
 import cellsociety.model.cells.Cell;
 import cellsociety.model.cells.ConwayCell;
-import java.util.function.BiConsumer;
 
 public class GameBoard {
 
   private final int width;
   private final int height;
-  private Cell[][] gameBoardCells;
+  private final Cell[][] gameBoardCells;
   private String[][] gameBoardStates;
 
   public GameBoard(int width, int height) {
@@ -26,27 +25,19 @@ public class GameBoard {
     this.gameBoardStates = initialStateConfig;
   }
 
-  private void setGameBoardStates(Cell[][] initialState){
-    for (int i = 0; i < initialState.length; i++){
-      for (int j = 0; j < initialState[0].length; j++){
-        gameBoardStates[i][j] = gameBoardCells[i][j].getState();
-      }
-    }
-  }
-
-  public Cell[][] initializeGameBoardCells(int width, int height){
+  public Cell[][] initializeGameBoardCells(int width, int height) {
     Cell[][] cellConfig = new Cell[height][width];
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         cellConfig[i][j] = new ConwayCell(); //TODO: FIX THIS
       }
     }
     return cellConfig;
   }
 
-  public void clear(){
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
+  public void clear() {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         gameBoardCells[i][j] = new ConwayCell();
         gameBoardStates[i][j] = ConwayCell.DEAD;
       }
@@ -65,26 +56,22 @@ public class GameBoard {
     return (row >= 0 && col >= 0) && (row < height && col < width);
   }
 
-
-
   public void setPiece(int row, int col, String state) {
     gameBoardCells[row][col] = new ConwayCell(state); //TODO: update existing cell
     gameBoardStates[row][col] = state;
   }
 
   public void toggleState(int x, int y) { //TODO: make this cleaner
-    if(gameBoardCells[x][y].getState().equals(ConwayCell.DEAD)) {
+    if (gameBoardCells[x][y].getState().equals(ConwayCell.DEAD)) {
       gameBoardCells[x][y].setState(ConwayCell.ALIVE);
       gameBoardStates[x][y] = ConwayCell.ALIVE; // TODO: "update instance variable - more connected"
-    }
-    else{
+    } else {
       gameBoardCells[x][y].setState(ConwayCell.DEAD);
       gameBoardStates[x][y] = ConwayCell.DEAD;
     }
   }
 
-
-  public int getWidth(){
+  public int getWidth() {
     return width;
   }
 
@@ -96,31 +83,38 @@ public class GameBoard {
     return gameBoardStates;
   }
 
+  private void setGameBoardStates(Cell[][] initialState) {
+    for (int i = 0; i < initialState.length; i++) {
+      for (int j = 0; j < initialState[0].length; j++) {
+        gameBoardStates[i][j] = gameBoardCells[i][j].getState();
+      }
+    }
+  }
 
-
-
-  public Cell[][] createCellConfiguration(String[][] stateConfig){ //TODO: make this work for all cell types
+  public Cell[][] createCellConfiguration(
+      String[][] stateConfig) { //TODO: make this work for all cell types
     Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         cellConfig[i][j] = new ConwayCell(stateConfig[i][j]);
       }
     }
     return cellConfig;
   }
 
-  public void apply(TriConsumer<Integer, Integer, String> updateCellState){
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
-        updateCellState.accept(i,j, gameBoardStates[i][j]);
+  public void apply(TriConsumer<Integer, Integer, String> updateCellState) {
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        updateCellState.accept(i, j, gameBoardStates[i][j]);
       }
-  }}
+    }
+  }
 
 
-  public void setCellConfiguration(String[][] stateConfig){
+  public void setCellConfiguration(String[][] stateConfig) {
     gameBoardStates = stateConfig;
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         gameBoardCells[i][j] = new ConwayCell(stateConfig[i][j]);
       }
     }

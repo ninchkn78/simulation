@@ -9,44 +9,32 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 
 public class SplashScreen {
 
-  private Scene myScene;
-  private List<Button> myButtons = new ArrayList<>();
-  private Display myDisplay;
+  private final Scene myScene;
+  private final List<Button> myButtons = new ArrayList<>();
+  private final Display myDisplay;
 
-  class SimulationChooserHandler implements EventHandler<ActionEvent> {
-    private final String simulationName ;
-    SimulationChooserHandler(String simulationName) {
-      this.simulationName = simulationName;
-    }
-    @Override
-    public void handle(ActionEvent event) {
-      myDisplay.chooseSimulation(simulationName);
-    }
-  }
+  public SplashScreen(Display display) {
+    myDisplay = display;
+    Group root = new Group();
+    myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
+    myScene.getStylesheets().add("SplashScreen.css");
+    HBox titleBox = createHBox(5, "TitleBox");
+    HBox buttonBox = createHBox(3, "buttonBox");
 
-  public SplashScreen(Display display){
-      myDisplay = display;
-      Group root = new Group();
-      myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
-      myScene.getStylesheets().add("SplashScreen.css");
-      HBox titleBox = createHBox(5, "TitleBox");
-      HBox buttonBox = createHBox(3, "buttonBox");
-
-      Label newText = new Label("Choose Your Simulation!!");
-      titleBox.getChildren().add(newText);
+    Label newText = new Label("Choose Your Simulation!!");
+    titleBox.getChildren().add(newText);
 
     // TODO: 2020-10-12 abstract :(
-      addNewButton("ConwayGameOfLife");
-      addNewButton("Percolation");
-      addNewButton("RPS");
-      addNewButton("SpreadingFire");
+    addNewButton("ConwayGameOfLife");
+    addNewButton("Percolation");
+    addNewButton("RPS");
+    addNewButton("SpreadingFire");
 
-      buttonBox.getChildren().addAll(myButtons);
-      root.getChildren().addAll(titleBox, buttonBox);
+    buttonBox.getChildren().addAll(myButtons);
+    root.getChildren().addAll(titleBox, buttonBox);
 
   }
 
@@ -59,9 +47,9 @@ public class SplashScreen {
   private HBox createHBox(int yOffsetFactor, String cssClass) {
     HBox currentHBox = new HBox();
     currentHBox.setPrefWidth(Display.WIDTH);
-    currentHBox.setPrefHeight(Display.HEIGHT/4);
+    currentHBox.setPrefHeight(Display.HEIGHT / 4);
     currentHBox.getStyleClass().add(cssClass);
-    currentHBox.setLayoutY((Display.HEIGHT/yOffsetFactor) *2);
+    currentHBox.setLayoutY((Display.HEIGHT / yOffsetFactor) * 2);
     return currentHBox;
   }
 
@@ -69,9 +57,23 @@ public class SplashScreen {
     return myScene;
   }
 
-  private void addNewButton(String simulationName){
+  private void addNewButton(String simulationName) {
     Button simulationButton = createSimulationButton(simulationName);
     myButtons.add(simulationButton);
     simulationButton.setId(simulationName);
+  }
+
+  class SimulationChooserHandler implements EventHandler<ActionEvent> {
+
+    private final String simulationName;
+
+    SimulationChooserHandler(String simulationName) {
+      this.simulationName = simulationName;
+    }
+
+    @Override
+    public void handle(ActionEvent event) {
+      myDisplay.chooseSimulation(simulationName);
+    }
   }
 }

@@ -1,8 +1,14 @@
 package cellsociety.model.cells;
 
-import cellsociety.model.cells.PercolationCell.PercolationState;
+public class SchellingCell extends Cell {
 
-public class SchellingCell extends Cell{
+  public static final String VACANT = "0";
+  public static final String AGENT_X = "1";
+  public static final String AGENT_O = "2";
+  public SchellingCell(String state) {
+    super(state);
+  }
+
 
   public enum SchellingCellState implements CellState {
     VACANT("0"),
@@ -10,33 +16,24 @@ public class SchellingCell extends Cell{
     AGENT_O("2");
 
 
-    public String getState() {
-      return state;
-    }
+    private final String state;
 
-    private String state;
-
-    SchellingCellState(String inputState){
+    SchellingCellState(String inputState) {
       this.state = inputState;
     }
 
-    public static SchellingCellState fromValue(String state){
-      for (SchellingCellState value :  SchellingCellState.values()) {
-        if(state.equals(value.getState())){
+    public static SchellingCellState fromValue(String state) {
+      for (SchellingCellState value : SchellingCellState.values()) {
+        if (state.equals(value.getState())) {
           return value;
         }
       }
       return VACANT;
     }
-  }
 
-  public static final String VACANT = "0";
-  public static final String AGENT_X = "1";
-  public static final String AGENT_O = "2";
-
-
-  public SchellingCell(String state) {
-    super(state);
+    public String getState() {
+      return state;
+    }
   }
 
 

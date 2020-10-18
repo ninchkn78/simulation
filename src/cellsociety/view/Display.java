@@ -1,20 +1,13 @@
 package cellsociety.view;
 
 
-import static java.lang.Thread.sleep;
-
 import cellsociety.controller.Controller;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -36,8 +29,9 @@ public class Display extends Application {
   private static final String CSS_STYLE_SHEET = "default.css";
 
   private final Group myRoot = new Group();
-  private final StateColorPicker colorPickers = new StateColorPicker(myRoot);
-  //private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
+
+  private final StateConfig stateConfigBox = new StateConfig(myRoot, this);
+
 
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
@@ -74,6 +68,7 @@ public class Display extends Application {
     generateSplashScreen(stage);
   }
 
+
   public void generateSplashScreen(Stage stage) {
     myStage = stage;
     SplashScreen startScreen = new SplashScreen(this);
@@ -94,6 +89,7 @@ public class Display extends Application {
 //  }
 
   public void chooseSimulation(String simulationType) {
+    myBoard = new SimulationBoard(myRoot);
     setController(new Controller("Default" + simulationType + ".properties"));
     Scene gameScene = setupScene();
     myStage.setScene(gameScene);
@@ -137,7 +133,7 @@ public class Display extends Application {
   }
 
   void step(double elapsedTime) {
-    if(!isPaused){
+    if (!isPaused) {
 
       animation.setRate(animationSpeed);
       nextGen();
@@ -158,21 +154,20 @@ public class Display extends Application {
     isPaused = true;
   }
 
-  public void addImages() {
-    myBoard.addImagesOverStates(myController.getProperties());
+  public void changeCellsToImages() {
+    myBoard.setGridType("Image");
   }
+
   public Controller getController() {
     return myController;
   }
 
   public void setController(Controller controller) {
     myController = controller;
-    myBoard = new SimulationBoard(myRoot, myController.getGameBoard(),
-        myController.getProperties());
-    colorPickers.addColorPickers(myController);
+    // TODO: 2020-10-17 make a simulation board at the beginning, then have another method that updates
+    stateConfigBox.addStateConfigs(myController);
+    myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
   }
-
-
 }
 
 

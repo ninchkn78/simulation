@@ -1,6 +1,5 @@
 package cellsociety.view;
 
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
@@ -16,7 +15,7 @@ public class SaveFiles {
   public void saveState(String[][] currentState, String Title) throws IOException {
     //int directoryLength = new File(SAVE_DIR).list().length;
 
-    FileWriter csvWriter = new FileWriter(SAVE_DIR+ Title + EXTENSION);
+    FileWriter csvWriter = new FileWriter(SAVE_DIR + Title + EXTENSION);
     makeHeader(csvWriter, currentState);
     writeRows(csvWriter, currentState);
     csvWriter.flush();
