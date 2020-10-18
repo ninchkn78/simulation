@@ -2,6 +2,8 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -87,12 +89,9 @@ public class Display extends Application {
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    myButtonSetup.createSetup(myRoot);
-    myButtonSetup.checkButtonStatus();
-
+    //myButtonSetup.createSetup(myRoot);
+    //myButtonSetup.checkButtonStatus();
     parseButtonsFromProperties();
-
-
     setUpSpeedAdjuster();
     setUpAnimation();
     animation.play();
@@ -100,10 +99,13 @@ public class Display extends Application {
   }
 
   public void parseButtonsFromProperties(){
+    List<String> buttonNameList = new ArrayList<>();
     for(int buttonNum = 1; buttonNum<=NUMBER_POSSIBLE_BUTTONS; buttonNum++){
-      System.out.println(myController.getProperties().get("Button"+buttonNum));
-    }
-
+      if(!((String)myController.getProperties().get("Button"+buttonNum)).equals("")) {
+        buttonNameList.add((String) myController.getProperties().get("Button" + buttonNum));
+      }
+      }
+    myButtonSetup.buttonPipeline(buttonNameList, myRoot);
   }
 
   private void setUpAnimation() {

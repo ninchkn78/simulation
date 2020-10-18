@@ -3,6 +3,8 @@ package cellsociety.view;
 import cellsociety.controller.Controller;
 import cellsociety.model.GameBoard;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -12,13 +14,14 @@ import javafx.stage.FileChooser;
 
 public class ButtonSetup {
 
+  private HBox myHbox = createHBox();
   private final Display myDisplay;
-  private Button fileSaveButton;
-  private Button runButton;
-  private Button pauseButton;
-  private Button loadFileButton;
-  private Button chooseImageButton;
-  private Button stepButton;
+//  private Button fileSaveButton;
+//  private Button runButton;
+//  private Button pauseButton;
+//  private Button loadFileButton;
+//  private Button chooseImageButton;
+//  private Button stepButton;
   private boolean fileSelected = false;
 
   //TODO - idea - just add more buttons here by calling subclasses or something
@@ -27,30 +30,46 @@ public class ButtonSetup {
     myDisplay = myGame;
   }
 
-  public void createSetup(Group root) {
-    createButtons();
-    HBox buttonBox = createHBox();
-    buttonBox.getChildren()
-        .addAll(loadFileButton, runButton, pauseButton, fileSaveButton, chooseImageButton,
-            stepButton);
-    root.getChildren().add(buttonBox);
+
+  public void buttonPipeline(List<String> buttonNames, Group root){
+      List<Button> buttonList = new ArrayList<>();
+      for(String buttonName: buttonNames){
+
+          Button currentButton = new Button(buttonName);
+          currentButton.setId("buttonName");
+          buttonList.add(currentButton);
+          myHbox.getChildren().add(currentButton);
+          //TODO- add something here I think with a lambda function maybe? Or Reflection? That checks all of the button status'
+        }
+        root.getChildren().add(myHbox);
+        checkButtonStatus(buttonList);
   }
 
-  private void createButtons() {
-    loadFileButton = new Button("Load File");
-    loadFileButton.setId("loadFileButton");
-    runButton = new Button("Play");
-    runButton.setId("runButton");
-    fileSaveButton = new Button("Save File");
-    fileSaveButton.setId("saveFileButton");
-    pauseButton = new Button("Pause");
-    pauseButton.setId("pauseButton");
-    chooseImageButton = new Button("Image");
-    chooseImageButton.setId("chooseImageButton");
-    stepButton = new Button("Step Once");
 
-    stepButton.setId("stepButton");
-  }
+//  public void createSetup(Group root) {
+//    createButtons();
+//    HBox buttonBox = createHBox();
+//    buttonBox.getChildren()
+//        .addAll(loadFileButton, runButton, pauseButton, fileSaveButton, chooseImageButton,
+//            stepButton);
+//    root.getChildren().add(buttonBox);
+//  }
+//
+//  private void createButtons() {
+//    loadFileButton = new Button("Load File");
+//    loadFileButton.setId("loadFileButton");
+//    runButton = new Button("Play");
+//    runButton.setId("runButton");
+//    fileSaveButton = new Button("Save File");
+//    fileSaveButton.setId("saveFileButton");
+//    pauseButton = new Button("Pause");
+//    pauseButton.setId("pauseButton");
+//    chooseImageButton = new Button("Image");
+//    chooseImageButton.setId("chooseImageButton");
+//    stepButton = new Button("Step Once");
+//
+//    stepButton.setId("stepButton");
+//  }
 
   private HBox createHBox() {
     HBox buttonBox = new HBox();
@@ -61,16 +80,16 @@ public class ButtonSetup {
   }
 
 
-  public void checkButtonStatus() {
-    checkFileWriteButton();
-    checkFileReaderButton();
-    checkRunButton();
-    checkPauseButton();
-    checkImageButton();
-    checkStepButton();
+  public void checkButtonStatus(List<Button> buttonList) {
+    checkFileWriteButton(buttonList.get(3));
+    checkFileReaderButton(buttonList.get(0));
+    checkRunButton(buttonList.get(1));
+    checkPauseButton(buttonList.get(2));
+    checkImageButton(buttonList.get(4));
+    checkStepButton(buttonList.get(5));
   }
 
-  public void checkStepButton() {
+  public void checkStepButton(Button stepButton) {
     stepButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
@@ -82,7 +101,7 @@ public class ButtonSetup {
 
   }
 
-  public void checkFileReaderButton() {
+  public void checkFileReaderButton(Button loadFileButton) {
     loadFileButton.setOnAction(e -> {
       fileSelected = true;
       myDisplay.pauseGame();
@@ -96,7 +115,7 @@ public class ButtonSetup {
     });
   }
 
-  public void checkRunButton() {
+  public void checkRunButton(Button runButton) {
     runButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
@@ -106,7 +125,7 @@ public class ButtonSetup {
     });
   }
 
-  public void checkPauseButton() {
+  public void checkPauseButton(Button pauseButton) {
     pauseButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
@@ -117,7 +136,7 @@ public class ButtonSetup {
     });
   }
 
-  public void checkFileWriteButton() {
+  public void checkFileWriteButton(Button fileSaveButton) {
     fileSaveButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
@@ -133,7 +152,7 @@ public class ButtonSetup {
     });
   }
 
-  public void checkImageButton() {
+  public void checkImageButton(Button chooseImageButton) {
     chooseImageButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
