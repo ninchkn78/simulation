@@ -2,6 +2,8 @@ package cellsociety.model.games;
 
 
 import cellsociety.model.GameBoard;
+import cellsociety.model.RandomStateReader;
+import cellsociety.model.Reader;
 import cellsociety.model.SetStateReader;
 
 public abstract class Simulation {
@@ -10,8 +12,8 @@ public abstract class Simulation {
   private int generation;
 
   public Simulation(String config) {
-    SetStateReader setStateReader = new SetStateReader();
-    board = new GameBoard(setStateReader.getStatesFromFile(config));
+    Reader stateReader = new RandomStateReader();
+    board = new GameBoard(stateReader.getStatesFromFile(config));
     generation = 1;
   }
 

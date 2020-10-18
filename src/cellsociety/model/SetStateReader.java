@@ -15,8 +15,8 @@ public class SetStateReader extends Reader {
       List<String[]> list = readFile(fileName);
       String[] dimensions = list.remove(0);
       //TODO: add validateStates method, validateDimensions
-      String[][] dataArr = new String[list.size()][];
-      return list.toArray(dataArr);
+      String[][] dataArray = new String[list.size()][];
+      return list.toArray(dataArray);
     }
   }
 
