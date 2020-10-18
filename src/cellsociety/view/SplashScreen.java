@@ -28,13 +28,15 @@ public class SplashScreen {
     titleBox.getChildren().add(newText);
 
     // TODO: 2020-10-12 abstract :(
-    addNewButton("ConwayGameOfLife");
-    addNewButton("Percolation");
-    addNewButton("RPS");
-    addNewButton("SpreadingFire");
+      addNewButton("ConwayGameOfLife");
+      addNewButton("Percolation");
+      addNewButton("RPS");
+      addNewButton("SpreadingFire");
+      addNewButton("SchellingSegregation");
+      addNewButton("WaTorWorld");
 
-    buttonBox.getChildren().addAll(myButtons);
-    root.getChildren().addAll(titleBox, buttonBox);
+      buttonBox.getChildren().addAll(myButtons);
+      root.getChildren().addAll(titleBox, buttonBox);
 
   }
 

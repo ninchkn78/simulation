@@ -6,6 +6,8 @@ import cellsociety.model.GameBoard;
 import cellsociety.model.RandomStateReader;
 import cellsociety.model.Reader;
 import cellsociety.model.SetStateReader;
+import com.opencsv.exceptions.CsvException;
+import java.io.IOException;
 
 public abstract class Simulation {
 
@@ -31,6 +33,7 @@ public abstract class Simulation {
 
   public abstract void updateCell(GameBoard gameBoard, int row, int col);
 
+  //public abstract void setOnClicked();
 
   public void nextGen() {
     GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight());

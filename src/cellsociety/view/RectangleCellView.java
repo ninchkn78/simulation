@@ -14,6 +14,7 @@ public class RectangleCellView extends Group implements CellView {
   String state;
   Rectangle rectangle;
 
+
   public RectangleCellView(double width, double height, String state, Properties properties) {
     rectangle = new Rectangle(width, height);
     setState(state);
@@ -65,6 +66,7 @@ public class RectangleCellView extends Group implements CellView {
     EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
+
         System.out.println("Hello World");
         rectangle.setFill(Color.DARKSLATEBLUE);
       }

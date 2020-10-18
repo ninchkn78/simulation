@@ -1,6 +1,7 @@
 package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
+import com.opencsv.exceptions.CsvException;
 
 public class RPS extends Simulation {
 
