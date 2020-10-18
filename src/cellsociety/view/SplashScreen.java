@@ -18,6 +18,7 @@ public class SplashScreen {
 
   private final Scene myScene;
   private final List<Button> myButtons = new ArrayList<>();
+  private final String CSS_FILE_PATH = "SplashScreen.css";
   private final Display myDisplay;
   private final String PROPERTIES_FILE_PATH= "resources/SplashScreen.properties";
   private  Properties splashProperties;
@@ -29,12 +30,14 @@ public class SplashScreen {
     creatPropertiesObject();
 
     myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
-    myScene.getStylesheets().add("SplashScreen.css");
+    myScene.getStylesheets().add(CSS_FILE_PATH);
 
 
     ButtonSetup myButtonSetup = new ButtonSetup(myDisplay);
+    List<String> testButtons = myButtonSetup.parseButtonsFromProperties(6,splashProperties);
 
     HBox titleBox = myButtonSetup.createHBox("TitleBox", 2/5.0);
+
     HBox buttonBox = myButtonSetup.createHBox("buttonBox", 3/5.0);
 
     Label newText = new Label("Choose Your Simulation!!");
