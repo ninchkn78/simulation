@@ -98,8 +98,8 @@ public class Display extends Application {
 
   public void parseButtonsFromProperties(){
     List<String> buttonNameList = new ArrayList<>();
-    for(int buttonNum = 1; buttonNum<=6; buttonNum++){
-      if(!((String)myController.getProperties().get("Button"+buttonNum)).equals("")) {
+    for(int buttonNum = 1; buttonNum<=NUMBER_POSSIBLE_BUTTONS; buttonNum++){
+      if(!(myController.getProperties().get("Button"+buttonNum)).equals("")) {
         buttonNameList.add((String) myController.getProperties().get("Button" + buttonNum));
       }
       }

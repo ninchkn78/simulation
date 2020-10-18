@@ -21,6 +21,9 @@ public class SplashScreen {
     Group root = new Group();
     myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
     myScene.getStylesheets().add("SplashScreen.css");
+
+    ButtonSetup myButtonSetup = new ButtonSetup(myDisplay);
+
     HBox titleBox = createHBox(5, "TitleBox");
     HBox buttonBox = createHBox(3, "buttonBox");
 
@@ -47,7 +50,9 @@ public class SplashScreen {
   private HBox createHBox(int yOffsetFactor, String cssClass) {
     HBox currentHBox = new HBox();
     currentHBox.setPrefWidth(Display.WIDTH);
+
     currentHBox.setPrefHeight(Display.HEIGHT / 4);
+
     currentHBox.getStyleClass().add(cssClass);
     currentHBox.setLayoutY((Display.HEIGHT / yOffsetFactor) * 2);
     return currentHBox;

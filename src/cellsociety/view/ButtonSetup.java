@@ -16,7 +16,7 @@ import javafx.stage.FileChooser;
 
 public class ButtonSetup {
 
-  private HBox myHbox = createHBox();
+  //private HBox myHbox = createHBox();
   private final Display myDisplay;
   private boolean fileSelected = false;
 
@@ -29,34 +29,41 @@ public class ButtonSetup {
 
   public void buttonPipeline(List<String> buttonNames, Group root){
       List<Button> buttonList = new ArrayList<>();
+      HBox myHbox = createHBox();
       for(String buttonName: buttonNames){
           //TODO - get the button name from the text resources file
-          Button currentButton = new Button(buttonName);
-          currentButton.setId(buttonName);
-          buttonList.add(currentButton);
+        Button currentButton = makeButton(buttonName);
+        buttonList.add(currentButton);
           myHbox.getChildren().add(currentButton);
-          System.out.println(buttonName);
-          try {
-            Method method = this.getClass().getDeclaredMethod("check" + buttonName, Button.class);
-            method.invoke(this, currentButton);
-          }
-          catch(SecurityException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e){
-            e.printStackTrace();
-          }
-
-        //TODO 10/18- add something here I think with a lambda function maybe? Or Reflection? That checks all of the button status'
+          invokeHandlerMethod(buttonName, currentButton);
         }
         root.getChildren().add(myHbox);
+  }
+
+  public Button makeButton(String buttonName) {
+    Button currentButton = new Button(buttonName);
+    currentButton.setId(buttonName);
+    return currentButton;
+  }
+
+  private void invokeHandlerMethod(String buttonName, Button currentButton) {
+    try {
+      Method method = this.getClass().getDeclaredMethod("check" + buttonName, Button.class);
+      method.invoke(this, currentButton);
+    }
+    catch(SecurityException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e){
+      e.printStackTrace();
+    }
   }
 
   private HBox createHBox() {
     HBox buttonBox = new HBox();
     buttonBox.setPrefWidth(Display.WIDTH);
+
     buttonBox.getStyleClass().add("HBox");
     buttonBox.setLayoutY(Display.HEIGHT - 100);
     return buttonBox;
   }
-
 
   public void checkStepOnce(Button stepButton) {
     stepButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -98,9 +105,7 @@ public class ButtonSetup {
       @Override
       public void handle(ActionEvent e) {
         myDisplay.pauseGame();
-
       }
-
     });
   }
 
@@ -115,7 +120,6 @@ public class ButtonSetup {
           PopUpWindow pUp = new PopUpWindow(myDisplay, myGameBoard);
 
         }
-
       }
     });
   }
