@@ -25,6 +25,7 @@ public class Controller {
           .newInstance(properties.getProperty("CSVSource"));
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
       // TODO: 2020-10-12 handle this error
+      System.out.println(e.getCause());
       e.printStackTrace();
     }
 
