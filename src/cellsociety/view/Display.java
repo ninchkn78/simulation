@@ -1,20 +1,15 @@
 package cellsociety.view;
 
 
-import static java.lang.Thread.sleep;
-
 import cellsociety.controller.Controller;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -25,8 +20,7 @@ import javafx.util.Duration;
 
 public class Display extends Application {
 
-
-  //THisshit should be in css
+  // TODO: 2020-10-1 THisshit should be in css
   public static final String TITLE = "Simulation";
   public static final int WIDTH = 800;
   public static final int HEIGHT = 600;
@@ -34,10 +28,12 @@ public class Display extends Application {
   public static final Paint BACKGROUND = Color.AZURE;
 
   private static final String CSS_STYLE_SHEET = "default.css";
+  private static final int NUMBER_POSSIBLE_BUTTONS = 10;
 
   private final Group myRoot = new Group();
-  private final StateColorPicker colorPickers = new StateColorPicker(myRoot);
-  //private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
+
+  private final StateConfig stateConfigBox = new StateConfig(myRoot, this);
+
 
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
@@ -69,10 +65,9 @@ public class Display extends Application {
 
   @Override
   public void start(Stage stage) {
-    // attach scene to the stage and display it
-
     generateSplashScreen(stage);
   }
+
 
   public void generateSplashScreen(Stage stage) {
     myStage = stage;
@@ -82,18 +77,8 @@ public class Display extends Application {
     stage.show();
   }
 
-//  private void checkWhichGame(SplashScreen startScreen) {
-//    //TODO - figure out how to add multiple buttons
-//    // TODO: 2020-10-12 abstract for any default property file or any simulation
-//    startScreen.getMyButton().setOnAction(new EventHandler<ActionEvent>() {
-//      @Override
-//      public void handle(ActionEvent e) {
-//        chooseSimulation();
-//      }
-//    });
-//  }
-
   public void chooseSimulation(String simulationType) {
+    myBoard = new SimulationBoard(myRoot);
     setController(new Controller("Default" + simulationType + ".properties"));
     Scene gameScene = setupScene();
     myStage.setScene(gameScene);
@@ -103,12 +88,21 @@ public class Display extends Application {
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    myButtonSetup.createSetup(myRoot);
-    myButtonSetup.checkButtonStatus();
+    parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();
     animation.play();
     return scene;
+  }
+
+  public void parseButtonsFromProperties(){
+    List<String> buttonNameList = new ArrayList<>();
+    for(int buttonNum = 1; buttonNum<=NUMBER_POSSIBLE_BUTTONS; buttonNum++){
+      if(!((String)myController.getProperties().get("Button"+buttonNum)).equals("")) {
+        buttonNameList.add((String) myController.getProperties().get("Button" + buttonNum));
+      }
+      }
+    myButtonSetup.buttonPipeline(buttonNameList, myRoot);
   }
 
   private void setUpAnimation() {
@@ -137,7 +131,7 @@ public class Display extends Application {
   }
 
   void step(double elapsedTime) {
-    if(!isPaused){
+    if (!isPaused) {
 
       animation.setRate(animationSpeed);
       nextGen();
@@ -158,21 +152,20 @@ public class Display extends Application {
     isPaused = true;
   }
 
-  public void addImages() {
-    myBoard.addImagesOverStates(myController.getProperties());
+  public void changeCellsToImages() {
+    myBoard.setGridType("Image");
   }
+
   public Controller getController() {
     return myController;
   }
 
   public void setController(Controller controller) {
     myController = controller;
-    myBoard = new SimulationBoard(myRoot, myController.getGameBoard(),
-        myController.getProperties());
-    colorPickers.addColorPickers(myController);
+    // TODO: 2020-10-17 make a simulation board at the beginning, then have another method that updates
+    stateConfigBox.addStateConfigs(myController);
+    myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
   }
-
-
 }
 
 

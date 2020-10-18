@@ -1,7 +1,5 @@
 package cellsociety.view;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import cellsociety.controller.Controller;
 import javafx.scene.Scene;
 import javafx.scene.control.ColorPicker;
@@ -13,6 +11,7 @@ import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
 class StateColorPickerTest extends DukeApplicationTest {
+
   // create an instance of our game to be able to call in tests (like step())
   private final Display conwayDisplay = new Display();
   // keep created scene to allow mouse and keyboard events
@@ -30,7 +29,7 @@ class StateColorPickerTest extends DukeApplicationTest {
   }
 
   @Test
-  void testColorChanges(){
+  void testColorChanges() {
     // TODO: 2020-10-13 ask how to test this
     ColorPicker colorPicker = lookup("#0color").query();
     Rectangle cell = lookup("#cell1,0").query();

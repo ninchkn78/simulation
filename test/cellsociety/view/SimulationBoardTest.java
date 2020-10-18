@@ -1,11 +1,7 @@
 package cellsociety.view;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import cellsociety.controller.Controller;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -15,6 +11,7 @@ import util.DukeApplicationTest;
 
 
 class SimulationBoardTest extends DukeApplicationTest {
+
   // create an instance of our game to be able to call in tests (like step())
   private final Display conwayDisplay = new Display();
   // keep created scene to allow mouse and keyboard events

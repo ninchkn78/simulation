@@ -8,7 +8,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class SchellingSegregation extends Simulation{
+
+public class SchellingSegregation extends Simulation {
+
 
   private final double THRESHOLD = 0.5;
   private Random rand;
@@ -41,7 +43,7 @@ public class SchellingSegregation extends Simulation{
     }
   }
 
-  public int countNeighbors(int row, int col){
+  public int countNeighbors(int row, int col) {
     int neighborCount = 0;
     for (int i = row - 1; i <= row + 1; i++){
       for (int j = col - 1; j <= col + 1; j++){
@@ -61,7 +63,7 @@ public class SchellingSegregation extends Simulation{
     return getState(row,col).equals(SchellingCell.VACANT);
   }
 
-  public String getState(int row, int col){
+  public String getState(int row, int col) {
     return getGameBoard().getCell(row, col).getState();
   }
 

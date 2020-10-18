@@ -4,11 +4,11 @@ package cellsociety.model.games;
 import cellsociety.model.GameBoard;
 import cellsociety.model.cells.Cell;
 import cellsociety.model.cells.ConwayCell;
-import java.util.Arrays;
 
 public class ConwayGameOfLife extends Simulation {
 
   public ConwayGameOfLife(String csvConfig){
+
     super(csvConfig);
   }
 
@@ -20,16 +20,15 @@ public class ConwayGameOfLife extends Simulation {
     return countLivingNeighbors(row, col) == 3;
   }
 
-  public boolean isAlive(Cell cell){
+  public boolean isAlive(Cell cell) {
     return cell.getState().equals(ConwayCell.ALIVE);
   }
 
   @Override
-  public void updateCell(GameBoard nextBoard, int row, int col){
-    if (aliveNextGen(row,col)){
+  public void updateCell(GameBoard nextBoard, int row, int col) {
+    if (aliveNextGen(row, col)) {
       nextBoard.setPiece(row, col, ConwayCell.ALIVE);
-    }
-    else{
+    } else {
       nextBoard.setPiece(row, col, ConwayCell.DEAD);
     }
   }
@@ -40,11 +39,11 @@ public class ConwayGameOfLife extends Simulation {
       for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
         if (getGameBoard().inBounds(i,j) && isAlive(getGameBoard().getCell(i, j)) && !(currentRow == i
             && currentColumn == j)){ //TODO: make this not ugly af
+
           aliveCount++;
         }
       }
     }
-
     return aliveCount;
   }
 }

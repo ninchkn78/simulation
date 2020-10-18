@@ -1,11 +1,15 @@
 package cellsociety.model.cells;
 
-import java.util.HashMap;
-import java.util.Map;
+public class RPSCell extends Cell {
 
-public class RPSCell extends Cell{
-
+  public static final String ROCK = "0";
+  public static final String PAPER = "1";
+  public static final String SCISSORS = "2";
   private String opponentState;
+  public RPSCell(String state) {
+    super(state);
+    // opponentState = calculateOpponent();
+  }
 
   public enum RPSState implements CellState {
     ROCK("0"),
@@ -13,33 +17,24 @@ public class RPSCell extends Cell{
     SCISSORS("2");
 
 
-    public String getState() {
-      return state;
-    }
+    private final String state;
 
-    private String state;
-
-    RPSState(String inputState){
+    RPSState(String inputState) {
       this.state = inputState;
     }
 
-    public static RPSState fromValue(String state){
-      for (RPSState value :  RPSState.values()) {
-        if(state.equals(value.getState())){
+    public static RPSState fromValue(String state) {
+      for (RPSState value : RPSState.values()) {
+        if (state.equals(value.getState())) {
           return value;
         }
       }
       return ROCK;
     }
-  }
 
-  public static final String ROCK = "0";
-  public static final String PAPER = "1";
-  public static final String SCISSORS = "2";
-
-  public RPSCell(String state) {
-    super(state);
-   // opponentState = calculateOpponent();
+    public String getState() {
+      return state;
+    }
   }
 
 //  public String calculateOpponent(){
@@ -62,8 +57,6 @@ public class RPSCell extends Cell{
   public boolean isScissors(){
     return getState().equals(SCISSORS);
   }
-
-
 
 
 }
