@@ -2,7 +2,6 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
-import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
