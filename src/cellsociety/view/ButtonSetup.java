@@ -27,6 +27,15 @@ public class ButtonSetup {
     myDisplay = myGame;
   }
 
+  public List<String> parseButtonsFromProperties(int NUMBER_POSSIBLE_BUTTONS){
+    List<String> buttonNameList = new ArrayList<>();
+    for(int buttonNum = 1; buttonNum<=NUMBER_POSSIBLE_BUTTONS; buttonNum++){
+      if(!(myDisplay.getController().getProperties().get("Button"+buttonNum)).equals("")) {
+        buttonNameList.add((String) myDisplay.getController().getProperties().get("Button" + buttonNum));
+      }
+    }
+    return buttonNameList;
+  }
 
   public void buttonPipeline(List<String> buttonNames, Group root){
       List<Button> buttonList = new ArrayList<>();

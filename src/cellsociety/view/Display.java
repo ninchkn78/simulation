@@ -89,22 +89,24 @@ public class Display extends Application {
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    parseButtonsFromProperties();
+    List<String> buttonNameList = myButtonSetup.parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS);
+    myButtonSetup.buttonPipeline(buttonNameList, myRoot);
+    //parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();
     animation.play();
     return scene;
   }
 
-  public void parseButtonsFromProperties(){
-    List<String> buttonNameList = new ArrayList<>();
-    for(int buttonNum = 1; buttonNum<=NUMBER_POSSIBLE_BUTTONS; buttonNum++){
-      if(!(myController.getProperties().get("Button"+buttonNum)).equals("")) {
-        buttonNameList.add((String) myController.getProperties().get("Button" + buttonNum));
-      }
-      }
-    myButtonSetup.buttonPipeline(buttonNameList, myRoot);
-  }
+//  public void parseButtonsFromProperties(){
+//    List<String> buttonNameList = new ArrayList<>();
+//    for(int buttonNum = 1; buttonNum<=NUMBER_POSSIBLE_BUTTONS; buttonNum++){
+//      if(!(myController.getProperties().get("Button"+buttonNum)).equals("")) {
+//        buttonNameList.add((String) myController.getProperties().get("Button" + buttonNum));
+//      }
+//      }
+//    myButtonSetup.buttonPipeline(buttonNameList, myRoot);
+//  }
 
   private void setUpAnimation() {
     KeyFrame frame = new KeyFrame(Duration.seconds(animationSpeed), e -> step(animationSpeed));
