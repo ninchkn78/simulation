@@ -1,7 +1,9 @@
-package cellsociety.view;
+package cellsociety.view.ButtonSetups;
 
 import cellsociety.controller.Controller;
 import cellsociety.model.GameBoard;
+import cellsociety.view.Display;
+import cellsociety.view.PopUpWindow;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -18,8 +20,8 @@ public class GridViewButtonSetup extends ButtonSetup {
 
   //TODO - idea - just add more buttons here by calling subclasses or something
 
-  public GridViewButtonSetup(Display myGame) {
-    myDisplay = myGame;
+  public GridViewButtonSetup(Display display) {
+    myDisplay = display;
   }
 
 

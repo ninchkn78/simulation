@@ -1,5 +1,6 @@
-package cellsociety.view;
+package cellsociety.view.ButtonSetups;
 
+import cellsociety.view.Display;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -9,8 +10,6 @@ import javafx.scene.layout.HBox;
 
 public abstract class ButtonSetup {
 
-  private static final String DEFAULT_HBOX_CSS_CLASS = "HBox";
-  private static final double DEFAULT_Y_OFFSET = 0.75;
   //TODO - idea - just add more buttons here by calling subclasses or something
 
   public List<String> parseButtonsFromProperties(int NUMBER_POSSIBLE_BUTTONS,
@@ -24,9 +23,10 @@ public abstract class ButtonSetup {
     return buttonNameList;
   }
 
-  public void buttonPipeline(List<String> buttonNames, Group root) {
+  public void buttonPipeline(List<String> buttonNames, Group root, String cssClass,
+      double yOffset) {
     List<Button> buttonList = new ArrayList<>();
-    HBox myHbox = createHBox(DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET);
+    HBox myHbox = createHBox(cssClass, yOffset);
     for (String buttonName : buttonNames) {
       //TODO - get the button name from the text resources file
       Button currentButton = makeButton(buttonName);
