@@ -4,6 +4,7 @@ public class ConwayCell extends Cell {
 
   public static final String DEAD = "0";
   public static final String ALIVE = "1";
+
   public ConwayCell(String state) {
     super(state);
   }

@@ -20,21 +20,17 @@ class SimulationBoardTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    // create game's scene with all shapes in their initial positions and show it
     myScene = conwayDisplay.setupScene();
     stage.setScene(myScene);
     stage.show();
     javafxRun(() -> conwayDisplay.setController(new Controller("TestConway.properties")));
-    // find individual items within game by ID (must have been set in your code using setID())
   }
 
   @Test
   void testColorChangesOnClick() {
     Rectangle cell1 = lookup("#cell1,0").query();
     clickOn(cell1);
-//   javafxRun(() -> {
-//     cell1.getOnMouseClicked().handle(MouseEvent.MOUSE_CLICKED);
-//   });
+
     Assertions.assertEquals(Color.BLUE, cell1.getFill());
     Assertions.assertEquals(0, cell1.getY());
   }
