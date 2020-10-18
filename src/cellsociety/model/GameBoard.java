@@ -3,6 +3,8 @@ package cellsociety.model;
 import cellsociety.model.cells.Cell;
 
 import cellsociety.model.cells.WaTorCell;
+import cellsociety.model.games.Simulation;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -15,25 +17,34 @@ public class GameBoard{
   private final Cell[][] gameBoardCells;
   private String[][] gameBoardStates;
 
-  public GameBoard(int width, int height) {
+  public GameBoard(int width, int height, String cellType) {
     this.width = width;
     this.height = height;
-    this.gameBoardCells = initializeGameBoardCells(width, height);
+    this.gameBoardCells = initializeGameBoardCells(width, height, cellType);
     this.gameBoardStates = new String[height][width];
     setGameBoardStates(gameBoardCells);
   }
 
-  public GameBoard(String[][] initialStateConfig) {
+  public GameBoard(String[][] initialStateConfig, String cellType) {
     this.width = initialStateConfig[0].length;
     this.height = initialStateConfig.length;
-    this.gameBoardCells = createCellConfiguration(initialStateConfig);
+    this.gameBoardCells = createCellConfiguration(initialStateConfig, cellType);
     this.gameBoardStates = initialStateConfig;
   }
 
-  public Cell[][] initializeGameBoardCells(int width, int height) {
+  public Cell[][] initializeGameBoardCells(int width, int height, String cellType) {
     Cell[][] cellConfig = new Cell[height][width];
     for (int i = 0; i < height; i++){
       for (int j = 0; j < width; j++){
+        Class operation;
+        try{
+          operation = Class.forName("cellsociety.model.cells." + cellType);
+          cellConfig[i][j] = (Cell) operation.getConstructor(String.class)
+              .newInstance("0");
+        }
+        catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+          e.printStackTrace();
+        }
         cellConfig[i][j] = new WaTorCell(WaTorCell.OCEAN); //TODO: FIX THIS
       }
     }
@@ -107,15 +118,23 @@ public class GameBoard{
     }
   }
 
-  public Cell[][] createCellConfiguration(String[][] stateConfig){ //TODO: make this work for all cell types
+  public Cell[][] createCellConfiguration(String[][] stateConfig, String cellType){ //TODO: make this work for all cell types
     Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
     for (int i = 0; i < height; i++){
       for (int j = 0; j < width; j++){
-        cellConfig[i][j] = new WaTorCell(stateConfig[i][j]);
+        Class operation;
+        try {
+          operation = Class.forName("cellsociety.model.cells." + cellType);
+          cellConfig[i][j]  = (Cell) operation.getConstructor(String.class)
+              .newInstance(stateConfig[i][j]);
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+          e.printStackTrace();
+        }
       }
     }
     return cellConfig;
   }
+
 
   public void apply(TriConsumer<Integer, Integer, String> updateCellState) {
     for (int i = 0; i < height; i++) {
@@ -138,15 +157,6 @@ public class GameBoard{
     gameBoardCells[row2][col2] = firstCell;
     gameBoardStates[row1][col1] = secondCell.getState();
     gameBoardStates[row2][col2] = firstCell.getState();
-  }
-
-  public void setCellConfiguration(String[][] stateConfig) {
-    gameBoardStates = stateConfig;
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        gameBoardCells[i][j] = new WaTorCell(stateConfig[i][j]);
-      }
-    }
   }
 
 }
