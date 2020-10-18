@@ -3,7 +3,6 @@ package cellsociety.view;
 import cellsociety.controller.Controller;
 import cellsociety.model.GameBoard;
 import java.io.File;
-import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -13,14 +12,13 @@ import javafx.stage.FileChooser;
 
 public class ButtonSetup {
 
+  private final Display myDisplay;
   private Button fileSaveButton;
   private Button runButton;
   private Button pauseButton;
   private Button loadFileButton;
   private Button chooseImageButton;
   private Button stepButton;
-  private final Display myDisplay;
-
   private boolean fileSelected = false;
 
   //TODO - idea - just add more buttons here by calling subclasses or something
@@ -32,7 +30,9 @@ public class ButtonSetup {
   public void createSetup(Group root) {
     createButtons();
     HBox buttonBox = createHBox();
-    buttonBox.getChildren().addAll(loadFileButton,runButton,pauseButton,fileSaveButton,chooseImageButton, stepButton);
+    buttonBox.getChildren()
+        .addAll(loadFileButton, runButton, pauseButton, fileSaveButton, chooseImageButton,
+            stepButton);
     root.getChildren().add(buttonBox);
   }
 
@@ -70,7 +70,7 @@ public class ButtonSetup {
     checkStepButton();
   }
 
-  public void checkStepButton(){
+  public void checkStepButton() {
     stepButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
@@ -81,20 +81,18 @@ public class ButtonSetup {
 
 
   }
-  public void checkFileReaderButton() {
 
-      loadFileButton.setOnAction(e -> {
+  public void checkFileReaderButton() {
+    loadFileButton.setOnAction(e -> {
       fileSelected = true;
       myDisplay.pauseGame();
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Resource File");
       File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
-
       //String[] pFilePathArr = propertiesFile.getPath().split(".");
-      if(propertiesFile!= null){
+      if (propertiesFile != null) {
         myDisplay.setController(new Controller(propertiesFile.getName()));
       }
-
     });
   }
 
@@ -114,14 +112,16 @@ public class ButtonSetup {
       public void handle(ActionEvent e) {
         myDisplay.pauseGame();
 
-      };
-    });}
+      }
+
+    });
+  }
 
   public void checkFileWriteButton() {
     fileSaveButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        if(myDisplay.getController()!=null ) {
+        if (myDisplay.getController() != null) {
           System.out.println("WRITE FILE");
           GameBoard myGameBoard = myDisplay.getController().getGameBoard();
 
@@ -129,18 +129,20 @@ public class ButtonSetup {
 
         }
 
-
       }
     });
   }
+
   public void checkImageButton() {
     chooseImageButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        myDisplay.addImages();
+        myDisplay.changeCellsToImages();
 
-      };
-    });}
+      }
+
+    });
+  }
 
 
 }

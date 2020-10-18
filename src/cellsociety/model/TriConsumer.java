@@ -1,4 +1,5 @@
 package cellsociety.model;
+
 @FunctionalInterface
 public interface TriConsumer<T, T2, T3> {
 

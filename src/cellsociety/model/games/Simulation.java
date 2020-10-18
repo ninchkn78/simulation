@@ -15,12 +15,12 @@ public abstract class Simulation {
     generation = 1;
   }
 
-  public GameBoard getGameBoard(){
+  public GameBoard getGameBoard() {
     return board;
   }
 
 
-  public void incrementGeneration(){
+  public void incrementGeneration() {
     generation++;
   }
 
@@ -28,20 +28,16 @@ public abstract class Simulation {
   public abstract void updateCell(GameBoard gameBoard, int row, int col);
 
 
-  public void nextGen(){
+  public void nextGen() {
     GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight());
     for (int i = 0; i < getGameBoard().getHeight(); i++) {
       for (int j = 0; j < getGameBoard().getWidth(); j++) {
-        updateCell(nextBoard, i,j);
+        updateCell(nextBoard, i, j);
       }
     }
     incrementGeneration();
     board = nextBoard;
   }
-
-
-
-
 
 
 }
