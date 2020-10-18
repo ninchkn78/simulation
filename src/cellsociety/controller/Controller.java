@@ -19,6 +19,7 @@ public class Controller {
     propertiesFileName = propertiesName;
     setProperties(propertiesFileName);
     String gameType = properties.getProperty("Type");
+    String cellType = properties.getProperty("Type");
     Class operation;
     try {
       operation = Class.forName("cellsociety.model.games." + gameType);

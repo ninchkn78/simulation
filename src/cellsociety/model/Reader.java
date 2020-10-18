@@ -27,7 +27,7 @@ public abstract class Reader {
     InputStream dataStream = getFileInputStream(fileName);
     try (CSVReader csvReader = new CSVReader(new InputStreamReader(dataStream))) {
       fileData = csvReader.readAll();
-      validateCSV(fileData);
+      //validateCSV(fileData);
     } catch(CsvException | IOException e){
       e.printStackTrace();
       return fileData;
