@@ -81,8 +81,8 @@ for (int i = 0; i < playerList.length(); i++)
 
  * A new choice is added to an existing game and its relationship to all the other choices is updated.
  ```java
-Reader reader = new Reader();
-reader.read(pathway)
+Reader setStateReader = new Reader();
+setStateReader.read(pathway)
 
  ```
 

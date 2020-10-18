@@ -2,7 +2,7 @@ package cellsociety.model.games;
 
 
 import cellsociety.model.GameBoard;
-import cellsociety.model.Reader;
+import cellsociety.model.SetStateReader;
 
 public abstract class Simulation {
 
@@ -10,8 +10,8 @@ public abstract class Simulation {
   private int generation;
 
   public Simulation(String config) {
-    Reader reader = new Reader();
-    board = new GameBoard(reader.readFile(config));
+    SetStateReader setStateReader = new SetStateReader();
+    board = new GameBoard(setStateReader.getStatesFromFile(config));
     generation = 1;
   }
 

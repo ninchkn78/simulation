@@ -20,8 +20,7 @@ import javafx.util.Duration;
 
 public class Display extends Application {
 
-
-  //THisshit should be in css
+  // TODO: 2020-10-1 THisshit should be in css
   public static final String TITLE = "Simulation";
   public static final int WIDTH = 800;
   public static final int HEIGHT = 600;
