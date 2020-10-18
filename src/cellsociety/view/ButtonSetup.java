@@ -16,12 +16,6 @@ public class ButtonSetup {
 
   private HBox myHbox = createHBox();
   private final Display myDisplay;
-//  private Button fileSaveButton;
-//  private Button runButton;
-//  private Button pauseButton;
-//  private Button loadFileButton;
-//  private Button chooseImageButton;
-//  private Button stepButton;
   private boolean fileSelected = false;
 
   //TODO - idea - just add more buttons here by calling subclasses or something
@@ -61,7 +55,7 @@ public class ButtonSetup {
     checkRunButton(buttonList.get(1));
     checkPauseButton(buttonList.get(2));
     checkImageButton(buttonList.get(4));
-    //checkStepButton(buttonList.get(5));
+    checkStepButton(buttonList.get(5));
   }
 
   public void checkStepButton(Button stepButton) {
