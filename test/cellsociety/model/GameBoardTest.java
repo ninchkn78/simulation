@@ -15,20 +15,6 @@ class GameBoardTest {
     board = new GameBoard(5,5);
   }
 
-  @Test
-  public void clear(){
-      for (int i = 0; i < board.getHeight(); i++){
-        for (int j = 0; j < board.getWidth(); j++){
-          board.setPiece(i,j, ConwayCell.ALIVE);
-        }
-      }
-      board.clear();
-    for (int i = 0; i < board.getHeight(); i++){
-      for (int j = 0; j < board.getWidth(); j++){
-        assertEquals(ConwayCell.DEAD, board.getCell(i,j).getState());
-      }
-    }
-  }
 
   @Test
   public void inBoundsTest(){

@@ -38,7 +38,6 @@ public abstract class Simulation {
     }
     incrementGeneration();
     board = nextBoard;
-    System.out.println(Arrays.deepToString(board.getGameBoardStates()));
   }
 
 

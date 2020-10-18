@@ -45,6 +45,8 @@ public class SplashScreen {
       addNewButton("RPS");
       addNewButton("SpreadingFire");
       addNewButton("SchellingSegregation");
+      addNewButton("WaTorWorld");
+
 
 
     buttonBox.getChildren().addAll(myButtons);

@@ -8,7 +8,6 @@ import java.util.Arrays;
 
 public class ConwayGameOfLife extends Simulation {
 
-  public static final String csvconfig = "board_config/conway0.csv";
   public ConwayGameOfLife(String csvConfig){
     super(csvConfig);
   }
@@ -39,14 +38,13 @@ public class ConwayGameOfLife extends Simulation {
     int aliveCount = 0;
     for (int i = currentRow - 1; i <= currentRow + 1; i++){
       for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
-        if (getGameBoard().inBounds(i,j) && isAlive(getGameBoard().getCell(i, j))){ //TODO: make this not ugly af
+        if (getGameBoard().inBounds(i,j) && isAlive(getGameBoard().getCell(i, j)) && !(currentRow == i
+            && currentColumn == j)){ //TODO: make this not ugly af
           aliveCount++;
         }
       }
     }
-    if (isAlive(getGameBoard().getCell(currentRow, currentColumn))){
-      aliveCount--;
-    }
+
     return aliveCount;
   }
 }

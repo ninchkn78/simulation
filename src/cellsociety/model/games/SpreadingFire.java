@@ -63,8 +63,4 @@ public class SpreadingFire extends Simulation{
     return false;
   }
 
-  public Random getRand(){
-    return rand;
-  }
-
 }

@@ -37,13 +37,10 @@ public class SchellingSegregation extends Simulation{
     int neighborCount = 0;
     for (int i = row - 1; i <= row + 1; i++){
       for (int j = col - 1; j <= col + 1; j++){
-        if (getGameBoard().inBounds(i,j) && !isVacant(i, j) ){
+        if (getGameBoard().inBounds(i,j) && !isVacant(i, j) && !(row == i && col == j)){
           neighborCount++;
         }
       }
-    }
-    if (!isVacant(row, col)){
-      neighborCount--;
     }
     return neighborCount;
   }
