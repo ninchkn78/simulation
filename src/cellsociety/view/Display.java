@@ -153,8 +153,8 @@ public class Display extends Application {
     isPaused = true;
   }
 
-  public void addImages() {
-    myBoard.addImagesOverStates(myController.getGameBoard(), myController.getProperties());
+  public void changeCellsToImages() {
+    myBoard.setGridType("Image");
   }
 
   public Controller getController() {

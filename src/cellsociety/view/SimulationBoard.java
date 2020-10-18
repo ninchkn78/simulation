@@ -9,7 +9,6 @@ import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
-
 public class SimulationBoard {
 
   // TODO: 2020-10-10 make this CSS
@@ -18,20 +17,22 @@ public class SimulationBoard {
 
   private final GridPane myGrid = new GridPane();
   private final List<List<CellView>> cells = new ArrayList<>();
-  private final List<List<ImageCellView>> cellImages = new ArrayList<>();
-
+  private final GameBoard gameBoard;
+  private final Properties properties;
 
   public SimulationBoard(Group root, GameBoard gameBoard, Properties properties) {
     myGrid.setLayoutX(75);
     myGrid.setLayoutY(75);
     myGrid.setGridLinesVisible(true);
     root.getChildren().add(myGrid);
-    initializeMyGrid(gameBoard, properties, "Rectangle");
+    this.gameBoard = gameBoard;
+    this.properties = properties;
+    setGridType("Rectangle");
   }
 
   //works for non square 2D arrays
   // TODO: 2020-10-04 ask about X position for tests
-  private void initializeMyGrid(GameBoard gameBoard, Properties properties, String cellType) {
+  public void setGridType(String cellType) {
     myGrid.getChildren().clear();
     cells.clear();
     String[][] states = gameBoard.getGameBoardStates();
@@ -39,20 +40,19 @@ public class SimulationBoard {
     for (int i = 0; i < states.length; i++) {
       cells.add(new ArrayList<>());
       for (int j = 0; j < states[i].length; j++) {
-        addCellViewToGrid(
+        addCellToGrid(
             chooseCellType(cellType,width,CELL_GRID_HEIGHT / states.length, states[i][j], properties), i, j);
       }
     }
   }
 
-  private void addCellViewToGrid(CellView cell1, int i, int j) {
-    Node cell = cell1.getCell();
+  private void addCellToGrid(CellView cellView, int i, int j) {
+    Node cell = cellView.getCell();
     cell.setId(String.format("cell%d,%d", i, j));
     GridPane.setConstraints(cell, j, i);
     myGrid.getChildren().add(cell);
-    cells.get(i).add(cell1);
+    cells.get(i).add(cellView);
   }
-
 
   //TODO: just a thought: maybe put the 2d array in to a list of arrays, and then call Collections.max? - franklin
   private int maxRowLength(String[][] array) {
@@ -69,10 +69,6 @@ public class SimulationBoard {
     gameBoard.apply((i, j, state) -> {
       cells.get(i).get(j).updateView(state, properties);
     });
-  }
-
-  public void addImagesOverStates(GameBoard gameBoard, Properties properties) {
-    initializeMyGrid(gameBoard,properties,"Image");
   }
 
 

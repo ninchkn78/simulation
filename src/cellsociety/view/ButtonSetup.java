@@ -138,7 +138,7 @@ public class ButtonSetup {
     chooseImageButton.setOnAction(new EventHandler<ActionEvent>() {
       @Override
       public void handle(ActionEvent e) {
-        myDisplay.addImages();
+        myDisplay.changeCellsToImages();
 
       }
 
