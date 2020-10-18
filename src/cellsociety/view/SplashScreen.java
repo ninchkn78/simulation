@@ -24,8 +24,8 @@ public class SplashScreen {
 
     ButtonSetup myButtonSetup = new ButtonSetup(myDisplay);
 
-    HBox titleBox = createHBox(5, "TitleBox");
-    HBox buttonBox = createHBox(3, "buttonBox");
+    HBox titleBox = myButtonSetup.createHBox("TitleBox", 2/5.0);
+    HBox buttonBox = myButtonSetup.createHBox("buttonBox", 3/5.0);
 
     Label newText = new Label("Choose Your Simulation!!");
     titleBox.getChildren().add(newText);
@@ -45,17 +45,6 @@ public class SplashScreen {
     Button button = new Button(simulationName);
     button.setOnAction(new SimulationChooserHandler(simulationName));
     return button;
-  }
-
-  private HBox createHBox(int yOffsetFactor, String cssClass) {
-    HBox currentHBox = new HBox();
-    currentHBox.setPrefWidth(Display.WIDTH);
-
-    currentHBox.setPrefHeight(Display.HEIGHT / 4);
-
-    currentHBox.getStyleClass().add(cssClass);
-    currentHBox.setLayoutY((Display.HEIGHT / yOffsetFactor) * 2);
-    return currentHBox;
   }
 
   public Scene getMyScene() {

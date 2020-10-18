@@ -19,7 +19,8 @@ public class ButtonSetup {
   //private HBox myHbox = createHBox();
   private final Display myDisplay;
   private boolean fileSelected = false;
-
+  private static final String DEFAULT_HBOX_CSS_CLASS = "HBox";
+  private static final double DEFAULT_Y_OFFSET = 0.75;
   //TODO - idea - just add more buttons here by calling subclasses or something
 
   public ButtonSetup(Display myGame) {
@@ -29,7 +30,7 @@ public class ButtonSetup {
 
   public void buttonPipeline(List<String> buttonNames, Group root){
       List<Button> buttonList = new ArrayList<>();
-      HBox myHbox = createHBox();
+      HBox myHbox = createHBox(DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET);
       for(String buttonName: buttonNames){
           //TODO - get the button name from the text resources file
         Button currentButton = makeButton(buttonName);
@@ -56,12 +57,13 @@ public class ButtonSetup {
     }
   }
 
-  private HBox createHBox() {
+  public HBox createHBox(String cssClass, double yOffsetFactor) {
     HBox buttonBox = new HBox();
     buttonBox.setPrefWidth(Display.WIDTH);
+    buttonBox.setPrefHeight(Display.HEIGHT / 4);
+    buttonBox.getStyleClass().add(cssClass);
+    buttonBox.setLayoutY(Display.HEIGHT * yOffsetFactor);
 
-    buttonBox.getStyleClass().add("HBox");
-    buttonBox.setLayoutY(Display.HEIGHT - 100);
     return buttonBox;
   }
 
