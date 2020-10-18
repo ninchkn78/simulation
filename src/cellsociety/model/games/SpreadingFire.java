@@ -4,11 +4,11 @@ import cellsociety.model.GameBoard;
 import cellsociety.model.cells.SpreadingFireCell;
 import java.util.Random;
 
-public class SpreadingFire extends Simulation{
+public class SpreadingFire extends Simulation {
 
   public static final double probCatch = 0.5;
 
-  public SpreadingFire(String csvConfig){
+  public SpreadingFire(String csvConfig) {
     super(csvConfig);
   }
 
@@ -17,14 +17,14 @@ public class SpreadingFire extends Simulation{
   public void updateCell(GameBoard gameBoard, int row, int col) {
     if (isBurning(row, col)) {
       gameBoard.setPiece(row, col, SpreadingFireCell.EMPTY);
-    }else if (burningNextGen(row,col)){
+    } else if (burningNextGen(row, col)) {
       gameBoard.setPiece(row, col, SpreadingFireCell.BURNING);
-    }else{
+    } else {
       gameBoard.setPiece(row, col, getGameBoard().getState(row, col));
     }
   }
 
-  public boolean isDirectNeighbor(int x, int y, int currentRow, int currentCol){
+  public boolean isDirectNeighbor(int x, int y, int currentRow, int currentCol) {
     return (x == currentRow || y == currentCol);
   }
 

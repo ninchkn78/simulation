@@ -1,13 +1,7 @@
 package cellsociety.view;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import cellsociety.controller.Controller;
-import cellsociety.model.ConwayReader;
-import cellsociety.model.GameBoard;
-import cellsociety.view.Display;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -43,6 +37,7 @@ class ConwayBoardTest extends DukeApplicationTest {
     Assertions.assertEquals(0, cell1.getX());
     Assertions.assertEquals(0, cell1.getY());
   }
+
   @Test
   void testNextGen() {
     javafxRun(() -> conwayDisplay.nextGen());

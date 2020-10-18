@@ -2,18 +2,14 @@ package cellsociety.view;
 
 import cellsociety.model.GameBoard;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.paint.Color;
 
 
 public class SimulationBoard {
@@ -27,10 +23,9 @@ public class SimulationBoard {
   private final List<List<ImageView>> cellImages = new ArrayList<>();
 
 
-
   public SimulationBoard(Group root, GameBoard gameBoard, Properties properties) {
     myGrid.setLayoutX(75);
-    myGrid.setLayoutY(50);
+    myGrid.setLayoutY(75);
     myGrid.setGridLinesVisible(true);
     root.getChildren().add(myGrid);
     initializeMyGrid(gameBoard, properties);
@@ -38,7 +33,6 @@ public class SimulationBoard {
 
   //works for non square 2D arrays
   // TODO: 2020-10-04 ask about X position for tests
-  // TODO: 2020-10-05  don't make new rectangles every time
   private void initializeMyGrid(GameBoard gameBoard, Properties properties) {
     String[][] states = gameBoard.getGameBoardStates();
     double width = CELL_GRID_WIDTH / maxRowLength(states);
@@ -47,7 +41,8 @@ public class SimulationBoard {
       cellImages.add(new ArrayList<>());
       for (int j = 0; j < states[i].length; j++) {
         addCellViewToGrid(
-            new RectangleCellView(width, CELL_GRID_HEIGHT / states.length, states[i][j], properties), i, j);
+            new RectangleCellView(width, CELL_GRID_HEIGHT / states.length, states[i][j],
+                properties), i, j);
         cellImages.get(i).add(new ImageView());
       }
     }
@@ -62,7 +57,6 @@ public class SimulationBoard {
   }
 
 
-
   //TODO: just a thought: maybe put the 2d array in to a list of arrays, and then call Collections.max? - franklin
   private int maxRowLength(String[][] array) {
     int maxRowLength = 0;
@@ -74,23 +68,11 @@ public class SimulationBoard {
     return maxRowLength;
   }
 
-  // TODO: 2020-10-10  abstract this
-
-//  public void updateMyGrid(GameBoard gameBoard, Properties properties) {
-//    String[][] states = gameBoard.getGameBoardStates();
-//    for (int i = 0; i < cells.size(); i++) {
-//      for (int j = 0; j < cells.get(i).size(); j++) {
-//        cells.get(i).get(j).setColor(states[i][j], properties);
-//        updateCellImage(properties, cellImages.get(i).get(j), states[i][j]);
-//      }
-//    }
-//  }
-
   public void updateMyGrid(GameBoard gameBoard, Properties properties) {
-    gameBoard.apply( (i, j, state) -> {
-        cells.get(i).get(j).updateView(state, properties);
-        updateCellImage(properties, cellImages.get(i).get(j), state);
-        });
+    gameBoard.apply((i, j, state) -> {
+      cells.get(i).get(j).updateView(state, properties);
+      updateCellImage(properties, cellImages.get(i).get(j), state);
+    });
   }
 
   public void addImagesOverStates(Properties properties) {
@@ -119,10 +101,12 @@ public class SimulationBoard {
     try {
       // TODO: 2020-10-13 if state doesn't exist
       inputstream = new FileInputStream(properties.getProperty(state + "image"));
-    } catch (IOException e) {
+    } catch (Exception e) {
       e.printStackTrace();
     }
-    Image image = new Image(inputstream);
-    cellImage.setImage(image);
+    if (inputstream != null) {
+      Image image = new Image(inputstream);
+      cellImage.setImage(image);
+    }
   }
 }

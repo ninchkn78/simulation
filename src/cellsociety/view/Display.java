@@ -1,20 +1,13 @@
 package cellsociety.view;
 
 
-import static java.lang.Thread.sleep;
-
 import cellsociety.controller.Controller;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -36,8 +29,9 @@ public class Display extends Application {
   private static final String CSS_STYLE_SHEET = "default.css";
 
   private final Group myRoot = new Group();
-  private final StateColorPicker colorPickers = new StateColorPicker(myRoot);
-  //private final ConwayGameOfLife game = new ConwayGameOfLife(GAME_WIDTH, GAME_HEIGHT);
+
+  private final StateConfig stateConfigBox = new StateConfig(myRoot, this);
+
 
   private final ButtonSetup myButtonSetup = new ButtonSetup(this);
   private Stage myStage;
@@ -73,6 +67,7 @@ public class Display extends Application {
 
     generateSplashScreen(stage);
   }
+
 
   public void generateSplashScreen(Stage stage) {
     myStage = stage;
@@ -137,7 +132,7 @@ public class Display extends Application {
   }
 
   void step(double elapsedTime) {
-    if(!isPaused){
+    if (!isPaused) {
 
       animation.setRate(animationSpeed);
       nextGen();
@@ -161,6 +156,7 @@ public class Display extends Application {
   public void addImages() {
     myBoard.addImagesOverStates(myController.getProperties());
   }
+
   public Controller getController() {
     return myController;
   }
@@ -169,7 +165,8 @@ public class Display extends Application {
     myController = controller;
     myBoard = new SimulationBoard(myRoot, myController.getGameBoard(),
         myController.getProperties());
-    colorPickers.addColorPickers(myController);
+    stateConfigBox.addStateConfigs(myController);
+
   }
 
 

@@ -12,30 +12,8 @@ public class Controller {
 
   private GameBoard board;
   private Simulation game;
-  private Properties properties = new Properties();
-  private String propertiesFileName;
-
-  public Properties getProperties() {
-    return properties;
-  }
-
-  public void overWriteProperties(){
-    try {
-      properties.store(new FileOutputStream("resources/" + propertiesFileName), null);
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
-  }
-
-  public void setProperties(String propertiesFileName) {
-    try {
-      properties.load(RectangleCellView.class.getClassLoader().getResourceAsStream(propertiesFileName));
-    } catch (IOException e) {
-      // TODO: 2020-10-12 better error handling  
-      e.printStackTrace();
-    }
-  }
-
+  private final Properties properties = new Properties();
+  private final String propertiesFileName;
 
   public Controller(String propertiesName) {
     propertiesFileName = propertiesName;
@@ -44,9 +22,10 @@ public class Controller {
     Class operation;
     try {
       operation = Class.forName("cellsociety.model.games." + gameType);
-      game = (Simulation) operation.getConstructor(String.class).newInstance(properties.getProperty("CSVSource"));
+      game = (Simulation) operation.getConstructor(String.class)
+          .newInstance(properties.getProperty("CSVSource"));
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-      // TODO: 2020-10-12 handle this error  
+      // TODO: 2020-10-12 handle this error
       e.printStackTrace();
     }
 
@@ -54,15 +33,37 @@ public class Controller {
     board = game.getGameBoard();
   }
 
+  public Properties getProperties() {
+    return properties;
+  }
+
+  public void setProperties(String propertiesFileName) {
+    try {
+      properties
+          .load(RectangleCellView.class.getClassLoader().getResourceAsStream(propertiesFileName));
+    } catch (IOException e) {
+      // TODO: 2020-10-12 better error handling  
+      e.printStackTrace();
+    }
+  }
+
+  public void overWriteProperties() {
+    try {
+      properties.store(new FileOutputStream("resources/" + propertiesFileName), null);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
+
   /**
    * Update the gameboard in the backend and return to front end
    */
-  public void updateView(){
+  public void updateView() {
     game.nextGen();
     board = game.getGameBoard();
   }
 
   public GameBoard getGameBoard() {
-      return board;
+    return board;
   }
 }
