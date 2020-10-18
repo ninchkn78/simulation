@@ -89,7 +89,7 @@ public class Display extends Application {
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    List<String> buttonNameList = myButtonSetup.parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS);
+    List<String> buttonNameList = myButtonSetup.parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS, getController().getProperties());
     myButtonSetup.buttonPipeline(buttonNameList, myRoot);
     //parseButtonsFromProperties();
     setUpSpeedAdjuster();

@@ -7,6 +7,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -27,11 +28,11 @@ public class ButtonSetup {
     myDisplay = myGame;
   }
 
-  public List<String> parseButtonsFromProperties(int NUMBER_POSSIBLE_BUTTONS){
+  public List<String> parseButtonsFromProperties(int NUMBER_POSSIBLE_BUTTONS, Properties myProperties){
     List<String> buttonNameList = new ArrayList<>();
     for(int buttonNum = 1; buttonNum<=NUMBER_POSSIBLE_BUTTONS; buttonNum++){
-      if(!(myDisplay.getController().getProperties().get("Button"+buttonNum)).equals("")) {
-        buttonNameList.add((String) myDisplay.getController().getProperties().get("Button" + buttonNum));
+      if(!(myProperties.get("Button"+buttonNum)).equals("")) {
+        buttonNameList.add((String) myProperties.get("Button" + buttonNum));
       }
     }
     return buttonNameList;

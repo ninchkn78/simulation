@@ -1,7 +1,11 @@
 package cellsociety.view;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -15,12 +19,18 @@ public class SplashScreen {
   private final Scene myScene;
   private final List<Button> myButtons = new ArrayList<>();
   private final Display myDisplay;
+  private final String PROPERTIES_FILE_PATH= "resources/SplashScreen.properties";
+  private  Properties splashProperties;
 
   public SplashScreen(Display display) {
     myDisplay = display;
     Group root = new Group();
+
+    creatPropertiesObject();
+
     myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
     myScene.getStylesheets().add("SplashScreen.css");
+
 
     ButtonSetup myButtonSetup = new ButtonSetup(myDisplay);
 
@@ -41,6 +51,16 @@ public class SplashScreen {
 
   }
 
+  private void creatPropertiesObject(){
+    try (InputStream input = new FileInputStream(PROPERTIES_FILE_PATH)) {
+      splashProperties = new Properties();
+      splashProperties.load(input);
+
+    } catch (IOException ex) {
+      ex.printStackTrace();
+    }
+
+  }
   private Button createSimulationButton(String simulationName) {
     Button button = new Button(simulationName);
     button.setOnAction(new SimulationChooserHandler(simulationName));
