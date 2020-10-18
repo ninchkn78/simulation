@@ -34,6 +34,7 @@ Features implemented:
 
 Assumptions or Simplifications: the row and the height are equal 
 
+1. for analyasis - states versus cells - we should have used cells but were in too deep with states (strings)
 
 Interesting data files:
 
