@@ -17,14 +17,17 @@ public class SimulationBoard {
 
   private final GridPane myGrid = new GridPane();
   private final List<List<CellView>> cells = new ArrayList<>();
-  private final GameBoard gameBoard;
-  private final Properties properties;
+  private  GameBoard gameBoard;
+  private  Properties properties;
 
-  public SimulationBoard(Group root, GameBoard gameBoard, Properties properties) {
+  public SimulationBoard(Group root) {
     myGrid.setLayoutX(75);
     myGrid.setLayoutY(75);
     myGrid.setGridLinesVisible(true);
     root.getChildren().add(myGrid);
+  }
+
+  public void setUpNewSimulation(GameBoard gameBoard, Properties properties) {
     this.gameBoard = gameBoard;
     this.properties = properties;
     setGridType("Rectangle");
@@ -33,8 +36,7 @@ public class SimulationBoard {
   //works for non square 2D arrays
   // TODO: 2020-10-04 ask about X position for tests
   public void setGridType(String cellType) {
-    myGrid.getChildren().clear();
-    cells.clear();
+    clear();
     String[][] states = gameBoard.getGameBoardStates();
     double width = CELL_GRID_WIDTH / maxRowLength(states);
     for (int i = 0; i < states.length; i++) {
@@ -44,6 +46,11 @@ public class SimulationBoard {
             chooseCellType(cellType,width,CELL_GRID_HEIGHT / states.length, states[i][j], properties), i, j);
       }
     }
+  }
+
+  private void clear() {
+    myGrid.getChildren().clear();
+    cells.clear();
   }
 
   private void addCellToGrid(CellView cellView, int i, int j) {

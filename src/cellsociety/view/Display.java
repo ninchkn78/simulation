@@ -89,6 +89,7 @@ public class Display extends Application {
 //  }
 
   public void chooseSimulation(String simulationType) {
+    myBoard = new SimulationBoard(myRoot);
     setController(new Controller("Default" + simulationType + ".properties"));
     Scene gameScene = setupScene();
     myStage.setScene(gameScene);
@@ -163,13 +164,10 @@ public class Display extends Application {
 
   public void setController(Controller controller) {
     myController = controller;
-    myBoard = new SimulationBoard(myRoot, myController.getGameBoard(),
-        myController.getProperties());
+    // TODO: 2020-10-17 make a simulation board at the beginning, then have another method that updates
     stateConfigBox.addStateConfigs(myController);
-
+    myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
   }
-
-
 }
 
 
