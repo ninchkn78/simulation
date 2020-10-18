@@ -1,6 +1,7 @@
 package cellsociety.model.games;
 
 
+import cellsociety.model.CountStateReader;
 import cellsociety.model.GameBoard;
 import cellsociety.model.RandomStateReader;
 import cellsociety.model.Reader;
@@ -46,6 +47,9 @@ public abstract class Simulation {
     // TODO: 2020-10-18  maybe do a reflection here if I'm feeling it
     if(configType.equals("set")){
       return new SetStateReader();
+    }
+    else if(configType.equals("count")){
+      return new CountStateReader();
     }
     else{
       return new RandomStateReader();
