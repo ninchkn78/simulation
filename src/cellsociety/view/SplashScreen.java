@@ -38,7 +38,7 @@ public class SplashScreen {
   public ButtonSetup createButtonSetup(Group root) {
     ButtonSetup mySplashScreenSetup = new SplashScreenSetup(myDisplay);
     List<String> simulationNames = mySplashScreenSetup
-        .parseButtonsFromProperties(6, splashProperties);
+        .parseButtonsFromProperties(10, splashProperties);
     mySplashScreenSetup.buttonPipeline(simulationNames, root, "buttonBox", 3 / 5.0);
     return mySplashScreenSetup;
   }
