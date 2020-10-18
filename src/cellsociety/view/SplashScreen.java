@@ -26,13 +26,11 @@ public class SplashScreen {
 
     Label newText = new Label("Choose Your Simulation!!");
     titleBox.getChildren().add(newText);
-
     // TODO: 2020-10-12 abstract :(
     addNewButton("ConwayGameOfLife");
     addNewButton("Percolation");
     addNewButton("RPS");
     addNewButton("SpreadingFire");
-
     buttonBox.getChildren().addAll(myButtons);
     root.getChildren().addAll(titleBox, buttonBox);
 

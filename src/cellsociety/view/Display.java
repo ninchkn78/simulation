@@ -95,13 +95,13 @@ public class Display extends Application {
     return scene;
   }
 
-  public void parseButtonsFromProperties(){
+  public void parseButtonsFromProperties() {
     List<String> buttonNameList = new ArrayList<>();
-    for(int buttonNum = 1; buttonNum<=NUMBER_POSSIBLE_BUTTONS; buttonNum++){
-      if(!((String)myController.getProperties().get("Button"+buttonNum)).equals("")) {
+    for (int buttonNum = 1; buttonNum <= NUMBER_POSSIBLE_BUTTONS; buttonNum++) {
+      if (!myController.getProperties().get("Button" + buttonNum).equals("")) {
         buttonNameList.add((String) myController.getProperties().get("Button" + buttonNum));
       }
-      }
+    }
     myButtonSetup.buttonPipeline(buttonNameList, myRoot);
   }
 

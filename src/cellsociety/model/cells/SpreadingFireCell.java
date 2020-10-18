@@ -5,6 +5,7 @@ public class SpreadingFireCell extends Cell {
   public static final String EMPTY = "0";
   public static final String TREE = "1";
   public static final String BURNING = "2";
+
   public SpreadingFireCell(String state) {
     super(state);
   }

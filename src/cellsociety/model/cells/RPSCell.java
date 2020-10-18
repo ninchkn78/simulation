@@ -6,6 +6,7 @@ public class RPSCell extends Cell {
   public static final String PAPER = "1";
   public static final String SCISSORS = "2";
   private String opponentState;
+
   public RPSCell(String state) {
     super(state);
     // opponentState = calculateOpponent();

@@ -14,8 +14,8 @@ import javafx.stage.FileChooser;
 
 public class ButtonSetup {
 
-  private HBox myHbox = createHBox();
   private final Display myDisplay;
+  private final HBox myHbox = createHBox();
   private boolean fileSelected = false;
 
   //TODO - idea - just add more buttons here by calling subclasses or something
@@ -25,18 +25,18 @@ public class ButtonSetup {
   }
 
 
-  public void buttonPipeline(List<String> buttonNames, Group root){
-      List<Button> buttonList = new ArrayList<>();
-      for(String buttonName: buttonNames){
+  public void buttonPipeline(List<String> buttonNames, Group root) {
+    List<Button> buttonList = new ArrayList<>();
+    for (String buttonName : buttonNames) {
 
-          Button currentButton = new Button(buttonName);
-          currentButton.setId("buttonName");
-          buttonList.add(currentButton);
-          myHbox.getChildren().add(currentButton);
-          //TODO 10/18- add something here I think with a lambda function maybe? Or Reflection? That checks all of the button status'
-        }
-        root.getChildren().add(myHbox);
-        checkButtonStatus(buttonList);
+      Button currentButton = new Button(buttonName);
+      currentButton.setId("buttonName");
+      buttonList.add(currentButton);
+      myHbox.getChildren().add(currentButton);
+      //TODO 10/18- add something here I think with a lambda function maybe? Or Reflection? That checks all of the button status'
+    }
+    root.getChildren().add(myHbox);
+    checkButtonStatus(buttonList);
   }
 
   private HBox createHBox() {

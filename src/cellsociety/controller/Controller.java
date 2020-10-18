@@ -10,10 +10,10 @@ import java.util.Properties;
 
 public class Controller {
 
-  private GameBoard board;
-  private Simulation game;
   private final Properties properties = new Properties();
   private final String propertiesFileName;
+  private GameBoard board;
+  private Simulation game;
 
   public Controller(String propertiesName) {
     propertiesFileName = propertiesName;

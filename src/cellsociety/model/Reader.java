@@ -13,7 +13,8 @@ public abstract class Reader {
   protected static InputStream getFileInputStream(String dataSource) {
     InputStream textFile = null;
     try {
-      textFile = Objects.requireNonNull(SetStateReader.class.getClassLoader().getResource(dataSource))
+      textFile = Objects
+          .requireNonNull(SetStateReader.class.getClassLoader().getResource(dataSource))
           .openStream();
     } catch (IOException e) {
       e.printStackTrace();
@@ -32,5 +33,5 @@ public abstract class Reader {
     return fileData;
   }
 
-  public abstract String[][] getStatesFromFile(String fileName );
+  public abstract String[][] getStatesFromFile(String fileName);
 }

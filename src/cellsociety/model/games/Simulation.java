@@ -43,15 +43,13 @@ public abstract class Simulation {
     board = nextBoard;
   }
 
-  private Reader chooseReader(String configType){
+  private Reader chooseReader(String configType) {
     // TODO: 2020-10-18  maybe do a reflection here if I'm feeling it
-    if(configType.equals("set")){
+    if (configType.equals("set")) {
       return new SetStateReader();
-    }
-    else if(configType.equals("count")){
+    } else if (configType.equals("count")) {
       return new CountStateReader();
-    }
-    else{
+    } else {
       return new RandomStateReader();
     }
   }
