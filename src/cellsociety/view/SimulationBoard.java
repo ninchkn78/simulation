@@ -17,8 +17,8 @@ public class SimulationBoard {
 
   private final GridPane myGrid = new GridPane();
   private final List<List<CellView>> cells = new ArrayList<>();
-  private  GameBoard gameBoard;
-  private  Properties properties;
+  private GameBoard gameBoard;
+  private Properties properties;
 
   public SimulationBoard(Group root) {
     myGrid.setLayoutX(75);
@@ -43,7 +43,8 @@ public class SimulationBoard {
       cells.add(new ArrayList<>());
       for (int j = 0; j < states[i].length; j++) {
         addCellToGrid(
-            chooseCellType(cellType,width,CELL_GRID_HEIGHT / states.length, states[i][j], properties), i, j);
+            chooseCellType(cellType, width, CELL_GRID_HEIGHT / states.length, states[i][j],
+                properties), i, j);
       }
     }
   }
@@ -79,12 +80,15 @@ public class SimulationBoard {
   }
 
 
-  private CellView chooseCellType(String cellType, double width, double height, String state, Properties properties) {
+  private CellView chooseCellType(String cellType, double width, double height, String state,
+      Properties properties) {
     Class operation;
     CellView cell = null;
     try {
       operation = Class.forName("cellsociety.view." + cellType + "CellView");
-      cell = (CellView) operation.getConstructor(double.class, double.class, String.class, Properties.class).newInstance(width, height, state, properties);
+      cell = (CellView) operation
+          .getConstructor(double.class, double.class, String.class, Properties.class)
+          .newInstance(width, height, state, properties);
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
       // TODO: 2020-10-12 handle this error
       e.printStackTrace();

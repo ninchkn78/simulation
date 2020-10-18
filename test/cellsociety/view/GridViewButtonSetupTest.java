@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-class ButtonSetupTest extends DukeApplicationTest {
+class GridViewButtonSetupTest extends DukeApplicationTest {
 
   private final Display myDisplay = new Display();
   Scene myScene;

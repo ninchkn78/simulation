@@ -2,7 +2,6 @@ package cellsociety.view;
 
 
 import cellsociety.controller.Controller;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -36,7 +35,7 @@ public class Display extends Application {
   private final StateConfig stateConfigBox = new StateConfig(myRoot, this);
 
 
-  private final ButtonSetup myButtonSetup = new ButtonSetup(this);
+  private final GridViewButtonSetup myGridViewButtonSetup = new GridViewButtonSetup(this);
   private Stage myStage;
   private Timeline animation;
   private Controller myController;
@@ -89,8 +88,9 @@ public class Display extends Application {
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    List<String> buttonNameList = myButtonSetup.parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS, getController().getProperties());
-    myButtonSetup.buttonPipeline(buttonNameList, myRoot);
+    List<String> buttonNameList = myGridViewButtonSetup
+        .parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS, getController().getProperties());
+    myGridViewButtonSetup.buttonPipeline(buttonNameList, myRoot);
     //parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();
@@ -105,7 +105,7 @@ public class Display extends Application {
 //        buttonNameList.add((String) myController.getProperties().get("Button" + buttonNum));
 //      }
 //      }
-//    myButtonSetup.buttonPipeline(buttonNameList, myRoot);
+//    myGridViewButtonSetup.buttonPipeline(buttonNameList, myRoot);
 //  }
 
   private void setUpAnimation() {

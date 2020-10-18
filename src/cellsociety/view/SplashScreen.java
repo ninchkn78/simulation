@@ -20,8 +20,8 @@ public class SplashScreen {
   private final List<Button> myButtons = new ArrayList<>();
   private final String CSS_FILE_PATH = "SplashScreen.css";
   private final Display myDisplay;
-  private final String PROPERTIES_FILE_PATH= "resources/SplashScreen.properties";
-  private  Properties splashProperties;
+  private final String PROPERTIES_FILE_PATH = "resources/SplashScreen.properties";
+  private Properties splashProperties;
 
   public SplashScreen(Display display) {
     myDisplay = display;
@@ -32,13 +32,13 @@ public class SplashScreen {
     myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
     myScene.getStylesheets().add(CSS_FILE_PATH);
 
+    GridViewButtonSetup myGridViewButtonSetup = new GridViewButtonSetup(myDisplay);
+    List<String> testButtons = myGridViewButtonSetup
+        .parseButtonsFromProperties(6, splashProperties);
 
-    ButtonSetup myButtonSetup = new ButtonSetup(myDisplay);
-    List<String> testButtons = myButtonSetup.parseButtonsFromProperties(6,splashProperties);
+    HBox titleBox = myGridViewButtonSetup.createHBox("TitleBox", 2 / 5.0);
 
-    HBox titleBox = myButtonSetup.createHBox("TitleBox", 2/5.0);
-
-    HBox buttonBox = myButtonSetup.createHBox("buttonBox", 3/5.0);
+    HBox buttonBox = myGridViewButtonSetup.createHBox("buttonBox", 3 / 5.0);
 
     Label newText = new Label("Choose Your Simulation!!");
     titleBox.getChildren().add(newText);
@@ -54,7 +54,7 @@ public class SplashScreen {
 
   }
 
-  private void creatPropertiesObject(){
+  private void creatPropertiesObject() {
     try (InputStream input = new FileInputStream(PROPERTIES_FILE_PATH)) {
       splashProperties = new Properties();
       splashProperties.load(input);
@@ -64,6 +64,7 @@ public class SplashScreen {
     }
 
   }
+
   private Button createSimulationButton(String simulationName) {
     Button button = new Button(simulationName);
     button.setOnAction(new SimulationChooserHandler(simulationName));
