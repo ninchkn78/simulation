@@ -40,7 +40,7 @@ public class Display extends Application {
 
   private final Group myRoot = new Group();
 
-  private final StateConfig stateConfigBox = new StateConfig(myRoot, this);
+  private StateConfig stateConfigBox;
 
 
   private final GridViewButtonSetup myGridViewButtonSetup = new GridViewButtonSetup(this);
@@ -104,6 +104,9 @@ public class Display extends Application {
 
   public void chooseSimulation(String simulationType, Properties textProperties) {
     myBoard = new SimulationBoard(myRoot);
+
+    stateConfigBox = new StateConfig(myRoot, this, textProperties);
+
     setController(new Controller("Default_Properties_Files/Default" + simulationType + ".properties"));
     Scene gameScene = setupScene(textProperties);
     myStage.setScene(gameScene);

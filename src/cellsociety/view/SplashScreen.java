@@ -62,6 +62,7 @@ public class SplashScreen {
           {
             Properties languageProperties = myDisplay.createPropertiesObject("resources/Text_Properties_Files/"+comboBox.getValue().toString()+".properties");
             myDisplay.generateSplashScreen(languageProperties);
+
           }
         };
 
