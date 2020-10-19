@@ -7,6 +7,7 @@ import cellsociety.view.PopUpWindow;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Properties;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -26,7 +27,7 @@ public class GridViewButtonSetup extends ButtonSetup {
 
 
   @Override
-  protected void invokeHandlerMethod(String buttonName, Button currentButton) {
+  protected void invokeHandlerMethod(String buttonName, Button currentButton, Properties languageProperties) {
     try {
       Method method = this.getClass().getDeclaredMethod("check" + buttonName, Button.class);
       method.invoke(this, currentButton);

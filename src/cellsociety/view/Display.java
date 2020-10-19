@@ -3,8 +3,12 @@ package cellsociety.view;
 
 import cellsociety.controller.Controller;
 import cellsociety.view.ButtonSetups.GridViewButtonSetup;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -47,6 +51,8 @@ public class Display extends Application {
   private Slider speedAdjuster;
   private double animationSpeed = 120 / FRAMES_PER_SECOND;
   private boolean isPaused = true;
+  private final String DEFAULT_LANGUAGE_PROP_FILE = "resources/Text_Properties_Files/English.properties";
+  private Properties languageProperties;
 
   public Display() {
   }
@@ -69,33 +75,48 @@ public class Display extends Application {
 
   @Override
   public void start(Stage stage) {
-    generateSplashScreen(stage);
+    languageProperties = createPropertiesObject();
+    generateSplashScreen(stage, languageProperties);
+  }
+
+  //
+  private Properties createPropertiesObject() {
+    Properties tempPropFile = null;
+    try (InputStream input = new FileInputStream(DEFAULT_LANGUAGE_PROP_FILE)) {
+      tempPropFile = new Properties();
+      tempPropFile.load(input);
+    }
+    catch (IOException ex) {
+      ex.printStackTrace();
+    }
+
+    return tempPropFile;
   }
 
 
-  public void generateSplashScreen(Stage stage) {
+  public void generateSplashScreen(Stage stage, Properties languageProperties) {
     myStage = stage;
-    SplashScreen startScreen = new SplashScreen(this);
+    SplashScreen startScreen = new SplashScreen(this, languageProperties);
     stage.setScene(startScreen.getMyScene()); //connectinga splash screen
     stage.setTitle(TITLE); //will also come from properties
     stage.show();
   }
 
-  public void chooseSimulation(String simulationType) {
+  public void chooseSimulation(String simulationType, Properties textProperties) {
     myBoard = new SimulationBoard(myRoot);
     setController(new Controller("Default_Properties_Files/Default" + simulationType + ".properties"));
-    Scene gameScene = setupScene();
+    Scene gameScene = setupScene(textProperties);
     myStage.setScene(gameScene);
   }
 
   // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
-  Scene setupScene() {
+  Scene setupScene(Properties textProperties) {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
     List<String> buttonNameList = myGridViewButtonSetup
         .parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS, getController().getProperties());
     myGridViewButtonSetup
-        .buttonPipeline(buttonNameList, myRoot, DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET);
+        .buttonPipeline(buttonNameList, myRoot, DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET, textProperties);
     //parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();

@@ -22,9 +22,13 @@ public class SplashScreen {
   private final Display myDisplay;
   private final String PROPERTIES_FILE_PATH = "resources/SplashScreen.properties";
   private Properties splashProperties;
+  private Properties languageProperties;
 
-  public SplashScreen(Display display) {
+  public SplashScreen(Display display, Properties inputPropertiesFile) {
     myDisplay = display;
+
+    languageProperties = inputPropertiesFile;
+
     Group root = new Group();
     createPropertiesObject();
     myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
@@ -39,17 +43,18 @@ public class SplashScreen {
     ButtonSetup mySplashScreenSetup = new SplashScreenSetup(myDisplay);
     List<String> simulationNames = mySplashScreenSetup
         .parseButtonsFromProperties(10, splashProperties);
-    mySplashScreenSetup.buttonPipeline(simulationNames, root, "buttonBox", 3 / 5.0);
+    mySplashScreenSetup.buttonPipeline(simulationNames, root, "buttonBox", 3 / 5.0, languageProperties);
     return mySplashScreenSetup;
   }
 
   public void addTextBox(Group root, ButtonSetup mySplashScreenSetup) {
     HBox titleBox = mySplashScreenSetup.createHBox("TitleBox", 2 / 5.0);
-    Label newText = new Label("Choose Your Simulation!!");
+    Label newText = new Label(languageProperties.getProperty("TitleText"));
     titleBox.getChildren().add(newText);
     root.getChildren().add(titleBox);
   }
 
+  //TODO - use the one from display instead - it doesnt the same thing pretty much
   private void createPropertiesObject() {
     try (InputStream input = new FileInputStream(PROPERTIES_FILE_PATH)) {
       splashProperties = new Properties();
