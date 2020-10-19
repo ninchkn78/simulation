@@ -21,22 +21,22 @@ public class GameBoard{
   public GameBoard(int width, int height, String cellType, String neighborPolicy, String edgePolicy) {
     this.width = width;
     this.height = height;
-    this.gameBoardCells = initializeGameBoardCells(width, height);
-    this.gameBoardStates = new String[height][width];
     this.cellType = cellType;
     this.neighborPolicy = neighborPolicy;
     this.edgePolicy = edgePolicy;
+    this.gameBoardCells = initializeGameBoardCells(width, height);
+    this.gameBoardStates = new String[height][width];
     setGameBoardStates(gameBoardCells);
   }
 
   public GameBoard(String[][] initialStateConfig, String cellType, String neighborPolicy, String edgePolicy) {
     this.width = initialStateConfig[0].length;
     this.height = initialStateConfig.length;
-    this.gameBoardCells = createCellConfiguration(initialStateConfig);
-    this.gameBoardStates = initialStateConfig;
     this.cellType = cellType;
     this.neighborPolicy = neighborPolicy;
     this.edgePolicy = edgePolicy;
+    this.gameBoardCells = createCellConfiguration(initialStateConfig);
+    this.gameBoardStates = initialStateConfig;
   }
 
   public Cell[][] initializeGameBoardCells(int width, int height) {
@@ -58,6 +58,7 @@ public class GameBoard{
   }
 
   private Neighborhood createNeighborhood(int row, int col) {
+    System.out.println(edgePolicy);
     return new Neighborhood(row, col, this, neighborPolicy, edgePolicy);
   }
 
@@ -131,6 +132,7 @@ public class GameBoard{
     Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
     for (int i = 0; i < height; i++){
       for (int j = 0; j < width; j++){
+        System.out.println(cellType);
         Class operation;
         try {
           operation = Class.forName("cellsociety.model.cells." + cellType);

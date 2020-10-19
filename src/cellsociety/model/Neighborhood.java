@@ -10,6 +10,8 @@ public class Neighborhood {
   private static final String ORDINAL = "ordinal";
 
   private static final String FINITE = "finite";
+  private static final String TOROIDAL = "toroidal";
+
 
 
   public List<List<Integer>> neighbors;
@@ -47,11 +49,13 @@ public class Neighborhood {
         }
       }
     }
+    System.out.println(neighbors);
   }
 
   private void handleOutOfBounds(int row, int col, GameBoard gameBoard) {
     switch(edgePolicy){
       case FINITE -> handleFiniteOutOfBounds(row,col, gameBoard);
+      case TOROIDAL -> handleToroidalOutOfBounds(row, col, gameBoard);
     }
   }
 
@@ -59,6 +63,15 @@ public class Neighborhood {
     if (gameBoard.inBounds(row, col)){
       neighbors.add(createCoordinates(row, col));
     }
+  }
+  private void handleToroidalOutOfBounds(int row, int col, GameBoard gameBoard) {
+    if (row < 0 || row >= gameBoard.getHeight()){
+      row = (row + gameBoard.getHeight()) % gameBoard.getHeight();
+    }
+    if (col < 0 || col >= gameBoard.getWidth()){
+      col = (col + gameBoard.getWidth()) % gameBoard.getWidth();
+    }
+    neighbors.add(createCoordinates(row, col));
   }
 
   public List<List<Integer>> getNeighbors() {
@@ -85,8 +98,6 @@ public class Neighborhood {
         }
       }
     }
-    System.out.println(neighbors);
-
   }
 
   private boolean isAdjacentCell(int x, int y, int row, int col) {

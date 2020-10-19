@@ -20,12 +20,12 @@ public class Controller {
     String gameType = properties.getProperty("GameType");
     String cellType = properties.getProperty("CellType");
     String neighborPolicy = properties.getProperty("NeighborPolicy");
-    System.out.println(neighborPolicy);
+    String edgePolicy = properties.getProperty("EdgePolicy");
     Class operation;
     try {
       operation = Class.forName("cellsociety.model.games." + gameType);
-      game = (Simulation) operation.getConstructor(String.class, String.class, String.class)
-          .newInstance(properties.getProperty("CSVSource"), cellType, neighborPolicy);
+      game = (Simulation) operation.getConstructor(String.class, String.class, String.class, String.class)
+          .newInstance(properties.getProperty("CSVSource"), cellType, neighborPolicy, edgePolicy);
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
       // TODO: 2020-10-12 handle this error
       System.out.println(e.getCause());
