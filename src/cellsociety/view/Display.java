@@ -3,7 +3,12 @@ package cellsociety.view;
 
 import cellsociety.controller.Controller;
 import cellsociety.view.ButtonSetups.GridViewButtonSetup;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
@@ -33,7 +38,8 @@ public class Display extends Application {
   private static final int NUMBER_POSSIBLE_BUTTONS = 10;
 
   private final Group myRoot = new Group();
-  private final StateConfig stateConfigBox = new StateConfig(myRoot, this);
+
+  private StateConfig stateConfigBox;
 
 
   private final GridViewButtonSetup myGridViewButtonSetup = new GridViewButtonSetup(this);
@@ -43,8 +49,11 @@ public class Display extends Application {
   private SimulationBoard myBoard;
   private double animationSpeed = 120 / FRAMES_PER_SECOND;
   private boolean isPaused = true;
+  private final String DEFAULT_LANGUAGE_PROP_FILE = "resources/Text_Properties_Files/English.properties";
+  private Properties languageProperties;
 
   public Display() {
+
   }
 
   /**
@@ -61,36 +70,64 @@ public class Display extends Application {
 
   @Override
   public void start(Stage stage) {
-    generateSplashScreen(stage);
+    languageProperties = createPropertiesObject(DEFAULT_LANGUAGE_PROP_FILE);
+    myStage = stage;
+    generateSplashScreen(languageProperties, stage);
+  }
+
+  //
+  public Properties createPropertiesObject(String propertiesFileName) {
+    Properties tempPropFile = null;
+    try (InputStream input = new FileInputStream(propertiesFileName)) {
+      tempPropFile = new Properties();
+      tempPropFile.load(input);
+    }
+    catch (IOException ex) {
+      ex.printStackTrace();
+    }
+
+    return tempPropFile;
   }
 
 
-  public void generateSplashScreen(Stage stage) {
+  public void generateSplashScreen(Properties languageProperties, Stage stage) {
+    myBoard = new SimulationBoard(myRoot);
     myStage = stage;
-    SplashScreen startScreen = new SplashScreen(this);
+    SplashScreen startScreen = new SplashScreen(this, languageProperties);
     stage.setScene(startScreen.getMyScene()); //connectinga splash screen
     stage.setTitle(TITLE); //will also come from properties
     stage.show();
   }
 
-  public void chooseSimulation(String simulationType) {
-    myBoard = new SimulationBoard(myRoot);
-    setController(new Controller("Default" + simulationType + ".properties"));
-    Scene gameScene = setupScene();
+  public void chooseSimulation(String simulationType, Properties textProperties) {
+    stateConfigBox = new StateConfig(myRoot, this, textProperties);
+    setNewSimulation(new Controller("Default_Properties_Files/Default" + simulationType + ".properties"));
+    Scene gameScene = setupScene(textProperties);
     myStage.setScene(gameScene);
   }
 
-  Scene setupScene() {
+
+  // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
+  Scene setupScene(Properties textProperties) {
+    myBoard = new SimulationBoard(myRoot);
+    stateConfigBox = new StateConfig(myRoot, this, textProperties);
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    List<String> buttonNameList = myGridViewButtonSetup
-        .parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS, getController().getProperties());
-    myGridViewButtonSetup
-        .buttonPipeline(buttonNameList, myRoot, DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET);
+    setUpButtons(textProperties);
+    //parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();
     animation.play();
     return scene;
+  }
+
+  private void setUpButtons(Properties textProperties) {
+    Properties properties = myController.getProperties();
+    List<String> buttonNameList = myGridViewButtonSetup
+        .parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS, properties);
+    myGridViewButtonSetup
+        .buttonPipeline(buttonNameList, myRoot, DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET,
+            textProperties);
   }
 
 
@@ -119,7 +156,6 @@ public class Display extends Application {
 
   void step() {
     if (!isPaused) {
-
       animation.setRate(animationSpeed);
       nextGen();
     }
@@ -131,7 +167,7 @@ public class Display extends Application {
   }
 
 
-  public Window getStage() {
+  public Stage getStage() {
     return myStage;
   }
 
@@ -147,10 +183,14 @@ public class Display extends Application {
     return myController;
   }
 
-  public void setController(Controller controller) {
-    myController = controller;
+  public void setNewSimulation(Controller controller){
+    setController(controller);
     stateConfigBox.addStateConfigs(myController);
     myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
+  }
+
+  public void setController(Controller controller) {
+    myController = controller;
   }
 }
 

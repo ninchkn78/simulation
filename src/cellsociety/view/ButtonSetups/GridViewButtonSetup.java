@@ -7,6 +7,9 @@ import cellsociety.view.PopUpWindow;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Properties;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
@@ -22,7 +25,7 @@ public class GridViewButtonSetup extends ButtonSetup {
 
 
   @Override
-  protected void invokeHandlerMethod(String buttonName, Button currentButton) {
+  protected void invokeHandlerMethod(String buttonName, Button currentButton, Properties languageProperties) {
     try {
       Method method = this.getClass().getDeclaredMethod("check" + buttonName, Button.class);
       method.invoke(this, currentButton);
@@ -43,9 +46,9 @@ public class GridViewButtonSetup extends ButtonSetup {
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Resource File");
       File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
-      if (propertiesFile != null) {
-        myDisplay.setController(new Controller(propertiesFile.getName()));
-      }
+//      if (propertiesFile != null) { //TODO - fix line below or just make it known you can only choose properties files from default properties files
+        myDisplay.setNewSimulation(new Controller("Default_Properties_Files/"+propertiesFile.getName()));
+
     });
   }
 
@@ -70,5 +73,6 @@ public class GridViewButtonSetup extends ButtonSetup {
   public void checkImage(Button chooseImageButton) {
     chooseImageButton.setOnAction(e -> myDisplay.changeCellsToImages());
   }
+
 
 }

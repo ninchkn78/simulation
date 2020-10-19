@@ -23,15 +23,15 @@ public abstract class ButtonSetup {
   }
 
   public void buttonPipeline(List<String> buttonNames, Group root, String cssClass,
-      double yOffset) {
+      double yOffset, Properties languageProperties) {
     List<Button> buttonList = new ArrayList<>();
     HBox myHbox = createHBox(cssClass, yOffset);
     for (String buttonName : buttonNames) {
       //TODO - get the button name from the text resources file
-      Button currentButton = makeButton(buttonName);
+      Button currentButton = makeButton(languageProperties.getProperty(buttonName));
       buttonList.add(currentButton);
       myHbox.getChildren().add(currentButton);
-      invokeHandlerMethod(buttonName, currentButton);
+      invokeHandlerMethod(buttonName, currentButton, languageProperties);
     }
     root.getChildren().add(myHbox);
   }
@@ -52,7 +52,7 @@ public abstract class ButtonSetup {
     return buttonBox;
   }
 
-  protected abstract void invokeHandlerMethod(String buttonName, Button currentButton);
+  protected abstract void invokeHandlerMethod(String buttonName, Button currentButton, Properties languageProperties);
 
 
 }

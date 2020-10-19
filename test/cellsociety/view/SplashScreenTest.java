@@ -2,6 +2,7 @@ package cellsociety.view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
@@ -18,7 +19,8 @@ class SplashScreenTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    myDisplay.generateSplashScreen(stage);
+    Properties english = myDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
+    myDisplay.generateSplashScreen(english, stage);
   }
 
   @Test

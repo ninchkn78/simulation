@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 
 public class PopUpWindow {
 
+  // TODO: 2020-10-19 this needs to be in side of text properties
   private static final String HEADER_TITLE = "Fill Out Required Information";
   private static final String DIALOG_TITLE = "Save Current Simulation State";
   private static final String BUTTON_TITLE = "Save";
@@ -91,7 +92,7 @@ public class PopUpWindow {
       saveFileObject.saveState(myGameBoard.getGameBoardStates(), inputs[0]);
 
       properties.setProperty("CSVSource", "GAME_CSVS/" + inputs[0] + ".csv,set");
-      properties.store(new FileOutputStream("resources/" + inputs[0] + ".properties"), null);
+      properties.store(new FileOutputStream("resources/Default_Properties_Files/" + inputs[0] + ".properties"), null);
 
     } catch (IOException e) {
       e.printStackTrace();

@@ -1,6 +1,7 @@
 package cellsociety.view;
 
 import cellsociety.controller.Controller;
+import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -19,11 +20,15 @@ class ConwayBoardTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    // create game's scene with all shapes in their initial positions and show it
-    myScene = conwayDisplay.setupScene();
+    Controller controller = new Controller("TestConway.properties");
+    conwayDisplay.setController(new Controller("TestConway.properties"));
+    Properties english = conwayDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
+    myScene = conwayDisplay.setupScene(english);
+    conwayDisplay.setNewSimulation(controller);
     stage.setScene(myScene);
     stage.show();
-    javafxRun(() -> conwayDisplay.setController(new Controller("TestConway.properties")));
+    //conwayDisplay.setController(controller);
+
     // find individual items within game by ID (must have been set in your code using setID())
   }
 
@@ -31,7 +36,6 @@ class ConwayBoardTest extends DukeApplicationTest {
   void testCellsAreInitialized() {
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
-    sleep(1000);
     Assertions.assertEquals(Color.BLUE, cell1.getFill());
     Assertions.assertEquals(Color.RED, cell2.getFill());
     Assertions.assertEquals(0, cell1.getX());

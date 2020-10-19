@@ -1,5 +1,7 @@
 package cellsociety.view;
 
+import cellsociety.controller.Controller;
+import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
@@ -16,27 +18,28 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    // create game's scene with all shapes in their initial positions and show i
-    //javafxRun(() -> myDisplay.setController(new Controller("DefaultConwayGameOfLife.properties")));
-    myDisplay.chooseSimulation("ConwayGameOfLife");
-    //myScene = myDisplay.setupScene();
-    //stage.setScene(myScene);
-    //stage.show();
+    Controller controller = new Controller("TestConway.properties");
+    myDisplay.setController(new Controller("TestConway.properties"));
+    Properties english = myDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
+    myScene = myDisplay.setupScene(english);
+    myDisplay.setNewSimulation(controller);
+    stage.setScene(myScene);
+    stage.show();
   }
 
   @Test
   public void testButtonGeneration() {
 
-    lookup("#Load File").queryButton();
+    lookup("#LoadFile").queryButton();
     lookup("#Play").queryButton();
-    lookup("#Save File").queryButton();
+    lookup("#SaveFile").queryButton();
     lookup("#Pause").queryButton();
     lookup("#Image").queryButton();
   }
 
   @Test
   public void testRunButton() {
-    Button runButton = lookup("#runButton").queryButton();
+    Button runButton = lookup("#Play").queryButton();
 
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
@@ -53,7 +56,7 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
 
   public void testPauseButton() {
 
-    Button pause = lookup("#pauseButton").queryButton();
+    Button pause = lookup("#Pause").queryButton();
 
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
@@ -75,7 +78,7 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
   @Test
   public void testStepButton() {
 
-    Button stepButton = lookup("#Step Once").queryButton();
+    Button stepButton = lookup("#StepOnce").queryButton();
 
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();

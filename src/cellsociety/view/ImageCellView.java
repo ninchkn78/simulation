@@ -56,7 +56,6 @@ public class ImageCellView extends Group implements CellView {
 
   private void addEventListener() {
     EventHandler<MouseEvent> eventHandler = e -> System.out.println("Hello World");
-    //Registering the event filter
     cellImage.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
   }
 

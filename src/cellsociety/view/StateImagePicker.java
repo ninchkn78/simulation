@@ -2,6 +2,7 @@ package cellsociety.view;
 
 import cellsociety.controller.Controller;
 import java.io.File;
+import java.util.Properties;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
@@ -29,10 +30,10 @@ public class StateImagePicker {
     );
   }
 
-  private void addImagePicker(String state, Controller controller) {
+  private void addImagePicker(String state, Controller controller, Properties languageProperties) {
     final FileChooser fileChooser = new FileChooser();
     // TODO: 2020-10-17 read in from resource file isntead 
-    Button openButton = new Button("Choose an Image");
+    Button openButton = new Button(languageProperties.getProperty("ChooseImageState"));
     openButton.setOnAction(
         (final ActionEvent e) -> {
           configureFileChooser(fileChooser);
@@ -46,10 +47,10 @@ public class StateImagePicker {
     imagePickerBox.getChildren().add(openButton);
   }
 
-  public void addImagePickers(Controller controller) {
+  public void addImagePickers(Controller controller, Properties languageProperties) {
     imagePickerBox.getChildren().clear();
     for (String state : controller.getProperties().getProperty("States").split(",")) {
-      addImagePicker(state, controller);
+      addImagePicker(state, controller, languageProperties);
     }
   }
 
