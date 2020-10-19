@@ -75,15 +75,15 @@ public class Display extends Application {
 
   @Override
   public void start(Stage stage) {
-    languageProperties = createPropertiesObject();
+    languageProperties = createPropertiesObject(DEFAULT_LANGUAGE_PROP_FILE);
     myStage = stage;
     generateSplashScreen(languageProperties);
   }
 
   //
-  private Properties createPropertiesObject() {
+  public Properties createPropertiesObject(String propertiesFileName) {
     Properties tempPropFile = null;
-    try (InputStream input = new FileInputStream(DEFAULT_LANGUAGE_PROP_FILE)) {
+    try (InputStream input = new FileInputStream(propertiesFileName)) {
       tempPropFile = new Properties();
       tempPropFile.load(input);
     }

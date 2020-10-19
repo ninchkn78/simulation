@@ -55,18 +55,20 @@ public class SplashScreen {
         );
     final ComboBox comboBox = new ComboBox(options);
 
-    Label defaultLanguage = new Label("English");
 
     EventHandler<ActionEvent> event =
         new EventHandler<ActionEvent>() {
           public void handle(ActionEvent e)
           {
-            defaultLanguage.setText(comboBox.getValue() + " selected");
+            Properties languageProperties = myDisplay.createPropertiesObject("resources/Text_Properties_Files/"+comboBox.getValue().toString()+".properties");
+            myDisplay.generateSplashScreen(languageProperties);
           }
         };
 
+    comboBox.getSelectionModel().selectFirst();
     comboBox.setOnAction(event);
-    root.getChildren().add(comboBox);
+    root.getChildren().addAll(comboBox);
+
   }
 
   public ButtonSetup createButtonSetup(Group root) {
