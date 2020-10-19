@@ -6,8 +6,8 @@ public class RPS extends Simulation {
 
   public static final int THRESHOLD = 3;
 
-  public RPS(String csvConfig, String cellType) {
-    super(csvConfig, cellType);
+  public RPS(String csvConfig, String cellType, String[] possibleStates) {
+    super(csvConfig, cellType, possibleStates);
   }
 
 

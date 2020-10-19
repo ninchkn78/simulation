@@ -7,8 +7,8 @@ import cellsociety.model.cells.ConwayCell;
 
 public class ConwayGameOfLife extends Simulation {
 
-  public ConwayGameOfLife(String csvConfig, String cellType){
-    super(csvConfig, cellType);
+  public ConwayGameOfLife(String csvConfig, String cellType, String[] possibleStates){
+    super(csvConfig, cellType, possibleStates);
   }
 
   public boolean aliveNextGen(int row, int col) {

@@ -64,9 +64,7 @@ public class GridViewButtonSetup extends ButtonSetup {
       if (myDisplay.getController() != null) {
         System.out.println("WRITE FILE");
         GameBoard myGameBoard = myDisplay.getController().getGameBoard();
-
         PopUpWindow pUp = new PopUpWindow(myDisplay, myGameBoard);
-
       }
     });
   }

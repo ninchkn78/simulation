@@ -1,13 +1,18 @@
 package cellsociety.model;
 
+import Exceptions.InvalidCSVFormatException;
 import cellsociety.model.cells.Cell;
 
 import cellsociety.model.cells.WaTorCell;
 import cellsociety.model.games.Simulation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BiConsumer;
+import javax.print.attribute.HashAttributeSet;
 
 
 public class GameBoard{
@@ -25,11 +30,23 @@ public class GameBoard{
     setGameBoardStates(gameBoardCells);
   }
 
-  public GameBoard(String[][] initialStateConfig, String cellType) {
+  public GameBoard(String[][] initialStateConfig, String cellType, String[] possibleStates) {
     this.width = initialStateConfig[0].length;
     this.height = initialStateConfig.length;
     this.gameBoardCells = createCellConfiguration(initialStateConfig, cellType);
     this.gameBoardStates = initialStateConfig;
+    validateStates(possibleStates);
+  }
+
+  public void validateStates(String[] possibleStates) {
+    Set<String> statesSet = new HashSet<>(Arrays.asList(possibleStates));
+    for (int i = 0; i < gameBoardStates.length; i++) {
+      for (int j = 0; j < gameBoardStates[i].length; j++) {
+        if(!statesSet.contains(gameBoardStates[i][j])){
+          throw new InvalidCSVFormatException("this will be a message from a resources file");
+        }
+      }
+    }
   }
 
   public Cell[][] initializeGameBoardCells(int width, int height, String cellType) {
@@ -134,7 +151,6 @@ public class GameBoard{
     }
     return cellConfig;
   }
-
 
   public void apply(TriConsumer<Integer, Integer, String> updateCellState) {
     for (int i = 0; i < height; i++) {

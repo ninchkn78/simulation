@@ -5,31 +5,25 @@ import cellsociety.model.GameBoard;
 import cellsociety.model.RandomStateReader;
 import cellsociety.model.Reader;
 import cellsociety.model.SetStateReader;
+import java.util.Set;
 
 
 public abstract class Simulation {
 
   private GameBoard board;
   private String cellType;
-  private int generation;
 
-  public Simulation(String config, String cellType) {
+
+  public Simulation(String config, String cellType, String[] possibleStates) {
     String[] configAndType = config.split(",");
     Reader stateReader = chooseReader(configAndType[1]);
-    this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType);
+    this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType, possibleStates);
     this.cellType = cellType;
-    this.generation = 1;
   }
 
   public GameBoard getGameBoard() {
     return board;
   }
-
-
-  public void incrementGeneration() {
-    generation++;
-  }
-
 
   public abstract void updateCell(GameBoard gameBoard, int row, int col);
 
@@ -42,18 +36,21 @@ public abstract class Simulation {
         updateCell(nextBoard, i, j);
       }
     }
-    incrementGeneration();
     board = nextBoard;
+  }
+
+  public void validateStates(String[] states){
+
   }
 
   private Reader chooseReader(String configType) {
     // TODO: 2020-10-18  maybe do a reflection here if I'm feeling it
-    if (configType.equals("set")) {
-      return new SetStateReader();
+    if (configType.equals("random")) {
+      return new RandomStateReader();
     } else if (configType.equals("count")) {
       return new CountStateReader();
     } else {
-      return new RandomStateReader();
+      return new SetStateReader();
     }
   }
 

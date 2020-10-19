@@ -92,7 +92,7 @@ public class PopUpWindow {
       SaveFiles saveFileObject = new SaveFiles();
       saveFileObject.saveState(myGameBoard.getGameBoardStates(), inputs[0]);
 
-      properties.setProperty("CSVSource", "GAME_CSVS/" + inputs[0] + ".csv");
+      properties.setProperty("CSVSource", "GAME_CSVS/" + inputs[0] + ".csv,set");
       properties.store(new FileOutputStream("resources/" + inputs[0] + ".properties"), null);
 
     } catch (IOException e) {

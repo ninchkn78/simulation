@@ -9,7 +9,6 @@ import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Objects;
 
-
 public abstract class Reader {
 
   protected static InputStream getFileInputStream(String dataSource) {
@@ -39,6 +38,6 @@ public abstract class Reader {
 
   // TODO: 2020-10-18 catch this shit
   public abstract String[][] getStatesFromFile(String fileName) throws InvalidCSVFormatException;
+  }
 
 
-}

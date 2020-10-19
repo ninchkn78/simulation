@@ -6,7 +6,9 @@ import cellsociety.model.games.Simulation;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.Properties;
+import javafx.scene.control.Button;
 
 public class Controller {
 
@@ -30,11 +32,12 @@ public class Controller {
     Class operation;
     try {
       operation = Class.forName("cellsociety.model.games." + gameType);
-      game = (Simulation) operation.getConstructor(String.class, String.class)
-          .newInstance(properties.getProperty("CSVSource"), cellType);
+      game = (Simulation) operation.getConstructor(String.class, String.class, String[].class)
+          .newInstance(properties.getProperty("CSVSource"), cellType,properties.getProperty("States").split(","));
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
       // TODO: 2020-10-12 handle this error
       e.printStackTrace();
+
     }
   }
 
