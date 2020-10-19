@@ -1,6 +1,6 @@
 package cellsociety.controller;
 
-import Exceptions.InvalidPropertiesFileException;
+import exceptions.InvalidPropertiesFileException;
 import cellsociety.model.GameBoard;
 import cellsociety.model.games.Simulation;
 import java.io.FileOutputStream;

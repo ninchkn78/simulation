@@ -1,7 +1,7 @@
 package cellsociety.controller;
 
 import static org.junit.jupiter.api.Assertions.*;
-import Exceptions.InvalidPropertiesFileException;
+import exceptions.InvalidPropertiesFileException;
 import org.junit.jupiter.api.Test;
 
 class ControllerTest {

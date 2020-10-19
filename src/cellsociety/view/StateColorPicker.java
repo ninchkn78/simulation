@@ -19,7 +19,6 @@ public class StateColorPicker {
   }
 
   private void addColorPicker(String state, Controller controller) {
-    // TODO: 2020-10-13 probably add error handling if a state is not represented
     ColorPicker colorPicker = new ColorPicker();
     colorPicker.setValue(Color.valueOf(controller.getProperties().getProperty(state)));
     colorPicker.setId(String.format("%scolor", state));
