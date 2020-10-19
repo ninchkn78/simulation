@@ -1,5 +1,6 @@
 package cellsociety.model.cells;
 
+import cellsociety.model.Neighborhood;
 import cellsociety.model.cells.SpreadingFireCell.SpreadingFireState;
 
 public class WaTorCell extends Cell{
@@ -39,14 +40,14 @@ public class WaTorCell extends Cell{
   public int energyPoints;
   public int survivalTime;
 
-  public WaTorCell(String state, int energy, int survivalTime) {
-    super(state);
+  public WaTorCell(String state, Neighborhood neighbors, int energy, int survivalTime) {
+    super(state, neighbors);
     this.energyPoints = energy;
     this.survivalTime = survivalTime;
   }
 
-  public WaTorCell(String state){
-    this(state, STARTING_ENERGY, STARTING_SURVIVAL_TIME);
+  public WaTorCell(String state, Neighborhood neighbors){
+    this(state, neighbors, STARTING_ENERGY, STARTING_SURVIVAL_TIME);
   }
 
   public int getEnergyPoints() {

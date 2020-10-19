@@ -15,13 +15,13 @@ public class SchellingSegregation extends Simulation {
   private final double THRESHOLD = 0.5;
   private Random rand;
 
-  public SchellingSegregation(String csvConfig, String cellType){
-    super(csvConfig, cellType);
+  public SchellingSegregation(String csvConfig, String cellType, String neighborPolicy){
+    super(csvConfig, cellType,neighborPolicy);
     rand = new Random();
   }
 
-  public SchellingSegregation(String csvConfig, String cellType, boolean isTest){
-    super(csvConfig, cellType);
+  public SchellingSegregation(String csvConfig, String cellType, String neighborPolicy, boolean isTest){
+    super(csvConfig, cellType, neighborPolicy);
     rand = new Random();
     if (isTest){
       rand.setSeed(0);

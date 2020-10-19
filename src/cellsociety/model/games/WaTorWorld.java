@@ -1,6 +1,7 @@
 package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
+import cellsociety.model.Neighborhood;
 import cellsociety.model.cells.WaTorCell;
 import java.util.List;
 import java.util.Random;
@@ -12,13 +13,13 @@ public class WaTorWorld extends Simulation{
   private Random rand;
 
 
-  public WaTorWorld(String config, String cellType) {
-    super(config, cellType);
+  public WaTorWorld(String config, String cellType, String neighborPolicy) {
+    super(config, cellType, neighborPolicy);
     rand = new Random();
   }
 
-  public WaTorWorld(String csvConfig, String cellType, boolean isTest){
-    super(csvConfig, cellType);
+  public WaTorWorld(String csvConfig, String cellType, String neighborPolicy, boolean isTest){
+    super(csvConfig, cellType, neighborPolicy);
     rand = new Random();
     if (isTest){
       rand.setSeed(0);
@@ -76,13 +77,15 @@ public class WaTorWorld extends Simulation{
   private void checkSharkDeath(GameBoard gameBoard, List<Integer> oceanCoordinates,
       WaTorCell movedCell) {
     if (movedCell.isShark() && movedCell.getEnergyPoints() <=0){
-      gameBoard.copyCell(oceanCoordinates.get(0), oceanCoordinates.get(1), new WaTorCell(WaTorCell.OCEAN));
+      gameBoard.copyCell(oceanCoordinates.get(0), oceanCoordinates.get(1), new WaTorCell(WaTorCell.OCEAN,
+          new Neighborhood(oceanCoordinates.get(0), oceanCoordinates.get(1),getGameBoard(),getNeighborPolicy())));
     }
   }
 
   private void checkFishReproduction(GameBoard gameBoard, int row, int col, WaTorCell movedCell) {
     if (movedCell.isFish() && movedCell.getSurvivalTime() >= REPRODUCTION_TIME) {
-      gameBoard.copyCell(row, col, new WaTorCell(WaTorCell.FISH));
+      gameBoard.copyCell(row, col, new WaTorCell(WaTorCell.FISH,
+          new Neighborhood(row, col,getGameBoard(),getNeighborPolicy())));
       movedCell.resetSurvivalTime();
     }
   }
@@ -92,7 +95,8 @@ public class WaTorWorld extends Simulation{
     if (!neighboringFish.isEmpty()) {
       List<Integer> fishCoordinates = getDestinationCoordinates(neighboringFish);
       gameBoard.swapCells(row, col, fishCoordinates.get(0), fishCoordinates.get(1));
-      getGameBoard().copyCell(fishCoordinates.get(0), fishCoordinates.get(1), new WaTorCell(WaTorCell.OCEAN));
+      getGameBoard().copyCell(fishCoordinates.get(0), fishCoordinates.get(1), new WaTorCell(WaTorCell.OCEAN,
+          new Neighborhood(fishCoordinates.get(0), fishCoordinates.get(1),getGameBoard(),getNeighborPolicy())));
       WaTorCell movedShark = (WaTorCell) (gameBoard
           .getCell(fishCoordinates.get(0), fishCoordinates.get(1)));
       if (row > fishCoordinates.get(0) || col > fishCoordinates.get(1)){

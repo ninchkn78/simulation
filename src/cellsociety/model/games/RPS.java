@@ -1,13 +1,14 @@
 package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
+import java.util.List;
 
 public class RPS extends Simulation {
 
   public static final int THRESHOLD = 3;
 
-  public RPS(String csvConfig, String cellType) {
-    super(csvConfig, cellType);
+  public RPS(String csvConfig, String cellType, String neighborPolicy) {
+    super(csvConfig, cellType, neighborPolicy);
   }
 
 
@@ -29,14 +30,12 @@ public class RPS extends Simulation {
     return Integer.toString((state + 1) % 3);
   }
 
-  public int countNeighboringOpponents(int currentRow, int currentColumn) {
+  public int countNeighboringOpponents(int row, int col) {
     int opponentCount = 0;
-    for (int i = currentRow - 1; i <= currentRow + 1; i++) {
-      for (int j = currentColumn - 1; j <= currentColumn + 1; j++) {
-        if (getGameBoard().inBounds(i, j) && isOpponent(i, j, currentRow,
-            currentColumn)) { //TODO: make this not ugly af
-          opponentCount++;
-        }
+    List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors){
+      if (isOpponent(row, col, neighbor.get(0), neighbor.get(1))){
+        opponentCount++;
       }
     }
     return opponentCount;

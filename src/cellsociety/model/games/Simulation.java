@@ -11,18 +11,24 @@ public abstract class Simulation {
 
   private GameBoard board;
   private String cellType;
+  private String neighborPolicy;
   private int generation;
 
-  public Simulation(String config, String cellType) {
+  public Simulation(String config, String cellType, String neighborPolicy) {
     String[] configAndType = config.split(",");
     Reader stateReader = chooseReader(configAndType[1]);
-    this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType);
+    this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType, neighborPolicy);
     this.cellType = cellType;
+    this.neighborPolicy = neighborPolicy;
     this.generation = 1;
   }
 
   public GameBoard getGameBoard() {
     return board;
+  }
+
+  public String getNeighborPolicy() {
+    return neighborPolicy;
   }
 
 
@@ -36,7 +42,7 @@ public abstract class Simulation {
   //public abstract void setOnClicked();
 
   public void nextGen() {
-    GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight(), cellType);
+    GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight(), cellType, neighborPolicy);
     for (int i = 0; i < getGameBoard().getHeight(); i++) {
       for (int j = 0; j < getGameBoard().getWidth(); j++) {
         updateCell(nextBoard, i, j);

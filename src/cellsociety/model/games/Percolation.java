@@ -2,11 +2,12 @@ package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
 import cellsociety.model.cells.PercolationCell;
+import java.util.List;
 
 public class Percolation extends Simulation {
 
-  public Percolation(String csvConfig, String cellType) {
-    super(csvConfig, cellType);
+  public Percolation(String csvConfig, String cellType, String neighborPolicy) {
+    super(csvConfig, cellType, neighborPolicy);
   }
 
   @Override
@@ -22,11 +23,10 @@ public class Percolation extends Simulation {
     if (!isOpen(currentRow, currentColumn)) {
       return false;
     }
-    for (int i = currentRow - 1; i <= currentRow + 1; i++){
-      for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
-        if (getGameBoard().inBounds(i,j) && isFull(i,j)){
-          return true;
-        }
+    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow,currentColumn).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors){
+      if (isFull(neighbor.get(0), neighbor.get(1))){
+        return true;
       }
     }
     return false;

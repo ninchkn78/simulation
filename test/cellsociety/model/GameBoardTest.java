@@ -14,7 +14,7 @@ class GameBoardTest {
 
   @BeforeEach
   void init() {
-    board = new GameBoard(5, 5, "ConwayCell");
+    board = new GameBoard(5, 5, "ConwayCell", "complete");
   }
 
 
