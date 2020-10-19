@@ -17,7 +17,7 @@ public class WaTorWorld extends Simulation{
     rand = new Random();
   }
 
-  public WaTorWorld(String csvConfig, String cellType, boolean isTest, String[] possibleStates){
+  public WaTorWorld(String csvConfig, String cellType,  String[] possibleStates, boolean isTest){
     super(csvConfig, cellType, possibleStates);
     rand = new Random();
     if (isTest){

@@ -15,7 +15,7 @@ public class SpreadingFire extends Simulation {
   }
 
   // TODO: 2020-10-18  franklin what the fuck
-  public SpreadingFire(String csvConfig, String cellType, boolean isTest, String[] possibleStates){
+  public SpreadingFire(String csvConfig, String cellType,String[] possibleStates, boolean isTest){
     super(csvConfig, cellType, possibleStates);
     rand = new Random();
     if (isTest){
