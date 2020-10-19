@@ -55,8 +55,6 @@ public class SplashScreen {
 
     comboBox.setPromptText("Language");
 
-
-
     EventHandler<ActionEvent> event =
         new EventHandler<ActionEvent>() {
           public void handle(ActionEvent e)
