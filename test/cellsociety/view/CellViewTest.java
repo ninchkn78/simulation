@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.IOException;
 import java.util.Properties;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import org.junit.jupiter.api.Test;
 
 class CellViewTest {
@@ -14,11 +15,11 @@ class CellViewTest {
     Properties prop = new Properties();
     prop.load(RectangleCellView.class.getClassLoader()
         .getResourceAsStream("ConwayGameOfLife.properties"));
-    RectangleCellView testCell = new RectangleCellView(0, 0, "DEAD", prop);
+    Rectangle testCell = (Rectangle) new RectangleCellView(0, 0, "DEAD", prop).getCell();
     assertEquals(Color.BLUE, testCell.getFill());
-    RectangleCellView testCell2 = new RectangleCellView(0, 0, "ALIVE", prop);
+    Rectangle testCell2 = (Rectangle) new RectangleCellView(0, 0, "ALIVE", prop).getCell();
     assertEquals(Color.RED, testCell2.getFill());
-    RectangleCellView testCell3 = new RectangleCellView(0, 0, "FAKESTATE", prop);
+    Rectangle testCell3 = (Rectangle) new RectangleCellView(0, 0, "FAKESTATE", prop).getCell();
     assertEquals(Color.WHITE, testCell3.getFill());
   }
 

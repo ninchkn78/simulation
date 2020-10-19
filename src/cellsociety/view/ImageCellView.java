@@ -1,6 +1,7 @@
 package cellsociety.view;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Properties;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -38,12 +39,14 @@ public class ImageCellView extends Group implements CellView {
       // TODO: 2020-10-13 if state doesn't exist
       inputstream = new FileInputStream(properties.getProperty(state + "image"));
     } catch (Exception e) {
-      e.printStackTrace();
+      try {
+        inputstream = new FileInputStream("resources/default.png");
+      } catch (FileNotFoundException fileNotFoundException) {
+        fileNotFoundException.printStackTrace();
+      }
     }
-    if (inputstream != null) {
-      Image image = new Image(inputstream);
-      cellImage.setImage(image);
-    }
+    Image image = new Image(inputstream);
+    cellImage.setImage(image);
   }
 
   @Override

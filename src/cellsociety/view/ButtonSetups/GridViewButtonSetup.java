@@ -15,7 +15,6 @@ public class GridViewButtonSetup extends ButtonSetup {
 
   private final Display myDisplay;
 
-  //TODO - idea - just add more buttons here by calling subclasses or something
 
   public GridViewButtonSetup(Display display) {
     myDisplay = display;

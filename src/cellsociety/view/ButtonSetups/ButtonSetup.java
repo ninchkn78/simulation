@@ -10,7 +10,6 @@ import javafx.scene.layout.HBox;
 
 public abstract class ButtonSetup {
 
-  //TODO - idea - just add more buttons here by calling subclasses or something
 
   public List<String> parseButtonsFromProperties(int NUMBER_POSSIBLE_BUTTONS,
       Properties myProperties) {

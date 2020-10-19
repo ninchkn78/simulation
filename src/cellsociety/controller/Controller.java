@@ -11,7 +11,7 @@ import java.util.Properties;
 public class Controller {
 
   // TODO: 2020-10-18 single responbility principle
-  private final Properties properties = new Properties();
+  private Properties properties = new Properties();
   private final String propertiesFileName;
   private GameBoard board;
   private Simulation game;
@@ -35,7 +35,7 @@ public class Controller {
               properties.getProperty("States").split(","));
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
       // TODO: 2020-10-12 handle this error
-      e.printStackTrace();
+      //e.printStackTrace();
 
     }
   }
@@ -50,7 +50,7 @@ public class Controller {
           .load(Controller.class.getClassLoader().getResourceAsStream(propertiesFileName));
     } catch (IOException e) {
       // TODO: 2020-10-12 better error handling  
-      e.printStackTrace();
+      //e.printStackTrace();
     }
     validatePropertiesFile();
   }

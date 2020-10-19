@@ -32,13 +32,6 @@ public class RectangleCellView extends Group implements CellView {
     this.state = state;
   }
 
-  public Paint getFill() {
-    return rectangle.getFill();
-  }
-
-  public void setFill(Paint color) {
-    rectangle.setFill(color);
-  }
 
   public void updateView(String state, Properties properties) {
     // TODO: 2020-10-10 better error handling

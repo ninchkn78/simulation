@@ -80,7 +80,6 @@ public class Display extends Application {
     myStage.setScene(gameScene);
   }
 
-  // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
   Scene setupScene() {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
@@ -150,7 +149,6 @@ public class Display extends Application {
 
   public void setController(Controller controller) {
     myController = controller;
-    // TODO: 2020-10-17 make a simulation board at the beginning, then have another method that updates
     stateConfigBox.addStateConfigs(myController);
     myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
   }
