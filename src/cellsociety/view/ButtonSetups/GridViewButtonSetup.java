@@ -15,9 +15,8 @@ import javafx.stage.FileChooser;
 
 public class GridViewButtonSetup extends ButtonSetup {
 
-  //private HBox myHbox = createHBox();
+
   private final Display myDisplay;
-  private boolean fileSelected = false;
 
   //TODO - idea - just add more buttons here by calling subclasses or something
 
@@ -38,19 +37,12 @@ public class GridViewButtonSetup extends ButtonSetup {
 
 
   public void checkStepOnce(Button stepButton) {
-    stepButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-
-        myDisplay.nextGen();
-      }
-    });
+    stepButton.setOnAction(e -> myDisplay.nextGen());
 
   }
 
   public void checkLoadFile(Button loadFileButton) {
     loadFileButton.setOnAction(e -> {
-      fileSelected = true;
       myDisplay.pauseGame();
       FileChooser fileChooser = new FileChooser();
       fileChooser.setTitle("Open Resource File");
@@ -62,48 +54,25 @@ public class GridViewButtonSetup extends ButtonSetup {
   }
 
   public void checkPlay(Button runButton) {
-    runButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        myDisplay.play();
-      }
-
-    });
+    runButton.setOnAction(e -> myDisplay.play());
   }
 
   public void checkPause(Button pauseButton) {
-    pauseButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        myDisplay.pauseGame();
-      }
-    });
+    pauseButton.setOnAction(e -> myDisplay.pauseGame());
   }
 
   public void checkSaveFile(Button fileSaveButton) {
-    fileSaveButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        if (myDisplay.getController() != null) {
-          System.out.println("WRITE FILE");
-          GameBoard myGameBoard = myDisplay.getController().getGameBoard();
-
-          PopUpWindow pUp = new PopUpWindow(myDisplay, myGameBoard);
-
-        }
+    fileSaveButton.setOnAction(e -> {
+      if (myDisplay.getController() != null) {
+        System.out.println("WRITE FILE");
+        GameBoard myGameBoard = myDisplay.getController().getGameBoard();
+        PopUpWindow pUp = new PopUpWindow(myDisplay, myGameBoard);
       }
     });
   }
 
   public void checkImage(Button chooseImageButton) {
-    chooseImageButton.setOnAction(new EventHandler<ActionEvent>() {
-      @Override
-      public void handle(ActionEvent e) {
-        myDisplay.changeCellsToImages();
-
-      }
-
-    });
+    chooseImageButton.setOnAction(e -> myDisplay.changeCellsToImages());
   }
 
 

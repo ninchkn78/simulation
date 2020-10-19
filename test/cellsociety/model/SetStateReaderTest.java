@@ -1,7 +1,9 @@
 package cellsociety.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import Exceptions.InvalidCSVFormatException;
 import org.junit.jupiter.api.Test;
 
 class SetStateReaderTest {
@@ -14,5 +16,10 @@ class SetStateReaderTest {
     assertEquals(11, test[0].length);
     assertEquals("0", test[0][0]);
     assertEquals("1", test[0][1]);
+  }
+  @Test
+  void testRowColumnDoNotMatch() {
+    SetStateReader setStateReader = new SetStateReader();
+    assertThrows(InvalidCSVFormatException.class,() -> setStateReader.getStatesFromFile("board_config/badRowColumn.csv"));
   }
 }

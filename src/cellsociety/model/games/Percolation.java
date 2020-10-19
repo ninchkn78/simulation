@@ -5,8 +5,8 @@ import cellsociety.model.cells.PercolationCell;
 
 public class Percolation extends Simulation {
 
-  public Percolation(String csvConfig, String cellType) {
-    super(csvConfig, cellType);
+  public Percolation(String csvConfig, String cellType, String[] possibleStates) {
+    super(csvConfig, cellType, possibleStates);
   }
 
   @Override
@@ -22,9 +22,9 @@ public class Percolation extends Simulation {
     if (!isOpen(currentRow, currentColumn)) {
       return false;
     }
-    for (int i = currentRow - 1; i <= currentRow + 1; i++){
-      for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
-        if (getGameBoard().inBounds(i,j) && isFull(i,j)){
+    for (int i = currentRow - 1; i <= currentRow + 1; i++) {
+      for (int j = currentColumn - 1; j <= currentColumn + 1; j++) {
+        if (getGameBoard().inBounds(i, j) && isFull(i, j)) {
           return true;
         }
       }

@@ -34,7 +34,6 @@ public class Display extends Application {
   private static final String DEFAULT_HBOX_CSS_CLASS = "HBox";
   private static final double DEFAULT_Y_OFFSET = 0.75;
 
-
   private static final String CSS_STYLE_SHEET = "default.css";
   private static final int NUMBER_POSSIBLE_BUTTONS = 10;
 
@@ -48,7 +47,6 @@ public class Display extends Application {
   private Timeline animation;
   private Controller myController;
   private SimulationBoard myBoard;
-  private Slider speedAdjuster;
   private double animationSpeed = 120 / FRAMES_PER_SECOND;
   private boolean isPaused = true;
   private final String DEFAULT_LANGUAGE_PROP_FILE = "resources/Text_Properties_Files/English.properties";
@@ -64,10 +62,6 @@ public class Display extends Application {
     launch(args);
   }
   //private Controller myController = new Controller("ConwayGameOfLife.properties");
-
-  public double getAnimationSpeed() {
-    return animationSpeed;
-  }
 
   public void setAnimationSpeed(double animationSpeed) {
     this.animationSpeed = animationSpeed;
@@ -129,7 +123,7 @@ public class Display extends Application {
 
 
   private void setUpAnimation() {
-    KeyFrame frame = new KeyFrame(Duration.seconds(animationSpeed), e -> step(animationSpeed));
+    KeyFrame frame = new KeyFrame(Duration.seconds(animationSpeed), e -> step());
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
@@ -137,15 +131,13 @@ public class Display extends Application {
   }
 
   private void setUpSpeedAdjuster() {
-    speedAdjuster = new Slider(.5, 5, 1);
+    Slider speedAdjuster = new Slider(.5, 5, 1);
     // TODO: 2020-10-12 can we vbox this with the buttons
     speedAdjuster.setLayoutX(WIDTH / 2 - 50);
     speedAdjuster.setLayoutY(HEIGHT - HEIGHT / 4);
     speedAdjuster.valueProperty().addListener((
         ObservableValue<? extends Number> ov,
-        Number old_val, Number new_val) -> {
-      setAnimationSpeed(new_val.doubleValue());
-    });
+        Number old_val, Number new_val) -> setAnimationSpeed(new_val.doubleValue()));
     myRoot.getChildren().add(speedAdjuster);
   }
 
@@ -153,7 +145,7 @@ public class Display extends Application {
     isPaused = false;
   }
 
-  void step(double elapsedTime) {
+  void step() {
     if (!isPaused) {
 
       animation.setRate(animationSpeed);

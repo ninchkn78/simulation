@@ -22,14 +22,12 @@ public class PopUpWindow {
   private static final String DESCRIPTION = "Description";
 
   private final GameBoard myGameBoard;
-  private final Display myDisplay;
   private final Properties properties;
   private GridPane myGrid;
 
   public PopUpWindow(Display display, GameBoard gameBoard) {
-    myDisplay = display;
     myGameBoard = gameBoard;
-    properties = myDisplay.getController().getProperties();
+    properties = display.getController().getProperties();
 
     Dialog<String[]> dialog = createDialog();
     createGridPane();
@@ -92,7 +90,7 @@ public class PopUpWindow {
       SaveFiles saveFileObject = new SaveFiles();
       saveFileObject.saveState(myGameBoard.getGameBoardStates(), inputs[0]);
 
-      properties.setProperty("CSVSource", "GAME_CSVS/" + inputs[0] + ".csv");
+      properties.setProperty("CSVSource", "GAME_CSVS/" + inputs[0] + ".csv,set");
       properties.store(new FileOutputStream("resources/" + inputs[0] + ".properties"), null);
 
     } catch (IOException e) {

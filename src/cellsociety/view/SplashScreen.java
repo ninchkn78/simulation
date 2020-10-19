@@ -5,7 +5,6 @@ import cellsociety.view.ButtonSetups.SplashScreenSetup;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javafx.collections.FXCollections;
@@ -22,10 +21,7 @@ import javafx.scene.layout.HBox;
 public class SplashScreen {
 
   private final Scene myScene;
-  private final List<Button> myButtons = new ArrayList<>();
-  private final String CSS_FILE_PATH = "SplashScreen.css";
   private final Display myDisplay;
-  private final String PROPERTIES_FILE_PATH = "resources/SplashScreen.properties";
   private Properties splashProperties;
   private Properties languageProperties;
 
@@ -37,6 +33,7 @@ public class SplashScreen {
     Group root = new Group();
     createPropertiesObject();
     myScene = new Scene(root, Display.WIDTH, Display.HEIGHT);
+    String CSS_FILE_PATH = "SplashScreen.css";
     myScene.getStylesheets().add(CSS_FILE_PATH);
 
     ButtonSetup mySplashScreenSetup = createButtonSetup(root);
@@ -72,6 +69,7 @@ public class SplashScreen {
 
   }
 
+
   public ButtonSetup createButtonSetup(Group root) {
     ButtonSetup mySplashScreenSetup = new SplashScreenSetup(myDisplay);
     List<String> simulationNames = mySplashScreenSetup
@@ -89,6 +87,7 @@ public class SplashScreen {
 
   //TODO - use the one from display instead - it doesnt the same thing pretty much
   private void createPropertiesObject() {
+    String PROPERTIES_FILE_PATH = "resources/SplashScreen.properties";
     try (InputStream input = new FileInputStream(PROPERTIES_FILE_PATH)) {
       splashProperties = new Properties();
       splashProperties.load(input);
@@ -96,7 +95,6 @@ public class SplashScreen {
     } catch (IOException ex) {
       ex.printStackTrace();
     }
-
   }
 
   public Scene getMyScene() {
