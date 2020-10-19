@@ -6,8 +6,8 @@ import java.util.Random;
 
 public class SpreadingFire extends Simulation {
 
-  public Random rand;
   public static final double probCatch = 0.5;
+  public Random rand;
 
   public SpreadingFire(String csvConfig, String cellType, String[] possibleStates) {
     super(csvConfig, cellType, possibleStates);
@@ -15,18 +15,18 @@ public class SpreadingFire extends Simulation {
   }
 
   // TODO: 2020-10-18  franklin what the fuck
-  public SpreadingFire(String csvConfig, String cellType,String[] possibleStates, boolean isTest){
+  public SpreadingFire(String csvConfig, String cellType, String[] possibleStates, boolean isTest) {
     super(csvConfig, cellType, possibleStates);
     rand = new Random();
-    if (isTest){
+    if (isTest) {
       rand.setSeed(0);
     }
   }
 
 
   @Override
-  public void updateCell(GameBoard gameBoard, int row, int col){
-    if (isBurning(row, col)){
+  public void updateCell(GameBoard gameBoard, int row, int col) {
+    if (isBurning(row, col)) {
       gameBoard.setPiece(row, col, SpreadingFireCell.EMPTY);
     } else if (burningNextGen(row, col)) {
       gameBoard.setPiece(row, col, SpreadingFireCell.BURNING);

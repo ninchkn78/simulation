@@ -3,7 +3,6 @@ package cellsociety.view;
 
 import cellsociety.controller.Controller;
 import cellsociety.view.ButtonSetups.GridViewButtonSetup;
-import java.util.ArrayList;
 import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -42,7 +41,6 @@ public class Display extends Application {
   private Timeline animation;
   private Controller myController;
   private SimulationBoard myBoard;
-  private Slider speedAdjuster;
   private double animationSpeed = 120 / FRAMES_PER_SECOND;
   private boolean isPaused = true;
 
@@ -56,10 +54,6 @@ public class Display extends Application {
     launch(args);
   }
   //private Controller myController = new Controller("ConwayGameOfLife.properties");
-
-  public double getAnimationSpeed() {
-    return animationSpeed;
-  }
 
   public void setAnimationSpeed(double animationSpeed) {
     this.animationSpeed = animationSpeed;
@@ -102,7 +96,7 @@ public class Display extends Application {
 
 
   private void setUpAnimation() {
-    KeyFrame frame = new KeyFrame(Duration.seconds(animationSpeed), e -> step(animationSpeed));
+    KeyFrame frame = new KeyFrame(Duration.seconds(animationSpeed), e -> step());
     animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames().add(frame);
@@ -110,15 +104,13 @@ public class Display extends Application {
   }
 
   private void setUpSpeedAdjuster() {
-    speedAdjuster = new Slider(.5, 5, 1);
+    Slider speedAdjuster = new Slider(.5, 5, 1);
     // TODO: 2020-10-12 can we vbox this with the buttons
     speedAdjuster.setLayoutX(WIDTH / 2 - 50);
     speedAdjuster.setLayoutY(HEIGHT - HEIGHT / 4);
     speedAdjuster.valueProperty().addListener((
         ObservableValue<? extends Number> ov,
-        Number old_val, Number new_val) -> {
-      setAnimationSpeed(new_val.doubleValue());
-    });
+        Number old_val, Number new_val) -> setAnimationSpeed(new_val.doubleValue()));
     myRoot.getChildren().add(speedAdjuster);
   }
 
@@ -126,7 +118,7 @@ public class Display extends Application {
     isPaused = false;
   }
 
-  void step(double elapsedTime) {
+  void step() {
     if (!isPaused) {
 
       animation.setRate(animationSpeed);

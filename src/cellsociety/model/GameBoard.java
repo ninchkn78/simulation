@@ -2,25 +2,21 @@ package cellsociety.model;
 
 import Exceptions.InvalidCSVFormatException;
 import cellsociety.model.cells.Cell;
-
 import cellsociety.model.cells.WaTorCell;
-import cellsociety.model.games.Simulation;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BiConsumer;
-import javax.print.attribute.HashAttributeSet;
 
 
-public class GameBoard{
+public class GameBoard {
 
   private final int width;
   private final int height;
   private final Cell[][] gameBoardCells;
-  private String[][] gameBoardStates;
+  private final String[][] gameBoardStates;
 
   public GameBoard(int width, int height, String cellType) {
     this.width = width;
@@ -42,7 +38,7 @@ public class GameBoard{
     Set<String> statesSet = new HashSet<>(Arrays.asList(possibleStates));
     for (int i = 0; i < gameBoardStates.length; i++) {
       for (int j = 0; j < gameBoardStates[i].length; j++) {
-        if(!statesSet.contains(gameBoardStates[i][j])){
+        if (!statesSet.contains(gameBoardStates[i][j])) {
           throw new InvalidCSVFormatException("this will be a message from a resources file");
         }
       }
@@ -51,15 +47,14 @@ public class GameBoard{
 
   public Cell[][] initializeGameBoardCells(int width, int height, String cellType) {
     Cell[][] cellConfig = new Cell[height][width];
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         Class operation;
-        try{
+        try {
           operation = Class.forName("cellsociety.model.cells." + cellType);
           cellConfig[i][j] = (Cell) operation.getConstructor(String.class)
               .newInstance("0");
-        }
-        catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
           e.printStackTrace();
         }
         cellConfig[i][j] = new WaTorCell(WaTorCell.OCEAN); //TODO: FIX THIS
@@ -80,11 +75,11 @@ public class GameBoard{
     return (row >= 0 && col >= 0) && (row < height && col < width);
   }
 
-  public List<List<Integer>> getPositionsOfCellState(String state){
+  public List<List<Integer>> getPositionsOfCellState(String state) {
     List<List<Integer>> cellsList = new ArrayList<>();
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
-        if (gameBoardStates[i][j].equals(state)){
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        if (gameBoardStates[i][j].equals(state)) {
           List<Integer> coordinates = new ArrayList<>();
           coordinates.add(i);
           coordinates.add(j);
@@ -95,7 +90,7 @@ public class GameBoard{
     return cellsList;
   }
 
-  public List<List<Integer>> getNeighboringPositionsOfCellState(String state, int row, int col){
+  public List<List<Integer>> getNeighboringPositionsOfCellState(String state, int row, int col) {
     List<List<Integer>> cellsList = new ArrayList<>();
     for (int i = row - 1; i <= row + 1; i++) {
       for (int j = col - 1; j <= col + 1; j++) {
@@ -115,7 +110,7 @@ public class GameBoard{
     gameBoardStates[row][col] = state;
   }
 
-  public int getWidth(){
+  public int getWidth() {
     return width;
   }
 
@@ -135,14 +130,15 @@ public class GameBoard{
     }
   }
 
-  public Cell[][] createCellConfiguration(String[][] stateConfig, String cellType){ //TODO: make this work for all cell types
+  public Cell[][] createCellConfiguration(String[][] stateConfig,
+      String cellType) { //TODO: make this work for all cell types
     Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         Class operation;
         try {
           operation = Class.forName("cellsociety.model.cells." + cellType);
-          cellConfig[i][j]  = (Cell) operation.getConstructor(String.class)
+          cellConfig[i][j] = (Cell) operation.getConstructor(String.class)
               .newInstance(stateConfig[i][j]);
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
           e.printStackTrace();
@@ -160,7 +156,7 @@ public class GameBoard{
     }
   }
 
-  public void copyCell(int row, int col, Cell cell){
+  public void copyCell(int row, int col, Cell cell) {
     gameBoardCells[row][col] = cell;
     gameBoardStates[row][col] = cell.getState();
   }

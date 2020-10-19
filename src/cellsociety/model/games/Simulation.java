@@ -5,19 +5,19 @@ import cellsociety.model.GameBoard;
 import cellsociety.model.RandomStateReader;
 import cellsociety.model.Reader;
 import cellsociety.model.SetStateReader;
-import java.util.Set;
 
 
 public abstract class Simulation {
 
   private GameBoard board;
-  private String cellType;
+  private final String cellType;
 
 
   public Simulation(String config, String cellType, String[] possibleStates) {
     String[] configAndType = config.split(",");
     Reader stateReader = chooseReader(configAndType[1]);
-    this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType, possibleStates);
+    this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType,
+        possibleStates);
     this.cellType = cellType;
   }
 
@@ -30,7 +30,8 @@ public abstract class Simulation {
   //public abstract void setOnClicked();
 
   public void nextGen() {
-    GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight(), cellType);
+    GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight(),
+        cellType);
     for (int i = 0; i < getGameBoard().getHeight(); i++) {
       for (int j = 0; j < getGameBoard().getWidth(); j++) {
         updateCell(nextBoard, i, j);
@@ -39,7 +40,7 @@ public abstract class Simulation {
     board = nextBoard;
   }
 
-  public void validateStates(String[] states){
+  public void validateStates(String[] states) {
 
   }
 

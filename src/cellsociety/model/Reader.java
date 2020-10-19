@@ -23,13 +23,13 @@ public abstract class Reader {
     return textFile;
   }
 
-  protected List<String[]> readFile(String fileName)  {
+  protected List<String[]> readFile(String fileName) {
     List<String[]> fileData = null;
     InputStream dataStream = getFileInputStream(fileName);
     try (CSVReader csvReader = new CSVReader(new InputStreamReader(dataStream))) {
       fileData = csvReader.readAll();
       //validateCSV(fileData);
-    } catch(CsvException | IOException e){
+    } catch (CsvException | IOException e) {
       e.printStackTrace();
       return fileData;
     }
@@ -38,6 +38,6 @@ public abstract class Reader {
 
   // TODO: 2020-10-18 catch this shit
   public abstract String[][] getStatesFromFile(String fileName) throws InvalidCSVFormatException;
-  }
+}
 
 

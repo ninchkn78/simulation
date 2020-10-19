@@ -7,7 +7,7 @@ import cellsociety.model.cells.ConwayCell;
 
 public class ConwayGameOfLife extends Simulation {
 
-  public ConwayGameOfLife(String csvConfig, String cellType, String[] possibleStates){
+  public ConwayGameOfLife(String csvConfig, String cellType, String[] possibleStates) {
     super(csvConfig, cellType, possibleStates);
   }
 
@@ -34,10 +34,11 @@ public class ConwayGameOfLife extends Simulation {
 
   public int countLivingNeighbors(int currentRow, int currentColumn) {
     int aliveCount = 0;
-    for (int i = currentRow - 1; i <= currentRow + 1; i++){
-      for (int j = currentColumn - 1; j <= currentColumn + 1; j++){
-        if (getGameBoard().inBounds(i,j) && isAlive(getGameBoard().getCell(i, j)) && !(currentRow == i
-            && currentColumn == j)){ //TODO: make this not ugly af
+    for (int i = currentRow - 1; i <= currentRow + 1; i++) {
+      for (int j = currentColumn - 1; j <= currentColumn + 1; j++) {
+        if (getGameBoard().inBounds(i, j) && isAlive(getGameBoard().getCell(i, j)) && !(
+            currentRow == i
+                && currentColumn == j)) { //TODO: make this not ugly af
 
           aliveCount++;
         }

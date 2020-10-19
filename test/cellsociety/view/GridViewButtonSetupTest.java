@@ -1,6 +1,5 @@
 package cellsociety.view;
 
-import cellsociety.controller.Controller;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.paint.Color;
@@ -44,7 +43,7 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
     Assertions.assertEquals(Color.BLUE, cell1.getFill());
     Assertions.assertEquals(Color.RED, cell2.getFill());
     runButton.fire();
-    javafxRun(() -> myDisplay.step(myDisplay.getAnimationSpeed()));
+    javafxRun(() -> myDisplay.step());
     Assertions.assertEquals(Color.RED, cell1.getFill());
     Assertions.assertEquals(Color.BLUE, cell2.getFill());
 
@@ -67,7 +66,7 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
 
     pause.fire();
 
-    javafxRun(() -> myDisplay.step(myDisplay.getAnimationSpeed()));
+    javafxRun(() -> myDisplay.step());
     Assertions.assertEquals(Color.RED, cell1.getFill());
     Assertions.assertEquals(Color.BLUE, cell2.getFill());
 

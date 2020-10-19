@@ -22,7 +22,6 @@ public class GridViewButtonSetup extends ButtonSetup {
   }
 
 
-
   @Override
   protected void invokeHandlerMethod(String buttonName, Button currentButton) {
     try {

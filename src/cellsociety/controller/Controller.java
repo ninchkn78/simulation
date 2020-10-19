@@ -1,14 +1,12 @@
 package cellsociety.controller;
 
-import cellsociety.model.GameBoard;
 import Exceptions.InvalidPropertiesFileException;
+import cellsociety.model.GameBoard;
 import cellsociety.model.games.Simulation;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.Properties;
-import javafx.scene.control.Button;
 
 public class Controller {
 
@@ -33,7 +31,8 @@ public class Controller {
     try {
       operation = Class.forName("cellsociety.model.games." + gameType);
       game = (Simulation) operation.getConstructor(String.class, String.class, String[].class)
-          .newInstance(properties.getProperty("CSVSource"), cellType,properties.getProperty("States").split(","));
+          .newInstance(properties.getProperty("CSVSource"), cellType,
+              properties.getProperty("States").split(","));
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
       // TODO: 2020-10-12 handle this error
       e.printStackTrace();
@@ -65,13 +64,15 @@ public class Controller {
   }
 
   private void validatePropertiesFile() throws InvalidPropertiesFileException {
-    String[] requiredProperties = {"Description", "Title", "States","CellType","GameType","Author","CSVSource"};
-    for(String property: requiredProperties){
-      if(properties.get(property) == null ){
+    String[] requiredProperties = {"Description", "Title", "States", "CellType", "GameType",
+        "Author", "CSVSource"};
+    for (String property : requiredProperties) {
+      if (properties.get(property) == null) {
         throw new InvalidPropertiesFileException("This will be replaced anyways");
       }
     }
   }
+
   /**
    * Update the gameboard in the backend and return to front end
    */

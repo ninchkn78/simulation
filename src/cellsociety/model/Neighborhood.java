@@ -8,7 +8,7 @@ public class Neighborhood {
   public List<Cell> neighbors;
   public String policy;
 
-  public Neighborhood(int row, int col, GameBoard gameBoard, String policy){
+  public Neighborhood(int row, int col, GameBoard gameBoard, String policy) {
 
   }
 
