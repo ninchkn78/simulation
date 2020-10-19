@@ -20,14 +20,6 @@ public class SchellingSegregation extends Simulation {
     rand = new Random();
   }
 
-  public SchellingSegregation(String csvConfig, String cellType, String neighborPolicy, boolean isTest){
-    super(csvConfig, cellType, neighborPolicy);
-    rand = new Random();
-    if (isTest){
-      rand.setSeed(0);
-    }
-  }
-
 
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col) {
@@ -86,11 +78,9 @@ public class SchellingSegregation extends Simulation {
     return neighborCount - oppositeAgentCount < neighborCount * THRESHOLD;
   }
 
-
-
-
-
-
+  public void setSeed(long seed){
+    rand.setSeed(seed);
+  }
 
 
 }

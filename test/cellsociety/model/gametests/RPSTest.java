@@ -11,7 +11,7 @@ public class RPSTest {
 
   @Test
   public void RPS0ConfigTest(){
-    Simulation rps = new RPS("board_config/rps0.csv", "RPSCell", "complete");
+    Simulation rps = new RPS("board_config/rps0.csv", "RPSCell", "complete", "finite");
     rps.nextGen();
     String[][] nextStates = rps.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -31,7 +31,7 @@ public class RPSTest {
 
   @Test
   public void RPS1ConfigTest(){
-    Simulation rps = new RPS("board_config/rps1.csv", "RPSCell", "complete");
+    Simulation rps = new RPS("board_config/rps1.csv", "RPSCell", "complete", "finite");
     rps.nextGen();
     String[][] nextStates = rps.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -51,7 +51,7 @@ public class RPSTest {
 
   @Test
   public void RPS2ConfigTest(){
-    Simulation rps = new RPS("board_config/rps2.csv", "RPSCell", "complete");
+    Simulation rps = new RPS("board_config/rps2.csv", "RPSCell", "complete", "finite");
     rps.nextGen();
     String[][] nextStates = rps.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =

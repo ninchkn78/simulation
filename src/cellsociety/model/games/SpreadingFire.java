@@ -15,15 +15,6 @@ public class SpreadingFire extends Simulation {
     rand = new Random();
   }
 
-  public SpreadingFire(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, boolean isTest){
-    super(csvConfig, cellType,  neighborPolicy, edgePolicy);
-    rand = new Random();
-    if (isTest){
-      rand.setSeed(0);
-    }
-  }
-
-
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col){
     if (isBurning(row, col)){
@@ -55,6 +46,10 @@ public class SpreadingFire extends Simulation {
       }
     }
     return false;
+  }
+
+  public void setSeed(long seed){
+    rand.setSeed(seed);
   }
 
 }

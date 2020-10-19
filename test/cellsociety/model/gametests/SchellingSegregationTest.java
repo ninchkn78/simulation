@@ -11,7 +11,7 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation0ConfigTest(){
-    Simulation segregation = new SchellingSegregation("board_config/segregation0.csv", "SchellingCell", "complete", true);
+    Simulation segregation = new SchellingSegregation("board_config/segregation0.csv", "SchellingCell", "complete", "finite");
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -32,7 +32,7 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation1ConfigTest(){
-    Simulation segregation = new SchellingSegregation("board_config/segregation1.csv", "SchellingCell", "complete", true);
+    Simulation segregation = new SchellingSegregation("board_config/segregation1.csv", "SchellingCell", "complete", "finite");
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -53,7 +53,7 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation2ConfigTest(){
-    Simulation segregation = new SchellingSegregation("board_config/segregation2.csv","SchellingCell", "complete", true);
+    Simulation segregation = new SchellingSegregation("board_config/segregation2.csv","SchellingCell", "complete", "finite");
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
