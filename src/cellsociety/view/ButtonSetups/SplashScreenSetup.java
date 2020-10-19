@@ -17,7 +17,6 @@ public class SplashScreenSetup extends ButtonSetup {
 
   @Override
   protected void invokeHandlerMethod(String buttonName, Button currentButton) {
-    System.out.println(buttonName);
     currentButton.setOnAction(new SimulationChooserHandler(buttonName));
   }
 

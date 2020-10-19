@@ -83,7 +83,7 @@ public class Display extends Application {
 
   public void chooseSimulation(String simulationType) {
     myBoard = new SimulationBoard(myRoot);
-    setController(new Controller("Default" + simulationType + ".properties"));
+    setController(new Controller("Default_Properties_Files/Default" + simulationType + ".properties"));
     Scene gameScene = setupScene();
     myStage.setScene(gameScene);
   }
