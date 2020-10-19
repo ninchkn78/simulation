@@ -76,7 +76,8 @@ public class Display extends Application {
   @Override
   public void start(Stage stage) {
     languageProperties = createPropertiesObject();
-    generateSplashScreen(stage, languageProperties);
+    myStage = stage;
+    generateSplashScreen(languageProperties);
   }
 
   //
@@ -94,12 +95,11 @@ public class Display extends Application {
   }
 
 
-  public void generateSplashScreen(Stage stage, Properties languageProperties) {
-    myStage = stage;
+  public void generateSplashScreen(Properties languageProperties) {
     SplashScreen startScreen = new SplashScreen(this, languageProperties);
-    stage.setScene(startScreen.getMyScene()); //connectinga splash screen
-    stage.setTitle(TITLE); //will also come from properties
-    stage.show();
+    myStage.setScene(startScreen.getMyScene()); //connectinga splash screen
+    myStage.setTitle(TITLE); //will also come from properties
+    myStage.show();
   }
 
   public void chooseSimulation(String simulationType, Properties textProperties) {

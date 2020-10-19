@@ -8,9 +8,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 
@@ -36,7 +41,32 @@ public class SplashScreen {
 
     ButtonSetup mySplashScreenSetup = createButtonSetup(root);
     addTextBox(root, mySplashScreenSetup);
+    createLanguageDropdown(root);
+  }
 
+  private void createLanguageDropdown(Group root) {
+
+
+    ObservableList<String> options =
+        FXCollections.observableArrayList(
+            splashProperties.getProperty("Language1"),
+            splashProperties.getProperty("Language2"),
+            splashProperties.getProperty("Language3")
+        );
+    final ComboBox comboBox = new ComboBox(options);
+
+    Label defaultLanguage = new Label("English");
+
+    EventHandler<ActionEvent> event =
+        new EventHandler<ActionEvent>() {
+          public void handle(ActionEvent e)
+          {
+            defaultLanguage.setText(comboBox.getValue() + " selected");
+          }
+        };
+
+    comboBox.setOnAction(event);
+    root.getChildren().add(comboBox);
   }
 
   public ButtonSetup createButtonSetup(Group root) {
