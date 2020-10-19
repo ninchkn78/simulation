@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 
 public class PopUpWindow {
 
+  // TODO: 2020-10-19 this needs to be in side of text properties
   private static final String HEADER_TITLE = "Fill Out Required Information";
   private static final String DIALOG_TITLE = "Save Current Simulation State";
   private static final String BUTTON_TITLE = "Save";

@@ -62,7 +62,6 @@ public class SimulationBoard {
     cells.get(i).add(cellView);
   }
 
-  //TODO: just a thought: maybe put the 2d array in to a list of arrays, and then call Collections.max? - franklin
   private int maxRowLength(String[][] array) {
     int maxRowLength = 0;
     for (String[] row : array) {

@@ -3,7 +3,7 @@ package cellsociety.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import Exceptions.InvalidCSVFormatException;
+import exceptions.InvalidCSVFormatException;
 import org.junit.jupiter.api.Test;
 
 class SetStateReaderTest {

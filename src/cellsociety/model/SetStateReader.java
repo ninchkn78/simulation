@@ -1,6 +1,6 @@
 package cellsociety.model;
 
-import Exceptions.InvalidCSVFormatException;
+import exceptions.InvalidCSVFormatException;
 import java.util.List;
 
 public class SetStateReader extends Reader {
