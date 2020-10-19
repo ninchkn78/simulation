@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class CountStateReader extends Reader{
+public class CountStateReader extends Reader {
 
 
   private final List<String> randomStates = new ArrayList<>();

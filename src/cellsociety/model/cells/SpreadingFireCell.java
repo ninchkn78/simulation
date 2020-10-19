@@ -10,6 +10,18 @@ public class SpreadingFireCell extends Cell {
     super(state);
   }
 
+  public boolean isBurning() {
+    return getState().equals(BURNING);
+  }
+
+  public boolean isEmpty() {
+    return getState().equals(EMPTY);
+  }
+
+  public boolean isTree() {
+    return getState().equals(TREE);
+  }
+
   public enum SpreadingFireState implements CellState {
     EMPTY("0"),
     TREE("1"),
@@ -34,18 +46,6 @@ public class SpreadingFireCell extends Cell {
     public String getState() {
       return state;
     }
-  }
-
-  public boolean isBurning(){
-    return getState().equals(BURNING);
-  }
-
-  public boolean isEmpty(){
-    return getState().equals(EMPTY);
-  }
-
-  public boolean isTree(){
-    return getState().equals(TREE);
   }
 
 

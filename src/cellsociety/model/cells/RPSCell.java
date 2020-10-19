@@ -12,6 +12,27 @@ public class RPSCell extends Cell {
     // opponentState = calculateOpponent();
   }
 
+  public boolean isRock() {
+    return getState().equals(ROCK);
+  }
+
+//  public String calculateOpponent(){
+//    int state = Integer.parseInt(getState());
+//    return Integer.toString((state + 1)%3);
+//  }
+//
+//  public String getOpponentState(){
+//    return opponentState;
+//  }
+
+  public boolean isPaper() {
+    return getState().equals(PAPER);
+  }
+
+  public boolean isScissors() {
+    return getState().equals(SCISSORS);
+  }
+
   public enum RPSState implements CellState {
     ROCK("0"),
     PAPER("1"),
@@ -36,27 +57,6 @@ public class RPSCell extends Cell {
     public String getState() {
       return state;
     }
-  }
-
-//  public String calculateOpponent(){
-//    int state = Integer.parseInt(getState());
-//    return Integer.toString((state + 1)%3);
-//  }
-//
-//  public String getOpponentState(){
-//    return opponentState;
-//  }
-
-  public boolean isRock(){
-    return getState().equals(ROCK);
-  }
-
-  public boolean isPaper(){
-    return getState().equals(PAPER);
-  }
-
-  public boolean isScissors(){
-    return getState().equals(SCISSORS);
   }
 
 
