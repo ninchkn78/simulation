@@ -2,6 +2,7 @@ package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
 import cellsociety.model.cells.SpreadingFireCell;
+import java.util.List;
 import java.util.Random;
 
 public class SpreadingFire extends Simulation {
@@ -34,10 +35,6 @@ public class SpreadingFire extends Simulation {
     }
   }
 
-  public boolean isDirectNeighbor(int x, int y, int currentRow, int currentCol) {
-    return (x == currentRow || y == currentCol);
-  }
-
   public boolean isBurning(int row, int col) { //TODO: Move to cell
     return getGameBoard().getCell(row, col).getState().equals(SpreadingFireCell.BURNING);
   }
@@ -50,14 +47,11 @@ public class SpreadingFire extends Simulation {
     if (isEmpty(currentRow, currentColumn)) {
       return false;
     }
-    for (int i = currentRow - 1; i <= currentRow + 1; i++) {
-      for (int j = currentColumn - 1; j <= currentColumn + 1; j++) {
-        if (getGameBoard().inBounds(i, j) &&
-            isDirectNeighbor(i, j, currentRow, currentColumn) &&
-            isBurning(i, j)) {
-          double probability = rand.nextDouble();
-          return probability > probCatch;
-        }
+    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow,currentColumn).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors){
+      if (isBurning(neighbor.get(0), neighbor.get(1))){
+        double probability = rand.nextDouble();
+        return probability > probCatch;
       }
     }
     return false;

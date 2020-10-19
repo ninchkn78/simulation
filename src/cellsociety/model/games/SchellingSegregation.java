@@ -45,11 +45,10 @@ public class SchellingSegregation extends Simulation {
 
   public int countNeighbors(int row, int col) {
     int neighborCount = 0;
-    for (int i = row - 1; i <= row + 1; i++){
-      for (int j = col - 1; j <= col + 1; j++){
-        if (getGameBoard().inBounds(i,j) && !isVacant(i, j) && !(row == i && col == j)){
-          neighborCount++;
-        }
+    List<List<Integer>> neighbors = getGameBoard().getCell(row,col).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors){
+      if (!isVacant(neighbor.get(0), neighbor.get(1))){
+        neighborCount++;
       }
     }
     return neighborCount;
@@ -69,11 +68,10 @@ public class SchellingSegregation extends Simulation {
 
   public int countOppositeAgent(int row, int col){
     int oppositeAgentCount = 0;
-    for (int i = row - 1; i <= row + 1; i++){
-      for (int j = col - 1; j <= col + 1; j++){
-        if (getGameBoard().inBounds(i,j) && isOppositeAgent(i, j, row, col)){
-          oppositeAgentCount += 1;
-        }
+    List<List<Integer>> neighbors = getGameBoard().getCell(row ,col).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors){
+      if (isOppositeAgent(neighbor.get(0), neighbor.get(1), row, col)){
+        oppositeAgentCount ++;
       }
     }
     return oppositeAgentCount;

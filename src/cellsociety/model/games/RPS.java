@@ -34,7 +34,7 @@ public class RPS extends Simulation {
     int opponentCount = 0;
     List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood().getNeighbors();
     for (List<Integer> neighbor : neighbors){
-      if (isOpponent(row, col, neighbor.get(0), neighbor.get(1))){
+      if (isOpponent(neighbor.get(0), neighbor.get(1), row, col)){
         opponentCount++;
       }
     }
