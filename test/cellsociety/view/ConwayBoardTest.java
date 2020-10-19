@@ -20,12 +20,11 @@ class ConwayBoardTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    Controller controller = new Controller("TestConway.properties");
-    conwayDisplay.setController(new Controller("TestConway.properties"));
     Properties english = conwayDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
-    myScene = conwayDisplay.setupScene(english);
+    conwayDisplay.generateSplashScreen(english,stage);
+    conwayDisplay.chooseSimulation("ConwayGameOfLife",english);
+    Controller controller = new Controller("TestConway.properties");
     conwayDisplay.setNewSimulation(controller);
-    stage.setScene(myScene);
     stage.show();
     //conwayDisplay.setController(controller);
 

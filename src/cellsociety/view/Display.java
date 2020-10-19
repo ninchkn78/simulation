@@ -73,6 +73,7 @@ public class Display extends Application {
     languageProperties = createPropertiesObject(DEFAULT_LANGUAGE_PROP_FILE);
     myStage = stage;
     generateSplashScreen(languageProperties, stage);
+
   }
 
   //
@@ -91,7 +92,6 @@ public class Display extends Application {
 
 
   public void generateSplashScreen(Properties languageProperties, Stage stage) {
-    myBoard = new SimulationBoard(myRoot);
     myStage = stage;
     SplashScreen startScreen = new SplashScreen(this, languageProperties);
     stage.setScene(startScreen.getMyScene()); //connectinga splash screen
@@ -100,6 +100,7 @@ public class Display extends Application {
   }
 
   public void chooseSimulation(String simulationType, Properties textProperties) {
+    myBoard = new SimulationBoard(myRoot);
     stateConfigBox = new StateConfig(myRoot, this, textProperties);
     setNewSimulation(new Controller("Default_Properties_Files/Default" + simulationType + ".properties"));
     Scene gameScene = setupScene(textProperties);
@@ -109,7 +110,6 @@ public class Display extends Application {
 
   // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
   Scene setupScene(Properties textProperties) {
-    myBoard = new SimulationBoard(myRoot);
     stateConfigBox = new StateConfig(myRoot, this, textProperties);
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);

@@ -18,12 +18,11 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    Controller controller = new Controller("TestConway.properties");
-    myDisplay.setController(new Controller("TestConway.properties"));
     Properties english = myDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
-    myScene = myDisplay.setupScene(english);
+    myDisplay.generateSplashScreen(english,stage);
+    myDisplay.chooseSimulation("ConwayGameOfLife",english);
+    Controller controller = new Controller("TestConway.properties");
     myDisplay.setNewSimulation(controller);
-    stage.setScene(myScene);
     stage.show();
   }
 
