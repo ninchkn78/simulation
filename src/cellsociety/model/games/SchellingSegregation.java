@@ -15,8 +15,8 @@ public class SchellingSegregation extends Simulation {
   private final double THRESHOLD = 0.5;
   private Random rand;
 
-  public SchellingSegregation(String csvConfig, String cellType, String neighborPolicy){
-    super(csvConfig, cellType,neighborPolicy);
+  public SchellingSegregation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy){
+    super(csvConfig, cellType,neighborPolicy, edgePolicy);
     rand = new Random();
   }
 

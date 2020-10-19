@@ -9,8 +9,8 @@ import java.util.List;
 
 public class ConwayGameOfLife extends Simulation {
 
-  public ConwayGameOfLife(String csvConfig, String cellType, String neighborPolicy){
-    super(csvConfig, cellType, neighborPolicy);
+  public ConwayGameOfLife(String csvConfig, String cellType, String neighborPolicy, String edgePolicy){
+    super(csvConfig, cellType, neighborPolicy, edgePolicy);
   }
 
   public boolean aliveNextGen(int row, int col) {

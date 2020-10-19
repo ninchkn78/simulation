@@ -7,8 +7,8 @@ public class RPS extends Simulation {
 
   public static final int THRESHOLD = 3;
 
-  public RPS(String csvConfig, String cellType, String neighborPolicy) {
-    super(csvConfig, cellType, neighborPolicy);
+  public RPS(String csvConfig, String cellType, String neighborPolicy, String edgePolicy) {
+    super(csvConfig, cellType, neighborPolicy, edgePolicy);
   }
 
 

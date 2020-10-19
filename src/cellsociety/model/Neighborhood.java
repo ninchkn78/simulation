@@ -9,32 +9,55 @@ public class Neighborhood {
   private static final String CARDINAL = "cardinal";
   private static final String ORDINAL = "ordinal";
 
-
+  private static final String FINITE = "finite";
 
 
   public List<List<Integer>> neighbors;
+  public String neighborPolicy;
+  public String edgePolicy;
 
-  public Neighborhood(int row, int col, GameBoard gameBoard, String policy){
+  public Neighborhood(int row, int col, GameBoard gameBoard, String neighborPolicy, String edgePolicy){
     neighbors = new ArrayList<>();
-    switch (policy) {
-      case COMPLETE -> createCompleteNeighbors(row, col, gameBoard);
-      case CARDINAL -> createAdjacentNeighbors(row, col, gameBoard);
-      case ORDINAL -> createOrdinalNeighbors(row, col, gameBoard);
-    }
+    this.neighborPolicy = neighborPolicy;
+    this.edgePolicy = edgePolicy;
+    createNeighborhood(row, col, gameBoard);
   }
 
   public Neighborhood(){
     neighbors = new ArrayList<>();
   }
 
+  public void createNeighborhood(int row, int col, GameBoard gameBoard){
+    switch (neighborPolicy) {
+      case COMPLETE -> createCompleteNeighbors(row, col, gameBoard);
+      case CARDINAL -> createAdjacentNeighbors(row, col, gameBoard);
+      case ORDINAL -> createOrdinalNeighbors(row, col, gameBoard);
+    }
+  }
+
+
   private void createCompleteNeighbors(int row, int col, GameBoard gameBoard) {
     for (int i = row - 1; i <= row + 1; i++){
       for (int j = col - 1; j <= col + 1; j++){
-        if (gameBoard.inBounds(i,j) && !isOriginalCell(i,j,row,col)){
+        if (!gameBoard.inBounds(i,j)){
+          handleOutOfBounds(i,j, gameBoard);
+        } else if (!isOriginalCell(i,j,row,col)){
           List<Integer> coordinates = createCoordinates(i, j);
           neighbors.add(coordinates);
         }
       }
+    }
+  }
+
+  private void handleOutOfBounds(int row, int col, GameBoard gameBoard) {
+    switch(edgePolicy){
+      case FINITE -> handleFiniteOutOfBounds(row,col, gameBoard);
+    }
+  }
+
+  private void handleFiniteOutOfBounds(int row, int col, GameBoard gameBoard) {
+    if (gameBoard.inBounds(row, col)){
+      neighbors.add(createCoordinates(row, col));
     }
   }
 

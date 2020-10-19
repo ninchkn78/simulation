@@ -12,14 +12,16 @@ public abstract class Simulation {
   private GameBoard board;
   private String cellType;
   private String neighborPolicy;
+  private String edgePolicy;
   private int generation;
 
-  public Simulation(String config, String cellType, String neighborPolicy) {
+  public Simulation(String config, String cellType, String neighborPolicy, String edgePolicy) {
     String[] configAndType = config.split(",");
     Reader stateReader = chooseReader(configAndType[1]);
     this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType, neighborPolicy);
     this.cellType = cellType;
     this.neighborPolicy = neighborPolicy;
+    this.edgePolicy = edgePolicy;
     this.generation = 1;
   }
 
