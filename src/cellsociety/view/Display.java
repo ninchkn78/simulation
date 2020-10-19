@@ -53,6 +53,7 @@ public class Display extends Application {
   private Properties languageProperties;
 
   public Display() {
+
   }
 
   /**
@@ -71,7 +72,7 @@ public class Display extends Application {
   public void start(Stage stage) {
     languageProperties = createPropertiesObject(DEFAULT_LANGUAGE_PROP_FILE);
     myStage = stage;
-    generateSplashScreen(languageProperties);
+    generateSplashScreen(languageProperties, stage);
   }
 
   //
@@ -89,36 +90,44 @@ public class Display extends Application {
   }
 
 
-  public void generateSplashScreen(Properties languageProperties) {
+  public void generateSplashScreen(Properties languageProperties, Stage stage) {
+    myBoard = new SimulationBoard(myRoot);
+    myStage = stage;
     SplashScreen startScreen = new SplashScreen(this, languageProperties);
-    myStage.setScene(startScreen.getMyScene()); //connectinga splash screen
-    myStage.setTitle(TITLE); //will also come from properties
-    myStage.show();
+    stage.setScene(startScreen.getMyScene()); //connectinga splash screen
+    stage.setTitle(TITLE); //will also come from properties
+    stage.show();
   }
 
   public void chooseSimulation(String simulationType, Properties textProperties) {
-    myBoard = new SimulationBoard(myRoot);
-
     stateConfigBox = new StateConfig(myRoot, this, textProperties);
-
-    setController(new Controller("Default_Properties_Files/Default" + simulationType + ".properties"));
+    setNewSimulation(new Controller("Default_Properties_Files/Default" + simulationType + ".properties"));
     Scene gameScene = setupScene(textProperties);
     myStage.setScene(gameScene);
   }
 
+
   // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
   Scene setupScene(Properties textProperties) {
+    myBoard = new SimulationBoard(myRoot);
+    stateConfigBox = new StateConfig(myRoot, this, textProperties);
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    List<String> buttonNameList = myGridViewButtonSetup
-        .parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS, getController().getProperties());
-    myGridViewButtonSetup
-        .buttonPipeline(buttonNameList, myRoot, DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET, textProperties);
+    setUpButtons(textProperties);
     //parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();
     animation.play();
     return scene;
+  }
+
+  private void setUpButtons(Properties textProperties) {
+    Properties properties = myController.getProperties();
+    List<String> buttonNameList = myGridViewButtonSetup
+        .parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS, properties);
+    myGridViewButtonSetup
+        .buttonPipeline(buttonNameList, myRoot, DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET,
+            textProperties);
   }
 
 
@@ -147,7 +156,6 @@ public class Display extends Application {
 
   void step() {
     if (!isPaused) {
-
       animation.setRate(animationSpeed);
       nextGen();
     }
@@ -159,7 +167,7 @@ public class Display extends Application {
   }
 
 
-  public Window getStage() {
+  public Stage getStage() {
     return myStage;
   }
 
@@ -175,11 +183,14 @@ public class Display extends Application {
     return myController;
   }
 
-  public void setController(Controller controller) {
-    myController = controller;
-    // TODO: 2020-10-17 make a simulation board at the beginning, then have another method that updates
+  public void setNewSimulation(Controller controller){
+    setController(controller);
     stateConfigBox.addStateConfigs(myController);
     myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
+  }
+
+  public void setController(Controller controller) {
+    myController = controller;
   }
 }
 

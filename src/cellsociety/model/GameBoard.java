@@ -1,6 +1,6 @@
 package cellsociety.model;
 
-import Exceptions.InvalidCSVFormatException;
+import exceptions.InvalidCSVFormatException;
 import cellsociety.model.cells.Cell;
 import cellsociety.model.cells.WaTorCell;
 import java.lang.reflect.InvocationTargetException;
