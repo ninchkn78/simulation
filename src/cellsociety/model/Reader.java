@@ -1,5 +1,6 @@
 package cellsociety.model;
 
+import Exceptions.InvalidCSVFormatException;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
 import java.io.IOException;
@@ -7,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Objects;
+
 
 public abstract class Reader {
 
@@ -22,16 +24,21 @@ public abstract class Reader {
     return textFile;
   }
 
-  protected List<String[]> readFile(String fileName) {
+  protected List<String[]> readFile(String fileName)  {
     List<String[]> fileData = null;
     InputStream dataStream = getFileInputStream(fileName);
     try (CSVReader csvReader = new CSVReader(new InputStreamReader(dataStream))) {
       fileData = csvReader.readAll();
-    } catch (IOException | CsvException e) {
+      //validateCSV(fileData);
+    } catch(CsvException | IOException e){
       e.printStackTrace();
+      return fileData;
     }
     return fileData;
   }
 
-  public abstract String[][] getStatesFromFile(String fileName);
+  // TODO: 2020-10-18 catch this shit
+  public abstract String[][] getStatesFromFile(String fileName) throws InvalidCSVFormatException;
+
+
 }

@@ -36,5 +36,17 @@ public class SpreadingFireCell extends Cell {
     }
   }
 
+  public boolean isBurning(){
+    return getState().equals(BURNING);
+  }
+
+  public boolean isEmpty(){
+    return getState().equals(EMPTY);
+  }
+
+  public boolean isTree(){
+    return getState().equals(TREE);
+  }
+
 
 }

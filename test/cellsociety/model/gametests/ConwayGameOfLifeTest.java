@@ -1,4 +1,4 @@
-package cellsociety.model;
+package cellsociety.model.gametests;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -11,7 +11,7 @@ public class ConwayGameOfLifeTest {
 
   @Test
   public void conway0ConfigTest() {
-    Simulation conway = new ConwayGameOfLife("board_config/conway0.csv");
+    Simulation conway = new ConwayGameOfLife("board_config/conway0.csv,set",  "ConwayCell");
     String[][] currentStates = conway.getGameBoard().getGameBoardStates();
     conway.nextGen();
     String[][] nextStates = conway.getGameBoard().getGameBoardStates();
@@ -20,7 +20,7 @@ public class ConwayGameOfLifeTest {
 
   @Test
   public void conway1ConfigTest() {
-    Simulation conway = new ConwayGameOfLife("board_config/conway1.csv");
+    Simulation conway = new ConwayGameOfLife("board_config/conway1.csv,set", "ConwayCell");
     conway.nextGen();
     String[][] nextStates = conway.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -40,7 +40,7 @@ public class ConwayGameOfLifeTest {
 
   @Test
   public void conway2ConfigTest() {
-    Simulation conway = new ConwayGameOfLife("board_config/conway2.csv");
+    Simulation conway = new ConwayGameOfLife("board_config/conway2.csv", "ConwayCell");
     conway.nextGen();
     String[][] nextStates = conway.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -60,7 +60,7 @@ public class ConwayGameOfLifeTest {
 
   @Test
   public void conway3ConfigTest() {
-    Simulation conway = new ConwayGameOfLife("board_config/conway3.csv");
+    Simulation conway = new ConwayGameOfLife("board_config/conway3.csv", "ConwayCell");
     conway.nextGen();
     String[][] nextStates = conway.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -80,7 +80,7 @@ public class ConwayGameOfLifeTest {
 
   @Test
   public void conway4ConfigTest() {
-    Simulation conway = new ConwayGameOfLife("board_config/conway4.csv");
+    Simulation conway = new ConwayGameOfLife("board_config/conway4.csv", "ConwayCell");
     conway.nextGen();
     String[][] nextStates = conway.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -101,7 +101,7 @@ public class ConwayGameOfLifeTest {
 
   @Test
   public void conway5ConfigTest() {
-    Simulation conway = new ConwayGameOfLife("board_config/conway5.csv");
+    Simulation conway = new ConwayGameOfLife("board_config/conway5.csv", "ConwayCell");
     conway.nextGen();
     String[][] nextStates = conway.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -121,7 +121,7 @@ public class ConwayGameOfLifeTest {
 
   @Test
   public void conway6ConfigTest() {
-    Simulation conway = new ConwayGameOfLife("board_config/conway6.csv");
+    Simulation conway = new ConwayGameOfLife("board_config/conway6.csv", "ConwayCell");
     conway.nextGen();
     String[][] nextStates = conway.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -141,7 +141,7 @@ public class ConwayGameOfLifeTest {
 
   @Test
   public void conway7ConfigTest() {
-    Simulation conway = new ConwayGameOfLife("board_config/conway7.csv");
+    Simulation conway = new ConwayGameOfLife("board_config/conway7.csv", "ConwayCell");
     conway.nextGen();
     String[][] nextStates = conway.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =

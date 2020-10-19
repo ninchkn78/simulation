@@ -14,23 +14,9 @@ class GameBoardTest {
 
   @BeforeEach
   void init() {
-    board = new GameBoard(5, 5);
+    board = new GameBoard(5, 5, "ConwayCell");
   }
 
-  @Test
-  public void clear() {
-    for (int i = 0; i < board.getHeight(); i++) {
-      for (int j = 0; j < board.getWidth(); j++) {
-        board.setPiece(i, j, ConwayCell.ALIVE);
-      }
-    }
-    board.clear();
-    for (int i = 0; i < board.getHeight(); i++) {
-      for (int j = 0; j < board.getWidth(); j++) {
-        assertEquals(ConwayCell.DEAD, board.getCell(i, j).getState());
-      }
-    }
-  }
 
   @Test
   public void inBoundsTest() {

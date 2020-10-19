@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-class ButtonSetupTest extends DukeApplicationTest {
+class GridViewButtonSetupTest extends DukeApplicationTest {
 
   private final Display myDisplay = new Display();
   Scene myScene;
@@ -18,20 +18,21 @@ class ButtonSetupTest extends DukeApplicationTest {
   @Override
   public void start(Stage stage) {
     // create game's scene with all shapes in their initial positions and show i
-    myScene = myDisplay.setupScene();
-    stage.setScene(myScene);
-    stage.show();
-    javafxRun(() -> myDisplay.setController(new Controller("TestConway.properties")));
+    //javafxRun(() -> myDisplay.setController(new Controller("DefaultConwayGameOfLife.properties")));
+    myDisplay.chooseSimulation("ConwayGameOfLife");
+    //myScene = myDisplay.setupScene();
+    //stage.setScene(myScene);
+    //stage.show();
   }
 
   @Test
   public void testButtonGeneration() {
 
-    lookup("#loadFileButton").queryButton();
-    lookup("#runButton").queryButton();
-    lookup("#saveFileButton").queryButton();
-    lookup("#pauseButton").queryButton();
-    lookup("#chooseImageButton").queryButton();
+    lookup("#Load File").queryButton();
+    lookup("#Play").queryButton();
+    lookup("#Save File").queryButton();
+    lookup("#Pause").queryButton();
+    lookup("#Image").queryButton();
   }
 
   @Test
@@ -75,7 +76,7 @@ class ButtonSetupTest extends DukeApplicationTest {
   @Test
   public void testStepButton() {
 
-    Button stepButton = lookup("#stepButton").queryButton();
+    Button stepButton = lookup("#Step Once").queryButton();
 
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
