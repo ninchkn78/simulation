@@ -170,7 +170,6 @@ public class GameBoard {
     gameBoardStates[row][col] = cell.getState();
   }
 
-
   public void swapCells(int row1, int col1, int row2, int col2) {
     Cell firstCell = getCell(row1, col1);
     Cell secondCell = getCell(row2, col2);
