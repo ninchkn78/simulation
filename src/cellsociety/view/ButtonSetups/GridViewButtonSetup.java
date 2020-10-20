@@ -66,7 +66,6 @@ public class GridViewButtonSetup extends ButtonSetup {
   public void checkSaveFile(Button fileSaveButton) {
     fileSaveButton.setOnAction(e -> {
       if (myDisplay.getController() != null) {
-        System.out.println("WRITE FILE");
         GameBoard myGameBoard = myDisplay.getController().getGameBoard();
         PopUpWindow pUp = new PopUpWindow(myDisplay, myGameBoard, languageProperties);
       }

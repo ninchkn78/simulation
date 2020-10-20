@@ -92,6 +92,7 @@ public class GameBoard {
     return cellsList;
   }
 
+
   public List<Integer> createCoordinates (int row, int col){
     List<Integer> coordinates = new ArrayList<>();
     coordinates.add(row);

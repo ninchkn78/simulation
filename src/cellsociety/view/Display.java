@@ -197,6 +197,7 @@ public class Display extends Application {
     } catch(InvalidPropertiesFileException e){
       makeAlert("Bad",e.getMessage());
     }catch(InvocationTargetException e){
+      System.out.println(e.getCause());
       makeAlert("Bad Bad",e.getCause().getLocalizedMessage());
     }
   }

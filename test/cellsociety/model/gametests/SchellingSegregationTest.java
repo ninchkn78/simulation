@@ -10,7 +10,7 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation0ConfigTest(){
-    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation0.csv,set", "SchellingCell", "complete", "finite", new String[]{"0","1", "2"});
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation0.csv,set", "SchellingCell", "Complete", "Finite", new String[]{"0","1", "2"});
     segregation.setSeed(0);
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
@@ -32,7 +32,7 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation1ConfigTest(){
-    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation1.csv,set", "SchellingCell", "complete", "finite", new String[]{"0","1", "2"});
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation1.csv,set", "SchellingCell", "Complete", "Finite", new String[]{"0","1", "2"});
     segregation.setSeed(0);
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
@@ -54,7 +54,7 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation2ConfigTest(){
-    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation2.csv,set", "SchellingCell", "complete", "finite", new String[]{"0","1", "2"});
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation2.csv,set", "SchellingCell", "Complete", "Finite", new String[]{"0","1", "2"});
     segregation.setSeed(0);
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
@@ -76,7 +76,7 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation2CardinalNeighborTest(){
-    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation2.csv,set", "SchellingCell", "cardinal", "finite", new String[]{"0","1", "2"});
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation2.csv,set", "SchellingCell", "Cardinal", "Finite", new String[]{"0","1", "2"});
     segregation.setSeed(0);
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
@@ -98,7 +98,7 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation3OrdinalNeighborTest(){
-    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation3.csv,set", "SchellingCell", "ordinal", "finite", new String[]{"0","1", "2"});
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation3.csv,set", "SchellingCell", "Ordinal", "Finite", new String[]{"0","1", "2"});
     segregation.setSeed(0);
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
@@ -120,7 +120,7 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation3ToroidalEdgeTest(){
-    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation3.csv,set", "SchellingCell", "complete", "toroidal", new String[]{"0","1", "2"});
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation3.csv,set", "SchellingCell", "Complete", "Toroidal", new String[]{"0","1", "2"});
     segregation.setSeed(0);
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
@@ -142,7 +142,7 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation3CrossSurfaceEdgeTest(){
-    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation3.csv,set", "SchellingCell", "complete", "cross-surface", new String[]{"0","1", "2"});
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation3.csv,set", "SchellingCell", "Complete", "CrossSurface", new String[]{"0","1", "2"});
     segregation.setSeed(0);
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
