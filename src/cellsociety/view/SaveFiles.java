@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+import cellsociety.model.GameBoard;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Arrays;
@@ -12,17 +13,16 @@ public class SaveFiles {
   private static final String NEW_LINE = "\n";
 
 
-  public void saveState(String[][] currentState, String Title) throws IOException {
+  public void saveState(GameBoard currentBoard, String Title) throws IOException {
 
     FileWriter csvWriter = new FileWriter(SAVE_DIR + Title + EXTENSION);
-    makeHeader(csvWriter, currentState);
-    writeRows(csvWriter, currentState);
+    makeHeader(csvWriter, currentBoard.getGameBoardStates());
+    writeRows(csvWriter, currentBoard.getGameBoardStates());
     csvWriter.flush();
     csvWriter.close();
   }
 
   private void makeHeader(FileWriter csvWriter, String[][] currentState) throws IOException {
-    System.out.println(Arrays.deepToString(currentState));
     csvWriter.append(Integer.toString(currentState.length));
     csvWriter.append(COMMA_DELIM);
     csvWriter.append(Integer.toString(currentState[0].length));
