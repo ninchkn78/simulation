@@ -142,7 +142,7 @@ public class GameBoard {
     }
   }
 
-  public Cell[][] createCellConfiguration(String[][] stateConfig){ //TODO: make this work for all cell types
+  public Cell[][] createCellConfiguration(String[][] stateConfig){
     Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
     for (int i = 0; i < height; i++){
       for (int j = 0; j < width; j++){
