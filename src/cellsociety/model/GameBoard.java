@@ -58,15 +58,7 @@ public class GameBoard {
     Cell[][] cellConfig = new Cell[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        Class operation;
-        try {
-          operation = Class.forName("cellsociety.model.cells." + cellType);
-          cellConfig[i][j] = (Cell) operation.getConstructor(String.class, Neighborhood.class)
-              .newInstance("0", createNeighborhood(i, j));
-        }
-        catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-          e.printStackTrace();
-        }
+        cellConfig[i][j] = createCell("0", i, j);
       }
     }
     return cellConfig;
@@ -88,19 +80,23 @@ public class GameBoard {
     return (row >= 0 && col >= 0) && (row < height && col < width);
   }
 
-  public List<List<Integer>> getPositionsOfCellState(String state) {
+  public List<List<Integer>> getAllPositionsOfCellState(String state) {
     List<List<Integer>> cellsList = new ArrayList<>();
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (gameBoardStates[i][j].equals(state)) {
-          List<Integer> coordinates = new ArrayList<>();
-          coordinates.add(i);
-          coordinates.add(j);
-          cellsList.add(coordinates);
+          cellsList.add(createCoordinates(i,j));
         }
       }
     }
     return cellsList;
+  }
+
+  public List<Integer> createCoordinates (int row, int col){
+    List<Integer> coordinates = new ArrayList<>();
+    coordinates.add(row);
+    coordinates.add(col);
+    return coordinates;
   }
 
   public List<List<Integer>> getNeighboringPositionsOfCellState(String state, int row, int col) {
@@ -108,10 +104,7 @@ public class GameBoard {
     List<List<Integer>> neighbors = getCell(row,col).getNeighborhood().getNeighbors();
     for (List<Integer> neighbor : neighbors){
       if (gameBoardStates[neighbor.get(0)][neighbor.get(1)].equals(state)){
-        List<Integer> coordinates = new ArrayList<>();
-        coordinates.add(neighbor.get(0));
-        coordinates.add(neighbor.get(1));
-        cellsList.add(coordinates);
+        cellsList.add(createCoordinates(row,col));
       }
     }
     return cellsList;
@@ -146,17 +139,22 @@ public class GameBoard {
     Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
     for (int i = 0; i < height; i++){
       for (int j = 0; j < width; j++){
-        Class operation;
-        try {
-          operation = Class.forName("cellsociety.model.cells." + cellType);
-          cellConfig[i][j]  = (Cell) operation.getConstructor(String.class, Neighborhood.class)
-              .newInstance(stateConfig[i][j], createNeighborhood(i, j));
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-          e.printStackTrace();
-        }
+        cellConfig[i][j] = createCell(stateConfig[i][j], i, j);
       }
     }
     return cellConfig;
+  }
+
+  public Cell createCell(String state, int row, int col){
+    Class operation;
+    try {
+      operation = Class.forName("cellsociety.model.cells." + cellType);
+      return (Cell) operation.getConstructor(String.class, Neighborhood.class)
+          .newInstance(state, createNeighborhood(row, col));
+    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
 
   public void apply(TriConsumer<Integer, Integer, String> updateCellState) {
