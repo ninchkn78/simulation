@@ -15,7 +15,7 @@ class GameBoardTest {
 
   @BeforeEach
   void init() {
-    board = new GameBoard(5, 5, "ConwayCell");
+    board = new GameBoard(5, 5, "ConwayCell", "complete", "finite");
   }
 
 
@@ -32,6 +32,6 @@ class GameBoardTest {
   @Test
   void invalidCSVStateThrowsException(){
     String[][] initialStates = {{"0","1"},{"1","2"}};
-    assertThrows(InvalidCSVFormatException.class,() -> new GameBoard(initialStates, "ConwayCell", new String[]{"0", "1"}));
+    assertThrows(InvalidCSVFormatException.class,() -> new GameBoard(initialStates, "ConwayCell", "complete", "finite", new String[]{"0", "1"}));
   }
 }

@@ -2,25 +2,26 @@ package cellsociety.model.games;
 
 
 import cellsociety.model.GameBoard;
+import cellsociety.model.Neighborhood;
 import cellsociety.model.cells.Cell;
 import cellsociety.model.cells.ConwayCell;
+import java.util.List;
 
 public class ConwayGameOfLife extends Simulation {
 
-  public ConwayGameOfLife(String csvConfig, String cellType, String[] possibleStates) {
-    super(csvConfig, cellType, possibleStates);
+  public ConwayGameOfLife(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates){
+    super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
   }
 
   public boolean aliveNextGen(int row, int col) {
-    Cell currentCell = getGameBoard().getCell(row, col);
-    if (isAlive(currentCell)) {
+    if (isAlive(row, col)) {
       return countLivingNeighbors(row, col) > 1 && countLivingNeighbors(row, col) < 4;
     }
     return countLivingNeighbors(row, col) == 3;
   }
 
-  public boolean isAlive(Cell cell) {
-    return cell.getState().equals(ConwayCell.ALIVE);
+  public boolean isAlive(int row, int col) {
+    return getGameBoard().getCell(row, col).getState().equals(ConwayCell.ALIVE);
   }
 
   @Override
@@ -34,14 +35,10 @@ public class ConwayGameOfLife extends Simulation {
 
   public int countLivingNeighbors(int currentRow, int currentColumn) {
     int aliveCount = 0;
-    for (int i = currentRow - 1; i <= currentRow + 1; i++) {
-      for (int j = currentColumn - 1; j <= currentColumn + 1; j++) {
-        if (getGameBoard().inBounds(i, j) && isAlive(getGameBoard().getCell(i, j)) && !(
-            currentRow == i
-                && currentColumn == j)) { //TODO: make this not ugly af
-
-          aliveCount++;
-        }
+    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow,currentColumn).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors){
+      if (isAlive(neighbor.get(0), neighbor.get(1))){
+        aliveCount++;
       }
     }
     return aliveCount;
