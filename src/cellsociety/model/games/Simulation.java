@@ -15,10 +15,11 @@ public abstract class Simulation {
   private String edgePolicy;
   private int generation;
 
-  public Simulation(String config, String cellType, String neighborPolicy, String edgePolicy) {
+  public Simulation(String config, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
     String[] configAndType = config.split(",");
     Reader stateReader = chooseReader(configAndType[1]);
-    this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType, neighborPolicy, edgePolicy);
+    this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType, neighborPolicy, edgePolicy,
+        possibleStates);
     this.cellType = cellType;
     this.neighborPolicy = neighborPolicy;
     this.edgePolicy = edgePolicy;
@@ -54,20 +55,21 @@ public abstract class Simulation {
         updateCell(nextBoard, i, j);
       }
     }
-    incrementGeneration();
     board = nextBoard;
   }
 
-  private Reader chooseReader(String configType){
+  public void validateStates(String[] states) {
+
+  }
+
+  private Reader chooseReader(String configType) {
     // TODO: 2020-10-18  maybe do a reflection here if I'm feeling it
-    if(configType.equals("set")){
-      return new SetStateReader();
-    }
-    else if(configType.equals("count")){
-      return new CountStateReader();
-    }
-    else{
+    if (configType.equals("random")) {
       return new RandomStateReader();
+    } else if (configType.equals("count")) {
+      return new CountStateReader();
+    } else {
+      return new SetStateReader();
     }
   }
 

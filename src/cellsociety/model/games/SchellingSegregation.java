@@ -1,10 +1,7 @@
 package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
-import cellsociety.model.cells.Cell;
 import cellsociety.model.cells.SchellingCell;
-import cellsociety.model.cells.SpreadingFireCell;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -13,20 +10,19 @@ public class SchellingSegregation extends Simulation {
 
 
   private final double THRESHOLD = 0.5;
-  private Random rand;
+  private final Random rand;
 
-  public SchellingSegregation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy){
-    super(csvConfig, cellType,neighborPolicy, edgePolicy);
+  public SchellingSegregation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates){
+    super(csvConfig, cellType,neighborPolicy, edgePolicy, possibleStates);
     rand = new Random();
   }
 
-
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col) {
-    if(!isVacant(row, col)){
+    if (!isVacant(row, col)) {
       gameBoard.setPiece(row, col, getGameBoard().getState(row, col));
     }
-    if(willMove(row, col)) {
+    if (willMove(row, col)) {
       List<List<Integer>> vacantCells = getGameBoard()
           .getPositionsOfCellState(SchellingCell.VACANT);
       int vacantIndex = rand.nextInt(vacantCells.size());
@@ -47,18 +43,19 @@ public class SchellingSegregation extends Simulation {
   }
 
   public boolean isOppositeAgent(int x, int y, int row, int col) { //TODO: Move to cell
-    return !getState(x,y).equals(SchellingCell.VACANT) && !getState(x, y).equals(getState(row, col));
+    return !getState(x, y).equals(SchellingCell.VACANT) && !getState(x, y)
+        .equals(getState(row, col));
   }
 
   public boolean isVacant(int row, int col) { //TODO: Move to cell
-    return getState(row,col).equals(SchellingCell.VACANT);
+    return getState(row, col).equals(SchellingCell.VACANT);
   }
 
   public String getState(int row, int col) {
     return getGameBoard().getCell(row, col).getState();
   }
 
-  public int countOppositeAgent(int row, int col){
+  public int countOppositeAgent(int row, int col) {
     int oppositeAgentCount = 0;
     List<List<Integer>> neighbors = getGameBoard().getCell(row ,col).getNeighborhood().getNeighbors();
     for (List<Integer> neighbor : neighbors){
@@ -69,8 +66,8 @@ public class SchellingSegregation extends Simulation {
     return oppositeAgentCount;
   }
 
-  public boolean willMove(int row, int col){
-    if (isVacant(row, col)){
+  public boolean willMove(int row, int col) {
+    if (isVacant(row, col)) {
       return false;
     }
     int neighborCount = countNeighbors(row, col);
@@ -81,6 +78,5 @@ public class SchellingSegregation extends Simulation {
   public void setSeed(long seed){
     rand.setSeed(seed);
   }
-
 
 }

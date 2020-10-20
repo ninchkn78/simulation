@@ -11,7 +11,7 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire0ConfigTest(){
-    Simulation spreadingFire = new SpreadingFire("board_config/spreadingfire0.csv", "SpreadingFireCell", "complete", "finite");
+    Simulation spreadingFire = new SpreadingFire("board_config/spreadingfire0.csv", "SpreadingFireCell", "complete", "finite", new String[]{"0","1", "2"});
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -32,7 +32,7 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire1ConfigTest(){
-    Simulation spreadingFire = new SpreadingFire("board_config/spreadingfire1.csv", "SpreadingFireCell", "complete", "finite");
+    Simulation spreadingFire = new SpreadingFire("board_config/spreadingfire1.csv", "SpreadingFireCell", "complete", "finite", new String[]{"0","1", "2"});
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -53,7 +53,7 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire2ConfigTest(){
-    Simulation spreadingFire = new SpreadingFire("board_config/spreadingfire2.csv", "SpreadingFireCell", "complete", "finite");
+    Simulation spreadingFire = new SpreadingFire("board_config/spreadingfire2.csv", "SpreadingFireCell", "complete", "finite", new String[]{"0","1", "2"});
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =

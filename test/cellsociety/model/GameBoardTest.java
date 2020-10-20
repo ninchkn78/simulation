@@ -2,9 +2,10 @@ package cellsociety.model;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import cellsociety.model.cells.ConwayCell;
+import exceptions.InvalidCSVFormatException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,5 +29,9 @@ class GameBoardTest {
     assertFalse(board.inBounds(0, 10));
   }
 
-
+  @Test
+  void invalidCSVStateThrowsException(){
+    String[][] initialStates = {{"0","1"},{"1","2"}};
+    assertThrows(InvalidCSVFormatException.class,() -> new GameBoard(initialStates, "ConwayCell", "complete", "finite", new String[]{"0", "1"}));
+  }
 }

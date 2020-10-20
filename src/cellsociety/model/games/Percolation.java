@@ -6,8 +6,8 @@ import java.util.List;
 
 public class Percolation extends Simulation {
 
-  public Percolation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy) {
-    super(csvConfig, cellType, neighborPolicy, edgePolicy);
+  public Percolation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+    super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
   }
 
   @Override

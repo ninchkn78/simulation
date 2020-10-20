@@ -1,13 +1,16 @@
 package cellsociety.model;
 
+import exceptions.InvalidCSVFormatException;
 import cellsociety.model.cells.Cell;
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 
-public class GameBoard{
+public class GameBoard {
 
   private final int width;
   private final int height;
@@ -29,7 +32,7 @@ public class GameBoard{
     setGameBoardStates(gameBoardCells);
   }
 
-  public GameBoard(String[][] initialStateConfig, String cellType, String neighborPolicy, String edgePolicy) {
+  public GameBoard(String[][] initialStateConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
     this.width = initialStateConfig[0].length;
     this.height = initialStateConfig.length;
     this.cellType = cellType;
@@ -37,14 +40,26 @@ public class GameBoard{
     this.edgePolicy = edgePolicy;
     this.gameBoardCells = createCellConfiguration(initialStateConfig);
     this.gameBoardStates = initialStateConfig;
+    validateStates(possibleStates);
+  }
+
+  public void validateStates(String[] possibleStates) {
+    Set<String> statesSet = new HashSet<>(Arrays.asList(possibleStates));
+    for (int i = 0; i < gameBoardStates.length; i++) {
+      for (int j = 0; j < gameBoardStates[i].length; j++) {
+        if (!statesSet.contains(gameBoardStates[i][j])) {
+          throw new InvalidCSVFormatException("this will be a message from a resources file");
+        }
+      }
+    }
   }
 
   public Cell[][] initializeGameBoardCells(int width, int height) {
     Cell[][] cellConfig = new Cell[height][width];
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         Class operation;
-        try{
+        try {
           operation = Class.forName("cellsociety.model.cells." + cellType);
           cellConfig[i][j] = (Cell) operation.getConstructor(String.class, Neighborhood.class)
               .newInstance("0", createNeighborhood(i, j));
@@ -74,11 +89,11 @@ public class GameBoard{
     return (row >= 0 && col >= 0) && (row < height && col < width);
   }
 
-  public List<List<Integer>> getPositionsOfCellState(String state){
+  public List<List<Integer>> getPositionsOfCellState(String state) {
     List<List<Integer>> cellsList = new ArrayList<>();
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
-        if (gameBoardStates[i][j].equals(state)){
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
+        if (gameBoardStates[i][j].equals(state)) {
           List<Integer> coordinates = new ArrayList<>();
           coordinates.add(i);
           coordinates.add(j);
@@ -89,7 +104,7 @@ public class GameBoard{
     return cellsList;
   }
 
-  public List<List<Integer>> getNeighboringPositionsOfCellState(String state, int row, int col){
+  public List<List<Integer>> getNeighboringPositionsOfCellState(String state, int row, int col) {
     List<List<Integer>> cellsList = new ArrayList<>();
     List<List<Integer>> neighbors = getCell(row,col).getNeighborhood().getNeighbors();
     for (List<Integer> neighbor : neighbors){
@@ -108,7 +123,7 @@ public class GameBoard{
     gameBoardStates[row][col] = state;
   }
 
-  public int getWidth(){
+  public int getWidth() {
     return width;
   }
 
@@ -146,7 +161,6 @@ public class GameBoard{
     return cellConfig;
   }
 
-
   public void apply(TriConsumer<Integer, Integer, String> updateCellState) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
@@ -155,7 +169,7 @@ public class GameBoard{
     }
   }
 
-  public void copyCell(int row, int col, Cell cell){
+  public void copyCell(int row, int col, Cell cell) {
     gameBoardCells[row][col] = cell;
     gameBoardStates[row][col] = cell.getState();
   }

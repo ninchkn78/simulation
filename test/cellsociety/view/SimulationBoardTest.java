@@ -1,6 +1,7 @@
 package cellsociety.view;
 
 import cellsociety.controller.Controller;
+import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -20,19 +21,19 @@ class SimulationBoardTest extends DukeApplicationTest {
 
   @Override
   public void start(Stage stage) {
-    myScene = conwayDisplay.setupScene();
-    stage.setScene(myScene);
+    Properties english = conwayDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
+    conwayDisplay.generateSplashScreen(english,stage);
+    conwayDisplay.chooseSimulation("ConwayGameOfLife",english);
+    Controller controller = new Controller("TestConway.properties");
+    conwayDisplay.setNewSimulation(controller);
     stage.show();
-    javafxRun(() -> conwayDisplay.setController(new Controller("TestConway.properties")));
   }
 
   @Test
   void testColorChangesOnClick() {
     Rectangle cell1 = lookup("#cell1,0").query();
-    clickOn(cell1);
-
-    Assertions.assertEquals(Color.BLUE, cell1.getFill());
+    clickOn("#cell1,0");
+    Assertions.assertEquals(Color.DARKSLATEBLUE, cell1.getFill());
     Assertions.assertEquals(0, cell1.getY());
   }
-
 }

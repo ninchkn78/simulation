@@ -7,17 +7,18 @@ import java.util.Random;
 
 public class SpreadingFire extends Simulation {
 
-  public Random rand;
   public static final double probCatch = 0.5;
+  public Random rand;
 
-  public SpreadingFire(String csvConfig, String cellType, String neighborPolicy, String edgePolicy) {
-    super(csvConfig, cellType,  neighborPolicy, edgePolicy);
+
+  public SpreadingFire(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+    super(csvConfig, cellType,  neighborPolicy, edgePolicy, possibleStates);
     rand = new Random();
   }
 
   @Override
-  public void updateCell(GameBoard gameBoard, int row, int col){
-    if (isBurning(row, col)){
+  public void updateCell(GameBoard gameBoard, int row, int col) {
+    if (isBurning(row, col)) {
       gameBoard.setPiece(row, col, SpreadingFireCell.EMPTY);
     } else if (burningNextGen(row, col)) {
       gameBoard.setPiece(row, col, SpreadingFireCell.BURNING);

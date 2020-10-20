@@ -1,8 +1,10 @@
 package cellsociety.view;
 
 import cellsociety.controller.Controller;
+import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -13,38 +15,38 @@ import util.DukeApplicationTest;
 class GridViewButtonSetupTest extends DukeApplicationTest {
 
   private final Display myDisplay = new Display();
-  Scene myScene;
+
 
   @Override
   public void start(Stage stage) {
-    // create game's scene with all shapes in their initial positions and show i
-    //javafxRun(() -> myDisplay.setController(new Controller("DefaultConwayGameOfLife.properties")));
-    myDisplay.chooseSimulation("ConwayGameOfLife");
-    //myScene = myDisplay.setupScene();
-    //stage.setScene(myScene);
-    //stage.show();
+    Properties english = myDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
+    myDisplay.generateSplashScreen(english,stage);
+    myDisplay.chooseSimulation("ConwayGameOfLife",english);
+    Controller controller = new Controller("TestConway.properties");
+    myDisplay.setNewSimulation(controller);
+    stage.show();
   }
 
   @Test
   public void testButtonGeneration() {
 
-    lookup("#Load File").queryButton();
+    lookup("#LoadFile").queryButton();
     lookup("#Play").queryButton();
-    lookup("#Save File").queryButton();
+    lookup("#SaveFile").queryButton();
     lookup("#Pause").queryButton();
     lookup("#Image").queryButton();
   }
 
   @Test
   public void testRunButton() {
-    Button runButton = lookup("#runButton").queryButton();
+    Button runButton = lookup("#Play").queryButton();
 
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
     Assertions.assertEquals(Color.BLUE, cell1.getFill());
     Assertions.assertEquals(Color.RED, cell2.getFill());
     runButton.fire();
-    javafxRun(() -> myDisplay.step(myDisplay.getAnimationSpeed()));
+    javafxRun(() -> myDisplay.step());
     Assertions.assertEquals(Color.RED, cell1.getFill());
     Assertions.assertEquals(Color.BLUE, cell2.getFill());
 
@@ -54,7 +56,7 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
 
   public void testPauseButton() {
 
-    Button pause = lookup("#pauseButton").queryButton();
+    Button pause = lookup("#Pause").queryButton();
 
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
@@ -67,7 +69,7 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
 
     pause.fire();
 
-    javafxRun(() -> myDisplay.step(myDisplay.getAnimationSpeed()));
+    javafxRun(() -> myDisplay.step());
     Assertions.assertEquals(Color.RED, cell1.getFill());
     Assertions.assertEquals(Color.BLUE, cell2.getFill());
 
@@ -76,7 +78,7 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
   @Test
   public void testStepButton() {
 
-    Button stepButton = lookup("#Step Once").queryButton();
+    Button stepButton = lookup("#StepOnce").queryButton();
 
     Rectangle cell1 = lookup("#cell1,0").query();
     Rectangle cell2 = lookup("#cell0,1").query();
@@ -89,5 +91,12 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
 
   }
 
+  @Test
+  public void testImageButton() {
+    Button imageButton = lookup("#Image").queryButton();
+    javafxRun(() -> imageButton.fire());
+    ImageView cell1 = lookup("#cell1,0").query();
+    ImageView cell2 = lookup("#cell0,1").query();
+  }
 
 }

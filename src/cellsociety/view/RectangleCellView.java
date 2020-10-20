@@ -32,21 +32,6 @@ public class RectangleCellView extends Group implements CellView {
     this.state = state;
   }
 
-  public double getWidth() {
-    return rectangle.getWidth();
-  }
-
-  public double getHeight() {
-    return rectangle.getHeight();
-  }
-
-  public Paint getFill() {
-    return rectangle.getFill();
-  }
-
-  public void setFill(Paint color) {
-    rectangle.setFill(color);
-  }
 
   public void updateView(String state, Properties properties) {
     // TODO: 2020-10-10 better error handling
@@ -63,13 +48,10 @@ public class RectangleCellView extends Group implements CellView {
   }
 
   private void addEventListener() {
-    EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
-      @Override
-      public void handle(MouseEvent e) {
+    EventHandler<MouseEvent> eventHandler = e -> {
 
-        System.out.println("Hello World");
-        rectangle.setFill(Color.DARKSLATEBLUE);
-      }
+      System.out.println("Hello World");
+      rectangle.setFill(Color.DARKSLATEBLUE);
     };
     //Registering the event filter
     rectangle.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);

@@ -49,7 +49,6 @@ public class Neighborhood {
         }
       }
     }
-    System.out.println(neighbors);
   }
 
   private void handleOutOfBounds(int row, int col, GameBoard gameBoard) {

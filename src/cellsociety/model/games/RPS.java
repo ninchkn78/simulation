@@ -7,10 +7,9 @@ public class RPS extends Simulation {
 
   public static final int THRESHOLD = 3;
 
-  public RPS(String csvConfig, String cellType, String neighborPolicy, String edgePolicy) {
-    super(csvConfig, cellType, neighborPolicy, edgePolicy);
+  public RPS(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+    super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
   }
-
 
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col) {
@@ -46,6 +45,4 @@ public class RPS extends Simulation {
     String opponentState = getOpponent(currentRow, currentColumn);
     return currentState.equals(opponentState);
   }
-
-
 }
