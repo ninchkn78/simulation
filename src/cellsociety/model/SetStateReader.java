@@ -19,7 +19,7 @@ public class SetStateReader extends Reader {
       throws InvalidCSVFormatException {
     if (Integer.parseInt(dimensions[0]) != list.size() ||
         Integer.parseInt(dimensions[1]) != list.get(1).length) {
-      throw new InvalidCSVFormatException("Invalid Dimensions");
+      throw new InvalidCSVFormatException("Invalid CSV Dimensions");
     }
   }
 }

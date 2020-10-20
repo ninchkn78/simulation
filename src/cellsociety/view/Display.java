@@ -17,6 +17,9 @@ import javafx.application.Application;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -191,10 +194,19 @@ public class Display extends Application {
       stateConfigBox.addStateConfigs(myController);
       myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
     } catch(InvalidPropertiesFileException e){
-      System.out.println(e.getMessage());
+      makeAlert("Bad",e.getMessage());
     }catch(InvocationTargetException e){
-      System.out.println(e.getCause());
+      makeAlert("Bad Bad",e.getCause().getLocalizedMessage());
     }
+  }
+
+  public void makeAlert (String header, String message) {
+    Alert a = new Alert(Alert.AlertType.NONE);
+    ButtonType close = new ButtonType(":(", ButtonBar.ButtonData.CANCEL_CLOSE);
+    a.getButtonTypes().addAll(close);
+    a.setHeaderText(header);
+    a.setContentText(message);
+    a.show();
   }
 
   public void setController(Controller controller) {
