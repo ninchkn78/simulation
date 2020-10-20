@@ -18,7 +18,7 @@ public class GridViewButtonSetup extends ButtonSetup {
 
 
   private final Display myDisplay;
-
+  private Properties languageProperties;
 
   public GridViewButtonSetup(Display display) {
     myDisplay = display;
@@ -26,7 +26,8 @@ public class GridViewButtonSetup extends ButtonSetup {
 
 
   @Override
-  protected void invokeHandlerMethod(String buttonName, Button currentButton, Properties languageProperties) {
+  protected void invokeHandlerMethod(String buttonName, Button currentButton, Properties textProperties) {
+    languageProperties = textProperties;
     try {
       Method method = this.getClass().getDeclaredMethod("check" + buttonName, Button.class);
       method.invoke(this, currentButton);
@@ -67,7 +68,7 @@ public class GridViewButtonSetup extends ButtonSetup {
       if (myDisplay.getController() != null) {
         System.out.println("WRITE FILE");
         GameBoard myGameBoard = myDisplay.getController().getGameBoard();
-        PopUpWindow pUp = new PopUpWindow(myDisplay, myGameBoard);
+        PopUpWindow pUp = new PopUpWindow(myDisplay, myGameBoard, languageProperties);
       }
     });
   }
