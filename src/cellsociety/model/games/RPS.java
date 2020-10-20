@@ -26,7 +26,7 @@ public class RPS extends Simulation {
 
   public String getOpponent(int row, int col) {
     int state = Integer.parseInt(getGameBoard().getCell(row, col).getState());
-    return Integer.toString((state + 1) % 3);
+    return Integer.toString((state + 1) % getPossibleStates().length);
   }
 
   public int countNeighboringOpponents(int row, int col) {

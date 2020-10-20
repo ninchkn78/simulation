@@ -11,11 +11,12 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation0ConfigTest(){
-    Simulation segregation = new SchellingSegregation("board_config/segregation0.csv", "SchellingCell", "complete", "finite", new String[]{"0","1", "2"});
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation0.csv,set", "SchellingCell", "complete", "finite", new String[]{"0","1", "2"});
+    segregation.setSeed(0);
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
-        {{"0","0","2","2","1","0","1","0","2","1","0"},
+          {{"0","0","2","2","1","0","1","0","2","1","0"},
             {"2","2","2","0","1","2","1","0","2","2","0"},
             {"2","1","0","0","1","0","2","0","0","0","0"},
             {"1","0","0","1","0","1","0","0","2","2","2"},
@@ -32,7 +33,8 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation1ConfigTest(){
-    Simulation segregation = new SchellingSegregation("board_config/segregation1.csv", "SchellingCell", "complete", "finite", new String[]{"0","1", "2"});
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation1.csv,set", "SchellingCell", "complete", "finite", new String[]{"0","1", "2"});
+    segregation.setSeed(0);
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -53,7 +55,8 @@ public class SchellingSegregationTest {
 
   @Test
   public void segregation2ConfigTest(){
-    Simulation segregation = new SchellingSegregation("board_config/segregation2.csv", "SchellingCell", "complete", "finite", new String[]{"0","1", "2"});
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation2.csv,set", "SchellingCell", "complete", "finite", new String[]{"0","1", "2"});
+    segregation.setSeed(0);
     segregation.nextGen();
     String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =

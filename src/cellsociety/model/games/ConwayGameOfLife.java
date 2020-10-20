@@ -9,15 +9,18 @@ import java.util.List;
 
 public class ConwayGameOfLife extends Simulation {
 
+  public final int ALIVE_THRESHOLD = 3;
+  public final int DEAD_THRESHOLD = 2;
+
   public ConwayGameOfLife(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates){
     super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
   }
 
   public boolean aliveNextGen(int row, int col) {
     if (isAlive(row, col)) {
-      return countLivingNeighbors(row, col) > 1 && countLivingNeighbors(row, col) < 4;
+      return countLivingNeighbors(row, col) >= DEAD_THRESHOLD && countLivingNeighbors(row, col) <= ALIVE_THRESHOLD;
     }
-    return countLivingNeighbors(row, col) == 3;
+    return countLivingNeighbors(row, col) == ALIVE_THRESHOLD;
   }
 
   public boolean isAlive(int row, int col) {

@@ -13,6 +13,9 @@ public abstract class Simulation {
   private String cellType;
   private String neighborPolicy;
   private String edgePolicy;
+
+
+  private String[] possibleStates;
   private int generation;
 
   public Simulation(String config, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
@@ -23,11 +26,16 @@ public abstract class Simulation {
     this.cellType = cellType;
     this.neighborPolicy = neighborPolicy;
     this.edgePolicy = edgePolicy;
+    this.possibleStates = possibleStates;
     this.generation = 1;
   }
 
   public GameBoard getGameBoard() {
     return board;
+  }
+
+  public String[] getPossibleStates() {
+    return possibleStates;
   }
 
   public String getNeighborPolicy() {
@@ -58,9 +66,7 @@ public abstract class Simulation {
     board = nextBoard;
   }
 
-  public void validateStates(String[] states) {
 
-  }
 
   private Reader chooseReader(String configType) {
     // TODO: 2020-10-18  maybe do a reflection here if I'm feeling it

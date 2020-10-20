@@ -61,7 +61,6 @@ public class Neighborhood {
 
   private void handleCrossSurfaceOutOfBounds(int row, int col, GameBoard gameBoard) {
     if (isCornerNeighbor(row, col, gameBoard)){
-      System.out.println(row + " " + col);
       return;
     }
     if (row < 0 || row >= gameBoard.getHeight()){
