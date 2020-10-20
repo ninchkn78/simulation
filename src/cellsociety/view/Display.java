@@ -8,7 +8,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import javafx.animation.KeyFrame;
@@ -24,7 +23,6 @@ import javafx.scene.control.Slider;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Duration;
 
 
@@ -112,6 +110,7 @@ public class Display extends Application {
     stateConfigBox = new StateConfig(myRoot, this, languageProperties);
     setNewSimulation("Default_Properties_Files/Default" + simulationType + ".properties");
     Scene gameScene = setupScene(languageProperties);
+
     myStage.setScene(gameScene);
   }
 

@@ -36,9 +36,9 @@ public class ConwayGameOfLife extends Simulation {
     }
   }
 
-  public int countLivingNeighbors(int currentRow, int currentColumn) {
+  public int countLivingNeighbors(int row, int col) {
     int aliveCount = 0;
-    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow,currentColumn).getNeighborhood().getNeighbors();
+    List<List<Integer>> neighbors = getGameBoard().getCell(row,col).getNeighborhood().getNeighbors();
     for (List<Integer> neighbor : neighbors){
       if (isAlive(neighbor.get(0), neighbor.get(1))){
         aliveCount++;
