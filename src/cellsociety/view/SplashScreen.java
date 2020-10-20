@@ -21,8 +21,8 @@ public class SplashScreen {
 
   private final Scene myScene;
   private final Display myDisplay;
-  private Properties splashProperties;
   private final Properties languageProperties;
+  private Properties splashProperties;
 
   public SplashScreen(Display display, Properties inputPropertiesFile) {
     myDisplay = display;

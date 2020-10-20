@@ -49,14 +49,16 @@ public class Display extends Application {
   private Timeline animation;
   private Controller myController;
   private SimulationBoard myGridBoard;
-  private SimulationBoard myGraphBoard;
+  private StateGraph myGraph;
 
   private double animationSpeed = 120 / FRAMES_PER_SECOND;
   private boolean isPaused = true;
   private Properties languageProperties;
+  private boolean isGraph = false;
 
   public Display() {
   }
+
   /**
    * Start the program.
    */
@@ -74,6 +76,7 @@ public class Display extends Application {
     gridStage = stage;
     generateSplashScreen(languageProperties, stage);
   }
+
   //
   public Properties createPropertiesObject(String propertiesFileName) {
     Properties tempPropFile = null;
@@ -97,16 +100,19 @@ public class Display extends Application {
 
   public void chooseSimulation(String simulationType, Properties textProperties) {
     myGridBoard = new SimulationBoard(myGridRoot);
-    myGraphBoard = new SimulationBoard(myGraphRoot);
     stateConfigBox = new StateConfig(myGridRoot, this, textProperties);
     setNewSimulation("Default" + simulationType + ".properties");
+
     Scene gameScene = setupScene(textProperties, myGridRoot);
     gridStage.setScene(gameScene);
 
   }
 
   public void launchGraph() {
-    Scene graphScene = setupScene(languageProperties,myGraphRoot);
+    isGraph = true;
+    myGraph = new StateGraph(myGraphRoot, myController);
+    myGraph.setUpNewGraph(myController);
+    Scene graphScene = setupScene(languageProperties, myGraphRoot);
     graphStage.setScene(graphScene);
     graphStage.show();
   }
@@ -160,9 +166,12 @@ public class Display extends Application {
       nextGen();
     }
   }
+
   public void nextGen() {
     myController.updateView();
-    myGraphBoard.updateMyGrid(myController.getGameBoard(),myController.getProperties());
+    if (isGraph) {
+      myGraph.updateGraph(myController);
+    }
     myGridBoard.updateMyGrid(myController.getGameBoard(), myController.getProperties());
   }
 
@@ -191,15 +200,14 @@ public class Display extends Application {
       Controller controller = new Controller(propertiesName, languageProperties);
       setController(controller);
       stateConfigBox.addStateConfigs(myController);
-      myGraphBoard.setUpNewSimulation(myController);
       myGridBoard.setUpNewSimulation(myController);
     } catch (InvalidPropertiesFileException e) {
       makeAlert("Bad", e.getMessage());
     } catch (InvocationTargetException e) {
       makeAlert("Bad Bad", e.getCause().getLocalizedMessage());
-
     }
   }
+
   public void makeAlert(String header, String message) {
     Alert a = new Alert(Alert.AlertType.NONE);
     ButtonType close = new ButtonType(":(", ButtonBar.ButtonData.CANCEL_CLOSE);

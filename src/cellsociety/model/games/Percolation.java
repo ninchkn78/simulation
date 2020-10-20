@@ -25,19 +25,20 @@ public class Percolation extends Simulation {
       return false;
     }
 
-    if (isTopRow(row)){
+    if (isTopRow(row)) {
       return true;
     }
-    List<List<Integer>> neighbors = getGameBoard().getCell(row,col).getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors){
-      if (isFull(neighbor.get(0), neighbor.get(1))){
+    List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood()
+        .getNeighbors();
+    for (List<Integer> neighbor : neighbors) {
+      if (isFull(neighbor.get(0), neighbor.get(1))) {
         return true;
       }
     }
     return false;
   }
 
-  private boolean isTopRow(int row){
+  private boolean isTopRow(int row) {
     return row == 0;
   }
 

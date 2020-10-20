@@ -1,7 +1,7 @@
 package cellsociety.model;
 
-import exceptions.InvalidCSVFormatException;
 import cellsociety.model.cells.Cell;
+import exceptions.InvalidCSVFormatException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,13 +15,14 @@ public class GameBoard {
   private final int width;
   private final int height;
   private final Cell[][] gameBoardCells;
-  private String[][] gameBoardStates;
   private final String cellType;
   private final String neighborPolicy;
   private final String edgePolicy;
+  private final String[][] gameBoardStates;
 
 
-  public GameBoard(int width, int height, String cellType, String neighborPolicy, String edgePolicy) {
+  public GameBoard(int width, int height, String cellType, String neighborPolicy,
+      String edgePolicy) {
     this.width = width;
     this.height = height;
     this.cellType = cellType;
@@ -32,7 +33,8 @@ public class GameBoard {
     setGameBoardStates(gameBoardCells);
   }
 
-  public GameBoard(String[][] initialStateConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) throws InvalidCSVFormatException{
+  public GameBoard(String[][] initialStateConfig, String cellType, String neighborPolicy,
+      String edgePolicy, String[] possibleStates) throws InvalidCSVFormatException {
     this.width = initialStateConfig[0].length;
     this.height = initialStateConfig.length;
     this.cellType = cellType;
@@ -85,7 +87,7 @@ public class GameBoard {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (gameBoardStates[i][j].equals(state)) {
-          cellsList.add(createCoordinates(i,j));
+          cellsList.add(createCoordinates(i, j));
         }
       }
     }
@@ -93,7 +95,7 @@ public class GameBoard {
   }
 
 
-  public List<Integer> createCoordinates (int row, int col){
+  public List<Integer> createCoordinates(int row, int col) {
     List<Integer> coordinates = new ArrayList<>();
     coordinates.add(row);
     coordinates.add(col);
@@ -102,10 +104,10 @@ public class GameBoard {
 
   public List<List<Integer>> getNeighboringPositionsOfCellState(String state, int row, int col) {
     List<List<Integer>> cellsList = new ArrayList<>();
-    List<List<Integer>> neighbors = getCell(row,col).getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors){
-      if (gameBoardStates[neighbor.get(0)][neighbor.get(1)].equals(state)){
-        cellsList.add(createCoordinates(neighbor.get(0),neighbor.get(1)));
+    List<List<Integer>> neighbors = getCell(row, col).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors) {
+      if (gameBoardStates[neighbor.get(0)][neighbor.get(1)].equals(state)) {
+        cellsList.add(createCoordinates(neighbor.get(0), neighbor.get(1)));
       }
     }
     return cellsList;
@@ -136,17 +138,17 @@ public class GameBoard {
     }
   }
 
-  public Cell[][] createCellConfiguration(String[][] stateConfig){
+  public Cell[][] createCellConfiguration(String[][] stateConfig) {
     Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
-    for (int i = 0; i < height; i++){
-      for (int j = 0; j < width; j++){
+    for (int i = 0; i < height; i++) {
+      for (int j = 0; j < width; j++) {
         cellConfig[i][j] = createCell(stateConfig[i][j], i, j);
       }
     }
     return cellConfig;
   }
 
-  public Cell createCell(String state, int row, int col){
+  public Cell createCell(String state, int row, int col) {
     Class operation;
     try {
       operation = Class.forName("cellsociety.model.cells." + cellType);
