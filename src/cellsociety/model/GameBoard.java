@@ -32,7 +32,7 @@ public class GameBoard {
     setGameBoardStates(gameBoardCells);
   }
 
-  public GameBoard(String[][] initialStateConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+  public GameBoard(String[][] initialStateConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) throws InvalidCSVFormatException{
     this.width = initialStateConfig[0].length;
     this.height = initialStateConfig.length;
     this.cellType = cellType;
@@ -43,12 +43,12 @@ public class GameBoard {
     validateStates(possibleStates);
   }
 
-  public void validateStates(String[] possibleStates) {
+  public void validateStates(String[] possibleStates) throws InvalidCSVFormatException {
     Set<String> statesSet = new HashSet<>(Arrays.asList(possibleStates));
     for (int i = 0; i < gameBoardStates.length; i++) {
       for (int j = 0; j < gameBoardStates[i].length; j++) {
         if (!statesSet.contains(gameBoardStates[i][j])) {
-          throw new InvalidCSVFormatException("this will be a message from a resources file");
+          throw new InvalidCSVFormatException("the CSV file has invalid states :((");
         }
       }
     }

@@ -25,8 +25,7 @@ class StateColorPickerTest extends DukeApplicationTest {
     Properties english = conwayDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
     conwayDisplay.generateSplashScreen(english,stage);
     conwayDisplay.chooseSimulation("ConwayGameOfLife",english);
-    Controller controller = new Controller("TestConway.properties");
-    conwayDisplay.setNewSimulation(controller);
+    conwayDisplay.setNewSimulation("TestConway.properties");
     stage.show();
   }
 
@@ -36,12 +35,12 @@ class StateColorPickerTest extends DukeApplicationTest {
     ColorPicker colorPicker = lookup("#0color").query();
     Rectangle cell = lookup("#cell1,0").query();
     Assertions.assertEquals(Color.BLUE, cell.getFill());
-    sleep(1000);
+
     javafxRun(() -> colorPicker.setValue(Color.PURPLE));
     //javafxRun(() -> colorPicker.notifyAll());
-    sleep(1000);
+
     javafxRun(() -> conwayDisplay.nextGen());
-    sleep(1000);
+
     Assertions.assertEquals(Color.PURPLE, cell.getFill());
   }
 }
