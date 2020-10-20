@@ -32,7 +32,6 @@ public class SimulationBoard {
 
   public void setUpNewSimulation(Controller controller) {
     this.controller = controller;
-
     setGridType("Rectangle");
   }
 
