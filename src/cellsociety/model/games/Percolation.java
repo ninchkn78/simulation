@@ -40,11 +40,11 @@ public class Percolation extends Simulation {
   }
 
 
-  private boolean isFull(int row, int col) { //TODO: Move to cell
+  private boolean isFull(int row, int col) {
     return getGameBoard().getCell(row, col).getState().equals(PercolationCell.FULL);
   }
 
-  private boolean isOpen(int row, int col) { //TODO: MovetoCell
+  private boolean isOpen(int row, int col) {
     return getGameBoard().getCell(row, col).getState().equals(PercolationCell.OPEN);
   }
 

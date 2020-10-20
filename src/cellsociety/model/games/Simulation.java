@@ -6,6 +6,7 @@ import cellsociety.model.RandomStateReader;
 import cellsociety.model.Reader;
 import cellsociety.model.SetStateReader;
 import exceptions.InvalidCSVFormatException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -57,6 +58,14 @@ public abstract class Simulation {
 
 
   public abstract void updateCell(GameBoard gameBoard, int row, int col);
+
+  public List<Integer> getGraphCounts(){
+    List<Integer> stateCounts = new ArrayList<>();
+    for (String state : possibleStates){
+      stateCounts.add(board.getAllPositionsOfCellState(state).size());
+    }
+    return stateCounts;
+  }
 
   public void cylceStateOnClicked(int i, int j ){
     String[][] newGameBoardStates = board.getGameBoardStates();

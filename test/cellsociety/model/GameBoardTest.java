@@ -34,4 +34,5 @@ class GameBoardTest {
     String[][] initialStates = {{"0","1"},{"1","2"}};
     assertThrows(InvalidCSVFormatException.class,() -> new GameBoard(initialStates, "ConwayCell", "complete", "finite", new String[]{"0", "1"}));
   }
+
 }
