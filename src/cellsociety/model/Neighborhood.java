@@ -11,7 +11,7 @@ public class Neighborhood {
 
   private static final String FINITE = "finite";
   private static final String TOROIDAL = "toroidal";
-
+  private static final String CROSSSURFACE = "cross-surface";
 
 
   public List<List<Integer>> neighbors;
@@ -56,7 +56,32 @@ public class Neighborhood {
     switch(edgePolicy){
       case FINITE -> handleFiniteOutOfBounds(row,col, gameBoard);
       case TOROIDAL -> handleToroidalOutOfBounds(row, col, gameBoard);
+      case CROSSSURFACE -> handleCrossSurfaceOutOfBounds(row, col, gameBoard);
     }
+  }
+
+  private void handleCrossSurfaceOutOfBounds(int row, int col, GameBoard gameBoard) {
+    if (isCornerNeighbor(row, col, gameBoard)){
+      System.out.println(row + " " + col);
+      return;
+    }
+    if (row < 0 || row >= gameBoard.getHeight()){
+      row = gameBoard.getHeight() -1;
+      col = gameBoard.getWidth() - col - 1;
+      neighbors.add(createCoordinates(row, col));
+    }
+    else if (col < 0 || col >= gameBoard.getWidth()){
+      row = gameBoard.getHeight() - row - 1;
+      col = gameBoard.getWidth() - 1;
+      neighbors.add(createCoordinates(row, col));
+    }
+  }
+
+  private boolean isCornerNeighbor(int row, int col, GameBoard gameBoard){
+    if(row == -1 || row == gameBoard.getHeight()){
+      return col == -1 || col == gameBoard.getWidth();
+    }
+    return false;
   }
 
   private void handleFiniteOutOfBounds(int row, int col, GameBoard gameBoard) {
