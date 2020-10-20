@@ -1,15 +1,15 @@
 package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
+import java.util.List;
 
 public class RPS extends Simulation {
 
   public static final int THRESHOLD = 3;
 
-  public RPS(String csvConfig, String cellType, String[] possibleStates) {
-    super(csvConfig, cellType, possibleStates);
+  public RPS(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+    super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
   }
-
 
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col) {
@@ -26,17 +26,15 @@ public class RPS extends Simulation {
 
   public String getOpponent(int row, int col) {
     int state = Integer.parseInt(getGameBoard().getCell(row, col).getState());
-    return Integer.toString((state + 1) % 3);
+    return Integer.toString((state + 1) % getPossibleStates().length);
   }
 
-  public int countNeighboringOpponents(int currentRow, int currentColumn) {
+  public int countNeighboringOpponents(int row, int col) {
     int opponentCount = 0;
-    for (int i = currentRow - 1; i <= currentRow + 1; i++) {
-      for (int j = currentColumn - 1; j <= currentColumn + 1; j++) {
-        if (getGameBoard().inBounds(i, j) && isOpponent(i, j, currentRow,
-            currentColumn)) { //TODO: make this not ugly af
-          opponentCount++;
-        }
+    List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors){
+      if (isOpponent(neighbor.get(0), neighbor.get(1), row, col)){
+        opponentCount++;
       }
     }
     return opponentCount;
@@ -47,6 +45,4 @@ public class RPS extends Simulation {
     String opponentState = getOpponent(currentRow, currentColumn);
     return currentState.equals(opponentState);
   }
-
-
 }

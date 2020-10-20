@@ -2,7 +2,6 @@ package cellsociety.model;
 
 import exceptions.InvalidCSVFormatException;
 import cellsociety.model.cells.Cell;
-import cellsociety.model.cells.WaTorCell;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,20 +15,30 @@ public class GameBoard {
   private final int width;
   private final int height;
   private final Cell[][] gameBoardCells;
-  private final String[][] gameBoardStates;
+  private String[][] gameBoardStates;
+  private final String cellType;
+  private final String neighborPolicy;
+  private final String edgePolicy;
 
-  public GameBoard(int width, int height, String cellType) {
+
+  public GameBoard(int width, int height, String cellType, String neighborPolicy, String edgePolicy) {
     this.width = width;
     this.height = height;
-    this.gameBoardCells = initializeGameBoardCells(width, height, cellType);
+    this.cellType = cellType;
+    this.neighborPolicy = neighborPolicy;
+    this.edgePolicy = edgePolicy;
+    this.gameBoardCells = initializeGameBoardCells(width, height);
     this.gameBoardStates = new String[height][width];
     setGameBoardStates(gameBoardCells);
   }
 
-  public GameBoard(String[][] initialStateConfig, String cellType, String[] possibleStates) {
+  public GameBoard(String[][] initialStateConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
     this.width = initialStateConfig[0].length;
     this.height = initialStateConfig.length;
-    this.gameBoardCells = createCellConfiguration(initialStateConfig, cellType);
+    this.cellType = cellType;
+    this.neighborPolicy = neighborPolicy;
+    this.edgePolicy = edgePolicy;
+    this.gameBoardCells = createCellConfiguration(initialStateConfig);
     this.gameBoardStates = initialStateConfig;
     validateStates(possibleStates);
   }
@@ -45,22 +54,26 @@ public class GameBoard {
     }
   }
 
-  public Cell[][] initializeGameBoardCells(int width, int height, String cellType) {
+  public Cell[][] initializeGameBoardCells(int width, int height) {
     Cell[][] cellConfig = new Cell[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         Class operation;
         try {
           operation = Class.forName("cellsociety.model.cells." + cellType);
-          cellConfig[i][j] = (Cell) operation.getConstructor(String.class)
-              .newInstance("0");
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+          cellConfig[i][j] = (Cell) operation.getConstructor(String.class, Neighborhood.class)
+              .newInstance("0", createNeighborhood(i, j));
+        }
+        catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
           e.printStackTrace();
         }
-        cellConfig[i][j] = new WaTorCell(WaTorCell.OCEAN); //TODO: FIX THIS
       }
     }
     return cellConfig;
+  }
+
+  private Neighborhood createNeighborhood(int row, int col) {
+    return new Neighborhood(row, col, this, neighborPolicy, edgePolicy);
   }
 
   public Cell getCell(int row, int col) {
@@ -92,21 +105,20 @@ public class GameBoard {
 
   public List<List<Integer>> getNeighboringPositionsOfCellState(String state, int row, int col) {
     List<List<Integer>> cellsList = new ArrayList<>();
-    for (int i = row - 1; i <= row + 1; i++) {
-      for (int j = col - 1; j <= col + 1; j++) {
-        if (inBounds(i, j) && gameBoardStates[i][j].equals(state)) {
-          List<Integer> coordinates = new ArrayList<>();
-          coordinates.add(i);
-          coordinates.add(j);
-          cellsList.add(coordinates);
-        }
+    List<List<Integer>> neighbors = getCell(row,col).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors){
+      if (gameBoardStates[neighbor.get(0)][neighbor.get(1)].equals(state)){
+        List<Integer> coordinates = new ArrayList<>();
+        coordinates.add(neighbor.get(0));
+        coordinates.add(neighbor.get(1));
+        cellsList.add(coordinates);
       }
     }
     return cellsList;
   }
 
   public void setPiece(int row, int col, String state) {
-    gameBoardCells[row][col].setState(state); //TODO: update existing cell
+    gameBoardCells[row][col].setState(state);
     gameBoardStates[row][col] = state;
   }
 
@@ -130,16 +142,15 @@ public class GameBoard {
     }
   }
 
-  public Cell[][] createCellConfiguration(String[][] stateConfig,
-      String cellType) { //TODO: make this work for all cell types
+  public Cell[][] createCellConfiguration(String[][] stateConfig){ //TODO: make this work for all cell types
     Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
+    for (int i = 0; i < height; i++){
+      for (int j = 0; j < width; j++){
         Class operation;
         try {
           operation = Class.forName("cellsociety.model.cells." + cellType);
-          cellConfig[i][j] = (Cell) operation.getConstructor(String.class)
-              .newInstance(stateConfig[i][j]);
+          cellConfig[i][j]  = (Cell) operation.getConstructor(String.class, Neighborhood.class)
+              .newInstance(stateConfig[i][j], createNeighborhood(i, j));
         } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
           e.printStackTrace();
         }
@@ -165,6 +176,8 @@ public class GameBoard {
   public void swapCells(int row1, int col1, int row2, int col2) {
     Cell firstCell = getCell(row1, col1);
     Cell secondCell = getCell(row2, col2);
+    firstCell.setNeighbors(createNeighborhood(row2, col2));
+    secondCell.setNeighbors(createNeighborhood(row1, col1));
     gameBoardCells[row1][col1] = secondCell;
     gameBoardCells[row2][col2] = firstCell;
     gameBoardStates[row1][col1] = secondCell.getState();

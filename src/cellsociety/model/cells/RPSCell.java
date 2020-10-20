@@ -1,29 +1,21 @@
 package cellsociety.model.cells;
 
+import cellsociety.model.Neighborhood;
+
 public class RPSCell extends Cell {
 
   public static final String ROCK = "0";
   public static final String PAPER = "1";
   public static final String SCISSORS = "2";
-  private String opponentState;
 
-  public RPSCell(String state) {
-    super(state);
-    // opponentState = calculateOpponent();
+  public RPSCell(String state, Neighborhood neighbors) {
+    super(state, neighbors);
   }
 
   public boolean isRock() {
     return getState().equals(ROCK);
   }
 
-//  public String calculateOpponent(){
-//    int state = Integer.parseInt(getState());
-//    return Integer.toString((state + 1)%3);
-//  }
-//
-//  public String getOpponentState(){
-//    return opponentState;
-//  }
 
   public boolean isPaper() {
     return getState().equals(PAPER);

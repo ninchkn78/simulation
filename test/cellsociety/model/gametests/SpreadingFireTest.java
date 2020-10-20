@@ -11,7 +11,8 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire0ConfigTest(){
-    Simulation spreadingFire = new SpreadingFire("board_config/spreadingfire0.csv,set", "SpreadingFireCell", new String[]{"0","1", "2"},  true);
+    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire0.csv,set", "SpreadingFireCell", "complete", "finite", new String[]{"0","1", "2"});
+    spreadingFire.setSeed(0);
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -19,9 +20,9 @@ public class SpreadingFireTest {
             {"0","1","1","1","1","1","1","1","1","1","0"},
             {"0","1","1","1","1","1","1","1","1","1","0"},
             {"0","1","1","1","1","1","1","1","1","1","0"},
-            {"0","1","1","1","1","2","1","1","1","1","0"},
-            {"0","1","1","1","1","0","2","1","1","1","0"},
-            {"0","1","1","1","1","2","1","1","1","1","0"},
+            {"0","1","1","1","2","1","2","1","1","1","0"},
+            {"0","1","1","1","2","0","2","1","1","1","0"},
+            {"0","1","1","1","1","1","2","1","1","1","0"},
             {"0","1","1","1","1","1","1","1","1","1","0"},
             {"0","1","1","1","1","1","1","1","1","1","0"},
             {"0","1","1","1","1","1","1","1","1","1","0"},
@@ -32,7 +33,8 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire1ConfigTest(){
-    Simulation spreadingFire = new SpreadingFire("board_config/spreadingfire1.csv,set", "SpreadingFireCell", new String[]{"0","1", "2"},true);
+    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire1.csv,set", "SpreadingFireCell", "complete", "finite", new String[]{"0","1", "2"});
+    spreadingFire.setSeed(0);
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -53,20 +55,21 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire2ConfigTest(){
-    Simulation spreadingFire = new SpreadingFire("board_config/spreadingfire2.csv,set", "SpreadingFireCell", new String[]{"0","1", "2"},true);
+    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire2.csv,set", "SpreadingFireCell", "complete", "finite", new String[]{"0","1", "2"});
+    spreadingFire.setSeed(0);
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
         {{"0","0","0","0","0","0","0","0","0","0","0"},
             {"0","1","1","1","1","1","1","1","1","1","0"},
-            {"0","1","1","1","1","1","1","2","1","1","0"},
-            {"0","1","1","1","1","1","1","0","2","1","0"},
-            {"0","1","1","2","1","2","1","1","1","1","0"},
-            {"0","1","1","0","2","0","2","1","1","1","0"},
-            {"0","1","1","2","1","1","1","1","1","1","0"},
+            {"0","1","1","1","1","1","2","1","2","1","0"},
+            {"0","1","1","1","1","1","2","0","2","1","0"},
+            {"0","1","1","1","2","2","2","1","1","1","0"},
+            {"0","1","1","0","1","0","2","1","1","1","0"},
+            {"0","1","2","1","2","1","2","1","1","1","0"},
             {"0","1","1","1","1","1","1","1","1","1","0"},
-            {"0","1","1","1","1","1","1","1","1","1","0"},
-            {"0","1","1","1","1","1","1","1","0","1","0"},
+            {"0","1","1","1","1","1","1","2","1","2","0"},
+            {"0","1","1","1","1","1","1","2","0","2","0"},
             {"0","0","0","0","0","0","0","0","0","0","0"}
         };
     assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
