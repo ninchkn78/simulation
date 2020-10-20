@@ -110,7 +110,6 @@ public class Display extends Application {
 
   // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
   Scene setupScene(Properties textProperties) {
-    stateConfigBox = new StateConfig(myRoot, this, textProperties);
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
     setUpButtons(textProperties);

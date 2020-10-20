@@ -32,8 +32,10 @@ public class StateImagePicker {
 
   private void addImagePicker(String state, Controller controller, Properties languageProperties) {
     final FileChooser fileChooser = new FileChooser();
-    // TODO: 2020-10-17 read in from resource file isntead 
+    File resourcesFile = new File("resources");
+    fileChooser.setInitialDirectory(resourcesFile);
     Button openButton = new Button(languageProperties.getProperty("ChooseImageState"));
+    openButton.setId(String.format("%simageStatePicker", state));
     openButton.setOnAction(
         (final ActionEvent e) -> {
           configureFileChooser(fileChooser);

@@ -4,6 +4,7 @@ import cellsociety.controller.Controller;
 import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -14,7 +15,7 @@ import util.DukeApplicationTest;
 class GridViewButtonSetupTest extends DukeApplicationTest {
 
   private final Display myDisplay = new Display();
-  Scene myScene;
+
 
   @Override
   public void start(Stage stage) {
@@ -90,5 +91,12 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
 
   }
 
+  @Test
+  public void testImageButton() {
+    Button imageButton = lookup("#Image").queryButton();
+    javafxRun(() -> imageButton.fire());
+    ImageView cell1 = lookup("#cell1,0").query();
+    ImageView cell2 = lookup("#cell0,1").query();
+  }
 
 }
