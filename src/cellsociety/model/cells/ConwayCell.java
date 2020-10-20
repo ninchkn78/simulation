@@ -1,17 +1,14 @@
 package cellsociety.model.cells;
 
+import cellsociety.model.Neighborhood;
+
 public class ConwayCell extends Cell {
 
   public static final String DEAD = "0";
   public static final String ALIVE = "1";
 
-  public ConwayCell(String state) {
-    super(state);
-  }
-
-
-  public ConwayCell() {
-    super(DEAD);
+  public ConwayCell(String state, Neighborhood neighbors) {
+    super(state, neighbors);
   }
 
   public boolean isAlive() {

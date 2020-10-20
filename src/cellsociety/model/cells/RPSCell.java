@@ -1,5 +1,7 @@
 package cellsociety.model.cells;
 
+import cellsociety.model.Neighborhood;
+
 public class RPSCell extends Cell {
 
   public static final String ROCK = "0";
@@ -7,8 +9,8 @@ public class RPSCell extends Cell {
   public static final String SCISSORS = "2";
   private String opponentState;
 
-  public RPSCell(String state) {
-    super(state);
+  public RPSCell(String state, Neighborhood neighbors) {
+    super(state, neighbors);
     // opponentState = calculateOpponent();
   }
 

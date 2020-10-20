@@ -16,22 +16,23 @@ public class Controller {
   private GameBoard board;
   private Simulation game;
 
-  // TODO: 2020-10-18  fix this shit
   public Controller(String propertiesName) throws InvalidPropertiesFileException{
       propertiesFileName = propertiesName;
       setProperties(propertiesFileName);
       String gameType = properties.getProperty("GameType");
       String cellType = properties.getProperty("CellType");
-      chooseSimulation(gameType, cellType);
+      String neighborPolicy = properties.getProperty("NeighborPolicy");
+      String edgePolicy = properties.getProperty("EdgePolicy");
+      chooseSimulation(gameType, cellType, neighborPolicy, edgePolicy);
       board = game.getGameBoard();
   }
 
-  private void chooseSimulation(String gameType, String cellType) {
+  private void chooseSimulation(String gameType, String cellType, String neighborPolicy, String edgePolicy) {
     Class operation;
     try {
       operation = Class.forName("cellsociety.model.games." + gameType);
-      game = (Simulation) operation.getConstructor(String.class, String.class, String[].class)
-          .newInstance(properties.getProperty("CSVSource"), cellType,
+      game = (Simulation) operation.getConstructor(String.class, String.class, String.class, String.class, String[].class)
+          .newInstance(properties.getProperty("CSVSource"), cellType, neighborPolicy, edgePolicy,
               properties.getProperty("States").split(","));
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
       // TODO: 2020-10-12 handle this error
@@ -64,7 +65,7 @@ public class Controller {
 
   private void validatePropertiesFile() throws InvalidPropertiesFileException {
     String[] requiredProperties = {"Description", "Title", "States", "CellType", "GameType",
-        "Author", "CSVSource"};
+        "Author", "CSVSource", "NeighborPolicy", "EdgePolicy"};
     for (String property : requiredProperties) {
       if (properties.get(property) == null) {
         // TODO: 2020-10-19 error messages in resource file

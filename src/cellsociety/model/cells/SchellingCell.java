@@ -1,13 +1,15 @@
 package cellsociety.model.cells;
 
+import cellsociety.model.Neighborhood;
+
 public class SchellingCell extends Cell {
 
   public static final String VACANT = "0";
   public static final String AGENT_X = "1";
   public static final String AGENT_O = "2";
 
-  public SchellingCell(String state) {
-    super(state);
+  public SchellingCell(String state, Neighborhood neighbors) {
+    super(state, neighbors);
   }
 
 

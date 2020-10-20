@@ -2,6 +2,7 @@ package cellsociety.model.games;
 
 import cellsociety.model.GameBoard;
 import cellsociety.model.cells.SpreadingFireCell;
+import java.util.List;
 import java.util.Random;
 
 public class SpreadingFire extends Simulation {
@@ -9,20 +10,11 @@ public class SpreadingFire extends Simulation {
   public static final double probCatch = 0.5;
   public Random rand;
 
-  public SpreadingFire(String csvConfig, String cellType, String[] possibleStates) {
-    super(csvConfig, cellType, possibleStates);
+
+  public SpreadingFire(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+    super(csvConfig, cellType,  neighborPolicy, edgePolicy, possibleStates);
     rand = new Random();
   }
-
-  // TODO: 2020-10-18  franklin what the fuck
-  public SpreadingFire(String csvConfig, String cellType, String[] possibleStates, boolean isTest) {
-    super(csvConfig, cellType, possibleStates);
-    rand = new Random();
-    if (isTest) {
-      rand.setSeed(0);
-    }
-  }
-
 
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col) {
@@ -33,10 +25,6 @@ public class SpreadingFire extends Simulation {
     } else {
       gameBoard.setPiece(row, col, getGameBoard().getState(row, col));
     }
-  }
-
-  public boolean isDirectNeighbor(int x, int y, int currentRow, int currentCol) {
-    return (x == currentRow || y == currentCol);
   }
 
   public boolean isBurning(int row, int col) { //TODO: Move to cell
@@ -51,17 +39,18 @@ public class SpreadingFire extends Simulation {
     if (isEmpty(currentRow, currentColumn)) {
       return false;
     }
-    for (int i = currentRow - 1; i <= currentRow + 1; i++) {
-      for (int j = currentColumn - 1; j <= currentColumn + 1; j++) {
-        if (getGameBoard().inBounds(i, j) &&
-            isDirectNeighbor(i, j, currentRow, currentColumn) &&
-            isBurning(i, j)) {
-          double probability = rand.nextDouble();
-          return probability > probCatch;
-        }
+    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow,currentColumn).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors){
+      if (isBurning(neighbor.get(0), neighbor.get(1))){
+        double probability = rand.nextDouble();
+        return probability > probCatch;
       }
     }
     return false;
+  }
+
+  public void setSeed(long seed){
+    rand.setSeed(seed);
   }
 
 }

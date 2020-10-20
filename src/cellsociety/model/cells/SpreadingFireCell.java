@@ -1,13 +1,15 @@
 package cellsociety.model.cells;
 
+import cellsociety.model.Neighborhood;
+
 public class SpreadingFireCell extends Cell {
 
   public static final String EMPTY = "0";
   public static final String TREE = "1";
   public static final String BURNING = "2";
 
-  public SpreadingFireCell(String state) {
-    super(state);
+  public SpreadingFireCell(String state, Neighborhood neighbors) {
+    super(state, neighbors);
   }
 
   public boolean isBurning() {
