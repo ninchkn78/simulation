@@ -6,6 +6,8 @@ import cellsociety.model.RandomStateReader;
 import cellsociety.model.Reader;
 import cellsociety.model.SetStateReader;
 import exceptions.InvalidCSVFormatException;
+import java.util.Arrays;
+import java.util.List;
 
 
 public abstract class Simulation {
@@ -20,7 +22,8 @@ public abstract class Simulation {
   public Simulation(String config, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) throws InvalidCSVFormatException {
     String[] configAndType = config.split(",");
     Reader stateReader = chooseReader(configAndType[1]);
-    this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType, neighborPolicy, edgePolicy,
+    this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType,
+        neighborPolicy, edgePolicy,
         possibleStates);
     this.cellType = cellType;
     this.neighborPolicy = neighborPolicy;
@@ -28,6 +31,8 @@ public abstract class Simulation {
     this.possibleStates = possibleStates;
     this.generation = 1;
   }
+
+
 
   public GameBoard getGameBoard() {
     return board;
@@ -53,7 +58,13 @@ public abstract class Simulation {
 
   public abstract void updateCell(GameBoard gameBoard, int row, int col);
 
-  //public abstract void setOnClicked();
+  public void cylceStateOnClicked(int i, int j ){
+    String[][] newGameBoardStates = board.getGameBoardStates();
+    String currentState = newGameBoardStates[i][j];
+    String newState = Integer.toString((Integer.parseInt(currentState) + 1) % possibleStates.length);
+    newGameBoardStates[i][j] = newState;
+    this.board = new GameBoard(newGameBoardStates,cellType,neighborPolicy,edgePolicy,possibleStates);
+  };
 
   public void nextGen() {
     GameBoard nextBoard = new GameBoard(getGameBoard().getWidth(), getGameBoard().getHeight(), cellType, neighborPolicy, edgePolicy);

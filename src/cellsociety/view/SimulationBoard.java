@@ -1,5 +1,6 @@
 package cellsociety.view;
 
+import cellsociety.controller.Controller;
 import cellsociety.model.GameBoard;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ public class SimulationBoard {
 
   private final GridPane myGrid = new GridPane();
   private final List<List<CellView>> cells = new ArrayList<>();
-  private GameBoard gameBoard;
-  private Properties properties;
+
+  private Controller controller;
 
   public SimulationBoard(Group root) {
     myGrid.setLayoutX(75);
@@ -29,9 +30,9 @@ public class SimulationBoard {
     root.getChildren().add(myGrid);
   }
 
-  public void setUpNewSimulation(GameBoard gameBoard, Properties properties) {
-    this.gameBoard = gameBoard;
-    this.properties = properties;
+  public void setUpNewSimulation(Controller controller) {
+    this.controller = controller;
+
     setGridType("Rectangle");
   }
 
@@ -39,14 +40,14 @@ public class SimulationBoard {
   // TODO: 2020-10-04 ask about X position for tests
   public void setGridType(String cellType) {
     clear();
-    String[][] states = gameBoard.getGameBoardStates();
+    String[][] states = controller.getGameBoard().getGameBoardStates();
     double width = CELL_GRID_WIDTH / maxRowLength(states);
     for (int i = 0; i < states.length; i++) {
       cells.add(new ArrayList<>());
       for (int j = 0; j < states[i].length; j++) {
         addCellToGrid(
             chooseCellType(cellType, width, CELL_GRID_HEIGHT / states.length, states[i][j],
-                properties), i, j);
+                controller.getProperties()), i, j);
       }
     }
   }
@@ -62,7 +63,7 @@ public class SimulationBoard {
   }
 
   private void addCellToGrid(CellView cellView, int i, int j) {
-    addEventListener(cellView);
+    addEventListener(cellView, i, j);
     Node cell = cellView.getCell();
     cell.setId(String.format("cell%d,%d", i, j));
     GridPane.setConstraints(cell, j, i);
@@ -70,8 +71,14 @@ public class SimulationBoard {
     cells.get(i).add(cellView);
   }
 
-  private void addEventListener(CellView cellView) {
-    EventHandler<MouseEvent> eventHandler = e -> cellView.handleClick();
+  private void addEventListener(CellView cellView, int row, int col) {
+    EventHandler<MouseEvent> eventHandler = new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        controller.handleCellClick(row, col);
+        updateMyGrid(controller.getGameBoard(), controller.getProperties());
+      }
+    };
     cellView.getCell().addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
   }
 
