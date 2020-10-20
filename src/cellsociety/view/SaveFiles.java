@@ -11,9 +11,7 @@ public class SaveFiles {
   private static final String COMMA_DELIM = ",";
   private static final String NEW_LINE = "\n";
 
-
   public void saveState(String[][] currentState, String Title) throws IOException {
-
     FileWriter csvWriter = new FileWriter(SAVE_DIR + Title + EXTENSION);
     makeHeader(csvWriter, currentState);
     writeRows(csvWriter, currentState);

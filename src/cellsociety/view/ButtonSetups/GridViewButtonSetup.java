@@ -48,10 +48,11 @@ public class GridViewButtonSetup extends ButtonSetup {
       fileChooser.setInitialDirectory(resourcesFile);
       fileChooser.setTitle("Open Resource File");
       File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
-   try{ //TODO - fix line below or just make it known you can only choose properties files from default properties files
+   try{
      myDisplay
          .setNewSimulation(new Controller("Default_Properties_Files/" + propertiesFile.getName()));
    } catch (InvalidPropertiesFileException exception){
+     // TODO: 2020-10-19 some kind of alert
      System.out.println(":(");
    }
     });
