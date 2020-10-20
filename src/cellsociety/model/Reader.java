@@ -1,8 +1,8 @@
 package cellsociety.model;
 
-import exceptions.InvalidCSVFormatException;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import exceptions.InvalidCSVFormatException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;

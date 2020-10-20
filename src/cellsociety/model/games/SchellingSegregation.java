@@ -12,8 +12,9 @@ public class SchellingSegregation extends Simulation {
   private final double THRESHOLD = 0.5;
   private final Random rand;
 
-  public SchellingSegregation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates){
-    super(csvConfig, cellType,neighborPolicy, edgePolicy, possibleStates);
+  public SchellingSegregation(String csvConfig, String cellType, String neighborPolicy,
+      String edgePolicy, String[] possibleStates) {
+    super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
     rand = new Random();
   }
 
@@ -33,9 +34,10 @@ public class SchellingSegregation extends Simulation {
 
   public int countNeighbors(int row, int col) {
     int neighborCount = 0;
-    List<List<Integer>> neighbors = getGameBoard().getCell(row,col).getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors){
-      if (!isVacant(neighbor.get(0), neighbor.get(1))){
+    List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood()
+        .getNeighbors();
+    for (List<Integer> neighbor : neighbors) {
+      if (!isVacant(neighbor.get(0), neighbor.get(1))) {
         neighborCount++;
       }
     }
@@ -57,10 +59,11 @@ public class SchellingSegregation extends Simulation {
 
   public int countOppositeAgent(int row, int col) {
     int oppositeAgentCount = 0;
-    List<List<Integer>> neighbors = getGameBoard().getCell(row ,col).getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors){
-      if (isOppositeAgent(neighbor.get(0), neighbor.get(1), row, col)){
-        oppositeAgentCount ++;
+    List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood()
+        .getNeighbors();
+    for (List<Integer> neighbor : neighbors) {
+      if (isOppositeAgent(neighbor.get(0), neighbor.get(1), row, col)) {
+        oppositeAgentCount++;
       }
     }
     return oppositeAgentCount;
@@ -75,7 +78,7 @@ public class SchellingSegregation extends Simulation {
     return neighborCount - oppositeAgentCount < neighborCount * THRESHOLD;
   }
 
-  public void setSeed(long seed){
+  public void setSeed(long seed) {
     rand.setSeed(seed);
   }
 

@@ -3,7 +3,6 @@ package cellsociety.view;
 import cellsociety.model.GameBoard;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 
 public class SaveFiles {
 

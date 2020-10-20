@@ -9,5 +9,6 @@ public interface CellView {
   void updateView(String state, Properties properties);
 
   void handleClick();
+
   Node getCell();
 }

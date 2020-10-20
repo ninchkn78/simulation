@@ -21,15 +21,15 @@ public class Controller {
 
   public Controller(String propertiesName, Properties languageTextProperties)
       throws InvalidPropertiesFileException, InvocationTargetException {
-      languageProperties = languageTextProperties;
-      propertiesFileName = propertiesName;
-      setProperties(propertiesFileName);
-      String gameType = properties.getProperty("GameType");
-      String cellType = properties.getProperty("CellType");
-      String neighborPolicy = properties.getProperty("NeighborPolicy");
-      String edgePolicy = properties.getProperty("EdgePolicy");
-      chooseSimulation(gameType, cellType, neighborPolicy, edgePolicy);
-      board = game.getGameBoard();
+    languageProperties = languageTextProperties;
+    propertiesFileName = propertiesName;
+    setProperties(propertiesFileName);
+    String gameType = properties.getProperty("GameType");
+    String cellType = properties.getProperty("CellType");
+    String neighborPolicy = properties.getProperty("NeighborPolicy");
+    String edgePolicy = properties.getProperty("EdgePolicy");
+    chooseSimulation(gameType, cellType, neighborPolicy, edgePolicy);
+    board = game.getGameBoard();
   }
 
   private void chooseSimulation(String gameType, String cellType, String neighborPolicy, String edgePolicy)
@@ -44,7 +44,7 @@ public class Controller {
 
 
     }
-      }
+  }
 
   public Properties getProperties() {
     return properties;

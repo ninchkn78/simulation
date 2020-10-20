@@ -158,7 +158,7 @@ public class GameBoard {
     return null;
   }
 
-  public void apply(TriConsumer<Integer, Integer, String> updateCellState) {
+  public void enactFunctionOnStates(TriConsumer<Integer, Integer, String> updateCellState) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         updateCellState.accept(i, j, gameBoardStates[i][j]);

@@ -1,16 +1,12 @@
 package cellsociety.view.ButtonSetups;
 
-import cellsociety.controller.Controller;
 import cellsociety.model.GameBoard;
 import cellsociety.view.Display;
 import cellsociety.view.PopUpWindow;
-import exceptions.InvalidPropertiesFileException;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Properties;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 
@@ -26,7 +22,8 @@ public class GridViewButtonSetup extends ButtonSetup {
 
 
   @Override
-  protected void invokeHandlerMethod(String buttonName, Button currentButton, Properties textProperties) {
+  protected void invokeHandlerMethod(String buttonName, Button currentButton,
+      Properties textProperties) {
     languageProperties = textProperties;
     try {
       Method method = this.getClass().getDeclaredMethod("check" + buttonName, Button.class);
@@ -49,6 +46,7 @@ public class GridViewButtonSetup extends ButtonSetup {
       fileChooser.setInitialDirectory(resourcesFile);
       fileChooser.setTitle("Open Resource File");
       File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
+
      myDisplay
          .setNewSimulation(propertiesFile.getName());
     });
@@ -73,6 +71,10 @@ public class GridViewButtonSetup extends ButtonSetup {
 
   public void checkImage(Button chooseImageButton) {
     chooseImageButton.setOnAction(e -> myDisplay.changeCellsToImages());
+  }
+
+  public void checkGraph(Button graphButton) {
+    graphButton.setOnAction(e -> myDisplay.launchGraph());
   }
 
 

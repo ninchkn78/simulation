@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Percolation extends Simulation {
 
-  public Percolation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+  public Percolation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy,
+      String[] possibleStates) {
     super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
   }
 
@@ -23,6 +24,7 @@ public class Percolation extends Simulation {
     if (!isOpen(row, col)) {
       return false;
     }
+
     if (isTopRow(row)){
       return true;
     }

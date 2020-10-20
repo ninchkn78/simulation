@@ -1,7 +1,8 @@
 package cellsociety.model.cells;
+
 import cellsociety.model.Neighborhood;
 
-public class WaTorCell extends Cell{
+public class WaTorCell extends Cell {
 
   public static final String OCEAN = "0";
   public static final String FISH = "1";
@@ -17,7 +18,7 @@ public class WaTorCell extends Cell{
     this.survivalTime = survivalTime;
   }
 
-  public WaTorCell(String state, Neighborhood neighbors){
+  public WaTorCell(String state, Neighborhood neighbors) {
     this(state, neighbors, STARTING_ENERGY, STARTING_SURVIVAL_TIME);
   }
 

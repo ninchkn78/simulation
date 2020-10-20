@@ -1,12 +1,9 @@
 package cellsociety.view;
 
 import java.util.Properties;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Rectangle;
 
 public class RectangleCellView extends Group implements CellView {
@@ -48,8 +45,6 @@ public class RectangleCellView extends Group implements CellView {
   public Node getCell() {
     return rectangle;
   }
-
-
 
 
 }

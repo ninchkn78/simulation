@@ -43,10 +43,9 @@ Known Bugs:
 1. As of right now, if you click the save file button, and exit out of the window, it still saves a file with the entered
 information. I need to fix this but documenting for now. 
 
-
 assumes files are in resources root 
 Extra credit:
 
-
 ### Impressions
+
 

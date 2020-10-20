@@ -22,12 +22,12 @@ public abstract class Cell {
     return this.state;
   }
 
-  public Neighborhood getNeighborhood(){
-    return this.neighbors;
-  }
-
   public void setState(String state) {
     this.state = state;
+  }
+
+  public Neighborhood getNeighborhood() {
+    return this.neighbors;
   }
 
   public String toString() {

@@ -9,6 +9,8 @@ public class RandomStateReader extends Reader {
   private final List<String> randomStates = new ArrayList<>();
   private final Random random = new Random(123);
 
+  // TODO: 2020-10-20 add this to analysis
+
   @Override
   public String[][] getStatesFromFile(String fileName) {
     List<String[]> list = readFile(fileName);
