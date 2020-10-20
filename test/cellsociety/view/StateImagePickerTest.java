@@ -1,8 +1,11 @@
 package cellsociety.view;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import cellsociety.controller.Controller;
 import java.util.Properties;
 import javafx.scene.Scene;
+import javafx.scene.control.ColorPicker;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -10,9 +13,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
 
-
-class SimulationBoardTest extends DukeApplicationTest {
-
+class StateImagePickerTest extends DukeApplicationTest {
   // create an instance of our game to be able to call in tests (like step())
   private final Display conwayDisplay = new Display();
   // keep created scene to allow mouse and keyboard events
@@ -30,10 +31,11 @@ class SimulationBoardTest extends DukeApplicationTest {
   }
 
   @Test
-  void testColorChangesOnClick() {
-    Rectangle cell1 = lookup("#cell1,0").query();
-    clickOn("#cell1,0");
-    Assertions.assertEquals(Color.DARKSLATEBLUE, cell1.getFill());
-    Assertions.assertEquals(0, cell1.getY());
+  void testImagePicker() {
+    clickOn("#0imageStatePicker");
+    Rectangle cell = lookup("#cell1,0").query();
+    Assertions.assertEquals(Color.BLUE, cell.getFill());
+    javafxRun(() -> conwayDisplay.nextGen());
   }
+
 }

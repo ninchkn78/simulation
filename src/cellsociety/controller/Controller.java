@@ -12,18 +12,19 @@ public class Controller {
 
   // TODO: 2020-10-18 single responbility principle
   private Properties properties = new Properties();
-  private final String propertiesFileName;
+  private String propertiesFileName;
   private GameBoard board;
   private Simulation game;
 
   // TODO: 2020-10-18  fix this shit
-  public Controller(String propertiesName) {
-    propertiesFileName = propertiesName;
-    setProperties(propertiesFileName);
-    String gameType = properties.getProperty("GameType");
-    String cellType = properties.getProperty("CellType");
-    chooseSimulation(gameType, cellType);
-    board = game.getGameBoard();
+  public Controller(String propertiesName) throws InvalidPropertiesFileException{
+      propertiesFileName = propertiesName;
+      setProperties(propertiesFileName);
+      String gameType = properties.getProperty("GameType");
+      String cellType = properties.getProperty("CellType");
+      chooseSimulation(gameType, cellType);
+      board = game.getGameBoard();
+
   }
 
   private void chooseSimulation(String gameType, String cellType) {
@@ -44,15 +45,15 @@ public class Controller {
     return properties;
   }
 
-  public void setProperties(String propertiesFileName) {
+  public void setProperties(String propertiesFileName) throws InvalidPropertiesFileException {
     try {
       properties
           .load(Controller.class.getClassLoader().getResourceAsStream(propertiesFileName));
-    } catch (IOException e) {
-      // TODO: 2020-10-12 better error handling  
+    } catch (NullPointerException | IOException e) {
+
       //e.printStackTrace();
     }
-    validatePropertiesFile();
+  validatePropertiesFile();
   }
 
   public void overWriteProperties() {
