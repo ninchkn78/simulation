@@ -20,8 +20,8 @@ public class RPS extends Simulation {
     }
   }
 
-  private boolean isDefeated(int currentRow, int currentColumn) {
-    return countNeighboringOpponents(currentRow, currentColumn) > THRESHOLD;
+  private boolean isDefeated(int row, int col) {
+    return countNeighboringOpponents(row, col) > THRESHOLD;
   }
 
   public String getOpponent(int row, int col) {
