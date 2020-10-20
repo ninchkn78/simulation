@@ -7,6 +7,7 @@ import java.beans.PropertyEditor;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Properties;
 import org.apache.commons.lang3.ObjectUtils.Null;
 
@@ -87,6 +88,10 @@ public class Controller {
         throw new InvalidPropertiesFileException(languageProperties.getProperty("missingResourceKey"));
       }
     }
+  }
+
+  public List<Integer> getGraphCounts(){
+    return game.getGraphCounts();
   }
 
   /**
