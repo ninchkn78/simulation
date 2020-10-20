@@ -49,6 +49,9 @@ public class Display extends Application {
   private Stage myStage;
   private Timeline animation;
   private Controller myController;
+
+
+
   private SimulationBoard myBoard;
   private double animationSpeed = 120 / FRAMES_PER_SECOND;
   private boolean isPaused = true;
