@@ -14,7 +14,7 @@ class CellViewTest {
   public void setColorTest() throws IOException {
     Properties prop = new Properties();
     prop.load(RectangleCellView.class.getClassLoader()
-        .getResourceAsStream("ConwayGameOfLife.properties"));
+        .getResourceAsStream("Properties_Files/ConwayGameOfLife.properties"));
     Rectangle testCell = (Rectangle) new RectangleCellView(0, 0, "DEAD", prop).getCell();
     assertEquals(Color.BLUE, testCell.getFill());
     Rectangle testCell2 = (Rectangle) new RectangleCellView(0, 0, "ALIVE", prop).getCell();
