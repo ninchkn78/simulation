@@ -35,12 +35,12 @@ class StateColorPickerTest extends DukeApplicationTest {
     ColorPicker colorPicker = lookup("#0color").query();
     Rectangle cell = lookup("#cell1,0").query();
     Assertions.assertEquals(Color.BLUE, cell.getFill());
-    sleep(1000);
+
     javafxRun(() -> colorPicker.setValue(Color.PURPLE));
     //javafxRun(() -> colorPicker.notifyAll());
-    sleep(1000);
+
     javafxRun(() -> conwayDisplay.nextGen());
-    sleep(1000);
+
     Assertions.assertEquals(Color.PURPLE, cell.getFill());
   }
 }
