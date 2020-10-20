@@ -98,6 +98,95 @@ public class WaTorWorldTest {
     assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
   }
 
+  @Test
+  public void wator4CardinalNeighborTest(){
+    WaTorWorld wator = new WaTorWorld("board_config/wator4.csv,set", "WaTorCell", "cardinal", "finite", new String[]{"0","1", "2"});
+    wator.setSeed(0);
+    wator.nextGen();
+
+    String[][] nextStates = wator.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","0","2","0","0","2","0","0","0"},
+            {"2","2","0","0","0","2","2","0","0","2","2"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void wator4OrdinalNeighborTest(){
+    WaTorWorld wator = new WaTorWorld("board_config/wator4.csv,set", "WaTorCell", "ordinal", "finite", new String[]{"0","1", "2"});
+    wator.setSeed(0);
+    wator.nextGen();
+
+    String[][] nextStates = wator.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","2","0","0","0","0","2","0","0"},
+            {"0","2","2","0","0","0","2","2","0","2","2"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void wator4ToroidalEdgeTest(){
+    WaTorWorld wator = new WaTorWorld("board_config/wator4.csv,set", "WaTorCell", "complete", "toroidal", new String[]{"0","1", "2"});
+    wator.setSeed(0);
+    wator.nextGen();
+
+    String[][] nextStates = wator.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","2","0","0","0","2","2"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","2","2","0","0","2","2","0","0","2"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void wator4CrossSurfaceEdgeTest(){
+    WaTorWorld wator = new WaTorWorld("board_config/wator4.csv,set", "WaTorCell", "complete", "cross-surface", new String[]{"0","1", "2"});
+    wator.setSeed(0);
+    wator.nextGen();
+
+    String[][] nextStates = wator.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","2","0","0","0","2","2"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","2","2","0","0","2","2","0","2"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+
 
 
 }

@@ -161,5 +161,84 @@ public class ConwayGameOfLifeTest {
     assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
   }
 
+  @Test
+  public void conway0CardinalNeighborConfigTest() {
+    Simulation conway = new ConwayGameOfLife("board_config/conway0.csv,set", "ConwayCell", "cardinal", "finite", new String[]{"0","1"});
+    conway.nextGen();
+    String[][] nextStates = conway.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "1", "1", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "1", "1", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void conway0OrdinalNeighborConfigTest() {
+    Simulation conway = new ConwayGameOfLife("board_config/conway0.csv,set", "ConwayCell", "ordinal", "finite", new String[]{"0","1"});
+    conway.nextGen();
+    String[][] nextStates = conway.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void conway7ToroidalEdgeConfigTest() {
+    Simulation conway = new ConwayGameOfLife("board_config/conway7.csv,set", "ConwayCell", "complete", "toroidal", new String[]{"0","1"});
+    conway.nextGen();
+    String[][] nextStates = conway.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0", "1", "1", "1", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "1", "1", "1", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "1", "1", "1", "0", "0", "0", "0", "0", "0", "0"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void conway7CrossSurfaceEdgeConfigTest() {
+    Simulation conway = new ConwayGameOfLife("board_config/conway7.csv,set", "ConwayCell", "complete", "cross-surface", new String[]{"0","1"});
+    conway.nextGen();
+    String[][] nextStates = conway.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0", "1", "1", "1", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "1", "1", "1", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"},
+            {"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
 
 }
