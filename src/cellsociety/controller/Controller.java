@@ -47,6 +47,11 @@ public class Controller {
     return properties;
   }
 
+  public void handleCellClick(int row, int col){
+    game.cylceStateOnClicked(row, col);
+    board = game.getGameBoard();
+  }
+
   public void setProperties(String propertiesFileName) throws InvalidPropertiesFileException {
     try {
       properties

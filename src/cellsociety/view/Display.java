@@ -192,7 +192,7 @@ public class Display extends Application {
       Controller controller = new Controller(propertiesName);
       setController(controller);
       stateConfigBox.addStateConfigs(myController);
-      myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
+      myBoard.setUpNewSimulation(myController);
     } catch(InvalidPropertiesFileException e){
       makeAlert("Bad",e.getMessage());
     }catch(InvocationTargetException e){
