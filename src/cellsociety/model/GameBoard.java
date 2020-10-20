@@ -104,7 +104,7 @@ public class GameBoard {
     List<List<Integer>> neighbors = getCell(row,col).getNeighborhood().getNeighbors();
     for (List<Integer> neighbor : neighbors){
       if (gameBoardStates[neighbor.get(0)][neighbor.get(1)].equals(state)){
-        cellsList.add(createCoordinates(row,col));
+        cellsList.add(createCoordinates(neighbor.get(0),neighbor.get(1)));
       }
     }
     return cellsList;

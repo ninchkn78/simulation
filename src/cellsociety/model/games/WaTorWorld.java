@@ -44,6 +44,8 @@ public class WaTorWorld extends Simulation {
   public void moveToOcean(GameBoard gameBoard, int row, int col) {
     List<List<Integer>> neighboringOcean = getGameBoard()
         .getNeighboringPositionsOfCellState(WaTorCell.OCEAN, row, col);
+    System.out.println(neighboringOcean);
+
     if (!neighboringOcean.isEmpty()) {
       List<Integer> oceanCoordinates = getDestinationCoordinates(neighboringOcean);
       int fishRow = oceanCoordinates.get(0);
@@ -68,8 +70,8 @@ public class WaTorWorld extends Simulation {
     int fishCol = oceanCoordinates.get(1);
     if (movedCell.isShark() && movedCell.getEnergyPoints() <= DEAD_ENERGY) {
       gameBoard.copyCell(fishRow, fishCol, new WaTorCell(WaTorCell.OCEAN,
-              new Neighborhood(fishRow, fishCol, getGameBoard(),
-                  getNeighborPolicy(), getEdgePolicy())));
+          new Neighborhood(fishRow, fishCol, getGameBoard(),
+              getNeighborPolicy(), getEdgePolicy())));
     }
   }
 

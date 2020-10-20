@@ -33,7 +33,7 @@ public class WaTorWorldTest {
   public void wator1ConfigTest(){
     WaTorWorld wator = new WaTorWorld("board_config/wator1.csv,set", "WaTorCell", "complete", "finite", new String[]{"0","1", "2"});
     wator.setSeed(0);
-    for (int i = 0; i < 15; i++){
+    for (int i = 0; i < 100; i++){
       wator.nextGen();
     }
     String[][] nextStates = wator.getGameBoard().getGameBoardStates();
