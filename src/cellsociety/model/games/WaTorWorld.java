@@ -32,13 +32,6 @@ public class WaTorWorld extends Simulation {
     }
   }
 
-  public boolean isShark(int row, int col) {
-    return getGameBoard().getState(row, col).equals(WaTorCell.SHARK);
-  }
-
-  public boolean isFish(int row, int col) {
-    return getGameBoard().getState(row, col).equals(WaTorCell.FISH);
-  }
 
   public boolean isOcean(int row, int col) {
     return getGameBoard().getState(row, col).equals(WaTorCell.OCEAN);

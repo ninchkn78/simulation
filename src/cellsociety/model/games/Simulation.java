@@ -13,8 +13,6 @@ public abstract class Simulation {
   private String cellType;
   private String neighborPolicy;
   private String edgePolicy;
-
-
   private String[] possibleStates;
   private int generation;
 
