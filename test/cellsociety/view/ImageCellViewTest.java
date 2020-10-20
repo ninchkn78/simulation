@@ -21,7 +21,7 @@ class ImageCellViewTest {
   public void testImageButton() throws IOException {
     Properties prop = new Properties();
     prop.load(RectangleCellView.class.getClassLoader()
-        .getResourceAsStream("ConwayGameOfLife.properties"));
+        .getResourceAsStream("Properties_Files/ConwayGameOfLife.properties"));
     Assertions
         .assertDoesNotThrow(() -> new ImageCellView(50,50,"0",prop));
   }

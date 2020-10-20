@@ -55,10 +55,11 @@ public class Controller {
   public void setProperties(String propertiesFileName) throws InvalidPropertiesFileException {
     try {
       properties
-          .load(Controller.class.getClassLoader().getResourceAsStream(propertiesFileName));
+          .load(Controller.class.getClassLoader().getResourceAsStream("Properties_Files/" + propertiesFileName));
     } catch (NullPointerException | IOException e) {
       // TODO: 2020-10-19 ?
-      throw new InvalidPropertiesFileException("Please choose a file from the resources folder");
+      System.out.println(propertiesFileName);
+      throw new InvalidPropertiesFileException("Please choose a file from the properties files folder");
     }
     validatePropertiesFile();
   }
