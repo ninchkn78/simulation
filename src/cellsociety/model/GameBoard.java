@@ -73,7 +73,6 @@ public class GameBoard {
   }
 
   private Neighborhood createNeighborhood(int row, int col) {
-    System.out.println(edgePolicy);
     return new Neighborhood(row, col, this, neighborPolicy, edgePolicy);
   }
 
@@ -147,7 +146,6 @@ public class GameBoard {
     Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
     for (int i = 0; i < height; i++){
       for (int j = 0; j < width; j++){
-        System.out.println(cellType);
         Class operation;
         try {
           operation = Class.forName("cellsociety.model.cells." + cellType);
