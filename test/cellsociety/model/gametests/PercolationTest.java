@@ -69,6 +69,86 @@ public class PercolationTest {
     assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
   }
 
+  @Test
+  public void percolation1CardinalNeighborTest(){
+    Simulation percolation = new Percolation("board_config/percolation1.csv,set", "PercolationCell", "cardinal", "finite", new String[]{"0","1", "2"});
+    percolation.nextGen();
+    String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","0","0","2","0","0","0","0","0"},
+            {"0","0","0","0","1","2","1","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void percolation1OrdinalNeighborTest(){
+    Simulation percolation = new Percolation("board_config/percolation1.csv,set", "PercolationCell", "ordinal", "finite", new String[]{"0","1", "2"});
+    percolation.nextGen();
+    String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","0","0","2","0","0","0","0","0"},
+            {"0","0","0","0","2","1","2","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void percolation0ToroidalEdgeTest(){
+    Simulation percolation = new Percolation("board_config/percolation0.csv,set", "PercolationCell", "complete", "toroidal", new String[]{"0","1", "2"});
+    percolation.nextGen();
+    String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","0","0","2","0","0","0","0","0"},
+            {"0","0","0","0","0","2","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","2","0","0","0","0","0"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void percolation0CrossSurfaceEdgeTest(){
+    Simulation percolation = new Percolation("board_config/percolation0.csv,set", "PercolationCell", "complete", "cross-surface", new String[]{"0","1", "2"});
+    percolation.nextGen();
+    String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","0","0","2","0","0","0","0","0"},
+            {"0","0","0","0","0","2","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"},
+            {"0","0","0","0","0","1","0","0","0","0","0"}};
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
 
 
 }
