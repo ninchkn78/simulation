@@ -108,7 +108,7 @@ public class Display extends Application {
     myBoard = new SimulationBoard(myRoot);
     languageProperties = textProperties;
     stateConfigBox = new StateConfig(myRoot, this, languageProperties);
-    setNewSimulation("Default_Properties_Files/Default" + simulationType + ".properties");
+    setNewSimulation("Default" + simulationType + ".properties");
     Scene gameScene = setupScene(languageProperties);
 
     myStage.setScene(gameScene);
