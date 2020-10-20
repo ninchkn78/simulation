@@ -24,31 +24,31 @@ public class SpreadingFireCell extends Cell {
     return getState().equals(TREE);
   }
 
-  public enum SpreadingFireState implements CellState {
-    EMPTY("0"),
-    TREE("1"),
-    BURNING("2");
-
-
-    private final String state;
-
-    SpreadingFireState(String inputState) {
-      this.state = inputState;
-    }
-
-    public static SpreadingFireState fromValue(String state) {
-      for (SpreadingFireState value : SpreadingFireState.values()) {
-        if (state.equals(value.getState())) {
-          return value;
-        }
-      }
-      return EMPTY;
-    }
-
-    public String getState() {
-      return state;
-    }
-  }
-
+//  public enum SpreadingFireState implements CellState {
+//    EMPTY("0"),
+//    TREE("1"),
+//    BURNING("2");
+//
+//
+//    private final String state;
+//
+//    SpreadingFireState(String inputState) {
+//      this.state = inputState;
+//    }
+//
+//    public static SpreadingFireState fromValue(String state) {
+//      for (SpreadingFireState value : SpreadingFireState.values()) {
+//        if (state.equals(value.getState())) {
+//          return value;
+//        }
+//      }
+//      return EMPTY;
+//    }
+//
+//    public String getState() {
+//      return state;
+//    }
+//  }
+//
 
 }
