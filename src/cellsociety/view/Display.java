@@ -120,7 +120,6 @@ public class Display extends Application {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
     setUpButtons(languageProperties);
-    //parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();
     animation.play();
@@ -170,6 +169,7 @@ public class Display extends Application {
   public void nextGen() {
     myController.updateView();
     myBoard.updateMyGrid(myController.getGameBoard(), myController.getProperties());
+    //TODO - add an update my graph thing here
   }
 
 

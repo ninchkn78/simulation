@@ -52,7 +52,6 @@ public class SimulationBoard {
   }
 
   public void updateMyGrid(GameBoard gameBoard, Properties properties) {
-    // TODO: 2020-10-19 change the name of this metod
     gameBoard.apply((i, j, state) -> cells.get(i).get(j).updateView(state, properties));
   }
 
