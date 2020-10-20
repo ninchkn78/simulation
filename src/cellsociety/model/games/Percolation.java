@@ -20,26 +20,33 @@ public class Percolation extends Simulation {
     }
   }
 
-  public boolean fullNextGen(int currentRow, int currentColumn) {
-    if (!isOpen(currentRow, currentColumn)) {
+  private boolean fullNextGen(int row, int col) {
+    if (!isOpen(row, col)) {
       return false;
     }
-    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow, currentColumn)
-        .getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors) {
-      if (isFull(neighbor.get(0), neighbor.get(1))) {
+
+    if (isTopRow(row)){
+      return true;
+    }
+    List<List<Integer>> neighbors = getGameBoard().getCell(row,col).getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors){
+      if (isFull(neighbor.get(0), neighbor.get(1))){
         return true;
       }
     }
     return false;
   }
 
+  private boolean isTopRow(int row){
+    return row == 0;
+  }
 
-  public boolean isFull(int row, int col) { //TODO: Move to cell
+
+  private boolean isFull(int row, int col) { //TODO: Move to cell
     return getGameBoard().getCell(row, col).getState().equals(PercolationCell.FULL);
   }
 
-  public boolean isOpen(int row, int col) { //TODO: MovetoCell
+  private boolean isOpen(int row, int col) { //TODO: MovetoCell
     return getGameBoard().getCell(row, col).getState().equals(PercolationCell.OPEN);
   }
 

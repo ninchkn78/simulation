@@ -102,6 +102,7 @@ public class Display extends Application {
     setNewSimulation("Default" + simulationType + ".properties");
     Scene gameScene = setupScene(textProperties, myGridRoot);
     gridStage.setScene(gameScene);
+
   }
 
   public void launchGraph() {
@@ -116,6 +117,7 @@ public class Display extends Application {
     scene.getStylesheets().add(CSS_STYLE_SHEET);
     setUpButtons(textProperties, myGridRoot);
     setUpSpeedAdjuster(root);
+
     setUpAnimation();
     animation.play();
     return scene;
@@ -128,6 +130,7 @@ public class Display extends Application {
     myGridViewButtonSetup
         .buttonPipeline(buttonNameList, root, DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET,
             textProperties);
+
   }
 
   private void setUpAnimation() {
@@ -186,7 +189,7 @@ public class Display extends Application {
 
   public void setNewSimulation(String propertiesName) {
     try {
-      Controller controller = new Controller(propertiesName);
+      Controller controller = new Controller(propertiesName, languageProperties);
       setController(controller);
       stateConfigBox.addStateConfigs(myController);
       myGraphBoard.setUpNewSimulation(myController);

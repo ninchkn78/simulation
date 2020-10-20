@@ -25,7 +25,7 @@ public class SchellingSegregation extends Simulation {
     }
     if (willMove(row, col)) {
       List<List<Integer>> vacantCells = getGameBoard()
-          .getPositionsOfCellState(SchellingCell.VACANT);
+          .getAllPositionsOfCellState(SchellingCell.VACANT);
       int vacantIndex = rand.nextInt(vacantCells.size());
       List<Integer> vacantCoordinates = vacantCells.get(vacantIndex);
       gameBoard.swapCells(row, col, vacantCoordinates.get(0), vacantCoordinates.get(1));

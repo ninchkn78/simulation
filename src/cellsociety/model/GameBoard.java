@@ -60,14 +60,8 @@ public class GameBoard {
     Cell[][] cellConfig = new Cell[height][width];
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
-        Class operation;
-        try {
-          operation = Class.forName("cellsociety.model.cells." + cellType);
-          cellConfig[i][j] = (Cell) operation.getConstructor(String.class, Neighborhood.class)
-              .newInstance("0", createNeighborhood(i, j));
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-          e.printStackTrace();
-        }
+
+        cellConfig[i][j] = createCell("0", i, j);
       }
     }
     return cellConfig;
@@ -89,91 +83,100 @@ public class GameBoard {
     return (row >= 0 && col >= 0) && (row < height && col < width);
   }
 
-  public List<List<Integer>> getPositionsOfCellState(String state) {
+  public List<List<Integer>> getAllPositionsOfCellState(String state) {
     List<List<Integer>> cellsList = new ArrayList<>();
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
         if (gameBoardStates[i][j].equals(state)) {
-          List<Integer> coordinates = new ArrayList<>();
-          coordinates.add(i);
-          coordinates.add(j);
-          cellsList.add(coordinates);
+          cellsList.add(createCoordinates(i,j));
         }
       }
     }
     return cellsList;
+  }
+
+  public List<Integer> createCoordinates (int row, int col){
+    List<Integer> coordinates = new ArrayList<>();
+    coordinates.add(row);
+    coordinates.add(col);
+    return coordinates;
   }
 
   public List<List<Integer>> getNeighboringPositionsOfCellState(String state, int row, int col) {
     List<List<Integer>> cellsList = new ArrayList<>();
-    List<List<Integer>> neighbors = getCell(row, col).getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors) {
-      if (gameBoardStates[neighbor.get(0)][neighbor.get(1)].equals(state)) {
-        List<Integer> coordinates = new ArrayList<>();
-        coordinates.add(neighbor.get(0));
-        coordinates.add(neighbor.get(1));
-        cellsList.add(coordinates);
+
+        List<List<Integer>> neighbors = getCell(row, col).getNeighborhood().getNeighbors();
+        for (List<Integer> neighbor : neighbors) {
+          if (gameBoardStates[neighbor.get(0)][neighbor.get(1)].equals(state)) {
+            cellsList.add(createCoordinates(row, col));
+          }
+        }
+        return cellsList;
       }
-    }
-    return cellsList;
-  }
 
-  public void setPiece(int row, int col, String state) {
-    gameBoardCells[row][col].setState(state);
-    gameBoardStates[row][col] = state;
-  }
-
-  public int getWidth() {
-    return width;
-  }
-
-  public int getHeight() {
-    return height;
-  }
-
-  public String[][] getGameBoardStates() {
-    return gameBoardStates;
-  }
-
-  private void setGameBoardStates(Cell[][] initialState) {
-    for (int i = 0; i < initialState.length; i++) {
-      for (int j = 0; j < initialState[0].length; j++) {
-        gameBoardStates[i][j] = gameBoardCells[i][j].getState();
+      public void setPiece ( int row, int col, String state){
+        gameBoardCells[row][col].setState(state);
+        gameBoardStates[row][col] = state;
       }
-    }
-  }
 
-  public Cell[][] createCellConfiguration(
-      String[][] stateConfig) { //TODO: make this work for all cell types
-    Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        Class operation;
-        try {
-          operation = Class.forName("cellsociety.model.cells." + cellType);
-          cellConfig[i][j] = (Cell) operation.getConstructor(String.class, Neighborhood.class)
-              .newInstance(stateConfig[i][j], createNeighborhood(i, j));
-        } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-          e.printStackTrace();
+      public int getWidth () {
+        return width;
+      }
+
+      public int getHeight () {
+        return height;
+      }
+
+      public String[][] getGameBoardStates () {
+        return gameBoardStates;
+      }
+
+      private void setGameBoardStates (Cell[][]initialState){
+        for (int i = 0; i < initialState.length; i++) {
+          for (int j = 0; j < initialState[0].length; j++) {
+            gameBoardStates[i][j] = gameBoardCells[i][j].getState();
+          }
         }
       }
-    }
-    return cellConfig;
-  }
+
+      public Cell[][] createCellConfiguration (String[][]stateConfig){
+        Cell[][] cellConfig = new Cell[stateConfig.length][stateConfig[0].length];
+        for (int i = 0; i < height; i++) {
+          for (int j = 0; j < width; j++) {
+            cellConfig[i][j] = createCell(stateConfig[i][j], i, j);
+          }
+        }
+        return cellConfig;
+      }
+
 
   public void enactFunctionOnStates(TriConsumer<Integer, Integer, String> updateCellState) {
-    for (int i = 0; i < height; i++) {
-      for (int j = 0; j < width; j++) {
-        updateCellState.accept(i, j, gameBoardStates[i][j]);
-      }
+
+
+          for (int i = 0; i < height; i++) {
+            for (int j = 0; j < width; j++) {
+              updateCellState.accept(i, j, gameBoardStates[i][j]);
+            }
+          }
+        }
+  public Cell createCell(String state, int row, int col){
+    Class operation;
+    try {
+      operation = Class.forName("cellsociety.model.cells." + cellType);
+      return (Cell) operation.getConstructor(String.class, Neighborhood.class)
+          .newInstance(state, createNeighborhood(row, col));
+    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
+      e.printStackTrace();
     }
+    return null;
   }
+
+
 
   public void copyCell(int row, int col, Cell cell) {
     gameBoardCells[row][col] = cell;
     gameBoardStates[row][col] = cell.getState();
   }
-
 
   public void swapCells(int row1, int col1, int row2, int col2) {
     Cell firstCell = getCell(row1, col1);
