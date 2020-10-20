@@ -3,7 +3,6 @@ package cellsociety.model.gametests;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import cellsociety.model.games.SchellingSegregation;
-import cellsociety.model.games.Simulation;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
@@ -74,5 +73,95 @@ public class SchellingSegregationTest {
 
     assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
   }
+
+  @Test
+  public void segregation2CardinalNeighborTest(){
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation2.csv,set", "SchellingCell", "cardinal", "finite", new String[]{"0","1", "2"});
+    segregation.setSeed(0);
+    segregation.nextGen();
+    String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","2","0","0","1","2","2","0","0","0","0"},
+            {"0","2","0","2","1","0","0","0","2","0","0"},
+            {"0","2","1","0","0","0","1","2","2","1","1"},
+            {"2","1","1","1","0","2","2","1","2","1","2"},
+            {"2","2","1","1","1","0","0","2","2","1","0"},
+            {"2","2","1","1","1","2","2","0","0","1","0"},
+            {"0","2","0","0","1","2","0","1","0","2","1"},
+            {"2","0","1","0","2","1","0","0","2","1","1"},
+            {"0","1","2","0","2","0","0","1","2","0","1"},
+            {"2","1","1","1","1","2","0","0","2","2","1"},
+            {"2","1","0","1","1","1","2","2","2","1","2"}};
+
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void segregation3OrdinalNeighborTest(){
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation3.csv,set", "SchellingCell", "ordinal", "finite", new String[]{"0","1", "2"});
+    segregation.setSeed(0);
+    segregation.nextGen();
+    String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","1","1","0","2","0","0","0","0","0","0"},
+            {"0","1","1","2","0","0","0","0","0","0","0"},
+            {"0","0","0","1","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","1","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","2","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},};
+
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void segregation3ToroidalEdgeTest(){
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation3.csv,set", "SchellingCell", "complete", "toroidal", new String[]{"0","1", "2"});
+    segregation.setSeed(0);
+    segregation.nextGen();
+    String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","1","1","0","2","0","0","0","0","0","0"},
+            {"0","1","1","0","2","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","1","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","2","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","1","0","0"},};
+
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+  @Test
+  public void segregation3CrossSurfaceEdgeTest(){
+    SchellingSegregation segregation = new SchellingSegregation("board_config/segregation3.csv,set", "SchellingCell", "complete", "cross-surface", new String[]{"0","1", "2"});
+    segregation.setSeed(0);
+    segregation.nextGen();
+    String[][] nextStates = segregation.getGameBoard().getGameBoardStates();
+    String[][] correctNextStates =
+        {{"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","1","1","0","2","0","0","0","0","0","0"},
+            {"0","1","1","0","2","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","1","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","0","0","0"},
+            {"0","0","0","0","0","0","2","0","0","0","0"},
+            {"0","0","0","0","0","0","0","0","1","0","0"},};
+
+    assertEquals(Arrays.deepToString(nextStates), Arrays.deepToString(correctNextStates));
+  }
+
+
 
 }
