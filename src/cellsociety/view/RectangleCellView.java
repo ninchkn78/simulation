@@ -14,14 +14,12 @@ public class RectangleCellView extends Group implements CellView {
   String state;
   Rectangle rectangle;
 
-
   public RectangleCellView(double width, double height, String state, Properties properties) {
     rectangle = new Rectangle(width, height);
     setState(state);
     this.getChildren().add(rectangle);
     rectangle.setStroke(Color.BLACK);
     updateView(state, properties);
-    addEventListener();
   }
 
   public String getState() {
@@ -31,7 +29,6 @@ public class RectangleCellView extends Group implements CellView {
   public void setState(String state) {
     this.state = state;
   }
-
 
   public void updateView(String state, Properties properties) {
     // TODO: 2020-10-10 better error handling
@@ -43,19 +40,16 @@ public class RectangleCellView extends Group implements CellView {
   }
 
   @Override
+  public void handleClick() {
+    rectangle.setFill(Color.PURPLE);
+  }
+
+  @Override
   public Node getCell() {
     return rectangle;
   }
 
-  private void addEventListener() {
-    EventHandler<MouseEvent> eventHandler = e -> {
 
-      System.out.println("Hello World");
-      rectangle.setFill(Color.DARKSLATEBLUE);
-    };
-    //Registering the event filter
-    rectangle.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
-  }
 
 
 }

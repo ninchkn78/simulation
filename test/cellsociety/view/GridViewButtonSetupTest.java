@@ -1,8 +1,6 @@
 package cellsociety.view;
 
-import cellsociety.controller.Controller;
 import java.util.Properties;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -22,8 +20,7 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
     Properties english = myDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
     myDisplay.generateSplashScreen(english,stage);
     myDisplay.chooseSimulation("ConwayGameOfLife",english);
-    Controller controller = new Controller("TestConway.properties");
-    myDisplay.setNewSimulation(controller);
+    myDisplay.setNewSimulation("TestConway.properties");
     stage.show();
   }
 

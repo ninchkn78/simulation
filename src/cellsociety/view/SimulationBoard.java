@@ -5,8 +5,10 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
 public class SimulationBoard {
@@ -49,18 +51,30 @@ public class SimulationBoard {
     }
   }
 
+  public void updateMyGrid(GameBoard gameBoard, Properties properties) {
+    // TODO: 2020-10-19 change the name of this metod
+    gameBoard.apply((i, j, state) -> cells.get(i).get(j).updateView(state, properties));
+  }
+
   private void clear() {
     myGrid.getChildren().clear();
     cells.clear();
   }
 
   private void addCellToGrid(CellView cellView, int i, int j) {
+    addEventListener(cellView);
     Node cell = cellView.getCell();
     cell.setId(String.format("cell%d,%d", i, j));
     GridPane.setConstraints(cell, j, i);
     myGrid.getChildren().add(cell);
     cells.get(i).add(cellView);
   }
+
+  private void addEventListener(CellView cellView) {
+    EventHandler<MouseEvent> eventHandler = e -> cellView.handleClick();
+    cellView.getCell().addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+  }
+
 
   private int maxRowLength(String[][] array) {
     int maxRowLength = 0;
@@ -71,11 +85,6 @@ public class SimulationBoard {
     }
     return maxRowLength;
   }
-
-  public void updateMyGrid(GameBoard gameBoard, Properties properties) {
-    gameBoard.apply((i, j, state) -> cells.get(i).get(j).updateView(state, properties));
-  }
-
 
   private CellView chooseCellType(String cellType, double width, double height, String state,
       Properties properties) {
