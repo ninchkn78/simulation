@@ -8,7 +8,7 @@
 }
 
 .HBox{
-  -fx-spacing: 30;
+  -fx-spacing: 15;
   -fx-alignment: center;
  /* -fx-background-color: blue;*/
 }

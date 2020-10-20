@@ -95,5 +95,4 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
     ImageView cell1 = lookup("#cell1,0").query();
     ImageView cell2 = lookup("#cell0,1").query();
   }
-
 }

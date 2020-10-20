@@ -52,7 +52,8 @@ public abstract class ButtonSetup {
     return buttonBox;
   }
 
-  protected abstract void invokeHandlerMethod(String buttonName, Button currentButton, Properties languageProperties);
+  protected abstract void invokeHandlerMethod(String buttonName, Button currentButton,
+      Properties languageProperties);
 
 
 }

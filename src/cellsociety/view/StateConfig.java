@@ -10,7 +10,7 @@ public class StateConfig {
   private final StateImagePicker imagePickers;
   private final StateColorPicker colorPickers;
   private final VBox stateConfigBox = new VBox();
-  private Properties languageProperties;
+  private final Properties languageProperties;
 
   public StateConfig(Group root, Display display, Properties textProperties) {
     languageProperties = textProperties;

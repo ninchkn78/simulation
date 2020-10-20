@@ -5,7 +5,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
@@ -26,10 +25,10 @@ public class PopUpWindow {
   private final GameBoard myGameBoard;
   private final Properties properties;
   private GridPane myGrid;
-  private Properties languageProperties;
-  private String pupTitle;
-  private String pupAuthor;
-  private String pupDescription;
+  private final Properties languageProperties;
+  private final String pupTitle;
+  private final String pupAuthor;
+  private final String pupDescription;
 
 
   public PopUpWindow(Display display, GameBoard gameBoard, Properties textProperties) {
@@ -104,7 +103,9 @@ public class PopUpWindow {
       saveFileObject.saveState(myGameBoard, inputs[0]);
 
       properties.setProperty("CSVSource", "GAME_CSVS/" + inputs[0] + ".csv,set");
-      properties.store(new FileOutputStream("resources/Properties_Files/" + inputs[0] + ".properties"), null);
+      properties
+          .store(new FileOutputStream("resources/Properties_Files/" + inputs[0] + ".properties"),
+              null);
 
     } catch (IOException e) {
       e.printStackTrace();

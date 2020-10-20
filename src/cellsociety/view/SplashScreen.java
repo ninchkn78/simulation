@@ -13,7 +13,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -23,7 +22,7 @@ public class SplashScreen {
   private final Scene myScene;
   private final Display myDisplay;
   private Properties splashProperties;
-  private Properties languageProperties;
+  private final Properties languageProperties;
 
   public SplashScreen(Display display, Properties inputPropertiesFile) {
     myDisplay = display;
@@ -42,42 +41,34 @@ public class SplashScreen {
   }
 
   private void createLanguageDropdown(Group root) {
-
-
     ObservableList<String> options =
         FXCollections.observableArrayList(
             splashProperties.getProperty("Language1"),
             splashProperties.getProperty("Language2"),
             splashProperties.getProperty("Language3")
         );
+
     final ComboBox comboBox = new ComboBox(options);
-
-
     comboBox.setPromptText("Language");
-
     EventHandler<ActionEvent> event =
         new EventHandler<ActionEvent>() {
-          public void handle(ActionEvent e)
-          {
-            Properties languageProperties = myDisplay.createPropertiesObject("resources/Text_Properties_Files/"+comboBox.getValue().toString()+".properties");
-
+          public void handle(ActionEvent e) {
+            Properties languageProperties = myDisplay.createPropertiesObject(
+                "resources/Text_Properties_Files/" + comboBox.getValue().toString()
+                    + ".properties");
             myDisplay.generateSplashScreen(languageProperties, myDisplay.getStage());
-
           }
         };
-
-
     comboBox.setOnAction(event);
     root.getChildren().addAll(comboBox);
-
   }
-
 
   public ButtonSetup createButtonSetup(Group root) {
     ButtonSetup mySplashScreenSetup = new SplashScreenSetup(myDisplay);
     List<String> simulationNames = mySplashScreenSetup
         .parseButtonsFromProperties(10, splashProperties);
-    mySplashScreenSetup.buttonPipeline(simulationNames, root, "buttonBox", 3 / 5.0, languageProperties);
+    mySplashScreenSetup
+        .buttonPipeline(simulationNames, root, "buttonBox", 3 / 5.0, languageProperties);
     return mySplashScreenSetup;
   }
 

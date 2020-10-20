@@ -11,8 +11,9 @@ public class SpreadingFire extends Simulation {
   public Random rand;
 
 
-  public SpreadingFire(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
-    super(csvConfig, cellType,  neighborPolicy, edgePolicy, possibleStates);
+  public SpreadingFire(String csvConfig, String cellType, String neighborPolicy, String edgePolicy,
+      String[] possibleStates) {
+    super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
     rand = new Random();
   }
 
@@ -39,9 +40,10 @@ public class SpreadingFire extends Simulation {
     if (isEmpty(currentRow, currentColumn)) {
       return false;
     }
-    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow,currentColumn).getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors){
-      if (isBurning(neighbor.get(0), neighbor.get(1))){
+    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow, currentColumn)
+        .getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors) {
+      if (isBurning(neighbor.get(0), neighbor.get(1))) {
         double probability = rand.nextDouble();
         return probability > probCatch;
       }
@@ -49,7 +51,7 @@ public class SpreadingFire extends Simulation {
     return false;
   }
 
-  public void setSeed(long seed){
+  public void setSeed(long seed) {
     rand.setSeed(seed);
   }
 

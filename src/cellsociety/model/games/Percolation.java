@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Percolation extends Simulation {
 
-  public Percolation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+  public Percolation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy,
+      String[] possibleStates) {
     super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
   }
 
@@ -23,9 +24,10 @@ public class Percolation extends Simulation {
     if (!isOpen(currentRow, currentColumn)) {
       return false;
     }
-    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow,currentColumn).getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors){
-      if (isFull(neighbor.get(0), neighbor.get(1))){
+    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow, currentColumn)
+        .getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors) {
+      if (isFull(neighbor.get(0), neighbor.get(1))) {
         return true;
       }
     }
