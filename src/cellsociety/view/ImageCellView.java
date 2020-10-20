@@ -21,7 +21,6 @@ public class ImageCellView extends Group implements CellView {
     cellImage.setFitHeight(height);
     this.getChildren().add(cellImage);
     updateView(state, properties);
-    addEventListener();
   }
 
   public void updateView(String state, Properties properties) {
@@ -44,9 +43,9 @@ public class ImageCellView extends Group implements CellView {
     return cellImage;
   }
 
-  private void addEventListener() {
-    EventHandler<MouseEvent> eventHandler = e -> System.out.println("Hello World");
-    cellImage.addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
+  @Override
+  public void handleClick() {
+    System.out.println("Hello World");
   }
 }
 

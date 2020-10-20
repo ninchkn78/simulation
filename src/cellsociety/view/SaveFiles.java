@@ -14,7 +14,6 @@ public class SaveFiles {
 
 
   public void saveState(GameBoard currentBoard, String Title) throws IOException {
-
     FileWriter csvWriter = new FileWriter(SAVE_DIR + Title + EXTENSION);
     makeHeader(csvWriter, currentBoard.getGameBoardStates());
     writeRows(csvWriter, currentBoard.getGameBoardStates());

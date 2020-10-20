@@ -25,8 +25,7 @@ class StateColorPickerTest extends DukeApplicationTest {
     Properties english = conwayDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
     conwayDisplay.generateSplashScreen(english,stage);
     conwayDisplay.chooseSimulation("ConwayGameOfLife",english);
-    Controller controller = new Controller("TestConway.properties");
-    conwayDisplay.setNewSimulation(controller);
+    conwayDisplay.setNewSimulation("TestConway.properties");
     stage.show();
   }
 

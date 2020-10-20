@@ -25,7 +25,6 @@ public class Controller {
       String edgePolicy = properties.getProperty("EdgePolicy");
       chooseSimulation(gameType, cellType, neighborPolicy, edgePolicy);
       board = game.getGameBoard();
-
   }
 
   private void chooseSimulation(String gameType, String cellType, String neighborPolicy, String edgePolicy) {
@@ -38,7 +37,6 @@ public class Controller {
     } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
       // TODO: 2020-10-12 handle this error
       //e.printStackTrace();
-
     }
   }
 
@@ -51,7 +49,7 @@ public class Controller {
       properties
           .load(Controller.class.getClassLoader().getResourceAsStream(propertiesFileName));
     } catch (NullPointerException | IOException e) {
-
+      // TODO: 2020-10-19 ?
       //e.printStackTrace();
     }
   validatePropertiesFile();
@@ -70,6 +68,7 @@ public class Controller {
         "Author", "CSVSource", "NeighborPolicy", "EdgePolicy"};
     for (String property : requiredProperties) {
       if (properties.get(property) == null) {
+        // TODO: 2020-10-19 error messages in resource file
         throw new InvalidPropertiesFileException("This will be replaced anyways");
       }
     }

@@ -26,8 +26,7 @@ class PopUpWindowTest extends DukeApplicationTest {
     Properties english =  myDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
     myDisplay.generateSplashScreen(english,stage);
     myDisplay.chooseSimulation("ConwayGameOfLife",english);
-    Controller controller = new Controller("TestConway.properties");
-    myDisplay.setNewSimulation(controller);
+    myDisplay.setNewSimulation("TestConway.properties");
     stage.show();
   }
 
