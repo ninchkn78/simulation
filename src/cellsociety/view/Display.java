@@ -68,7 +68,6 @@ public class Display extends Application {
   public static void main(String[] args) {
     launch(args);
   }
-  //private Controller myController = new Controller("ConwayGameOfLife.properties");
 
   public void setAnimationSpeed(double animationSpeed) {
     this.animationSpeed = animationSpeed;
@@ -107,9 +106,11 @@ public class Display extends Application {
 
   public void chooseSimulation(String simulationType, Properties textProperties) {
     myBoard = new SimulationBoard(myRoot);
-    stateConfigBox = new StateConfig(myRoot, this, textProperties);
+    languageProperties = textProperties;
+    stateConfigBox = new StateConfig(myRoot, this, languageProperties);
     setNewSimulation("Default" + simulationType + ".properties");
-    Scene gameScene = setupScene(textProperties);
+    Scene gameScene = setupScene(languageProperties);
+
     myStage.setScene(gameScene);
   }
 
@@ -118,7 +119,7 @@ public class Display extends Application {
   Scene setupScene(Properties textProperties) {
     Scene scene = new Scene(myRoot, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
-    setUpButtons(textProperties);
+    setUpButtons(languageProperties);
     //parseButtonsFromProperties();
     setUpSpeedAdjuster();
     setUpAnimation();
@@ -132,7 +133,7 @@ public class Display extends Application {
         .parseButtonsFromProperties(NUMBER_POSSIBLE_BUTTONS, properties);
     myGridViewButtonSetup
         .buttonPipeline(buttonNameList, myRoot, DEFAULT_HBOX_CSS_CLASS, DEFAULT_Y_OFFSET,
-            textProperties);
+            languageProperties);
   }
 
 
@@ -190,7 +191,7 @@ public class Display extends Application {
 
   public void setNewSimulation(String propertiesName){
     try {
-      Controller controller = new Controller(propertiesName);
+      Controller controller = new Controller(propertiesName, languageProperties);
       setController(controller);
       stateConfigBox.addStateConfigs(myController);
       myBoard.setUpNewSimulation(myController);
