@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Properties;
+import org.apache.commons.lang3.ObjectUtils.Null;
 
 public class Controller {
 
@@ -16,7 +17,8 @@ public class Controller {
   private GameBoard board;
   private Simulation game;
 
-  public Controller(String propertiesName) throws InvalidPropertiesFileException{
+  public Controller(String propertiesName)
+      throws InvalidPropertiesFileException, InvocationTargetException {
       propertiesFileName = propertiesName;
       setProperties(propertiesFileName);
       String gameType = properties.getProperty("GameType");
@@ -27,18 +29,19 @@ public class Controller {
       board = game.getGameBoard();
   }
 
-  private void chooseSimulation(String gameType, String cellType, String neighborPolicy, String edgePolicy) {
+  private void chooseSimulation(String gameType, String cellType, String neighborPolicy, String edgePolicy)
+      throws InvocationTargetException {
     Class operation;
     try {
       operation = Class.forName("cellsociety.model.games." + gameType);
       game = (Simulation) operation.getConstructor(String.class, String.class, String.class, String.class, String[].class)
           .newInstance(properties.getProperty("CSVSource"), cellType, neighborPolicy, edgePolicy,
               properties.getProperty("States").split(","));
-    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException | InvocationTargetException e) {
-      // TODO: 2020-10-12 handle this error
-      //e.printStackTrace();
+    } catch (ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException  e) {
+
+
     }
-  }
+      }
 
   public Properties getProperties() {
     return properties;
@@ -50,26 +53,29 @@ public class Controller {
           .load(Controller.class.getClassLoader().getResourceAsStream(propertiesFileName));
     } catch (NullPointerException | IOException e) {
       // TODO: 2020-10-19 ?
-      //e.printStackTrace();
+      throw new InvalidPropertiesFileException("Please choose a file from the resources folder");
     }
-  validatePropertiesFile();
+    validatePropertiesFile();
   }
 
   public void overWriteProperties() {
     try {
       properties.store(new FileOutputStream("resources/" + propertiesFileName), null);
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new InvalidPropertiesFileException("Properties File Not Found");
     }
   }
 
   private void validatePropertiesFile() throws InvalidPropertiesFileException {
+    if(!propertiesFileName.substring(propertiesFileName.indexOf('.')).equals(".properties")){
+      throw new InvalidPropertiesFileException("Not a properties file");
+    }
     String[] requiredProperties = {"Description", "Title", "States", "CellType", "GameType",
         "Author", "CSVSource", "NeighborPolicy", "EdgePolicy"};
     for (String property : requiredProperties) {
       if (properties.get(property) == null) {
         // TODO: 2020-10-19 error messages in resource file
-        throw new InvalidPropertiesFileException("This will be replaced anyways");
+        throw new InvalidPropertiesFileException("Missing Resource Key");
       }
     }
   }

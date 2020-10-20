@@ -5,6 +5,7 @@ import cellsociety.model.GameBoard;
 import cellsociety.model.RandomStateReader;
 import cellsociety.model.Reader;
 import cellsociety.model.SetStateReader;
+import exceptions.InvalidCSVFormatException;
 
 
 public abstract class Simulation {
@@ -18,7 +19,7 @@ public abstract class Simulation {
   private String[] possibleStates;
   private int generation;
 
-  public Simulation(String config, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+  public Simulation(String config, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) throws InvalidCSVFormatException {
     String[] configAndType = config.split(",");
     Reader stateReader = chooseReader(configAndType[1]);
     this.board = new GameBoard(stateReader.getStatesFromFile(configAndType[0]), cellType, neighborPolicy, edgePolicy,

@@ -7,6 +7,7 @@ import exceptions.InvalidPropertiesFileException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
@@ -190,7 +191,9 @@ public class Display extends Application {
       stateConfigBox.addStateConfigs(myController);
       myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
     } catch(InvalidPropertiesFileException e){
-      System.out.println(":(");
+      System.out.println(e.getMessage());
+    }catch(InvocationTargetException e){
+      System.out.println(e.getCause());
     }
   }
 
