@@ -18,12 +18,13 @@ import util.DukeApplicationTest;
 
 class PopUpWindowTest extends DukeApplicationTest {
   private final Display myDisplay = new Display();
+  private Properties english;
   // keep created scene to allow mouse and keyboard events
   // keep any useful elements whose values you want to test directly in multiple tests
 
   @Override
   public void start(Stage stage) {
-    Properties english =  myDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
+    english =  myDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
     myDisplay.generateSplashScreen(english,stage);
     myDisplay.chooseSimulation("ConwayGameOfLife",english);
     myDisplay.setNewSimulation("TestConway.properties");
@@ -40,7 +41,7 @@ class PopUpWindowTest extends DukeApplicationTest {
         () -> {
           saveFileButton.fire();
           Assertions
-              .assertDoesNotThrow(() -> new PopUpWindow(myDisplay, myDisplay.getController().getGameBoard()));
+              .assertDoesNotThrow(() -> new PopUpWindow(myDisplay, myDisplay.getController().getGameBoard(), english));
         }
     );
 

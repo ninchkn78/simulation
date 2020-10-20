@@ -26,21 +26,31 @@ public class PopUpWindow {
   private final GameBoard myGameBoard;
   private final Properties properties;
   private GridPane myGrid;
+  private Properties languageProperties;
+  private String pupTitle;
+  private String pupAuthor;
+  private String pupDescription;
 
-  public PopUpWindow(Display display, GameBoard gameBoard) {
+
+  public PopUpWindow(Display display, GameBoard gameBoard, Properties textProperties) {
     myGameBoard = gameBoard;
     properties = display.getController().getProperties();
+    languageProperties = textProperties;
+
+    pupTitle = languageProperties.getProperty("pupTitleField");
+    pupAuthor = languageProperties.getProperty("pupAuthorField");
+    pupDescription = languageProperties.getProperty("pupDescriptionField");
 
     Dialog<String[]> dialog = createDialog();
     createGridPane();
 
-    TextField title = createTextFeild(TITLE);
-    TextField author = createTextFeild(AUTHOR);
-    TextField description = createTextFeild(DESCRIPTION);
+    TextField title = createTextFeild(pupTitle);
+    TextField author = createTextFeild(pupAuthor);
+    TextField description = createTextFeild(pupDescription);
 
-    addToGrid(title, TITLE, 0);
-    addToGrid(author, AUTHOR, 1);
-    addToGrid(description, DESCRIPTION, 2);
+    addToGrid(title, pupTitle, 0);
+    addToGrid(author, pupAuthor, 1);
+    addToGrid(description, pupDescription, 2);
 
     dialog.getDialogPane().setContent(myGrid);
     //Optional<ButtonType> result = dialog.getButtonType().showAndWait();
@@ -77,18 +87,18 @@ public class PopUpWindow {
 
   private Dialog<String[]> createDialog() {
     Dialog<String[]> dialog = new Dialog<>();
-    dialog.setTitle(DIALOG_TITLE);
-    dialog.setHeaderText(HEADER_TITLE);
-    ButtonType save = new ButtonType(BUTTON_TITLE);
+    dialog.setTitle(languageProperties.getProperty("pupDialogTitle"));
+    dialog.setHeaderText(languageProperties.getProperty("pupHeaderTitle"));
+    ButtonType save = new ButtonType(languageProperties.getProperty("pupButtonTitle"));
     dialog.getDialogPane().getButtonTypes().add(save);
     return dialog;
   }
 
   public void storeInPropertiesFile(String[] inputs) {
     try {
-      properties.setProperty(TITLE, inputs[0]);
-      properties.setProperty(AUTHOR, inputs[1]);
-      properties.setProperty(DESCRIPTION, inputs[2]);
+      properties.setProperty(pupTitle, inputs[0]);
+      properties.setProperty(pupAuthor, inputs[1]);
+      properties.setProperty(pupDescription, inputs[2]);
 
       SaveFiles saveFileObject = new SaveFiles();
       saveFileObject.saveState(myGameBoard, inputs[0]);
