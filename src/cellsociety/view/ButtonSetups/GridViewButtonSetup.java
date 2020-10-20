@@ -4,6 +4,7 @@ import cellsociety.controller.Controller;
 import cellsociety.model.GameBoard;
 import cellsociety.view.Display;
 import cellsociety.view.PopUpWindow;
+import exceptions.InvalidPropertiesFileException;
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -37,18 +38,22 @@ public class GridViewButtonSetup extends ButtonSetup {
 
   public void checkStepOnce(Button stepButton) {
     stepButton.setOnAction(e -> myDisplay.nextGen());
-
   }
 
   public void checkLoadFile(Button loadFileButton) {
     loadFileButton.setOnAction(e -> {
       myDisplay.pauseGame();
       FileChooser fileChooser = new FileChooser();
+      File resourcesFile = new File("resources");
+      fileChooser.setInitialDirectory(resourcesFile);
       fileChooser.setTitle("Open Resource File");
       File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
-//      if (propertiesFile != null) { //TODO - fix line below or just make it known you can only choose properties files from default properties files
-        myDisplay.setNewSimulation(new Controller("Default_Properties_Files/"+propertiesFile.getName()));
-
+   try{ //TODO - fix line below or just make it known you can only choose properties files from default properties files
+     myDisplay
+         .setNewSimulation(new Controller("Default_Properties_Files/" + propertiesFile.getName()));
+   } catch (InvalidPropertiesFileException exception){
+     System.out.println(":(");
+   }
     });
   }
 

@@ -21,6 +21,7 @@ class SplashScreenTest extends DukeApplicationTest {
   public void start(Stage stage) {
     Properties english = myDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
     myDisplay.generateSplashScreen(english, stage);
+
   }
 
   @Test

@@ -4,6 +4,7 @@ import cellsociety.controller.Controller;
 import java.util.Properties;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -14,16 +15,15 @@ import util.DukeApplicationTest;
 class GridViewButtonSetupTest extends DukeApplicationTest {
 
   private final Display myDisplay = new Display();
-  Scene myScene;
+
 
   @Override
   public void start(Stage stage) {
-    Controller controller = new Controller("TestConway.properties");
-    myDisplay.setController(new Controller("TestConway.properties"));
     Properties english = myDisplay.createPropertiesObject("resources/Text_Properties_Files/English.properties");
-    myScene = myDisplay.setupScene(english);
+    myDisplay.generateSplashScreen(english,stage);
+    myDisplay.chooseSimulation("ConwayGameOfLife",english);
+    Controller controller = new Controller("TestConway.properties");
     myDisplay.setNewSimulation(controller);
-    stage.setScene(myScene);
     stage.show();
   }
 
@@ -91,5 +91,12 @@ class GridViewButtonSetupTest extends DukeApplicationTest {
 
   }
 
+  @Test
+  public void testImageButton() {
+    Button imageButton = lookup("#Image").queryButton();
+    javafxRun(() -> imageButton.fire());
+    ImageView cell1 = lookup("#cell1,0").query();
+    ImageView cell2 = lookup("#cell0,1").query();
+  }
 
 }
