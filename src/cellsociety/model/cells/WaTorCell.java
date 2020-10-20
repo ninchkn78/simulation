@@ -49,29 +49,29 @@ public class WaTorCell extends Cell{
     return getState().equals(FISH);
   }
 
-  public enum WaTorState implements CellState {
-    OCEAN("0"),
-    FISH("1"),
-    SHARK("2");
-
-
-    private final String state;
-
-    WaTorState(String inputState) {
-      this.state = inputState;
-    }
-
-    public static WaTorState fromValue(String state) {
-      for (WaTorState value : WaTorState.values()) {
-        if (state.equals(value.getState())) {
-          return value;
-        }
-      }
-      return OCEAN;
-    }
-
-    public String getState() {
-      return state;
-    }
-  }
+//  public enum WaTorState implements CellState {
+//    OCEAN("0"),
+//    FISH("1"),
+//    SHARK("2");
+//
+//
+//    private final String state;
+//
+//    WaTorState(String inputState) {
+//      this.state = inputState;
+//    }
+//
+//    public static WaTorState fromValue(String state) {
+//      for (WaTorState value : WaTorState.values()) {
+//        if (state.equals(value.getState())) {
+//          return value;
+//        }
+//      }
+//      return OCEAN;
+//    }
+//
+//    public String getState() {
+//      return state;
+//    }
+//  }
 }

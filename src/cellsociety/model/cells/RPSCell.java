@@ -25,31 +25,31 @@ public class RPSCell extends Cell {
     return getState().equals(SCISSORS);
   }
 
-  public enum RPSState implements CellState {
-    ROCK("0"),
-    PAPER("1"),
-    SCISSORS("2");
-
-
-    private final String state;
-
-    RPSState(String inputState) {
-      this.state = inputState;
-    }
-
-    public static RPSState fromValue(String state) {
-      for (RPSState value : RPSState.values()) {
-        if (state.equals(value.getState())) {
-          return value;
-        }
-      }
-      return ROCK;
-    }
-
-    public String getState() {
-      return state;
-    }
-  }
+//  public enum RPSState implements CellState {
+//    ROCK("0"),
+//    PAPER("1"),
+//    SCISSORS("2");
+//
+//
+//    private final String state;
+//
+//    RPSState(String inputState) {
+//      this.state = inputState;
+//    }
+//
+//    public static RPSState fromValue(String state) {
+//      for (RPSState value : RPSState.values()) {
+//        if (state.equals(value.getState())) {
+//          return value;
+//        }
+//      }
+//      return ROCK;
+//    }
+//
+//    public String getState() {
+//      return state;
+//    }
+//  }
 
 
 }

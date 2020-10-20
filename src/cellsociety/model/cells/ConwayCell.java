@@ -19,28 +19,28 @@ public class ConwayCell extends Cell {
     return this.getState().equals(DEAD);
   }
 
-  public enum ConwayState implements CellState {
-    ALIVE("1"),
-    DEAD("0");
-
-    private final String state;
-
-    ConwayState(String inputState) {
-      this.state = inputState;
-    }
-
-    public static ConwayState fromValue(String state) {
-      for (ConwayState value : ConwayState.values()) {
-        if (state.equals(value.getState())) {
-          return value;
-        }
-      }
-      return DEAD;
-    }
-
-    public String getState() {
-      return state;
-    }
-  }
+//  public enum ConwayState implements CellState {
+//    ALIVE("1"),
+//    DEAD("0");
+//
+//    private final String state;
+//
+//    ConwayState(String inputState) {
+//      this.state = inputState;
+//    }
+//
+//    public static ConwayState fromValue(String state) {
+//      for (ConwayState value : ConwayState.values()) {
+//        if (state.equals(value.getState())) {
+//          return value;
+//        }
+//      }
+//      return DEAD;
+//    }
+//
+//    public String getState() {
+//      return state;
+//    }
+//  }
 
 }
