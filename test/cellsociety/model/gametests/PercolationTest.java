@@ -11,7 +11,7 @@ public class PercolationTest {
 
   @Test
   public void percolation0ConfigTest(){
-    Simulation percolation = new Percolation("board_config/percolation0.csv,set", "PercolationCell", "complete", "finite", new String[]{"0","1", "2"});
+    Simulation percolation = new Percolation("board_config/percolation0.csv,set", "PercolationCell", "Complete", "Finite", new String[]{"0","1", "2"});
     percolation.nextGen();
     String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -31,7 +31,7 @@ public class PercolationTest {
 
   @Test
   public void percolation1ConfigTest(){
-    Simulation percolation = new Percolation("board_config/percolation1.csv,set", "PercolationCell", "complete", "finite", new String[]{"0","1", "2"});
+    Simulation percolation = new Percolation("board_config/percolation1.csv,set", "PercolationCell", "Complete", "Finite", new String[]{"0","1", "2"});
     percolation.nextGen();
     String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -51,7 +51,7 @@ public class PercolationTest {
 
   @Test
   public void percolation2ConfigTest(){
-    Simulation percolation = new Percolation("board_config/percolation2.csv,set", "PercolationCell", "complete", "finite", new String[]{"0","1", "2"});
+    Simulation percolation = new Percolation("board_config/percolation2.csv,set", "PercolationCell", "Complete", "Finite", new String[]{"0","1", "2"});
     percolation.nextGen();
     String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -71,7 +71,7 @@ public class PercolationTest {
 
   @Test
   public void percolation1CardinalNeighborTest(){
-    Simulation percolation = new Percolation("board_config/percolation1.csv,set", "PercolationCell", "cardinal", "finite", new String[]{"0","1", "2"});
+    Simulation percolation = new Percolation("board_config/percolation1.csv,set", "PercolationCell", "Cardinal", "Finite", new String[]{"0","1", "2"});
     percolation.nextGen();
     String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -91,7 +91,7 @@ public class PercolationTest {
 
   @Test
   public void percolation1OrdinalNeighborTest(){
-    Simulation percolation = new Percolation("board_config/percolation1.csv,set", "PercolationCell", "ordinal", "finite", new String[]{"0","1", "2"});
+    Simulation percolation = new Percolation("board_config/percolation1.csv,set", "PercolationCell", "Ordinal", "Finite", new String[]{"0","1", "2"});
     percolation.nextGen();
     String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -111,7 +111,7 @@ public class PercolationTest {
 
   @Test
   public void percolation0ToroidalEdgeTest(){
-    Simulation percolation = new Percolation("board_config/percolation0.csv,set", "PercolationCell", "complete", "toroidal", new String[]{"0","1", "2"});
+    Simulation percolation = new Percolation("board_config/percolation0.csv,set", "PercolationCell", "Complete", "Toroidal", new String[]{"0","1", "2"});
     percolation.nextGen();
     String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =
@@ -131,7 +131,7 @@ public class PercolationTest {
 
   @Test
   public void percolation0CrossSurfaceEdgeTest(){
-    Simulation percolation = new Percolation("board_config/percolation0.csv,set", "PercolationCell", "complete", "cross-surface", new String[]{"0","1", "2"});
+    Simulation percolation = new Percolation("board_config/percolation0.csv,set", "PercolationCell", "Complete", "CrossSurface", new String[]{"0","1", "2"});
     percolation.nextGen();
     String[][] nextStates = percolation.getGameBoard().getGameBoardStates();
     String[][] correctNextStates =

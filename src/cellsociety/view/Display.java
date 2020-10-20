@@ -117,7 +117,6 @@ public class Display extends Application {
     scene.getStylesheets().add(CSS_STYLE_SHEET);
     setUpButtons(textProperties, myGridRoot);
     setUpSpeedAdjuster(root);
-
     setUpAnimation();
     animation.play();
     return scene;
@@ -198,6 +197,7 @@ public class Display extends Application {
       makeAlert("Bad", e.getMessage());
     } catch (InvocationTargetException e) {
       makeAlert("Bad Bad", e.getCause().getLocalizedMessage());
+
     }
   }
   public void makeAlert(String header, String message) {

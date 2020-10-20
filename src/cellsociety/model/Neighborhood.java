@@ -1,18 +1,11 @@
 package cellsociety.model;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Neighborhood {
-
-  private static final String COMPLETE = "complete";
-  private static final String CARDINAL = "cardinal";
-  private static final String ORDINAL = "ordinal";
-
-  private static final String FINITE = "finite";
-  private static final String TOROIDAL = "toroidal";
-  private static final String CROSSSURFACE = "cross-surface";
-
 
   public List<List<Integer>> neighbors;
   public String neighborPolicy;
@@ -30,10 +23,11 @@ public class Neighborhood {
   }
 
   public void createNeighborhood(int row, int col, GameBoard gameBoard){
-    switch (neighborPolicy) {
-      case COMPLETE -> createCompleteNeighbors(row, col, gameBoard);
-      case CARDINAL -> createAdjacentNeighbors(row, col, gameBoard);
-      case ORDINAL -> createOrdinalNeighbors(row, col, gameBoard);
+    try {
+      Method method = this.getClass().getDeclaredMethod("create" + neighborPolicy + "Neighbors", int.class, int.class, GameBoard.class);
+      method.invoke(this, row, col, gameBoard);
+    } catch (SecurityException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+      e.printStackTrace();
     }
   }
 
@@ -50,10 +44,12 @@ public class Neighborhood {
     }
   }
 
-  private void createAdjacentNeighbors(int row, int col, GameBoard gameBoard) {
+  private void createCardinalNeighbors(int row, int col, GameBoard gameBoard) {
     for (int i = row - 1; i <= row + 1; i++){
       for (int j = col - 1; j <= col + 1; j++){
-        if (gameBoard.inBounds(i,j) && !isOriginalCell(row, col, i, j) && isAdjacentCell(i,j,row,col)){
+        if (!gameBoard.inBounds(i,j)){
+          handleOutOfBounds(i,j, gameBoard);
+        } else if (!isOriginalCell(i,j,row,col) && isAdjacentCell(i,j,row,col)){
           List<Integer> coordinates = createCoordinates(i, j);
           neighbors.add(coordinates);
         }
@@ -73,10 +69,11 @@ public class Neighborhood {
   }
 
   private void handleOutOfBounds(int row, int col, GameBoard gameBoard) {
-    switch(edgePolicy){
-      case FINITE -> handleFiniteOutOfBounds(row,col, gameBoard);
-      case TOROIDAL -> handleToroidalOutOfBounds(row, col, gameBoard);
-      case CROSSSURFACE -> handleCrossSurfaceOutOfBounds(row, col, gameBoard);
+    try {
+      Method method = this.getClass().getDeclaredMethod("handle" + edgePolicy + "OutOfBounds", int.class, int.class, GameBoard.class);
+      method.invoke(this, row, col, gameBoard);
+    } catch (SecurityException | NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+      e.printStackTrace();
     }
   }
 
