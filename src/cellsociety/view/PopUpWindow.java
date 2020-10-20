@@ -24,11 +24,11 @@ public class PopUpWindow {
 
   private final GameBoard myGameBoard;
   private final Properties properties;
-  private GridPane myGrid;
   private final Properties languageProperties;
   private final String pupTitle;
   private final String pupAuthor;
   private final String pupDescription;
+  private GridPane myGrid;
 
 
   public PopUpWindow(Display display, GameBoard gameBoard, Properties textProperties) {

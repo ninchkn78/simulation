@@ -58,6 +58,7 @@ public class Display extends Application {
 
   public Display() {
   }
+
   /**
    * Start the program.
    */
@@ -75,6 +76,7 @@ public class Display extends Application {
     gridStage = stage;
     generateSplashScreen(languageProperties, stage);
   }
+
   //
   public Properties createPropertiesObject(String propertiesFileName) {
     Properties tempPropFile = null;
@@ -110,7 +112,7 @@ public class Display extends Application {
     isGraph = true;
     myGraph = new StateGraph(myGraphRoot, myController);
     myGraph.setUpNewGraph(myController);
-    Scene graphScene = setupScene(languageProperties,myGraphRoot);
+    Scene graphScene = setupScene(languageProperties, myGraphRoot);
     graphStage.setScene(graphScene);
     graphStage.show();
   }
@@ -164,9 +166,10 @@ public class Display extends Application {
       nextGen();
     }
   }
+
   public void nextGen() {
     myController.updateView();
-    if(isGraph) {
+    if (isGraph) {
       myGraph.updateGraph(myController);
     }
     myGridBoard.updateMyGrid(myController.getGameBoard(), myController.getProperties());
@@ -204,6 +207,7 @@ public class Display extends Application {
       makeAlert("Bad Bad", e.getCause().getLocalizedMessage());
     }
   }
+
   public void makeAlert(String header, String message) {
     Alert a = new Alert(Alert.AlertType.NONE);
     ButtonType close = new ButtonType(":(", ButtonBar.ButtonData.CANCEL_CLOSE);

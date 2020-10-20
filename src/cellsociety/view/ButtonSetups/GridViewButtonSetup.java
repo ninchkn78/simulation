@@ -47,8 +47,8 @@ public class GridViewButtonSetup extends ButtonSetup {
       fileChooser.setTitle("Open Resource File");
       File propertiesFile = fileChooser.showOpenDialog(myDisplay.getStage());
 
-     myDisplay
-         .setNewSimulation(propertiesFile.getName());
+      myDisplay
+          .setNewSimulation(propertiesFile.getName());
     });
   }
 

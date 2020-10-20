@@ -38,9 +38,10 @@ public class SpreadingFire extends Simulation {
 
   public boolean burningNextGen(int currentRow, int currentColumn) {
 
-    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow,currentColumn).getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors){
-      if (isBurning(neighbor.get(0), neighbor.get(1)) && !isEmpty(currentRow, currentColumn)){
+    List<List<Integer>> neighbors = getGameBoard().getCell(currentRow, currentColumn)
+        .getNeighborhood().getNeighbors();
+    for (List<Integer> neighbor : neighbors) {
+      if (isBurning(neighbor.get(0), neighbor.get(1)) && !isEmpty(currentRow, currentColumn)) {
         double probability = rand.nextDouble();
         return probability > probCatch;
       }
