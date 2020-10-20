@@ -51,6 +51,11 @@ public class SimulationBoard {
     }
   }
 
+  public void updateMyGrid(GameBoard gameBoard, Properties properties) {
+    // TODO: 2020-10-19 change the name of this metod
+    gameBoard.apply((i, j, state) -> cells.get(i).get(j).updateView(state, properties));
+  }
+
   private void clear() {
     myGrid.getChildren().clear();
     cells.clear();
@@ -66,9 +71,7 @@ public class SimulationBoard {
   }
 
   private void addEventListener(CellView cellView) {
-    EventHandler<MouseEvent> eventHandler = e -> {
-      cellView.handleClick();
-    };
+    EventHandler<MouseEvent> eventHandler = e -> cellView.handleClick();
     cellView.getCell().addEventFilter(MouseEvent.MOUSE_CLICKED, eventHandler);
   }
 
@@ -81,10 +84,6 @@ public class SimulationBoard {
       }
     }
     return maxRowLength;
-  }
-
-  public void updateMyGrid(GameBoard gameBoard, Properties properties) {
-    gameBoard.apply((i, j, state) -> cells.get(i).get(j).updateView(state, properties));
   }
 
   private CellView chooseCellType(String cellType, double width, double height, String state,

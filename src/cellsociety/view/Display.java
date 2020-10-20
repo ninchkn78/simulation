@@ -3,6 +3,7 @@ package cellsociety.view;
 
 import cellsociety.controller.Controller;
 import cellsociety.view.ButtonSetups.GridViewButtonSetup;
+import exceptions.InvalidPropertiesFileException;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -102,7 +103,7 @@ public class Display extends Application {
   public void chooseSimulation(String simulationType, Properties textProperties) {
     myBoard = new SimulationBoard(myRoot);
     stateConfigBox = new StateConfig(myRoot, this, textProperties);
-    setNewSimulation(new Controller("Default_Properties_Files/Default" + simulationType + ".properties"));
+    setNewSimulation("Default_Properties_Files/Default" + simulationType + ".properties");
     Scene gameScene = setupScene(textProperties);
     myStage.setScene(gameScene);
   }
@@ -182,10 +183,15 @@ public class Display extends Application {
     return myController;
   }
 
-  public void setNewSimulation(Controller controller){
-    setController(controller);
-    stateConfigBox.addStateConfigs(myController);
-    myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
+  public void setNewSimulation(String propertiesName){
+    try {
+      Controller controller = new Controller(propertiesName);
+      setController(controller);
+      stateConfigBox.addStateConfigs(myController);
+      myBoard.setUpNewSimulation(controller.getGameBoard(), controller.getProperties());
+    } catch(InvalidPropertiesFileException e){
+      System.out.println(":(");
+    }
   }
 
   public void setController(Controller controller) {
