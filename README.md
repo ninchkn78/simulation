@@ -55,6 +55,8 @@ Assumptions or Simplifications: the row and the height are equal
 
 3. For error handling, if they input a bad file, the game is stopped and we ~yell at them
 
+4. We can't read the graph button - It's all the way on the right...
+
 Interesting data files:
 
 Known Bugs:
@@ -65,10 +67,10 @@ information. I need to fix this but documenting for now.
 2. When you exit out of LoadFile the program crashes... basically exiting out of anything where you choose 
 a file gives an error. 
 
+3. We are failing a couple of our tests - on the notaproperties file test, missing proeprties file test, 
 
-
+4. Graph updating doesnt work... it throws an error - 
 assumes files are in resources root 
-Extra credit:
 
 
 ### Impressions
