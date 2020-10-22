@@ -9,11 +9,20 @@ public abstract class Cell {
 
   private Neighborhood neighbors;
 
+  /**
+   * Constructor for the Cell abstract class
+   * @param state
+   * @param neighbors
+   */
   public Cell(String state, Neighborhood neighbors) {
     this.state = state;
     this.neighbors = neighbors;
   }
 
+  /**
+   * Neigh
+   * @param neighbors
+   */
   public void setNeighbors(Neighborhood neighbors) {
     this.neighbors = neighbors;
   }

@@ -37,6 +37,8 @@ public class StateGraph {
   }
 
   public void updateGraph(Controller controller) {
+    myRoot.getChildren().remove(lineChart);
+    lineChart = new LineChart<>(new NumberAxis(), new NumberAxis());
     cellCounts = controller.getGraphCounts();
     for (int dex = 0; dex < cellCounts.size(); dex++) {
       XYChart.Series<Number, Number> currentSeries = new XYChart.Series<>();
@@ -47,6 +49,8 @@ public class StateGraph {
     for (XYChart.Series line : seriesList) {
       lineChart.getData().addAll(line);
     }
+    myRoot.getChildren().add(lineChart);
+
     count++;
   }
 
@@ -55,14 +59,14 @@ public class StateGraph {
     final NumberAxis yAxis = new NumberAxis();
 
     xAxis.setLabel("Time");
-    lineChart = new LineChart<Number, Number>(xAxis, yAxis);
+    lineChart = new LineChart<>(xAxis, yAxis);
+    myChart = lineChart;
     lineChart.setLayoutX(75);
     lineChart.setLayoutY(75);
     lineChart.setTitle("State Graph");
 
     cellCounts = myController.getGraphCounts();
     seriesList = new ArrayList<>();
-    //updateGraph(myController);
-    myChart = lineChart;
+    updateGraph(myController);
   }
 }
