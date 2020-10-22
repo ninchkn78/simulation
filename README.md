@@ -31,6 +31,8 @@ need the images inside the resources folder if you want to add images to cell st
 
 Features implemented:
 
+All but finishing graph view and multiple styles 
+
 1. Play Button
 2. Pause Button
 3. Step Button
@@ -42,6 +44,14 @@ Features implemented:
 9. Speed up, slow down bar
 10. Splash Screen with default properties files
 11. User can click on states to set them
+12. Six different simulations
+13. Different CSV formats
+14. Neighbor and edge policies
+15. Read in from a properties file
+16. Choose color and image of state 
+
+Optional Feature: properties file contains images and colors for states and kind of grid to use
+
 
 
 
