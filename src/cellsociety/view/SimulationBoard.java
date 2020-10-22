@@ -52,7 +52,10 @@ public class SimulationBoard {
   }
 
   public void updateMyGrid(GameBoard gameBoard, Properties properties) {
-    gameBoard.apply((i, j, state) -> cells.get(i).get(j).updateView(state, properties));
+
+    // TODO: 2020-10-19 change the name of this metod
+    gameBoard
+        .enactFunctionOnStates((i, j, state) -> cells.get(i).get(j).updateView(state, properties));
   }
 
   private void clear() {

@@ -16,7 +16,6 @@ public class RPSCell extends Cell {
     return getState().equals(ROCK);
   }
 
-
   public boolean isPaper() {
     return getState().equals(PAPER);
   }

@@ -12,7 +12,6 @@ public class SchellingCell extends Cell {
     super(state, neighbors);
   }
 
-
 //  public enum SchellingCellState implements CellState {
 //    VACANT("0"),
 //    AGENT_X("1"),

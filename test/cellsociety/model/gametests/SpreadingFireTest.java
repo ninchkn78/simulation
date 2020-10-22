@@ -11,7 +11,7 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire0ConfigTest(){
-    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire0.csv,set", "SpreadingFireCell", "complete", "finite", new String[]{"0","1", "2"});
+    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire0.csv,set", "SpreadingFireCell", "Complete", "Finite", new String[]{"0","1", "2"});
     spreadingFire.setSeed(0);
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
@@ -33,7 +33,7 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire1ConfigTest(){
-    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire1.csv,set", "SpreadingFireCell", "complete", "finite", new String[]{"0","1", "2"});
+    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire1.csv,set", "SpreadingFireCell", "Complete", "Finite", new String[]{"0","1", "2"});
     spreadingFire.setSeed(0);
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
@@ -55,7 +55,7 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire2ConfigTest(){
-    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire2.csv,set", "SpreadingFireCell", "complete", "finite", new String[]{"0","1", "2"});
+    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire2.csv,set", "SpreadingFireCell", "Complete", "Finite", new String[]{"0","1", "2"});
     spreadingFire.setSeed(0);
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
@@ -77,7 +77,7 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire3CardinalNeighborsTest(){
-    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire3.csv,set", "SpreadingFireCell", "cardinal", "finite", new String[]{"0","1", "2"});
+    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire3.csv,set", "SpreadingFireCell", "Cardinal", "Finite", new String[]{"0","1", "2"});
     spreadingFire.setSeed(0);
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
@@ -99,7 +99,7 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire3OrdinalNeighborsTest(){
-    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire3.csv,set", "SpreadingFireCell", "ordinal", "finite", new String[]{"0","1", "2"});
+    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire3.csv,set", "SpreadingFireCell", "Ordinal", "Finite", new String[]{"0","1", "2"});
     spreadingFire.setSeed(0);
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
@@ -121,7 +121,7 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire3ToroidalEdgeTest(){
-    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire3.csv,set", "SpreadingFireCell", "complete", "toroidal", new String[]{"0","1", "2"});
+    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire3.csv,set", "SpreadingFireCell", "Complete", "Toroidal", new String[]{"0","1", "2"});
     spreadingFire.setSeed(0);
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();
@@ -143,7 +143,7 @@ public class SpreadingFireTest {
 
   @Test
   public void SpreadingFire4CrossSurfaceEdgeTest(){
-    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire4.csv,set", "SpreadingFireCell", "complete", "cross-surface", new String[]{"0","1", "2"});
+    SpreadingFire spreadingFire = new SpreadingFire("board_config/spreadingfire4.csv,set", "SpreadingFireCell", "Complete", "CrossSurface", new String[]{"0","1", "2"});
     spreadingFire.setSeed(0);
     spreadingFire.nextGen();
     String[][] nextStates = spreadingFire.getGameBoard().getGameBoardStates();

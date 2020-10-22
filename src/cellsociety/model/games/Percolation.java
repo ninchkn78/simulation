@@ -6,7 +6,8 @@ import java.util.List;
 
 public class Percolation extends Simulation {
 
-  public Percolation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+  public Percolation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy,
+      String[] possibleStates) {
     super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
   }
 
@@ -23,28 +24,30 @@ public class Percolation extends Simulation {
     if (!isOpen(row, col)) {
       return false;
     }
-    if (isTopRow(row)){
+
+    if (isTopRow(row)) {
       return true;
     }
-    List<List<Integer>> neighbors = getGameBoard().getCell(row,col).getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors){
-      if (isFull(neighbor.get(0), neighbor.get(1))){
+    List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood()
+        .getNeighbors();
+    for (List<Integer> neighbor : neighbors) {
+      if (isFull(neighbor.get(0), neighbor.get(1))) {
         return true;
       }
     }
     return false;
   }
 
-  private boolean isTopRow(int row){
+  private boolean isTopRow(int row) {
     return row == 0;
   }
 
 
-  private boolean isFull(int row, int col) { //TODO: Move to cell
+  private boolean isFull(int row, int col) {
     return getGameBoard().getCell(row, col).getState().equals(PercolationCell.FULL);
   }
 
-  private boolean isOpen(int row, int col) { //TODO: MovetoCell
+  private boolean isOpen(int row, int col) {
     return getGameBoard().getCell(row, col).getState().equals(PercolationCell.OPEN);
   }
 

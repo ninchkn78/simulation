@@ -1,6 +1,5 @@
-package cellsociety.model.cells;
-
-public interface CellState {
-
-
-}
+//package cellsociety.model.cells;
+//
+//public interface CellState {
+//
+//}

@@ -17,7 +17,8 @@ public class SplashScreenSetup extends ButtonSetup {
 
 
   @Override
-  protected void invokeHandlerMethod(String buttonName, Button currentButton, Properties languageProperties) {
+  protected void invokeHandlerMethod(String buttonName, Button currentButton,
+      Properties languageProperties) {
     currentButton.setOnAction(new SimulationChooserHandler(buttonName, languageProperties));
   }
 
@@ -25,6 +26,7 @@ public class SplashScreenSetup extends ButtonSetup {
 
     private final String simulationName;
     private final Properties languageProperties;
+
     SimulationChooserHandler(String simulationName, Properties languageProperties) {
       this.simulationName = simulationName;
       this.languageProperties = languageProperties;

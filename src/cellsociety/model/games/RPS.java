@@ -7,7 +7,8 @@ public class RPS extends Simulation {
 
   public static final int THRESHOLD = 3;
 
-  public RPS(String csvConfig, String cellType, String neighborPolicy, String edgePolicy, String[] possibleStates) {
+  public RPS(String csvConfig, String cellType, String neighborPolicy, String edgePolicy,
+      String[] possibleStates) {
     super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
   }
 
@@ -31,9 +32,10 @@ public class RPS extends Simulation {
 
   public int countNeighboringOpponents(int row, int col) {
     int opponentCount = 0;
-    List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood().getNeighbors();
-    for (List<Integer> neighbor : neighbors){
-      if (isOpponent(neighbor.get(0), neighbor.get(1), row, col)){
+    List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood()
+        .getNeighbors();
+    for (List<Integer> neighbor : neighbors) {
+      if (isOpponent(neighbor.get(0), neighbor.get(1), row, col)) {
         opponentCount++;
       }
     }
