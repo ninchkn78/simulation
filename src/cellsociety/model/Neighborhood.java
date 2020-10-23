@@ -5,12 +5,25 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The Neighborhood class creates and stores a list of all of the neighbors of a given cell.
+ *
+ * @author Franklin Wu
+ */
 public class Neighborhood {
 
   public List<List<Integer>> neighbors;
   public String neighborPolicy;
   public String edgePolicy;
 
+  /**
+   * Creates an instance of the Neighborhood class based on the given parameters
+   * @param row
+   * @param col
+   * @param gameBoard
+   * @param neighborPolicy
+   * @param edgePolicy
+   */
   public Neighborhood(int row, int col, GameBoard gameBoard, String neighborPolicy,
       String edgePolicy) {
     neighbors = new ArrayList<>();
@@ -19,11 +32,14 @@ public class Neighborhood {
     createNeighborhood(row, col, gameBoard);
   }
 
+  /**
+   * Default contructor for Neighborhood class
+   */
   public Neighborhood() {
     neighbors = new ArrayList<>();
   }
 
-  public void createNeighborhood(int row, int col, GameBoard gameBoard) {
+  private void createNeighborhood(int row, int col, GameBoard gameBoard) {
     try {
       Method method = this.getClass()
           .getDeclaredMethod("create" + neighborPolicy + "Neighbors", int.class, int.class,
@@ -138,6 +154,10 @@ public class Neighborhood {
     return x == row || y == col;
   }
 
+  /**
+   * Returns the list of coordinates of the neighbors
+   * @return
+   */
   public List<List<Integer>> getNeighbors() {
     return neighbors;
   }

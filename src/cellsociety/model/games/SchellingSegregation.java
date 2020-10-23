@@ -5,6 +5,12 @@ import cellsociety.model.cells.SchellingCell;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * Game class for Schelling's Model of Segregation. This class extends Simulation.java and contains the rules
+ * for the game.
+ *
+ * @author Franklin Wu
+ */
 
 public class SchellingSegregation extends Simulation {
 
@@ -12,12 +18,29 @@ public class SchellingSegregation extends Simulation {
   private final double THRESHOLD = 0.5;
   private final Random rand;
 
+  /**
+   * Creates an instance of the SchellingSegregation class based on the given parameters
+   * @param csvConfig
+   * @param cellType
+   * @param neighborPolicy
+   * @param edgePolicy
+   * @param possibleStates
+   */
+
   public SchellingSegregation(String csvConfig, String cellType, String neighborPolicy,
       String edgePolicy, String[] possibleStates) {
     super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
     rand = new Random();
   }
 
+  /**
+   * Updates the cell at row, col and sets it in the given gameboard.
+   * If the cell will move in the next generation, it will be move to a random vacant spot.
+   * Otherwise, it will maintain its current state and stay put.
+   * @param gameBoard
+   * @param row
+   * @param col
+   */
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col) {
     if (!isVacant(row, col)) {
@@ -32,7 +55,7 @@ public class SchellingSegregation extends Simulation {
     }
   }
 
-  public int countNeighbors(int row, int col) {
+  private int countNeighbors(int row, int col) {
     int neighborCount = 0;
     List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood()
         .getNeighbors();
@@ -44,20 +67,20 @@ public class SchellingSegregation extends Simulation {
     return neighborCount;
   }
 
-  public boolean isOppositeAgent(int x, int y, int row, int col) { //TODO: Move to cell
+  private boolean isOppositeAgent(int x, int y, int row, int col) { //TODO: Move to cell
     return !getState(x, y).equals(SchellingCell.VACANT) && !getState(x, y)
         .equals(getState(row, col));
   }
 
-  public boolean isVacant(int row, int col) { //TODO: Move to cell
+  private boolean isVacant(int row, int col) { //TODO: Move to cell
     return getState(row, col).equals(SchellingCell.VACANT);
   }
 
-  public String getState(int row, int col) {
+  private String getState(int row, int col) {
     return getGameBoard().getCell(row, col).getState();
   }
 
-  public int countOppositeAgent(int row, int col) {
+  private int countOppositeAgent(int row, int col) {
     int oppositeAgentCount = 0;
     List<List<Integer>> neighbors = getGameBoard().getCell(row, col).getNeighborhood()
         .getNeighbors();
@@ -69,7 +92,7 @@ public class SchellingSegregation extends Simulation {
     return oppositeAgentCount;
   }
 
-  public boolean willMove(int row, int col) {
+  private boolean willMove(int row, int col) {
     if (isVacant(row, col)) {
       return false;
     }
@@ -78,6 +101,10 @@ public class SchellingSegregation extends Simulation {
     return neighborCount - oppositeAgentCount < neighborCount * THRESHOLD;
   }
 
+  /**
+   * Sets a seed for the random variable. Used for testing to obtain consistent results
+   * @param seed
+   */
   public void setSeed(long seed) {
     rand.setSeed(seed);
   }

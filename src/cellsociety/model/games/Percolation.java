@@ -4,13 +4,36 @@ import cellsociety.model.GameBoard;
 import cellsociety.model.cells.PercolationCell;
 import java.util.List;
 
+/**
+ * Game class for Percolation. This class extends Simulation.java and contains the rules
+ * for the game.
+ *
+ * @author Franklin Wu
+ */
+
 public class Percolation extends Simulation {
 
+  /**
+   * Creates an instance of the Percolation class
+   * @param csvConfig
+   * @param cellType
+   * @param neighborPolicy
+   * @param edgePolicy
+   * @param possibleStates
+   */
   public Percolation(String csvConfig, String cellType, String neighborPolicy, String edgePolicy,
       String[] possibleStates) {
     super(csvConfig, cellType, neighborPolicy, edgePolicy, possibleStates);
   }
 
+  /**
+   * Updates the cell at row, col and sets it in the given gameboard.
+   * If the cell should be full in the next generation, it will be set as full in the next gameboard.
+   * Otherwise, it will maintain its current state.
+   * @param gameBoard
+   * @param row
+   * @param col
+   */
   @Override
   public void updateCell(GameBoard gameBoard, int row, int col) {
     if (fullNextGen(row, col)) {

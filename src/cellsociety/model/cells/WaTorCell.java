@@ -2,7 +2,14 @@ package cellsociety.model.cells;
 
 import cellsociety.model.Neighborhood;
 
+/**
+ * Cell class for WatorWorld simulation
+ *
+ * @author Franklin Wu
+ */
+
 public class WaTorCell extends Cell {
+
 
   public static final String OCEAN = "0";
   public static final String FISH = "1";
@@ -12,12 +19,22 @@ public class WaTorCell extends Cell {
   public int energyPoints;
   public int survivalTime;
 
+  /**
+   * Creates a WaTor cell based on the starting state, the neighbors, the energy, and the survival time
+   * @param state
+   * @param neighbors
+   */
   public WaTorCell(String state, Neighborhood neighbors, int energy, int survivalTime) {
     super(state, neighbors);
     this.energyPoints = energy;
     this.survivalTime = survivalTime;
   }
 
+  /**
+   * Creates a WaTor cell based on the starting state and the neighbors
+   * @param state
+   * @param neighbors
+   */
   public WaTorCell(String state, Neighborhood neighbors) {
     this(state, neighbors, STARTING_ENERGY, STARTING_SURVIVAL_TIME);
   }

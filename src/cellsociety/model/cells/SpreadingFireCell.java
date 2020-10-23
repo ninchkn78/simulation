@@ -2,12 +2,23 @@ package cellsociety.model.cells;
 
 import cellsociety.model.Neighborhood;
 
+/**
+ * Cell class for Spreading Fire simulation
+ *
+ * @author Franklin Wu
+ */
+
 public class SpreadingFireCell extends Cell {
 
   public static final String EMPTY = "0";
   public static final String TREE = "1";
   public static final String BURNING = "2";
 
+  /**
+   * Creates a SpreadingFire Cell
+   * @param state
+   * @param neighbors
+   */
   public SpreadingFireCell(String state, Neighborhood neighbors) {
     super(state, neighbors);
   }

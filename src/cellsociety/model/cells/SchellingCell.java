@@ -2,12 +2,23 @@ package cellsociety.model.cells;
 
 import cellsociety.model.Neighborhood;
 
+/**
+ * Cell class for Schelling Model of Segregation
+ *
+ * @author Franklin Wu
+ */
+
 public class SchellingCell extends Cell {
 
   public static final String VACANT = "0";
   public static final String AGENT_X = "1";
   public static final String AGENT_O = "2";
 
+  /**
+   * Creates a Schelling Cell
+   * @param state
+   * @param neighbors
+   */
   public SchellingCell(String state, Neighborhood neighbors) {
     super(state, neighbors);
   }
