@@ -7,7 +7,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
-
+/**
+ * An HBox of color pickers for each state in the simulation
+ *
+ * @author alexc
+ */
 public class StateColorPicker {
 
   private final HBox colorPickerBox;
@@ -29,6 +33,14 @@ public class StateColorPicker {
     });
   }
 
+  /**
+   * Given a controller, reconfigures the color pickers to represent the new states
+   *
+   * Assumes that there exists a key States mapped to comma separated values of all states in the
+   * simulation
+   *
+   * @param controller
+   */
   public void addColorPickers(Controller controller) {
     colorPickerBox.getChildren().clear();
     for (String state : controller.getProperties().getProperty("States").split(",")) {

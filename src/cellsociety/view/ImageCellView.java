@@ -8,6 +8,11 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * A implementation of CellView that holds an imageView as its representation of the cell
+ *
+ * @author alexc
+ */
 public class ImageCellView extends Group implements CellView {
 
   ImageView cellImage;
@@ -20,6 +25,7 @@ public class ImageCellView extends Group implements CellView {
     updateView(state, properties);
   }
 
+  @Override
   public void updateView(String state, Properties properties) {
     FileInputStream inputstream = null;
     try {

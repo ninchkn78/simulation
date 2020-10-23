@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * An implementation of reader where the states are randomly generated based on a proportion
+ */
 public class RandomStateReader extends Reader {
 
   private final List<String> randomStates = new ArrayList<>();

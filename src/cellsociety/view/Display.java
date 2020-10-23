@@ -98,14 +98,20 @@ public class Display extends Application {
     stage.show();
   }
 
+  /**
+   * Chooses the initial simulation given a simulation name and a language file. Initializes the
+   * objects needed for setting new simulations
+   *
+   * Assumes that there exists "default" properties files for the given simulation name
+   * @param simulationType
+   * @param textProperties
+   */
   public void chooseSimulation(String simulationType, Properties textProperties) {
     myGridBoard = new SimulationBoard(myGridRoot);
     stateConfigBox = new StateConfig(myGridRoot, this, textProperties);
     setNewSimulation("Default" + simulationType + ".properties");
-
     Scene gameScene = setupScene(textProperties, myGridRoot);
     gridStage.setScene(gameScene);
-
   }
 
   public void launchGraph() {
@@ -195,6 +201,12 @@ public class Display extends Application {
     myController = controller;
   }
 
+  /**
+   * Given the name of a properties file, sets up a new simulation specified by the file
+   *
+   * Given an invalid properties file name, does nothing and displays an error message to the reader
+   * @param propertiesName
+   */
   public void setNewSimulation(String propertiesName) {
     try {
       Controller controller = new Controller(propertiesName, languageProperties);

@@ -87,7 +87,6 @@ public abstract class Simulation {
     board = nextBoard;
   }
 
-
   private Reader chooseReader(String configType) {
     // TODO: 2020-10-18  maybe do a reflection here if I'm feeling it
     if (configType.equals("random")) {
@@ -98,5 +97,4 @@ public abstract class Simulation {
       return new SetStateReader();
     }
   }
-
 }
