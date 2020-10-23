@@ -7,6 +7,7 @@ import cellsociety.model.Reader;
 import cellsociety.model.SetStateReader;
 import exceptions.InvalidCSVFormatException;
 import java.util.ArrayList;
+
 import java.util.List;
 
 
@@ -88,7 +89,6 @@ public abstract class Simulation {
   }
 
   private Reader chooseReader(String configType) {
-    // TODO: 2020-10-18  maybe do a reflection here if I'm feeling it
     if (configType.equals("random")) {
       return new RandomStateReader();
     } else if (configType.equals("count")) {

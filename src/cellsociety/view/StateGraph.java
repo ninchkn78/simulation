@@ -5,10 +5,12 @@ import cellsociety.model.games.Simulation;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.scene.Group;
+
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.chart.XYChart.Data;
+
 
 public class StateGraph {
 
@@ -20,6 +22,7 @@ public class StateGraph {
   private Simulation mySimulation;
   private List<Integer> cellCounts;
   private List<XYChart.Series> seriesList;
+
   private int count = 0;
   private Controller myController;
   private final Group myRoot;
@@ -36,6 +39,10 @@ public class StateGraph {
     this.myController = controller;
   }
 
+  /**
+   * This method updates the graph by accounting for all the states and appropriately changes the graph.
+   * @param controller
+   */
   public void updateGraph(Controller controller) {
     cellCounts = controller.getGraphCounts();
     for (int dex = 0; dex < cellCounts.size(); dex++) {
@@ -50,15 +57,20 @@ public class StateGraph {
     count++;
   }
 
+  /**
+   * This method generates the first instance of the graph with blank data
+   */
   public void generateGraph() {
     final NumberAxis xAxis = new NumberAxis();
     final NumberAxis yAxis = new NumberAxis();
 
     xAxis.setLabel("Time");
+
     lineChart = new LineChart<Number, Number>(xAxis, yAxis);
     lineChart.setLayoutX(75);
     lineChart.setLayoutY(75);
     lineChart.setTitle("State Graph");
+
 
     cellCounts = myController.getGraphCounts();
     seriesList = new ArrayList<>();

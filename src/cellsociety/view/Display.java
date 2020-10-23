@@ -70,6 +70,12 @@ public class Display extends Application {
     this.animationSpeed = animationSpeed;
   }
 
+  /**
+   *
+   * Creates the language proerties file and sets the stage instance variable - generates the splash screen which then starts the game
+   * if the correct buttons are pushed
+   */
+
   @Override
   public void start(Stage stage) {
     languageProperties = createPropertiesObject(DEFAULT_LANGUAGE_PROP_FILE);
@@ -77,7 +83,12 @@ public class Display extends Application {
     generateSplashScreen(languageProperties, stage);
   }
 
-  //
+  /**
+   * This method creates a properties object based on the string filepath
+   * It throws an appropriate exception if necessary
+   * @param  propertiesFileName
+   * @return
+   */
   public Properties createPropertiesObject(String propertiesFileName) {
     Properties tempPropFile = null;
     try (InputStream input = new FileInputStream(propertiesFileName)) {
@@ -89,6 +100,12 @@ public class Display extends Application {
     return tempPropFile;
   }
 
+  /**
+   * creates the splash screen object and connects it to stage. The splash screen object itself creates
+   * listeners for the buttons being pressed which will then start the actual simulations
+   * @param languageProperties
+   * @param stage
+   */
   public void generateSplashScreen(Properties languageProperties, Stage stage) {
     gridStage = stage;
     graphStage = new Stage();
@@ -114,6 +131,9 @@ public class Display extends Application {
     gridStage.setScene(gameScene);
   }
 
+  /**
+   * This methods launches the graph associated with the number of states over name. It creates the object and creates a new scene object.
+   */
   public void launchGraph() {
     isGraph = true;
     myGraph = new StateGraph(myGraphRoot, myController);
@@ -123,10 +143,17 @@ public class Display extends Application {
     graphStage.show();
   }
 
-  // TODO: 2020-10-04 some way to set up the scene based on a level file for testing different levels?
+  /**
+   * This actually sets up the scene with the grid on it. It adds the css styling, sets up the appropriate buttons,
+   * and starts the animation
+   * @param textProperties
+   * @param root
+   * @return
+   */
   Scene setupScene(Properties textProperties, Group root) {
     Scene scene = new Scene(root, WIDTH, HEIGHT, BACKGROUND);
     scene.getStylesheets().add(CSS_STYLE_SHEET);
+
     setUpButtons(textProperties, myGridRoot);
     setUpSpeedAdjuster(root);
     setUpAnimation();
@@ -134,6 +161,12 @@ public class Display extends Application {
     return scene;
   }
 
+  /**
+   * This method sets up all of the buttons for the grid. It calls the buttonPipeline method which essentially creates all of the buttons
+   * and activates their listeners.
+   * @param textProperties
+   * @param root
+   */
   private void setUpButtons(Properties textProperties, Group root) {
     Properties properties = myController.getProperties();
     List<String> buttonNameList = myGridViewButtonSetup
@@ -143,6 +176,7 @@ public class Display extends Application {
             textProperties);
 
   }
+
 
   private void setUpAnimation() {
     KeyFrame frame = new KeyFrame(Duration.seconds(animationSpeed), e -> step());
@@ -162,10 +196,16 @@ public class Display extends Application {
     root.getChildren().add(speedAdjuster);
   }
 
+  /**
+   * This method plays the animation by switching the ispaused boolean variable
+   */
   public void play() {
     isPaused = false;
   }
 
+  /**
+   * this function steps the step function onc
+   */
   void step() {
     if (!isPaused) {
       animation.setRate(animationSpeed);
@@ -173,6 +213,9 @@ public class Display extends Application {
     }
   }
 
+  /**
+   * This method intracts with the controller which updates the front end based on the states in the back end
+   */
   public void nextGen() {
     myController.updateView();
     if (isGraph) {
@@ -189,9 +232,13 @@ public class Display extends Application {
     isPaused = true;
   }
 
+  /**
+   * Sets the grid type to include images
+   */
   public void changeCellsToImages() {
     myGridBoard.setGridType("Image");
   }
+
 
   public Controller getController() {
     return myController;
@@ -220,6 +267,11 @@ public class Display extends Application {
     }
   }
 
+  /**
+   * This class makes a new alert message when there is an error.
+   * @param header
+   * @param message
+   */
   public void makeAlert(String header, String message) {
     Alert a = new Alert(Alert.AlertType.NONE);
     ButtonType close = new ButtonType(":(", ButtonBar.ButtonData.CANCEL_CLOSE);

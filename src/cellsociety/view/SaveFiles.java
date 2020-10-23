@@ -11,7 +11,6 @@ public class SaveFiles {
   private static final String COMMA_DELIM = ",";
   private static final String NEW_LINE = "\n";
 
-
   public void saveState(GameBoard currentBoard, String Title) throws IOException {
     FileWriter csvWriter = new FileWriter(SAVE_DIR + Title + EXTENSION);
     makeHeader(csvWriter, currentBoard.getGameBoardStates());

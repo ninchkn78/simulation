@@ -24,6 +24,11 @@ public class SplashScreen {
   private final Properties languageProperties;
   private Properties splashProperties;
 
+  /**
+   * This constructor creates the new splash screen object to be connected to the stage.
+   * @param display
+   * @param inputPropertiesFile
+   */
   public SplashScreen(Display display, Properties inputPropertiesFile) {
     myDisplay = display;
 
@@ -63,7 +68,8 @@ public class SplashScreen {
     root.getChildren().addAll(comboBox);
   }
 
-  public ButtonSetup createButtonSetup(Group root) {
+
+  private ButtonSetup createButtonSetup(Group root) {
     ButtonSetup mySplashScreenSetup = new SplashScreenSetup(myDisplay);
     List<String> simulationNames = mySplashScreenSetup
         .parseButtonsFromProperties(10, splashProperties);
@@ -72,7 +78,7 @@ public class SplashScreen {
     return mySplashScreenSetup;
   }
 
-  public void addTextBox(Group root, ButtonSetup mySplashScreenSetup) {
+  private void addTextBox(Group root, ButtonSetup mySplashScreenSetup) {
     HBox titleBox = mySplashScreenSetup.createHBox("TitleBox", 2 / 5.0);
     Label newText = new Label(languageProperties.getProperty("TitleText"));
     titleBox.getChildren().add(newText);
