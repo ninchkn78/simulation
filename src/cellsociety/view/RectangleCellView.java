@@ -6,6 +6,13 @@ import javafx.scene.Node;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+
+/**
+ * A implementation of CellView that holds a rectangle as its representation of the cell
+ *
+ * @author alexc
+ */
+
 public class RectangleCellView extends Group implements CellView {
 
   String state;
@@ -27,6 +34,7 @@ public class RectangleCellView extends Group implements CellView {
     this.state = state;
   }
 
+  @Override
   public void updateView(String state, Properties properties) {
     // TODO: 2020-10-10 better error handling
     if (properties.getProperty(state) == null) {

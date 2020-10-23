@@ -88,7 +88,6 @@ public abstract class Simulation {
     board = nextBoard;
   }
 
-
   private Reader chooseReader(String configType) {
     if (configType.equals("random")) {
       return new RandomStateReader();
@@ -98,5 +97,4 @@ public abstract class Simulation {
       return new SetStateReader();
     }
   }
-
 }

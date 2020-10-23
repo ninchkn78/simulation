@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * An implementation of Reader where cells are randomly generated based on a total number of each state
+ */
 public class CountStateReader extends Reader {
 
 

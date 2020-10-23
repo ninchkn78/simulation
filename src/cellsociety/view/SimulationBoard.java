@@ -12,6 +12,11 @@ import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 
+/**
+ * The visual representation of the current generation of the simulation
+ *
+ * @author alexc
+ */
 public class SimulationBoard {
 
   // TODO: 2020-10-10 make this CSS
@@ -30,11 +35,25 @@ public class SimulationBoard {
     root.getChildren().add(myGrid);
   }
 
+  /**
+   * Sets up a new simulation based on the controller passed in, which was made from a specific
+   * type of simulation
+   *
+   * Defaults to rectangle cells
+   *
+   * @param controller
+   */
   public void setUpNewSimulation(Controller controller) {
     this.controller = controller;
     setGridType("Rectangle");
   }
 
+  /**
+   * Given a cellType, resets the grid and adds in new imageViews based on the celltype given
+   *
+   * Assumes that there exists an ImageView subclass corresponding to the given celltype
+   * @param cellType
+   */
   //works for non square 2D arrays
   // TODO: 2020-10-04 ask about X position for tests
   public void setGridType(String cellType) {
@@ -51,6 +70,12 @@ public class SimulationBoard {
     }
   }
 
+  /**
+   * Updates the existing view grid to the state of the cells in the backend
+   *
+   * @param gameBoard an instance of the gameBoard
+   * * @param properties the Properties object from the current simulation that is being run
+   */
   public void updateMyGrid(GameBoard gameBoard, Properties properties) {
 
     // TODO: 2020-10-19 change the name of this metod

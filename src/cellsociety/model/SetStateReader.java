@@ -3,6 +3,9 @@ package cellsociety.model;
 import exceptions.InvalidCSVFormatException;
 import java.util.List;
 
+/**
+ * An implementation of Reader where each cell's state is hardcoded in a grid fashion
+ */
 public class SetStateReader extends Reader {
 
   @Override

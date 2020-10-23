@@ -9,6 +9,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
+/**
+ * An HBox of image pickers for each state in the simulation
+ *
+ * @author alexc
+ */
 public class StateImagePicker {
 
   private final HBox imagePickerBox;
@@ -48,7 +53,11 @@ public class StateImagePicker {
         });
     imagePickerBox.getChildren().add(openButton);
   }
-
+  /**
+   * Given a controller, reconfigures the image pickers to represent the new states
+   *
+   * @param controller
+   */
   public void addImagePickers(Controller controller, Properties languageProperties) {
     imagePickerBox.getChildren().clear();
     for (String state : controller.getProperties().getProperty("States").split(",")) {

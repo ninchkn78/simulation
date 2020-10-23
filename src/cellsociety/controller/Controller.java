@@ -69,6 +69,10 @@ public class Controller {
     board = game.getGameBoard();
   }
 
+  /**
+   * Overwrites the properties file to update it based on what is current stored in the properties
+   * instance variable
+   */
   public void overWriteProperties() {
     try {
       properties.store(new FileOutputStream("resources/" + propertiesFileName), null);

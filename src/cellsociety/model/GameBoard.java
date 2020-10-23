@@ -9,7 +9,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 public class GameBoard {
 
   private final int width;
@@ -19,7 +18,6 @@ public class GameBoard {
   private final String neighborPolicy;
   private final String edgePolicy;
   private final String[][] gameBoardStates;
-
 
   public GameBoard(int width, int height, String cellType, String neighborPolicy,
       String edgePolicy) {
@@ -160,6 +158,10 @@ public class GameBoard {
     return null;
   }
 
+  /**
+   * Given a tri consumer, enacts this function on all states in the gameboard
+   * @param updateCellState
+   */
   public void enactFunctionOnStates(TriConsumer<Integer, Integer, String> updateCellState) {
     for (int i = 0; i < height; i++) {
       for (int j = 0; j < width; j++) {
