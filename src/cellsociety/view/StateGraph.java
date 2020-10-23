@@ -39,6 +39,10 @@ public class StateGraph {
     this.myController = controller;
   }
 
+  /**
+   * This method updates the graph by accounting for all the states and appropriately changes the graph.
+   * @param controller
+   */
   public void updateGraph(Controller controller) {
     cellCounts = controller.getGraphCounts();
     for (int dex = 0; dex < cellCounts.size(); dex++) {
@@ -53,6 +57,9 @@ public class StateGraph {
     count++;
   }
 
+  /**
+   * This method generates the first instance of the graph with blank data
+   */
   public void generateGraph() {
     final NumberAxis xAxis = new NumberAxis();
     final NumberAxis yAxis = new NumberAxis();

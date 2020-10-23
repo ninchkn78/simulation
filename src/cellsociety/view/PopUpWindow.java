@@ -30,7 +30,12 @@ public class PopUpWindow {
   private final String pupDescription;
   private GridPane myGrid;
 
-
+  /**
+   * This constructor sets all of the fields of the popup window by reading text off of the resource properties file file.
+   * @param display
+   * @param gameBoard
+   * @param textProperties
+   */
   public PopUpWindow(Display display, GameBoard gameBoard, Properties textProperties) {
     myGameBoard = gameBoard;
     properties = display.getController().getProperties();
@@ -93,6 +98,10 @@ public class PopUpWindow {
     return dialog;
   }
 
+  /**
+   * This method stores the responses to the save file popup window into the resources folder. Really though it just calls the saveFileObject to do it.
+   * @param inputs
+   */
   public void storeInPropertiesFile(String[] inputs) {
     try {
       properties.setProperty(pupTitle, inputs[0]);
