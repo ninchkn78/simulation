@@ -63,7 +63,10 @@ public class Neighborhood {
   private void createOrdinalNeighbors(int row, int col, GameBoard gameBoard) {
     for (int i = row - 1; i <= row + 1; i++) {
       for (int j = col - 1; j <= col + 1; j++) {
-        if (gameBoard.inBounds(i, j) && !isOriginalCell(row, col, i, j) && !isAdjacentCell(i, j,
+        if (!gameBoard.inBounds(i, j)) {
+          handleOutOfBounds(i, j, gameBoard);
+        }
+        else if (gameBoard.inBounds(i, j) && !isOriginalCell(row, col, i, j) && !isAdjacentCell(i, j,
             row, col)) {
           List<Integer> coordinates = createCoordinates(i, j);
           neighbors.add(coordinates);

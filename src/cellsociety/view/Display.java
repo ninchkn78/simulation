@@ -77,7 +77,7 @@ public class Display extends Application {
     generateSplashScreen(languageProperties, stage);
   }
 
-  //
+
   public Properties createPropertiesObject(String propertiesFileName) {
     Properties tempPropFile = null;
     try (InputStream input = new FileInputStream(propertiesFileName)) {
